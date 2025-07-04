@@ -1,0 +1,30 @@
+<div class="side-tab-section flex justify-start">
+    <div class="side-tab">
+        <button *ngFor="let tab of sideTab; let i = index"
+                class="side-tab-button tab-button block min-w-3xs border-2 border-t-gray-100 border-x-gray-100 text-left"
+                [class.active]="activeSideTab === i" (click)="selectTab(i)">
+            {{ tab }}
+        </button>
+        
+    </div>
+    <div class="side-tab-content p-4">
+        <div *ngIf="activeSideTab === 0" class="tab-content">
+            <p>First Name: {{ member?.first_name}} </p>
+            <p>Last Name: {{ member?.last_name}} </p>
+            <p>Age: {{ member?.age}} </p>
+            <p>Role: {{ member?.role}} </p>
+        </div>
+        <div *ngIf="activeSideTab === 1" class="tab-content">
+            <h2>Sacrament Details</h2>
+            <p>Sacrament details will be displayed here.</p>
+        </div>
+        <div *ngIf="activeSideTab === 2" class="tab-content">
+            <h2>Documents</h2>
+            <p>Documents related to the member will be displayed here.</p>
+        </div>
+        <div *ngIf="activeSideTab === 3" class="tab-content">
+            <h2>Migration Details</h2>
+            <p>Migration details will be displayed here.</p>
+        </div>
+    </div>
+</div>

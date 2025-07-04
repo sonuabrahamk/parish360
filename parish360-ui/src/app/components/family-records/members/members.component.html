@@ -1,0 +1,5 @@
+<app-tabs [tabs]="membersTabs" (tabSelected)="onTabChange($event)"></app-tabs>
+
+<ng-template #memberTemplate>
+  <app-membertemplate [member]="activeMember ? activeMember : null"></app-membertemplate>
+</ng-template>

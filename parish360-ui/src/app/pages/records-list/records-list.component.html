@@ -1,7 +1,12 @@
-<h1 class="link">Family Record List</h1>
-<div class="h-[80vh] p-2">
+<div class="header">
+  <h1>Family Record List</h1>
+  <div class="header-right-section">
+    <button class="button">Create</button>
+  </div>
+</div>
+<div class="h-[80vh] p-2 ag-theme-alpine">
   <ag-grid-angular
-    class="ag-grid-alpine w-full h-full"
+    class="w-full h-full ag-theme-alpine"
     [rowData]="rowData"
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"

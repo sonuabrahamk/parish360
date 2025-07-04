@@ -2,6 +2,35 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary-color: #043927;
-    --color-secondary-color: #ffdb55;
+  --default-font-family: "Roboto", sans-serif;
+  --color-primary-color: #003333;
+  --color-secondary-color: #e7ae27;
+}
+
+@layer base {
+  h1 {
+    @apply text-2xl font-bold text-primary-color;
+  }
+}
+
+@layer components {
+  .header {
+    @apply flex justify-between items-center p-2 shadow-md;
+  }
+
+  .button {
+    @apply bg-primary-color font-semibold text-white py-2 px-4 rounded hover:bg-secondary-color transition-colors cursor-pointer;
+  }
+
+  .tabs {
+    @apply flex w-full border-b-2 border-gray-200
+  }
+
+  .tab-button {
+    @apply px-6 py-3 text-sm font-bold text-gray-700 bg-white border-b-2 border-transparent hover:text-secondary-color hover:border-b-secondary-color hover:cursor-pointer transition;
+  }
+  .tab-button.active {
+    @apply text-secondary-color bg-gray-100 border-b-secondary-color;
+  }
+  
 }
