@@ -22,7 +22,6 @@
         <div *ngIf="activeSideTab === 0" class="w-full">
           <app-personal-section
             [isEditMode]="isEditMode"
-            [isCreateMode]="isCreateMode"
             [memberForm]="memberForm"
           ></app-personal-section>
         </div>
@@ -43,7 +42,6 @@
   </div>
   <app-footer
     [isEditMode]="isEditMode"
-    [isCreateMode]="isCreateMode"
     (modeUpdated)="onModeUpdated($event)"
   ></app-footer>
 </div>

@@ -40,7 +40,6 @@ export class MembersComponent implements OnInit {
   memberForm!: FormGroup;
 
   isEditMode: boolean = false; // Edit mode for the component
-  isCreateMode: boolean = false; // Create mode for the component | Can be removed
 
   sideTab: string[] = [
     'Personel Details',
@@ -124,24 +123,6 @@ export class MembersComponent implements OnInit {
   }
 
   selectTab(index: number) {
-    if (this.isEditMode || this.isCreateMode) {
-      switch (index) {
-        case 0:
-          console.log('Personal Details tab selected');
-          break;
-        case 1:
-          console.log('Sacrament Details tab selected');
-          break;
-        case 2:
-          console.log('Documents tab selected');
-          break;
-        case 3:
-          console.log('Migration Details tab selected');
-          break;
-        default:
-          return;
-      }
-    }
     this.activeSideTab = index;
   }
 

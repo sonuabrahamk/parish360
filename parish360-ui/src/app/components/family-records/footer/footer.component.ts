@@ -18,7 +18,6 @@ import {
 })
 export class FooterComponent {
   @Input() isEditMode: boolean = false;
-  @Input() isCreateMode: boolean = false;
   @Output() modeUpdated = new EventEmitter<any>();
 
   icons = {
@@ -35,10 +34,8 @@ export class FooterComponent {
     this.isLoading = true;
     alert('Arey you sure you want to delete this member?');
     this.isEditMode = false;
-    this.isCreateMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isCreateMode: this.isCreateMode,
     });
     this.isLoading = false;
   }
@@ -49,7 +46,6 @@ export class FooterComponent {
     this.isEditMode = true;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isCreateMode: this.isCreateMode,
     });
     this.isLoading = false;
   }
@@ -57,10 +53,8 @@ export class FooterComponent {
   saveMember() {
     this.isLoading = true;
     this.isEditMode = false;
-    this.isCreateMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isCreateMode: this.isCreateMode,
       isSaveTriggerred: true,
       isCancelTriggerred: false,
     });
@@ -71,10 +65,8 @@ export class FooterComponent {
     this.isLoading = false;
     alert('Are you sure you want to cancel? All changes will be lost.');
     this.isEditMode = false;
-    this.isCreateMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isCreateMode: this.isCreateMode,
       isSaveTriggerred: false,
       isCancelTriggerred: true,
     });

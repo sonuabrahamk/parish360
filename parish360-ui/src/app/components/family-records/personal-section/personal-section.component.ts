@@ -11,7 +11,6 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 })
 export class PersonalSectionComponent {
   @Input() isEditMode: boolean = false;
-  @Input() isCreateMode: boolean = false;
   @Input() memberForm!: FormGroup;
 
   ngOnInit() {
