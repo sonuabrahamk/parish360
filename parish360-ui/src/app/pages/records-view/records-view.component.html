@@ -1,8 +1,5 @@
 <div class="header">
-  <h1>Family Record View</h1>
-  <div class="header-right-section">
-    <button class="button">Edit</button>
-  </div>
+  <h1>Family Record Details</h1>
 </div>
 <div class="panel m-4 shadow-sm">
   <app-tabs [tabs]="familyTabs"></app-tabs>
@@ -11,7 +8,7 @@
   </ng-template>
 
   <ng-template #membersTemplate>
-    <app-members></app-members>
+    <app-members [recordId]="recordId"></app-members>
   </ng-template>
 
   <ng-template #blessingsTemplate>
@@ -29,55 +26,4 @@
   <ng-template #miscellaneousTemplate>
     <p>🏠 Miscellenous content goes here.</p>
   </ng-template>
-
-  <!-- <div class="tabs">
-    <button
-      *ngFor="let tab of tabs; let i = index"
-      class="tab-button"
-      [class.active]="activeTab === i"
-      (click)="selectTab(i)"
-    >
-      {{ tab }}
-    </button>
-  </div>
-  <div class="tab-content">
-    <ng-container [ngSwitch]="activeTab">
-      <div *ngSwitchCase="0">
-        <div class="tabs bg-gray-100">
-          <button
-            *ngFor="let tab of tabs; let i = index"
-            class="tab-button bg-gray-100"
-            [class.active]="activeTab === i"
-            (click)="selectTab(i)"
-          >
-            {{ tab }}
-          </button>
-        </div>
-        <div class="tab-content">
-          <ng-container [ngSwitch]="activeTab">
-            <div *ngSwitchCase="0">
-              <h2>Home</h2>
-              <p>Welcome to the family record view.</p>
-            </div>
-            <div *ngSwitchCase="1">
-              <h2>Profile</h2>
-              <p>Profile details will be displayed here.</p>
-            </div>
-            <div *ngSwitchCase="2">
-              <h2>Settings</h2>
-              <p>Settings options will be available here.</p>
-            </div>
-          </ng-container>
-        </div>
-      </div>
-      <div *ngSwitchCase="1">
-        <h2>Profile</h2>
-        <p>Profile details will be displayed here.</p>
-      </div>
-      <div *ngSwitchCase="2">
-        <h2>Settings</h2>
-        <p>Settings options will be available here.</p>
-      </div>
-    </ng-container>
-  </div> -->
 </div>

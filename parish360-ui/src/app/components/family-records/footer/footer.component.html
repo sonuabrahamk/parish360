@@ -1,0 +1,20 @@
+<footer
+  class="side-tab-footer w-full p-2 flex justify-end items-center border-t-gray-200 border-t-2"
+>
+  <div *ngIf="!this.isEditMode && !this.isCreateMode">
+    <button class="btn-danger mr-2" (click)="deleteMember()" [disabled]="isLoading">
+      <fa-icon [icon]="icons.faTrash"></fa-icon> Member
+    </button>
+    <button class="mr-2" (click)="editMember()" [disabled]="isLoading">
+      <fa-icon [icon]="icons.faPencil"></fa-icon> Edit Member
+    </button>
+  </div>
+  <div *ngIf="this.isEditMode || this.isCreateMode">
+    <button class="btn-warning mr-2" (click)="cancelEdit()" [disabled]="isLoading">
+      <fa-icon [icon]="icons.faTimes"></fa-icon> Cancel
+    </button>
+    <button class="mr-2" (click)="saveMember()" [disabled]="isLoading">
+      <fa-icon [icon]="icons.faFloppyDisk"></fa-icon> Save
+    </button>
+  </div>
+</footer>

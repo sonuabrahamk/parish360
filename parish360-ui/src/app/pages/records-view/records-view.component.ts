@@ -6,8 +6,11 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabsComponent, Tab } from '../../components/tabs/tabs.component';
+import { TabsComponent, Tab } from '../../components/common/tabs/tabs.component';
 import { MembersComponent } from "../../components/family-records/members/members.component";
+import { IconService } from '../../services/icon.service';
+import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-records-view',
@@ -25,18 +28,25 @@ export class RecordsViewComponent implements AfterViewInit {
   @ViewChild('miscellaneousTemplate') miscellaneousTemplate!: TemplateRef<any>;
 
   familyTabs: Tab[] = [];
+  recordId: string | null = null;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private iconService:IconService, private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.recordId = params.get('id');
+    });
+  }
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => {
       this.familyTabs = [
-        { label: 'Family Info', content: this.familyInfoTemplate },
-        { label: 'Members', content: this.membersTemplate },
-        { label: 'Blessings', content: this.blessingsTemplate },
-        { label: 'Subscriptions', content: this.subscriptionsTemplate },
-        { label: 'Payments', content: this.paymentsTemplate },
-        { label: 'Miscellaneous', content: this.miscellaneousTemplate },
+        { label: 'Family Info', content: this.familyInfoTemplate, icon: faHouse },
+        { label: 'Members', content: this.membersTemplate, icon: faUsers },
+        { label: 'Blessings', content: this.blessingsTemplate, icon: faPrayingHands},
+        { label: 'Subscriptions', content: this.subscriptionsTemplate, icon: faCalendarCheck },
+        { label: 'Payments', content: this.paymentsTemplate, icon: faIndianRupee },
+        { label: 'Miscellaneous', content: this.miscellaneousTemplate, icon: faBox },
       ];
       this.cdr.detectChanges();
     });

@@ -1,43 +1,151 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
-import { Tab, TabsComponent } from '../../tabs/tabs.component';
-import { member, MembersResponse } from '../../../services/interfaces';
-import { MembertemplateComponent } from "../membertemplate/membertemplate.component";
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
+import { Member, MembersResponse } from '../../../services/interfaces';
 import { HttpClient } from '@angular/common/http';
+import { PersonalSectionComponent } from '../personal-section/personal-section.component';
+import { FooterComponent } from '../footer/footer.component';
+import { CommonModule } from '@angular/common';
+import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { LoaderService } from '../../../services/loader.service';
+import { LoaderComponent } from '../../common/loader/loader.component';
+import {
+  FormGroup,
+  FormBuilder,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-members',
   standalone: true,
-  imports: [TabsComponent, MembertemplateComponent],
+  imports: [
+    CommonModule,
+    TabsComponent,
+    PersonalSectionComponent,
+    FooterComponent,
+    LoaderComponent,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
 export class MembersComponent implements OnInit {
-  @ViewChild('memberTemplate') memberTemplate!: TemplateRef<any>;
+  @Input() recordId: string | null = null;
 
-  members: member[] = [];
+  members: Member[] = [];
   membersTabs: Tab[] = [];
-  activeMember: member | null = null;
+  activeMember: Member | null = null;
+  initialMemberValues: Member | null = null;
+  memberForm!: FormGroup;
 
-  constructor(private cdr: ChangeDetectorRef, private http: HttpClient) {}
+  isEditMode: boolean = false; // Edit mode for the component
+  isCreateMode: boolean = false; // Create mode for the component | Can be removed
+
+  sideTab: string[] = [
+    'Personel Details',
+    'Sacrament Details',
+    'Documents',
+    'Migration Details',
+  ];
+  activeSideTab: number = 0;
+
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    private loader: LoaderService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.http.get<MembersResponse>('data/members.json').subscribe((data: MembersResponse) => {
-      this.members = data.members;
-      this.membersTabs = this.members.map((member: member): Tab => {
-        return { label: member.first_name + ' ' + member.last_name, content: this.memberTemplate, data: member };
+    this.loader.show();
+    console.log('data loading ...')
+    this.http
+      .get<MembersResponse>('data/members.json')
+      .subscribe((data: MembersResponse) => {
+        this.members = data.members;
+        this.membersTabs = this.members.map((member: Member): Tab => {
+          return {
+            label: member.first_name + ' ' + member.last_name,
+            data: member,
+          };
+        });
+        this.membersTabs = [
+          ...this.membersTabs,
+          { label: 'Add Member', data: null, icon: faPlus },
+        ];
+        this.activeMember = this.members[0]; // Set the first member as active by default
+        this.initialMemberValues = this.members[0]; // Store initial values for the active member
+        this.memberForm = this.fb.group({
+          first_name: [this.activeMember.first_name || ''],
+          last_name: [this.activeMember.last_name || ''],
+          dob: [this.activeMember.dob || ''],
+          birth_place: [this.activeMember.birth_place || ''],
+          father: [this.activeMember.father || ''],
+          mother: [this.activeMember.mother || ''],
+          address: [this.activeMember.address || ''],
+          phone: [this.activeMember.phone || ''],
+          email: [this.activeMember.email || ''],
+          gender: [this.activeMember.gender || ''],
+          age: [this.activeMember.age || ''],
+          relationship: [this.activeMember.relationship || ''],
+          qualification: [this.activeMember.qualification || ''],
+          occupation: [this.activeMember.occupation || ''],
+        });
+        this.cdr.detectChanges();
       });
-      this.activeMember = this.members[0]; // Set the first member as active by default
-      this.cdr.detectChanges();
-    });
+    this.loader.hide();
   }
 
-  onTabChange(selectedMember: member) {
+  onTabChange(selectedMember: Member) {
+    if (selectedMember === null) {
+      this.isEditMode = true; // Set edit mode when "Add Member" tab is selected
+      this.memberForm.reset();
+    } else {
+      this.memberForm.patchValue(selectedMember)
+    }
     this.activeMember = selectedMember;
+    this.initialMemberValues = selectedMember; // Store initial values for the active member
+    this.activeSideTab = 0; // Reset to the first side tab
+  }
+
+  onModeUpdated(event: {
+    isEditMode: boolean;
+    isSaveTriggerred: boolean;
+    isCancelTriggerred: boolean;
+  }) {
+    if (this.isEditMode) {
+      this.ngOnInit(); // Reload members data when exiting edit mode
+    }
+    if (event.isSaveTriggerred) {
+      this.onSubmit();
+    }
+    this.isEditMode = event.isEditMode;
+  }
+
+  selectTab(index: number) {
+    if (this.isEditMode || this.isCreateMode) {
+      switch (index) {
+        case 0:
+          console.log('Personal Details tab selected');
+          break;
+        case 1:
+          console.log('Sacrament Details tab selected');
+          break;
+        case 2:
+          console.log('Documents tab selected');
+          break;
+        case 3:
+          console.log('Migration Details tab selected');
+          break;
+        default:
+          return;
+      }
+    }
+    this.activeSideTab = index;
+  }
+
+  onSubmit() {
+    console.log('Form submitted:', this.memberForm.value);
   }
 }

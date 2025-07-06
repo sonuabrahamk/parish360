@@ -6,6 +6,7 @@
       [class.active]="activeTabIndex === i"
       (click)="selectTab(i)"
     >
+      <fa-icon [icon]="tab.icon" *ngIf="tab.icon"></fa-icon>
       {{ tab.label }}
     </button>
   </div>
