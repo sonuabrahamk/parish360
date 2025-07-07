@@ -1,0 +1,16 @@
+<form [formGroup]="uploadDocumentForm" (ngSubmit)="onSubmit()">
+  <div class="flex w-full items-center shadow-sm">
+    <h3 class="flex-shrink-0 p-3.5 text-lg font-semibold text-primary-color">Upload Document: </h3>
+    <div class="p-2">
+      <label class="">Document Name</label>
+      <input type="text" class="w-full" formControlName="name" />
+    </div>
+    <div class="">
+      <label class="">File Upload</label>
+      <input type="file" class="w-full" (change)="onFileChange($event)" />
+    </div>
+    <div class="mx-6">
+      <button type="submit" class="px-8">Upload</button>
+    </div>
+  </div>
+</form>

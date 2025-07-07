@@ -32,21 +32,15 @@
           ></app-sacraments-section>
         </div>
         <div *ngIf="activeSideTab === 2" class="tab-content">
-          <div class="flex items-center">
-            <div class="w-1/5 h-50 shadow-sm relative m-4">
-              <footer
-                class="absolute bottom-0 w-full h-10 bg-primary-color p-2 text-white"
-              >
-                <span>Document 1</span>
-              </footer>
-            </div>
-            <div class="w-1/5 h-50 shadow-sm relative m-4">
-              <footer
-                class="absolute bottom-0 w-full h-10 bg-primary-color p-2 text-white"
-              >
-                <span>Document 2</span>
-              </footer>
-            </div>
+          <app-add-document *ngIf="isEditMode"></app-add-document>
+          <div class="flex w-full">
+            <ng-container *ngFor="let document of this.documentArray.controls">
+              <app-document-view
+                [isEditMode]="isEditMode"
+                [documentName]="document?.get('name')?.value"
+                [documentId]="document?.get('id')?.value"
+              ></app-document-view>
+            </ng-container>
           </div>
         </div>
         <div *ngIf="activeSideTab === 3" class="tab-content">

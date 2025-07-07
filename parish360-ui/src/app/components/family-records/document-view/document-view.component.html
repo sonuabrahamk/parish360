@@ -1,0 +1,15 @@
+<div class="w-[250px] aspect-square relative group rounded shadow-md bg-cover bg-center mr-5 mt-5" style="background-image: url('img/document.png')">
+  <div
+    class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center gap-4 transition-opacity duration-300"
+  >
+    <button class="text-xl text-white hover:text-primary-color" (click)="onDocumentDownload(documentId)">
+      <fa-icon [icon]="faDownload" class="m-0"></fa-icon>
+    </button>
+    <button *ngIf="isEditMode" class="text-xl text-white hover:text-red-700" (click)="onDocumentDelete(documentId)">
+      <fa-icon [icon]="faTrash" class="m-0"></fa-icon>
+    </button>
+  </div>
+  <div class="absolute bottom-0 w-full h-10 bg-primary-color p-2 text-white">
+    <span>{{ documentName }}</span>
+  </div>
+</div>

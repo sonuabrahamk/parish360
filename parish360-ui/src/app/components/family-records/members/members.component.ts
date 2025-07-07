@@ -16,6 +16,8 @@ import {
   FormsModule,
   FormArray,
 } from '@angular/forms';
+import { AddDocumentComponent } from "../add-document/add-document.component";
+import { DocumentViewComponent } from "../document-view/document-view.component";
 
 @Component({
   selector: 'app-members',
@@ -29,7 +31,9 @@ import {
     ReactiveFormsModule,
     FormsModule,
     SacramentsSectionComponent,
-  ],
+    AddDocumentComponent,
+    DocumentViewComponent
+],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -41,6 +45,7 @@ export class MembersComponent implements OnInit {
   activeMember: Member | null = null;
   initialMemberValues: Member | null = null;
   memberForm!: FormGroup;
+  documentArray!: FormArray;
 
   isEditMode: boolean = false; // Edit mode for the component
 
@@ -93,6 +98,7 @@ export class MembersComponent implements OnInit {
           qualification: [this.activeMember.qualification || ''],
           occupation: [this.activeMember.occupation || ''],
           sacraments_details: this.fb.array([]),
+          documents: this.fb.array([]),
         });
         if (this.activeMember?.sacraments_details?.length) {
           this.activeMember.sacraments_details.forEach((sacrament: any) => {
@@ -101,6 +107,14 @@ export class MembersComponent implements OnInit {
             ) as FormArray;
             if (sacramentsArray) {
               sacramentsArray.push(this.createSacramentGroup(sacrament));
+            }
+          });
+        }
+        if (this.activeMember?.documents?.length) {
+          this.activeMember.documents.forEach((document: any) => {
+            this.documentArray = this.memberForm.get('documents') as FormArray ;
+            if (this.documentArray) {
+              this.documentArray.push(this.createDocumentGroup(document));
             }
           });
         }
@@ -114,6 +128,7 @@ export class MembersComponent implements OnInit {
       this.isEditMode = true; // Set edit mode when "Add Member" tab is selected
       this.memberForm.reset();
       (this.memberForm.get('sacraments_details') as FormArray).clear();
+      this.documentArray?.clear();
     } else {
       this.memberForm.patchValue(selectedMember);
     }
@@ -154,6 +169,13 @@ export class MembersComponent implements OnInit {
       god_father: [sacrament.god_father || ''],
       god_mother: [sacrament.god_mother || ''],
       spouse: [sacrament.spouse || ''],
+    });
+  }
+
+  createDocumentGroup(document: any = {}): FormGroup {
+    return this.fb.group({
+      id: [document.id || ''],
+      name: [document.name || ''],
     });
   }
 }
