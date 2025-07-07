@@ -16,8 +16,9 @@
       "gender": "male",
       "age": 65,
       "relationship": "Head-of-Family",
-      "sacrament_details": {
-        "baptism": {
+      "sacraments_details": [
+        {
+          "type": "baptism",
           "date": "1980-01-01",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
@@ -25,52 +26,55 @@
           "god_father": "Michael Smith",
           "god_mother": "Sarah Smith"
         },
-        "confirmation": {
+        {
+          "type": "confirmation",
           "date": "1995-05-15",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "marriage": {
+        {
+          "type": "matrimony",
           "date": "2000-06-20",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish",
           "spouse": "Jane Doe"
         },
-        "holy_communion": {
+        {
+          "type": "holy_communion",
           "date": "1985-04-10",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "anointing_of_the_sick": {
+        {
+          "type": "anointing_the_sick",
           "date": "2020-03-05",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "holy_ordination": {
+        {
+          "type": "holy_ordination",
           "date": "2010-08-25",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         }
-      },
+      ],
       "documents": [
         {
+          "id": "123",
           "type": "Birth Certificate",
           "uploaded_by": "New York City",
-          "uploaded_date": "1980-01-01",
-          "expiry_date": "N/A",
-          "document_number": "BC123456"
+          "uploaded_date": "1980-01-01"
         },
         {
+          "id": "456",
           "type": "Marriage Certificate",
           "uploaded_by": "New York City",
-          "uploaded_date": "2000-06-20",
-          "expiry_date": "N/A",
-          "document_number": "MC123456"
+          "uploaded_date": "2000-06-20"
         }
       ],
       "migration_details": []
@@ -91,8 +95,9 @@
       "gender": "Female",
       "age": 63,
       "relationship": "Wife",
-      "sacrament_details": {
-        "baptism": {
+      "sacraments_details": [
+        {
+          "type": "baptism",
           "date": "1980-01-01",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
@@ -100,52 +105,55 @@
           "god_father": "Michael Smith",
           "god_mother": "Sarah Smith"
         },
-        "confirmation": {
+        {
+          "type": "confirmation",
           "date": "1995-05-15",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "marriage": {
+        {
+          "type": "matrimony",
           "date": "2000-06-20",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish",
           "spouse": "Jane Doe"
         },
-        "holy_communion": {
+        {
+          "type": "holy_communion",
           "date": "1985-04-10",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "anointing_of_the_sick": {
+        {
+          "type": "anointing_the_sick",
           "date": "2020-03-05",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         },
-        "holy_ordination": {
+        {
+          "type": "holy_ordination",
           "date": "2010-08-25",
           "place": "St. Mary's Church",
           "priest": "Fr. John Doe",
           "parish": "St. Mary's Parish"
         }
-      },
+      ],
       "documents": [
         {
+          "id": "123",
           "type": "Birth Certificate",
           "uploaded_by": "New York City",
-          "uploaded_date": "1980-01-01",
-          "expiry_date": "N/A",
-          "document_number": "BC123456"
+          "uploaded_date": "1980-01-01"
         },
         {
+          "id": "456",
           "type": "Marriage Certificate",
           "uploaded_by": "New York City",
-          "uploaded_date": "2000-06-20",
-          "expiry_date": "N/A",
-          "document_number": "MC123456"
+          "uploaded_date": "2000-06-20"
         }
       ],
       "migration_details": []

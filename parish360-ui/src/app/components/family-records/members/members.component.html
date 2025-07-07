@@ -26,12 +26,28 @@
           ></app-personal-section>
         </div>
         <div *ngIf="activeSideTab === 1" class="tab-content">
-          <h2>Sacrament Details</h2>
-          <p>Sacrament details will be displayed here.</p>
+          <app-sacraments-section
+            [isEditMode]="isEditMode"
+            [memberForm]="memberForm"
+          ></app-sacraments-section>
         </div>
         <div *ngIf="activeSideTab === 2" class="tab-content">
-          <h2>Documents</h2>
-          <p>Documents related to the member will be displayed here.</p>
+          <div class="flex items-center">
+            <div class="w-1/5 h-50 shadow-sm relative m-4">
+              <footer
+                class="absolute bottom-0 w-full h-10 bg-primary-color p-2 text-white"
+              >
+                <span>Document 1</span>
+              </footer>
+            </div>
+            <div class="w-1/5 h-50 shadow-sm relative m-4">
+              <footer
+                class="absolute bottom-0 w-full h-10 bg-primary-color p-2 text-white"
+              >
+                <span>Document 2</span>
+              </footer>
+            </div>
+          </div>
         </div>
         <div *ngIf="activeSideTab === 3" class="tab-content">
           <h2>Migration Details</h2>

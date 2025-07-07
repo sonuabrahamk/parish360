@@ -12,7 +12,7 @@
     @apply text-2xl font-bold text-primary-color;
   }
 
-  input {
+  input, select {
     @apply rounded-md border-gray-300 border-1 p-2 focus:border-secondary-color focus:outline-none text-sm font-medium;
   }
 
@@ -56,6 +56,10 @@
 
   .btn-danger {
     @apply bg-red-700 hover:bg-white hover:text-red-700 hover:outline-red-700 hover:border-red-700;
+  }
+
+  .accordion-btn {
+    @apply w-full px-4 py-3 bg-white rounded-none text-primary-color hover:bg-gray-100 hover:text-secondary-color transition flex justify-between items-center;
   }
   
 }

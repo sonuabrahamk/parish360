@@ -1,0 +1,29 @@
+<div class="accordion focus-within:border-secondary-color shadow-sm mb-3">
+  <button
+    class="accordion-btn"
+    (click)="toggle()"
+  >
+    <span>{{ title }}</span>
+    <div>
+      <fa-icon [icon]="faDelete" *ngIf="deleteEnabled" class="mr-4 text-red-700" (click)="onDelete($event)"></fa-icon>
+      <svg
+        [class.rotate-180]="isOpen()"
+        class="h-4 w-4 transition-transform duration-300 transform inline"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"
+        />
+      </svg>
+    </div>
+  </button>
+
+  <div *ngIf="isOpen()" class="p-2 border-t-secondary-color border-t-2">
+    <ng-content></ng-content>
+  </div>
+</div>

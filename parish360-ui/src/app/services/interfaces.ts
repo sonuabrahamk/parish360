@@ -14,45 +14,21 @@ export interface Member {
   relationship: string;
   gender: string;
   age: number;
-  sacrament_details: {
-    baptism: {
-      date: string;
-      place: string;
-      parish: string;
-    };
-    confirmation: {
-      date: string;
-      place: string;
-      priest: string;
-      parish: string;
-    };
-    holy_communion: {
-      date: string;
-      place: string;
-      priest: string;
-      parish: string;
-    };
-    marriage: {
-      date: string;
-      place: string;
-      priest: string;
-      parish: string;
-    };
-    holy_ordination: {
-      date: string;
-      place: string;
-      bishop: string;
-      parish: string;
-    };
-    anointing_of_the_sick: {
-      date: string;
-      place: string;
-      priest: string;
-      parish: string;
-    };
-  };
+  sacraments_details: Sacrament[];
   documents: Document[];
   migration_details: MigrationDetails[];
+}
+
+export interface Sacrament {
+  id: string;
+  type: string;
+  place: string;
+  parish: string;
+  date: string;
+  priest: string;
+  god_father: string;
+  god_mother: string;
+  spouse: string;
 }
 
 export interface Document {
