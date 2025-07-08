@@ -1,0 +1,19 @@
+<div class="p-4">
+  <div *ngIf="isEditMode" class="flex mb-4 justify-between items-center">
+    <h4 class="pt-2 font-semibold">House Blessing History</h4>
+    <button (click)="addRow()">
+      <fa-icon [icon]="faAdd"></fa-icon>Add Record
+    </button>
+  </div>
+
+  <ag-grid-angular
+    class="ag-theme-alpine w-full rounded-none"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    [defaultColDef]="{ sortable: true, filter: false, resizable: true }"
+    (gridReady)="onGridReady($event)"
+    [domLayout]="'autoHeight'"
+    [rowHeight]="50"
+  >
+  </ag-grid-angular>
+</div>

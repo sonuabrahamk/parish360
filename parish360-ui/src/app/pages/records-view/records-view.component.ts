@@ -11,11 +11,12 @@ import { MembersComponent } from "../../components/family-records/members/member
 import { IconService } from '../../services/icon.service';
 import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import { BlessingsSectionComponent } from "../../components/family-records/blessings-section/blessings-section.component";
 
 @Component({
   selector: 'app-records-view',
   standalone: true,
-  imports: [CommonModule, TabsComponent, MembersComponent],
+  imports: [CommonModule, TabsComponent, MembersComponent, BlessingsSectionComponent],
   templateUrl: './records-view.component.html',
   styleUrl: './records-view.component.css',
 })

@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
-import {
-  ColDef,
-  DomLayoutType,
-  PaginationNumberFormatterParams,
-  Theme,
-  themeQuartz,
-} from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import { HyperLink } from '../../services/table-components/tableComponents';
 
 @Component({
@@ -37,7 +31,7 @@ export class RecordsListComponent {
 
   rowData = [
     {
-      'RecordID': '84301845-e528-4370-b5b6-117e0c72a7cb',
+      RecordID: '84301845-e528-4370-b5b6-117e0c72a7cb',
       'Book No': '222',
       'Head of Family': 'Abraham Thomas',
       'Family Name': 'Kuzhimattam',
