@@ -7,7 +7,7 @@ import { AuthService } from '../../authentication/auth.service';
 export class ApiService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
-  private baseUrl = 'https://api.example.com'; // 🔁 Replace with your base URL
+  private baseUrl = 'data'; // 🔁 Replace with your base URL
 
   private headers(): HttpHeaders {
     const token = this.auth.getToken();

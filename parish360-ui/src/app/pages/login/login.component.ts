@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../authentication/auth.service';
+import { PermissionsService } from '../../services/common/permissions-api-service';
+import { Permissions } from '../../services/interfaces/permissions.interface';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +12,7 @@ import { AuthService } from '../../authentication/auth.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router, private permissions: PermissionsService) {}
 
   ngOnInit(): void {
     if (this.auth.isAuthenticated()) {
@@ -21,7 +23,10 @@ export class LoginComponent {
 
   loginInternal(u: string, p: string, e: Event) {
     e.preventDefault();
-    this.auth.loginInternal(u, p).subscribe(() => this.router.navigate(['/']));
+    this.auth.loginInternal(u, p).subscribe(() => {
+      this.permissions.setPermissions(u);
+      this.router.navigate(['/']);
+    });
   }
 
 }

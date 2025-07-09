@@ -5,7 +5,7 @@
   >
     <span>{{ title }}</span>
     <div>
-      <fa-icon [icon]="faDelete" *ngIf="deleteEnabled" class="mr-4 text-red-700" (click)="onDelete($event)"></fa-icon>
+      <span *ngIf="isEditMode"><fa-icon [icon]="faDelete" *appCanDelete="screen" class="mr-4 text-red-700" (click)="onDelete($event)"></fa-icon></span>
       <svg
         [class.rotate-180]="isOpen()"
         class="h-4 w-4 transition-transform duration-300 transform inline"

@@ -6,7 +6,7 @@
       <div [formGroupName]="i">
         <app-accordion
           [title]="getSacramentTypeName(i)"
-          [deleteEnabled]="isEditMode"
+          [isEditMode]="isEditMode"
           (remove)="removeSacrament(i)"
         >
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -75,12 +75,14 @@
         </app-accordion>
       </div>
     </ng-container>
-    <button
-      class="accordion-btn border-1 border-primary-color hover:border-none justify-center"
-      (click)="addSacrament()"
-      *ngIf="isEditMode"
-    >
-      <fa-icon [icon]="faPlus"></fa-icon> Add Sacrament
-    </button>
+    <span *appCanCreate="screen">
+      <button
+        class="accordion-btn border-1 border-primary-color hover:border-none justify-center"
+        (click)="addSacrament()"
+        *ngIf="isEditMode"
+      >
+        <fa-icon [icon]="faPlus"></fa-icon> Add Sacrament
+      </button>
+    </span>
   </div>
 </div>

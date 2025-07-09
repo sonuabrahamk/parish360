@@ -5,11 +5,13 @@ import { AccordionComponent } from "../../common/accordion/accordion.component";
 import { IconService } from '../../../services/common/icon.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CanCreateDirective } from '../../../directives/can-create.directive';
+import { SCREENS } from '../../../services/common/common.constants';
 
 @Component({
   selector: 'app-sacraments-section',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AccordionComponent, FontAwesomeModule],
+  imports: [CommonModule, ReactiveFormsModule, AccordionComponent, FontAwesomeModule, CanCreateDirective],
   templateUrl: './sacraments-section.component.html',
   styleUrl: './sacraments-section.component.css',
 })
@@ -19,6 +21,7 @@ export class SacramentsSectionComponent {
 
   constructor(private fb: FormBuilder, private icon:IconService){}
 
+  screen: string = SCREENS.FAMILY_RECORD;
   faPlus = faPlus;
 
   ngOnChanges(changes: SimpleChanges): void {

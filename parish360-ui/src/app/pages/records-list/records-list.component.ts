@@ -2,15 +2,25 @@ import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { HyperLink } from '../../services/common/table-components';
+import { PermissionsService } from '../../services/common/permissions-api-service';
+import { CommonModule } from '@angular/common';
+import { CREATE, SCREENS } from '../../services/common/common.constants';
 
 @Component({
   selector: 'app-records-list',
   standalone: true,
-  imports: [AgGridModule],
+  imports: [AgGridModule, CommonModule],
   templateUrl: './records-list.component.html',
   styleUrl: './records-list.component.css',
 })
 export class RecordsListComponent {
+
+  constructor(private permissions: PermissionsService){}
+
+  canCreate (): boolean{
+    return this.permissions.hasPermission(SCREENS.FAMILY_RECORD, CREATE);
+  }
+
   columnDefs: ColDef[] = [
     { field: 'RecordID', cellRenderer: HyperLink },
     { field: 'Book No' },

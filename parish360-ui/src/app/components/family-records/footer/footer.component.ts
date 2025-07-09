@@ -17,9 +17,9 @@ import {
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  @Input() isEditMode: boolean = false;
   @Output() modeUpdated = new EventEmitter<any>();
 
+  isEditMode: boolean = false;
   icons = {
     faPlus,
     faTimes,
@@ -27,7 +27,6 @@ export class FooterComponent {
     faPencil,
     faFloppyDisk,
   };
-
   isLoading: boolean = false;
 
   deleteMember() {

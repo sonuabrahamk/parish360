@@ -1,0 +1,11 @@
+{
+    "data": {
+        "diocese": ["diocese-Id1"],
+        "forane": ["forane-Id1"],
+        "parish": ["parish-Id1"]
+    },
+    "screen": {
+        "family-records": ["CREATE", "EDIT", "VIEW"],
+        "payments": ["CREATE", "EDIT", "VIEW"]
+    }
+}

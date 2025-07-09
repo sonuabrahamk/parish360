@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
-import { Member, MembersResponse } from '../../../services/interfaces/interfaces';
+import { Member, MembersResponse } from '../../../services/interfaces/member.interface';
 import { HttpClient } from '@angular/common/http';
 import { PersonalSectionComponent } from '../personal-section/personal-section.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -18,6 +18,8 @@ import {
 } from '@angular/forms';
 import { AddDocumentComponent } from "../add-document/add-document.component";
 import { DocumentViewComponent } from "../document-view/document-view.component";
+import { SCREENS } from '../../../services/common/common.constants';
+import { CanEditDirective } from '../../../directives/can-edit.directive';
 
 @Component({
   selector: 'app-members',
@@ -32,13 +34,16 @@ import { DocumentViewComponent } from "../document-view/document-view.component"
     FormsModule,
     SacramentsSectionComponent,
     AddDocumentComponent,
-    DocumentViewComponent
+    DocumentViewComponent,
+    CanEditDirective
 ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
 export class MembersComponent implements OnInit {
   @Input() recordId: string | null = null;
+
+  screen: string = SCREENS.FAMILY_RECORD;
 
   members: Member[] = [];
   membersTabs: Tab[] = [];
