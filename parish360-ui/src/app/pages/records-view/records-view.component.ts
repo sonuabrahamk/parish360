@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { TabsComponent, Tab } from '../../components/common/tabs/tabs.component';
 import { MembersComponent } from "../../components/family-records/members/members.component";
-import { IconService } from '../../services/icon.service';
+import { IconService } from '../../services/common/icon.service';
 import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
 import { BlessingsSectionComponent } from "../../components/family-records/blessings-section/blessings-section.component";

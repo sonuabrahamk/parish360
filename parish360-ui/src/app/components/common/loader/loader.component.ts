@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed } from '@angular/core';
-import { LoaderService } from '../../../services/loader.service';
+import { LoaderService } from '../../../services/common/loader.service';
 
 @Component({
   selector: 'app-loader',

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output, signal } from '@angular/core';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { IconService } from '../../../services/icon.service';
+import { IconService } from '../../../services/common/icon.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({

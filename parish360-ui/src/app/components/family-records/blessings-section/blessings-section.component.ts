@@ -13,7 +13,7 @@ import { ColDef, GridApi } from 'ag-grid-community';
   styleUrl: './blessings-section.component.css',
 })
 export class BlessingsSectionComponent {
-  @Input() isEditMode: boolean = false
+  @Input() isEditMode: boolean = true
   faAdd = faPlus;
 
   rowData = [

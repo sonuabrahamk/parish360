@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
-import { Member, MembersResponse } from '../../../services/interfaces';
+import { Member, MembersResponse } from '../../../services/interfaces/interfaces';
 import { HttpClient } from '@angular/common/http';
 import { PersonalSectionComponent } from '../personal-section/personal-section.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { LoaderService } from '../../../services/loader.service';
+import { LoaderService } from '../../../services/common/loader.service';
 import { LoaderComponent } from '../../common/loader/loader.component';
 import { SacramentsSectionComponent } from '../sacraments-section/sacraments-section.component';
 import {

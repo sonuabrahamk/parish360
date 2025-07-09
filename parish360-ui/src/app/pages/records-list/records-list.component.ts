@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
-import { HyperLink } from '../../services/table-components/tableComponents';
+import { HyperLink } from '../../services/common/table-components';
 
 @Component({
   selector: 'app-records-list',

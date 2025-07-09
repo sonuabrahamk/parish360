@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, signal, SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AccordionComponent } from "../../common/accordion/accordion.component";
-import { IconService } from '../../../services/icon.service';
+import { IconService } from '../../../services/common/icon.service';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
