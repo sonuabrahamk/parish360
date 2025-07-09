@@ -1,0 +1,7 @@
+<h2>Login</h2>
+<form>
+  <input placeholder="Username" #u />
+  <input placeholder="Password" type="password" #p />
+  <button (click)="loginInternal(u.value, p.value, $event)">Login (JWT)</button>
+</form>
+<button (click)="auth.loginOIDC()">Login with OIDC</button>
