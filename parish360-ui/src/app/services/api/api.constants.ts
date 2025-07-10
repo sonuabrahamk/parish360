@@ -15,7 +15,7 @@ export const BASE_URL = {
   FAMILY_RECORDS_BY_ID: (familyRecordsId: string | string) =>
     `/family-records/${familyRecordsId}`,
 
-  MEMBERS_LIST: `/members.json`,
+  MEMBERS_LIST: `/members`,
   MEMBER_BY_ID: (memberId: string) => `/members/${memberId}`,
 };
 

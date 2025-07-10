@@ -1,0 +1,162 @@
+{
+  "members": [
+    {
+      "id": "member1",
+      "first_name": "Abraham",
+      "last_name": "Thomas",
+      "father": "K D Thomas",
+      "mother": "Annamma Thomas",
+      "address": "",
+      "dob": "1980-01-01",
+      "birth_place": "New York",
+      "qualification": "Bachelor's Degree",
+      "occupation": "Software Engineer",
+      "phone": "123-456-7890",
+      "email": "abraham.thomas@gmail.com",
+      "gender": "male",
+      "age": 65,
+      "relationship": "Head-of-Family",
+      "sacraments_details": [
+        {
+          "type": "baptism",
+          "date": "1980-01-01",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish",
+          "god_father": "Michael Smith",
+          "god_mother": "Sarah Smith"
+        },
+        {
+          "type": "confirmation",
+          "date": "1995-05-15",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "matrimony",
+          "date": "2000-06-20",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish",
+          "spouse": "Jane Doe"
+        },
+        {
+          "type": "holy_communion",
+          "date": "1985-04-10",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "anointing_the_sick",
+          "date": "2020-03-05",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "holy_ordination",
+          "date": "2010-08-25",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        }
+      ],
+      "documents": [
+        {
+          "id": "123",
+          "name": "Birth Certificate",
+          "uploaded_by": "New York City",
+          "uploaded_date": "1980-01-01"
+        },
+        {
+          "id": "456",
+          "name": "Marriage Certificate",
+          "uploaded_by": "New York City",
+          "uploaded_date": "2000-06-20"
+        }
+      ],
+      "migration_details": []
+    },
+    {
+      "id": "member2",
+      "first_name": "Molly",
+      "last_name": "Abraham",
+      "father": "O Thomas",
+      "mother": "Thresiamma Thomas",
+      "address": "Bengaluru",
+      "dob": "1980-01-01",
+      "birth_place": "New York",
+      "qualification": "Bachelor's Degree",
+      "occupation": "Software Engineer",
+      "phone": "123-456-7890",
+      "email": "molly.abraham@gmail.com",
+      "gender": "Female",
+      "age": 63,
+      "relationship": "Wife",
+      "sacraments_details": [
+        {
+          "type": "baptism",
+          "date": "1980-01-01",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish",
+          "god_father": "Michael Smith",
+          "god_mother": "Sarah Smith"
+        },
+        {
+          "type": "confirmation",
+          "date": "1995-05-15",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "matrimony",
+          "date": "2000-06-20",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish",
+          "spouse": "Jane Doe"
+        },
+        {
+          "type": "holy_communion",
+          "date": "1985-04-10",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "anointing_the_sick",
+          "date": "2020-03-05",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        },
+        {
+          "type": "holy_ordination",
+          "date": "2010-08-25",
+          "place": "St. Mary's Church",
+          "priest": "Fr. John Doe",
+          "parish": "St. Mary's Parish"
+        }
+      ],
+      "documents": [
+        {
+          "id": "123",
+          "name": "Birth Certificate",
+          "uploaded_by": "New York City",
+          "uploaded_date": "1980-01-01"
+        },
+        {
+          "id": "456",
+          "name": "Marriage Certificate",
+          "uploaded_by": "New York City",
+          "uploaded_date": "2000-06-20"
+        }
+      ],
+      "migration_details": []
+    }
+  ]
+}

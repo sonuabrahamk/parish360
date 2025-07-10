@@ -29,13 +29,13 @@ export class RecordsViewComponent implements AfterViewInit {
   @ViewChild('miscellaneousTemplate') miscellaneousTemplate!: TemplateRef<any>;
 
   familyTabs: Tab[] = [];
-  recordId: string | null = null;
+  recordId!: string;
 
   constructor(private cdr: ChangeDetectorRef, private iconService:IconService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-      this.recordId = params.get('id');
+      this.recordId = params.get('id')??'';
     });
   }
 

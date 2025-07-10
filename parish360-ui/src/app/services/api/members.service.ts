@@ -9,9 +9,9 @@ import { Injectable } from '@angular/core';
 export class MemberService {
   constructor(private apiService: ApiService) {}
 
-  dioceseId: string = localStorage.getItem(DIOCESE) ?? '';
-  foraneId: string = localStorage.getItem(FORANE) ?? '';
-  parishId: string = localStorage.getItem(PARISH) ?? '';
+  dioceseId: string = JSON.parse(localStorage.getItem(DIOCESE) ?? '');
+  foraneId: string = JSON.parse(localStorage.getItem(FORANE) ?? '');
+  parishId: string = JSON.parse(localStorage.getItem(PARISH) ?? '');
   baseUrl: string =
     BASE_URL.DIOCESE_BY_ID(this.dioceseId) +
     BASE_URL.FORANE_BY_ID(this.foraneId) +

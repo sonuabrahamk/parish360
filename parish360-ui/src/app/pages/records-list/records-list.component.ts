@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { HyperLink } from '../../services/common/table-components';
-import { PermissionsService } from '../../services/common/permissions.service';
 import { CommonModule } from '@angular/common';
 import { FamilyRecords } from '../../services/api/family-records.service';
 import { FamilyRecord } from '../../services/interfaces/family-record.interface';

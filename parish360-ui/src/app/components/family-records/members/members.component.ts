@@ -18,9 +18,12 @@ import {
 } from '@angular/forms';
 import { AddDocumentComponent } from "../add-document/add-document.component";
 import { DocumentViewComponent } from "../document-view/document-view.component";
-import { SCREENS } from '../../../services/common/common.constants';
+import { CREATE, SCREENS } from '../../../services/common/common.constants';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { MemberService } from '../../../services/api/members.service';
+import { CanCreateDirective } from '../../../directives/can-create.directive';
+import { CanDeleteDirective } from '../../../directives/can-delete.directive';
+import { PermissionsService } from '../../../services/common/permissions.service';
 
 @Component({
   selector: 'app-members',
@@ -67,12 +70,14 @@ export class MembersComponent implements OnInit {
     private loader: LoaderService,
     private memberService: MemberService,
     private cdr: ChangeDetectorRef,
+    private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
     this.loader.show();
     this.memberService.getMembers(this.recordId).subscribe((response) => {
       this.members = response.members;
+      console.log(this.members)
       this.membersTabs = this.members.map((member: Member): Tab => {
           return {
             label: member.first_name + ' ' + member.last_name,
@@ -81,7 +86,7 @@ export class MembersComponent implements OnInit {
         });
         this.membersTabs = [
           ...this.membersTabs,
-          { label: 'Add Member', data: null, icon: faPlus },
+          (this.permissionsService.hasPermission(this.screen, CREATE) && this.isEditMode) ? { label: 'Add Member', data: null, icon: faPlus } : {label: '', data: null},
         ];
         this.activeMember = this.members[0]; // Set the first member as active by default
         this.memberForm = this.fb.group({
