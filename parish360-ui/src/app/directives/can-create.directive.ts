@@ -1,15 +1,18 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { PermissionsService } from '../services/common/permissions-api-service';
+import { PermissionsService } from '../services/common/permissions.service';
 
 @Directive({
   selector: '[appCanCreate]',
-  standalone: true
+  standalone: true,
 })
 export class CanCreateDirective {
-
   private screen: string = '';
 
-  constructor(private permissionService: PermissionsService, private templateRef: TemplateRef<unknown>, private viewContainer: ViewContainerRef) { }
+  constructor(
+    private permissionService: PermissionsService,
+    private templateRef: TemplateRef<unknown>,
+    private viewContainer: ViewContainerRef
+  ) {}
 
   @Input()
   set appCanCreate(screen: string) {
@@ -25,5 +28,4 @@ export class CanCreateDirective {
       this.viewContainer.clear();
     }
   }
-
 }

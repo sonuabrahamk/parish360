@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../api/api.service';
 import { Observable } from 'rxjs';
 import { Permissions } from '../interfaces/permissions.interface';
-import { ApiConstants } from '../api/api.constants';
-import { CREATE, DELETE, EDIT, VIEW } from './common.constants';
+import { BASE_URL } from '../api/api.constants';
+import { CREATE, DELETE, EDIT, PERMISSIONS_KEY, VIEW } from './common.constants';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsService {
@@ -12,17 +12,28 @@ export class PermissionsService {
   constructor(private apiService: ApiService) {}
 
   getPermissions(userId: string): Observable<Permissions> {
-    return this.apiService.get<Permissions>(ApiConstants.PERMISSIONS(userId));
+    return this.apiService.get<Permissions>(BASE_URL.PERMISSIONS(userId));
   }
 
   setPermissions(userId: string) {
     this.getPermissions(userId).subscribe((permissions) => {
       this.permissions = permissions;
       localStorage.setItem(
-        ApiConstants.PERMISSIONS_KEY,
+        PERMISSIONS_KEY,
         JSON.stringify(permissions)
       );
     });
+  }
+
+  removePermissions(){
+    this.permissions = null;
+    localStorage.removeItem(PERMISSIONS_KEY)
+  }
+
+  loadFromLocalStorage (){
+    if (localStorage.getItem(PERMISSIONS_KEY)){
+      this.permissions = JSON.parse(localStorage.getItem(PERMISSIONS_KEY)??'')
+    }
   }
 
   hasPermission(screen: string, permission: string): boolean {
@@ -33,12 +44,6 @@ export class PermissionsService {
       this.permissions?.screen?.[screen]?.includes(permission.toUpperCase()) ??
       false
     );
-  }
-
-  loadFromLocalStorage (){
-    if (localStorage.getItem(ApiConstants.PERMISSIONS_KEY)){
-      this.permissions = JSON.parse(localStorage.getItem(ApiConstants.PERMISSIONS_KEY)??'')
-    }
   }
 
   canEdit(screen: string):boolean{

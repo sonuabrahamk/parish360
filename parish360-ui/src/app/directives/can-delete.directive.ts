@@ -1,14 +1,18 @@
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { PermissionsService } from '../services/common/permissions-api-service';
+import { PermissionsService } from '../services/common/permissions.service';
 
 @Directive({
   selector: '[appCanDelete]',
-  standalone: true
+  standalone: true,
 })
 export class CanDeleteDirective {
   private screen: string = '';
 
-  constructor(private permissionService: PermissionsService, private templateRef: TemplateRef<unknown>, private viewContainer: ViewContainerRef) { }
+  constructor(
+    private permissionService: PermissionsService,
+    private templateRef: TemplateRef<unknown>,
+    private viewContainer: ViewContainerRef
+  ) {}
 
   @Input()
   set appCanDelete(screen: string) {

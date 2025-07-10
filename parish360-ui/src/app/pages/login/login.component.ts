@@ -1,22 +1,25 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../authentication/auth.service';
-import { PermissionsService } from '../../services/common/permissions-api-service';
-import { Permissions } from '../../services/interfaces/permissions.interface';
+import { PermissionsService } from '../../services/common/permissions.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  constructor(public auth: AuthService, private router: Router, private permissions: PermissionsService) {}
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    private permissions: PermissionsService
+  ) {}
 
   ngOnInit(): void {
+    // if user is authenticated, redirect to home page
     if (this.auth.isAuthenticated()) {
-      console.log('User already logged in, redirecting...');
       this.router.navigate(['/']);
     }
   }
@@ -28,5 +31,4 @@ export class LoginComponent {
       this.router.navigate(['/']);
     });
   }
-
 }
