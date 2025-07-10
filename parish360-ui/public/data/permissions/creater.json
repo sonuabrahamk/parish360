@@ -1,8 +1,8 @@
 {
     "data": {
-        "diocese": ["diocese-Id1"],
-        "forane": ["forane-Id1"],
-        "parish": ["parish-Id1"]
+        "diocese": ["dioceseId1"],
+        "forane": ["foraneId1"],
+        "parish": ["parishId1"]
     },
     "screen": {
         "family-records": ["CREATE", "EDIT", "VIEW"],

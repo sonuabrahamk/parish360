@@ -10,7 +10,7 @@ import { LogoutComponent } from './pages/logout/logout.component';
 export const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: RecordsListComponent,
     canActivate: [AuthGuard],
   },
   {

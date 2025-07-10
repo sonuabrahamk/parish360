@@ -20,6 +20,7 @@ import { AddDocumentComponent } from "../add-document/add-document.component";
 import { DocumentViewComponent } from "../document-view/document-view.component";
 import { SCREENS } from '../../../services/common/common.constants';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
+import { MemberService } from '../../../services/api/members.service';
 
 @Component({
   selector: 'app-members',
@@ -41,14 +42,13 @@ import { CanEditDirective } from '../../../directives/can-edit.directive';
   styleUrl: './members.component.css',
 })
 export class MembersComponent implements OnInit {
-  @Input() recordId: string | null = null;
+  @Input() recordId!: string;
 
   screen: string = SCREENS.FAMILY_RECORD;
 
   members: Member[] = [];
   membersTabs: Tab[] = [];
   activeMember: Member | null = null;
-  initialMemberValues: Member | null = null;
   memberForm!: FormGroup;
   documentArray!: FormArray;
 
@@ -63,19 +63,17 @@ export class MembersComponent implements OnInit {
   activeSideTab: number = 0;
 
   constructor(
-    private cdr: ChangeDetectorRef,
-    private http: HttpClient,
+    private fb: FormBuilder,
     private loader: LoaderService,
-    private fb: FormBuilder
+    private memberService: MemberService,
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.loader.show();
-    this.http
-      .get<MembersResponse>('data/members.json')
-      .subscribe((data: MembersResponse) => {
-        this.members = data.members;
-        this.membersTabs = this.members.map((member: Member): Tab => {
+    this.memberService.getMembers(this.recordId).subscribe((response) => {
+      this.members = response.members;
+      this.membersTabs = this.members.map((member: Member): Tab => {
           return {
             label: member.first_name + ' ' + member.last_name,
             data: member,
@@ -86,7 +84,6 @@ export class MembersComponent implements OnInit {
           { label: 'Add Member', data: null, icon: faPlus },
         ];
         this.activeMember = this.members[0]; // Set the first member as active by default
-        this.initialMemberValues = this.members[0]; // Store initial values for the active member
         this.memberForm = this.fb.group({
           first_name: [this.activeMember.first_name || ''],
           last_name: [this.activeMember.last_name || ''],
@@ -124,7 +121,7 @@ export class MembersComponent implements OnInit {
           });
         }
         this.cdr.detectChanges();
-      });
+    });
     this.loader.hide();
   }
 
@@ -138,7 +135,6 @@ export class MembersComponent implements OnInit {
       this.memberForm.patchValue(selectedMember);
     }
     this.activeMember = selectedMember;
-    this.initialMemberValues = selectedMember; // Store initial values for the active member
     this.activeSideTab = 0; // Reset to the first side tab
   }
 
