@@ -26,9 +26,10 @@ export class LoginComponent {
 
   loginInternal(u: string, p: string, e: Event) {
     e.preventDefault();
-    this.auth.loginInternal(u, p).subscribe(() => {
-      this.permissions.setPermissions(u);
-      this.router.navigate(['/']);
+    this.auth.loginInternal(u, p).subscribe({
+      next: () => {
+        this.permissions.setPermissions(u);
+      }
     });
   }
 }

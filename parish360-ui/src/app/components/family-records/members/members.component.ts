@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
-import { Member, MembersResponse } from '../../../services/interfaces/member.interface';
-import { HttpClient } from '@angular/common/http';
+import { Member } from '../../../services/interfaces/member.interface';
 import { PersonalSectionComponent } from '../personal-section/personal-section.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -16,13 +15,11 @@ import {
   FormsModule,
   FormArray,
 } from '@angular/forms';
-import { AddDocumentComponent } from "../add-document/add-document.component";
-import { DocumentViewComponent } from "../document-view/document-view.component";
+import { AddDocumentComponent } from '../add-document/add-document.component';
+import { DocumentViewComponent } from '../document-view/document-view.component';
 import { CREATE, SCREENS } from '../../../services/common/common.constants';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { MemberService } from '../../../services/api/members.service';
-import { CanCreateDirective } from '../../../directives/can-create.directive';
-import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { PermissionsService } from '../../../services/common/permissions.service';
 
 @Component({
@@ -39,8 +36,8 @@ import { PermissionsService } from '../../../services/common/permissions.service
     SacramentsSectionComponent,
     AddDocumentComponent,
     DocumentViewComponent,
-    CanEditDirective
-],
+    CanEditDirective,
+  ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
 })
@@ -77,55 +74,27 @@ export class MembersComponent implements OnInit {
     this.loader.show();
     this.memberService.getMembers(this.recordId).subscribe((response) => {
       this.members = response.members;
-      console.log(this.members)
+      console.log(this.members);
       this.membersTabs = this.members.map((member: Member): Tab => {
-          return {
-            label: member.first_name + ' ' + member.last_name,
-            data: member,
-          };
-        });
-        this.membersTabs = [
-          ...this.membersTabs,
-          (this.permissionsService.hasPermission(this.screen, CREATE) && this.isEditMode) ? { label: 'Add Member', data: null, icon: faPlus } : {label: '', data: null},
-        ];
-        this.activeMember = this.members[0]; // Set the first member as active by default
-        this.memberForm = this.fb.group({
-          first_name: [this.activeMember.first_name || ''],
-          last_name: [this.activeMember.last_name || ''],
-          dob: [this.activeMember.dob || ''],
-          birth_place: [this.activeMember.birth_place || ''],
-          father: [this.activeMember.father || ''],
-          mother: [this.activeMember.mother || ''],
-          address: [this.activeMember.address || ''],
-          phone: [this.activeMember.phone || ''],
-          email: [this.activeMember.email || ''],
-          gender: [this.activeMember.gender || ''],
-          age: [this.activeMember.age || ''],
-          relationship: [this.activeMember.relationship || ''],
-          qualification: [this.activeMember.qualification || ''],
-          occupation: [this.activeMember.occupation || ''],
-          sacraments_details: this.fb.array([]),
-          documents: this.fb.array([]),
-        });
-        if (this.activeMember?.sacraments_details?.length) {
-          this.activeMember.sacraments_details.forEach((sacrament: any) => {
-            const sacramentsArray = this.memberForm.get(
-              'sacraments_details'
-            ) as FormArray;
-            if (sacramentsArray) {
-              sacramentsArray.push(this.createSacramentGroup(sacrament));
-            }
-          });
-        }
-        if (this.activeMember?.documents?.length) {
-          this.activeMember.documents.forEach((document: any) => {
-            this.documentArray = this.memberForm.get('documents') as FormArray ;
-            if (this.documentArray) {
-              this.documentArray.push(this.createDocumentGroup(document));
-            }
-          });
-        }
-        this.cdr.detectChanges();
+        return {
+          label: member.first_name + ' ' + member.last_name,
+          data: member,
+        };
+      });
+      this.membersTabs = this.permissionsService.hasPermission(
+        this.screen,
+        CREATE
+      )
+        ? [
+            ...this.membersTabs,
+            { label: 'Add Member', data: null, icon: faPlus },
+          ]
+        : [...this.membersTabs];
+      this.activeMember = this.members[0]; // Set the first member as active by default
+
+      this.loadMemberFormGroup(); // Loads active member data to form group
+
+      this.cdr.detectChanges();
     });
     this.loader.hide();
   }
@@ -183,5 +152,46 @@ export class MembersComponent implements OnInit {
       id: [document.id || ''],
       name: [document.name || ''],
     });
+  }
+
+  loadMemberFormGroup(): void {
+    if (this.activeMember) {
+      this.memberForm = this.fb.group({
+        first_name: [this.activeMember.first_name || ''],
+        last_name: [this.activeMember.last_name || ''],
+        dob: [this.activeMember.dob || ''],
+        birth_place: [this.activeMember.birth_place || ''],
+        father: [this.activeMember.father || ''],
+        mother: [this.activeMember.mother || ''],
+        address: [this.activeMember.address || ''],
+        phone: [this.activeMember.phone || ''],
+        email: [this.activeMember.email || ''],
+        gender: [this.activeMember.gender || ''],
+        age: [this.activeMember.age || ''],
+        relationship: [this.activeMember.relationship || ''],
+        qualification: [this.activeMember.qualification || ''],
+        occupation: [this.activeMember.occupation || ''],
+        sacraments_details: this.fb.array([]),
+        documents: this.fb.array([]),
+      });
+      if (this.activeMember?.sacraments_details?.length) {
+        this.activeMember.sacraments_details.forEach((sacrament: any) => {
+          const sacramentsArray = this.memberForm.get(
+            'sacraments_details'
+          ) as FormArray;
+          if (sacramentsArray) {
+            sacramentsArray.push(this.createSacramentGroup(sacrament));
+          }
+        });
+      }
+      if (this.activeMember?.documents?.length) {
+        this.activeMember.documents.forEach((document: any) => {
+          this.documentArray = this.memberForm.get('documents') as FormArray;
+          if (this.documentArray) {
+            this.documentArray.push(this.createDocumentGroup(document));
+          }
+        });
+      }
+    }
   }
 }

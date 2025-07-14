@@ -13,12 +13,13 @@ import {
   PERMISSIONS_KEY,
   VIEW,
 } from './common.constants';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class PermissionsService {
   private permissions: Permissions | null = null;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   getPermissions(userId: string): Observable<Permissions> {
     return this.apiService.get<Permissions>(BASE_URL.PERMISSIONS(userId));
@@ -40,6 +41,7 @@ export class PermissionsService {
         PARISH,
         JSON.stringify(permissions?.data?.[PARISH][0])
       );
+      this.router.navigate(['/']);
     });
   }
 
