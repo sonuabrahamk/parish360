@@ -32,7 +32,7 @@
           ></app-sacraments-section>
         </div>
         <div *ngIf="activeSideTab === 2" class="tab-content">
-          <app-add-document *canCreate="screen"></app-add-document>
+          <app-add-document *appCanCreate="screen"></app-add-document>
           <div class="flex w-full">
             <ng-container *ngFor="let document of this.documentArray.controls">
               <app-document-view

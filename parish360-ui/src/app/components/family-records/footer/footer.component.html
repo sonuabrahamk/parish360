@@ -3,10 +3,10 @@
 >
   <div *ngIf="!this.isEditMode">
     <button class="btn-danger mr-2" (click)="deleteMember()" [disabled]="isLoading">
-      <fa-icon [icon]="icons.faTrash"></fa-icon> Member
+      <fa-icon [icon]="icons.faTrash"></fa-icon> Delete
     </button>
     <button class="mr-2" (click)="editMember()" [disabled]="isLoading">
-      <fa-icon [icon]="icons.faPencil"></fa-icon> Edit Member
+      <fa-icon [icon]="icons.faPencil"></fa-icon> Edit
     </button>
   </div>
   <div *ngIf="this.isEditMode">

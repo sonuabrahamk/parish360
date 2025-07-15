@@ -21,6 +21,7 @@ import { CREATE, SCREENS } from '../../../services/common/common.constants';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { MemberService } from '../../../services/api/members.service';
 import { PermissionsService } from '../../../services/common/permissions.service';
+import { CanCreateDirective } from '../../../directives/can-create.directive';
 
 @Component({
   selector: 'app-members',
@@ -37,6 +38,7 @@ import { PermissionsService } from '../../../services/common/permissions.service
     AddDocumentComponent,
     DocumentViewComponent,
     CanEditDirective,
+    CanCreateDirective
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
