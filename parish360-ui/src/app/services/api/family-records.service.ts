@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { DIOCESE, FORANE, PARISH } from '../common/common.constants';
-import { FamilyRecordResponse } from '../interfaces/family-record.interface';
-import { BASE_URL, EXTENSION } from './api.constants';
+import { FamilyRecord, FamilyRecordResponse, FamilyRecordSubscriptionResponse } from '../interfaces/family-record.interface';
+import { BASE_URL, EXTENSION, SUBSCRIPTIONS } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 
@@ -21,5 +21,17 @@ export class FamilyRecords {
     return this.apiService.get<FamilyRecordResponse>(
       this.baseUrl + BASE_URL.FAMILY_RECORDS_LIST + EXTENSION
     );
+  }
+
+  getFamilyRecordInfo(recordId: string): Observable<FamilyRecord> {
+    return this.apiService.get<FamilyRecord>(
+      this.baseUrl + BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + EXTENSION
+    )
+  }
+
+  getFamilyRecordSubscriptions(recordId: string): Observable<FamilyRecordSubscriptionResponse> {
+    return this.apiService.get<FamilyRecordSubscriptionResponse>(
+      this.baseUrl + BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + SUBSCRIPTIONS + EXTENSION
+    )
   }
 }

@@ -13,11 +13,14 @@ import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox
 import { ActivatedRoute } from '@angular/router';
 import { BlessingsSectionComponent } from "../../components/family-records/blessings-section/blessings-section.component";
 import { FamilyInfoComponent } from "../../components/family-records/family-info/family-info.component";
+import { SubscriptionsComponent } from '../../components/family-records/subscriptions/subscriptions.component';
+import { PaymentsComponent } from "../../components/family-records/payments/payments.component";
+import { MiscellenousComponent } from "../../components/family-records/miscellenous/miscellenous.component";
 
 @Component({
   selector: 'app-records-view',
   standalone: true,
-  imports: [CommonModule, TabsComponent, MembersComponent, BlessingsSectionComponent, FamilyInfoComponent],
+  imports: [CommonModule, TabsComponent, MembersComponent, BlessingsSectionComponent, FamilyInfoComponent, SubscriptionsComponent, PaymentsComponent, MiscellenousComponent],
   templateUrl: './records-view.component.html',
   styleUrl: './records-view.component.css',
 })

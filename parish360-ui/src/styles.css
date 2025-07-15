@@ -12,7 +12,8 @@
     @apply text-2xl font-bold text-primary-color;
   }
 
-  input, select {
+  input,
+  select {
     @apply rounded-md border-gray-300 border-1 p-2 focus:border-secondary-color focus:outline-none text-sm font-medium;
   }
 
@@ -24,7 +25,7 @@
     @apply bg-primary-color font-semibold text-white py-2 px-4 rounded hover:bg-white hover:text-primary-color hover:outline-1 hover:border-secondary-color transition-colors cursor-pointer;
   }
 
-  fa-icon{
+  fa-icon {
     @apply mr-2;
   }
 }
@@ -35,7 +36,7 @@
   }
 
   .tabs {
-    @apply flex w-full border-b-2 border-gray-200
+    @apply flex w-full border-b-2 border-gray-200;
   }
 
   .tab-button {
@@ -47,7 +48,7 @@
   }
 
   .form-group {
-    @apply grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 shadow-sm items-center p-2
+    @apply grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 shadow-sm items-center p-2;
   }
 
   .btn-warning {
@@ -61,5 +62,14 @@
   .accordion-btn {
     @apply w-full px-4 py-3 bg-white rounded-none text-primary-color hover:bg-gray-100 hover:text-secondary-color transition flex justify-between items-center;
   }
-  
+  .paid-cell {
+    background-color: #d4edda !important;
+    color: #155724;
+    font-weight: bold;
+  }
+
+  .unpaid-cell {
+    background-color: #f8f9fa;
+    color: #6c757d;
+  }
 }
