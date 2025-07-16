@@ -7,13 +7,15 @@
   </div>
 
   <ag-grid-angular
-    class="ag-theme-alpine w-full rounded-none"
+    class="ag-theme-alpine w-full"
     [columnDefs]="columnDefs"
     [rowData]="rowData"
     [defaultColDef]="{ sortable: true, filter: false, resizable: true }"
     (gridReady)="onGridReady($event)"
     [domLayout]="'autoHeight'"
     [rowHeight]="50"
+    [rowSelection]="'single'"
+    [animateRows]="true"
   >
   </ag-grid-angular>
 </div>

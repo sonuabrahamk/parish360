@@ -94,6 +94,9 @@ export class BlessingsSectionComponent {
           rowIndex: event.rowIndex,
           colKey: 'name',
         });
+        this.gridApi.refreshCells();
+        this.gridApi.setFocusedCell(0, 'priest');
+        this.gridApi.startEditingCell({ rowIndex: 0, colKey: 'priest' });
       }
 
       if (event.event.target.classList.contains('btn-save')) {
@@ -123,7 +126,7 @@ export class BlessingsSectionComponent {
           <svg xmlns="http://www.w3.org/2000/svg"
               fill="none" viewBox="0 0 24 24"
               stroke-width="1.5" stroke="currentColor"
-              class="w-5 h-5">
+              class="w-5 h-5 btn-save">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="M17 16.5V19.5A1.5 1.5 0 0115.5 21h-7A1.5 1.5 0 017 19.5v-3A1.5 1.5 0 018.5 15h7a1.5 1.5 0 011.5 1.5zM17 8.25v-.75A2.25 2.25 0 0014.75 5.25H9.25A2.25 2.25 0 007 7.5v.75M19.5 8.25V19.5A2.25 2.25 0 0117.25 21H6.75A2.25 2.25 0 014.5 18.75V5.25A2.25 2.25 0 016.75 3h11.086a1.5 1.5 0 011.06.44l.664.664a1.5 1.5 0 01.44 1.06z" />
           </svg>
@@ -133,7 +136,7 @@ export class BlessingsSectionComponent {
           <svg xmlns="http://www.w3.org/2000/svg"
               fill="none" viewBox="0 0 24 24"
               stroke-width="1.5" stroke="currentColor"
-              class="w-5 h-5">
+              class="w-5 h-5 btn-cancel">
             <path stroke-linecap="round" stroke-linejoin="round"
                   d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -146,7 +149,7 @@ export class BlessingsSectionComponent {
             <svg xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5">
+                class="w-5 h-5 btn-edit">
               <path stroke-linecap="round" stroke-linejoin="round"
                     d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.313l-4.5 1.125 
                       1.125-4.5L16.862 3.487z" />
@@ -157,7 +160,7 @@ export class BlessingsSectionComponent {
             <svg xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24"
                 stroke-width="1.5" stroke="currentColor"
-                class="w-5 h-5">
+                class="w-5 h-5 btn-delete">
               <path stroke-linecap="round" stroke-linejoin="round"
                     d="M6 7.5V19.5A1.5 1.5 0 007.5 21h9a1.5 1.5 0 001.5-1.5V7.5M4.5 7.5h15M10.5 11.25v6M13.5 11.25v6M9 7.5V5.25A1.5 1.5 0 0110.5 3.75h3A1.5 1.5 0 0115 5.25V7.5" />
             </svg>
@@ -170,12 +173,14 @@ export class BlessingsSectionComponent {
     const newId = this.rowData.length
       ? Math.max(...this.rowData.map((r) => r.id)) + 1
       : 1;
-    this.rowData = [...this.rowData, {id: newId, priest: '', date: '', reason: '' }];
+    this.rowData = [{id: newId, priest: '', date: '', reason: '' }, ...this.rowData];
     this.gridApi.applyTransaction({ update: [...this.rowData] });
     this.editingRowId = newId;
+    this.gridApi.setFocusedCell(0, 'priest');
+    this.gridApi.startEditingCell({ rowIndex: 0, colKey: 'priest' });
   }
 
   onEdit() {
-
+    alert();
   }
 }
