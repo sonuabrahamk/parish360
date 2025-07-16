@@ -38,7 +38,7 @@ import { CanCreateDirective } from '../../../directives/can-create.directive';
     AddDocumentComponent,
     DocumentViewComponent,
     CanEditDirective,
-    CanCreateDirective
+    CanCreateDirective,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',

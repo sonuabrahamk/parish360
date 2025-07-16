@@ -29,7 +29,7 @@ export class FooterComponent {
   };
   isLoading: boolean = false;
 
-  deleteMember() {
+  delete() {
     this.isLoading = true;
     alert('Arey you sure you want to delete this member?');
     this.isEditMode = false;
@@ -39,7 +39,7 @@ export class FooterComponent {
     this.isLoading = false;
   }
 
-  editMember() {
+  edit() {
     this.isLoading = true;
     alert('Are you sure you want to edit this member?');
     this.isEditMode = true;
@@ -49,7 +49,7 @@ export class FooterComponent {
     this.isLoading = false;
   }
 
-  saveMember() {
+  save() {
     this.isLoading = true;
     this.isEditMode = false;
     this.modeUpdated.emit({
