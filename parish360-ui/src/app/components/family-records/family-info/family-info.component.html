@@ -60,5 +60,5 @@
     </div>
   </div>
 
-  <app-footer (modeUpdated)="onModeUpdated($event)"></app-footer>
+  <app-footer *appCanEdit="screen" (modeUpdated)="onModeUpdated($event)"></app-footer>
 </div>

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../../services/common/loader.service';
 import { LoaderComponent } from '../../common/loader/loader.component';
+import { CanEditDirective } from '../../../directives/can-edit.directive';
+import { SCREENS } from '../../../services/common/common.constants';
 
 @Component({
   selector: 'app-family-info',
@@ -13,6 +15,7 @@ import { LoaderComponent } from '../../common/loader/loader.component';
     CommonModule,
     LoaderComponent,
     FooterComponent,
+    CanEditDirective
   ],
   templateUrl: './family-info.component.html',
   styleUrl: './family-info.component.css',
@@ -20,6 +23,7 @@ import { LoaderComponent } from '../../common/loader/loader.component';
 export class FamilyInfoComponent {
   @Input() recordId!: string;
 
+  screen: string = SCREENS.FAMILY_RECORD;
   isEditMode: boolean = false;
   familyInfoForm!: FormGroup;
 
