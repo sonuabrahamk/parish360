@@ -24,3 +24,10 @@ export interface FamilyRecordSubscription {
 export interface FamilyRecordSubscriptionResponse {
   subscriptions: FamilyRecordSubscription[];
 }
+
+export interface BlessingRecord {
+  id: string;
+  priest: string;
+  date: Date;
+  reason: string;
+}

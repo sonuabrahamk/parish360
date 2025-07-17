@@ -2,3 +2,8 @@
 :host ::ng-deep .ag-center-cols-viewport {
   min-height: 50px !important;
 }
+
+:host ::ng-deep .ag-cell-focus:not(.ag-cell-range-selected):focus-within {
+  border: none !important;
+  border-width: 0 !important;
+}

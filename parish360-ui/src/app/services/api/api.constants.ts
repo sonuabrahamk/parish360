@@ -22,3 +22,5 @@ export const BASE_URL = {
 export const EXTENSION = '.json'; // To be removed when API's are replaced
 
 export const SUBSCRIPTIONS = '/subscriptions';
+
+export const BLESSINGS = '/blessings';

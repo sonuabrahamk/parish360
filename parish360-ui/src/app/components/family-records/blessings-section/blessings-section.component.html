@@ -1,5 +1,5 @@
 <div class="p-4">
-  <div *ngIf="isEditMode" class="flex mb-4 justify-between items-center">
+  <div *appCanCreate="screen" class="flex mb-4 justify-between items-center">
     <h4 class="pt-2 font-semibold">House Blessing History</h4>
     <button (click)="addRow()">
       <fa-icon [icon]="faAdd"></fa-icon>Add Record
@@ -14,7 +14,7 @@
     (gridReady)="onGridReady($event)"
     [domLayout]="'autoHeight'"
     [rowHeight]="50"
-    [rowSelection]="'single'"
+    [getRowId]="getRowId"
     [animateRows]="true"
   >
   </ag-grid-angular>
