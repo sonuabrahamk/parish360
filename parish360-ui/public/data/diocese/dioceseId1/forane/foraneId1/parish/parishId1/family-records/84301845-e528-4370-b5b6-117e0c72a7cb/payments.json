@@ -1,0 +1,29 @@
+[
+  {
+    "id": "123",
+    "receipt_no": "rno1",
+    "date": "2025-04-22",
+    "payment_by": "Sonu Abraham",
+    "reason": "Monthly Subscription",
+    "amount": 1000,
+    "currency": "INR"
+  },
+  {
+    "id": "1234",
+    "receipt_no": "rno12",
+    "date": "2024-04-22",
+    "payment_by": "Abraham",
+    "reason": "Monthly Subscription",
+    "amount": 1000,
+    "currency": "INR"
+  },
+  {
+    "id": "123",
+    "receipt_no": "rno3",
+    "date": "2023-04-22",
+    "payment_by": "Anu Abraham",
+    "reason": "Monthly Subscription",
+    "amount": 1000,
+    "currency": "INR"
+  }
+]

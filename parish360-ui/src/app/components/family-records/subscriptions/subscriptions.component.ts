@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { FamilyRecords } from '../../../services/api/family-records.service';
@@ -13,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './subscriptions.component.css',
 })
 export class SubscriptionsComponent {
+  @Input() recordId!: string;
+
   allMonths = [
     'January',
     'February',
@@ -28,7 +30,6 @@ export class SubscriptionsComponent {
     'December',
   ];
 
-  recordId: string = '';
   columnDefs: ColDef[] = [];
   rowData: any = [];
   subscriptions: FamilyRecordSubscription[] = [];

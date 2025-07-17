@@ -1,1 +1,10 @@
-<p>payments works!</p>
+<div class="p-4">
+  <ag-grid-angular
+    class="w-full ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="{ sortable: true, filter: false, resizable: false }"
+    [domLayout]="'autoHeight'"
+  >
+  </ag-grid-angular>
+</div>

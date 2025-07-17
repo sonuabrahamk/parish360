@@ -31,3 +31,20 @@ export interface BlessingRecord {
   date: Date;
   reason: string;
 }
+
+export interface FamilyPayments {
+  id: string;
+  receipt_no: string;
+  date: Date;
+  payment_by: string;
+  reason: string;
+  amount: number;
+  currency: string;
+}
+
+export interface MiscellaneousRecord {
+  id: string;
+  date: Date;
+  commented_by: string;
+  comment: string;
+}

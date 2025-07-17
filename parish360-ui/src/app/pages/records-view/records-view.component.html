@@ -16,14 +16,14 @@
   </ng-template>
 
   <ng-template #subscriptionsTemplate>
-    <app-subscriptions></app-subscriptions>
+    <app-subscriptions [recordId]="recordId"></app-subscriptions>
   </ng-template>
 
   <ng-template #paymentsTemplate>
-    <app-payments></app-payments>
+    <app-payments [recordId]="recordId"></app-payments>
   </ng-template>
 
   <ng-template #miscellaneousTemplate>
-    <app-miscellenous></app-miscellenous>
+    <app-miscellenous [recordId]="recordId"></app-miscellenous>
   </ng-template>
 </div>

@@ -2,11 +2,20 @@ import { Observable } from 'rxjs';
 import { DIOCESE, FORANE, PARISH } from '../common/common.constants';
 import {
   BlessingRecord,
+  FamilyPayments,
   FamilyRecord,
   FamilyRecordResponse,
   FamilyRecordSubscriptionResponse,
+  MiscellaneousRecord,
 } from '../interfaces/family-record.interface';
-import { BASE_URL, BLESSINGS, EXTENSION, SUBSCRIPTIONS } from './api.constants';
+import {
+  BASE_URL,
+  BLESSINGS,
+  EXTENSION,
+  MISCELLANOUS,
+  PAYMENTS,
+  SUBSCRIPTIONS,
+} from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 
@@ -50,6 +59,24 @@ export class FamilyRecords {
       this.baseUrl +
         BASE_URL.FAMILY_RECORDS_BY_ID(recordId) +
         BLESSINGS +
+        EXTENSION
+    );
+  }
+
+  getPaymentsList(recordId: string): Observable<FamilyPayments[]> {
+    return this.apiService.get<FamilyPayments[]>(
+      this.baseUrl +
+        BASE_URL.FAMILY_RECORDS_BY_ID(recordId) +
+        PAYMENTS +
+        EXTENSION
+    );
+  }
+
+  getMiscellaneousList(recordId: string): Observable<MiscellaneousRecord[]> {
+    return this.apiService.get<MiscellaneousRecord[]>(
+      this.baseUrl +
+        BASE_URL.FAMILY_RECORDS_BY_ID(recordId) +
+        MISCELLANOUS +
         EXTENSION
     );
   }
