@@ -6,6 +6,7 @@
     },
     "screen": {
         "family-records": ["VIEW"],
-        "payments": ["VIEW"]
+        "payments": ["VIEW"],
+        "bookings": ["VIEW"]
     }
 }

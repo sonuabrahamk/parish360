@@ -21,7 +21,11 @@ export const BASE_URL = {
 
 export const EXTENSION = '.json'; // To be removed when API's are replaced
 
+// Family records API paths
 export const SUBSCRIPTIONS = '/subscriptions';
 export const BLESSINGS = '/blessings';
 export const PAYMENTS = '/payments';
 export const MISCELLANOUS = '/miscellaneous';
+
+// Bookings API paths
+export const BOOKINGS = '/bookings';

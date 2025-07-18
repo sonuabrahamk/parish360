@@ -6,6 +6,7 @@
     },
     "screen": {
         "family-records": ["CREATE", "EDIT", "VIEW"],
-        "payments": ["CREATE", "EDIT", "VIEW"]
+        "payments": ["CREATE", "EDIT", "VIEW"],
+        "bookings": ["CREATE", "EDIT", "VIEW"]
     }
 }

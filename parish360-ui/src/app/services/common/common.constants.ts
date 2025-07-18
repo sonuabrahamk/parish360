@@ -1,6 +1,7 @@
 export const SCREENS = {
   FAMILY_RECORD: 'family-records',
   PAYMENTS: 'payments',
+  BOOKINGS: 'bookings',
 };
 
 export const DIOCESE = 'diocese';

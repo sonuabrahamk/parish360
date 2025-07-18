@@ -6,6 +6,7 @@ import { AuthGuard } from './authentication/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { BookingsListComponent } from './pages/bookings-list/bookings-list.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +34,11 @@ export const routes: Routes = [
   {
     path: 'family-records/:id',
     component: RecordsViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bookings',
+    component: BookingsListComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '' },

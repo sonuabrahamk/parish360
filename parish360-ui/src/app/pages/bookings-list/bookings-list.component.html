@@ -1,0 +1,18 @@
+<div class="header">
+  <h1>Bookings List</h1>
+  <div class="header-right-section">
+    <button class="button" *appCanCreate="screen">Create</button>
+  </div>
+</div>
+<div class="p-2 ag-theme-alpine">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+  />
+</div>
