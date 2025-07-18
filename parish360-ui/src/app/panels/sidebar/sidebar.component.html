@@ -1,1 +1,19 @@
-<div class="hidden md:block h-full md:w-1/6 bg-primary-color fixed top-16"></div>
+<nav class="hidden md:block h-full md:w-1/6 bg-primary-color fixed top-16">
+  <div
+    class="p-4 flex items-center justify-center border-b-2 border-secondary-color"
+  >
+    <img src="img/parish_logo.png" class="h-40 aspect-square rounded" />
+  </div>
+  <ul>
+    <li *ngFor="let item of navItems">
+      <a
+        [routerLink]="item.route"
+        routerLinkActive="!text-primary-color bg-white"
+        [routerLinkActiveOptions]="{ exact: false }"
+        class="flex items-center gap-3 p-2 m-2 rounded-lg text-md font-bold text-white active:text-primary-color hover:bg-white hover:text-primary-color transition-colors"
+      >
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</nav>

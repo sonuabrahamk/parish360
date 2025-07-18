@@ -11,11 +11,6 @@ import { BookingsCreateComponent } from './pages/bookings-create/bookings-create
 
 export const routes: Routes = [
   {
-    path: '',
-    component: RecordsListComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'login',
     component: LoginComponent,
   },
@@ -26,6 +21,11 @@ export const routes: Routes = [
   {
     path: 'unauthorised',
     component: UnauthorizedComponent,
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'family-records',
@@ -47,5 +47,5 @@ export const routes: Routes = [
     component: BookingsCreateComponent,
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: '' },
+  { path: '**', redirectTo: '/dashboard' },
 ];
