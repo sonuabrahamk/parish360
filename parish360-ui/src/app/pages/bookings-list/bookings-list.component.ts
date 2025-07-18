@@ -6,6 +6,7 @@ import { Bookings } from '../../services/interfaces/bookings.interface';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { BookingService } from '../../services/api/bookings.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-bookings-list',
@@ -61,12 +62,16 @@ export class BookingsListComponent {
     }
   ]
 
-  constructor(private bookingService: BookingService){}
+  constructor(private bookingService: BookingService, private router: Router){}
 
   ngOnInit(){
     this.bookingService.getBookings().subscribe((bookings) => {
       this.rowData = bookings;
     });
+  }
+
+  onCreate(){
+    this.router.navigate(['/bookings/create'])
   }
   
 }

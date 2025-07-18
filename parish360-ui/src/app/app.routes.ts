@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { BookingsListComponent } from './pages/bookings-list/bookings-list.component';
+import { BookingsCreateComponent } from './pages/bookings-create/bookings-create.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +40,11 @@ export const routes: Routes = [
   {
     path: 'bookings',
     component: BookingsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bookings/create',
+    component: BookingsCreateComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '' },
