@@ -7,7 +7,7 @@
     "booked_by": "John Paul",
     "contact": 9876543210,
     "note": "Regular morning Qurbana",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG002",
@@ -17,7 +17,7 @@
     "booked_by": "Thomas Kurian",
     "contact": 9876543211,
     "note": "Family gathering after service",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG003",
@@ -37,7 +37,7 @@
     "booked_by": "George Pious",
     "contact": 9876543213,
     "note": "Catering arrangement required",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG005",
@@ -47,7 +47,7 @@
     "booked_by": "Anu Joseph",
     "contact": 9876543214,
     "note": "Include music ministry",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG006",
@@ -57,7 +57,7 @@
     "booked_by": "David Mathew",
     "contact": 9876543215,
     "note": "Need mic and projector",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG007",
@@ -67,7 +67,7 @@
     "booked_by": "Sarah Paul",
     "contact": 9876543216,
     "note": "Choir will perform",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG008",
@@ -87,7 +87,7 @@
     "booked_by": "Rachel Thomas",
     "contact": 9876543218,
     "note": "Requested in memory of father",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG010",
@@ -97,7 +97,7 @@
     "booked_by": "Joseph Abraham",
     "contact": 9876543219,
     "note": "Include intercessory prayers",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG011",
@@ -107,7 +107,7 @@
     "booked_by": "Mariya John",
     "contact": 9876543220,
     "note": "Flowers to be arranged",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG012",
@@ -117,7 +117,7 @@
     "booked_by": "Stephen Kurian",
     "contact": 9876543221,
     "note": "After-service tea/snacks",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG013",
@@ -137,7 +137,7 @@
     "booked_by": "Jacob Mathew",
     "contact": 9876543223,
     "note": "Archbishop attending",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG015",
@@ -147,7 +147,7 @@
     "booked_by": "Leena George",
     "contact": 9876543224,
     "note": "Family gathering",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG016",
@@ -167,7 +167,7 @@
     "booked_by": "Susan Joseph",
     "contact": 9876543226,
     "note": "Provide candle stands",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG018",
@@ -177,7 +177,7 @@
     "booked_by": "Roy Kuriakose",
     "contact": 9876543227,
     "note": "Family choir singing",
-    "status": "CONFIRMED"
+    "status": "UPCOMING"
   },
   {
     "booking_id": "BKG019",
@@ -187,7 +187,7 @@
     "booked_by": "Diana Philip",
     "contact": 9876543228,
     "note": "Need flower décor",
-    "status": "PENDING"
+    "status": "COMPLETED"
   },
   {
     "booking_id": "BKG020",

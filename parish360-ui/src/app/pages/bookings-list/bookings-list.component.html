@@ -1,7 +1,16 @@
 <div class="header">
   <h1>Bookings List</h1>
   <div class="header-right-section">
-    <button class="button" *appCanCreate="screen" (click)="onCreate()">Create</button>
+    <button class="button" *appCanCreate="screen" (click)="onCreate()">
+      Create
+    </button>
+    <button
+      class="button btn-danger mx-4"
+      *appCanDelete="screen"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
   </div>
 </div>
 <div class="p-2 ag-theme-alpine">
@@ -14,5 +23,7 @@
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
     [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+    [rowSelection]="rowSelection"
   />
 </div>

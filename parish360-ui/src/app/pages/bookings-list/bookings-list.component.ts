@@ -4,27 +4,48 @@ import { CommonModule } from '@angular/common';
 import { SCREENS } from '../../services/common/common.constants';
 import { Bookings } from '../../services/interfaces/bookings.interface';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import {
+  ColDef,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  RowSelectionModule,
+  RowSelectionOptions,
+} from 'ag-grid-community';
 import { BookingService } from '../../services/api/bookings.service';
 import { Router } from '@angular/router';
+import { CanDeleteDirective } from '../../directives/can-delete.directive';
+import { StatusComponent } from './status.component';
 
 @Component({
   selector: 'app-bookings-list',
   standalone: true,
-  imports: [CommonModule, CanCreateDirective, AgGridAngular],
+  imports: [
+    CommonModule,
+    CanCreateDirective,
+    CanDeleteDirective,
+    AgGridAngular,
+  ],
   templateUrl: './bookings-list.component.html',
-  styleUrl: './bookings-list.component.css'
+  styleUrl: './bookings-list.component.css',
 })
 export class BookingsListComponent {
   screen: string = SCREENS.BOOKINGS;
 
   rowData: Bookings[] = [];
+  private gridApi!: GridApi;
   paginationPageSize = 10;
   paginationPageSizeSelector: number[] | boolean = [5, 10, 20];
   defaultColDef: ColDef = {
     flex: 1,
     filter: true,
     floatingFilter: true,
+  };
+  rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
+    mode: 'multiRow',
+    checkboxes: true,
+    headerCheckbox: true,
+    enableClickSelection: true,
   };
 
   columnDefs: ColDef<Bookings>[] = [
@@ -59,19 +80,28 @@ export class BookingsListComponent {
     {
       headerName: 'Status',
       field: 'status',
-    }
-  ]
+      cellClass: 'ag-center-cols-cell',
+      cellRenderer: StatusComponent,
+    },
+  ];
 
-  constructor(private bookingService: BookingService, private router: Router){}
+  constructor(private bookingService: BookingService, private router: Router) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.bookingService.getBookings().subscribe((bookings) => {
       this.rowData = bookings;
     });
   }
 
-  onCreate(){
-    this.router.navigate(['/bookings/create'])
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
   }
-  
+
+  onCreate() {
+    this.router.navigate(['/bookings/create']);
+  }
+
+  onDelete() {
+    console.log(this.gridApi.getSelectedRows());
+  }
 }

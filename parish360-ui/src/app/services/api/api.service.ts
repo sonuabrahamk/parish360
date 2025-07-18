@@ -10,13 +10,33 @@ export class ApiService {
   private http = inject(HttpClient);
   private auth = inject(AuthService);
 
-  dioceseId: string = JSON.parse(localStorage.getItem(DIOCESE) ?? '');
-  foraneId: string = JSON.parse(localStorage.getItem(FORANE) ?? '');
-  parishId: string = JSON.parse(localStorage.getItem(PARISH) ?? '');
-  private baseUrl: string = 'data' +
-    BASE_URL.DIOCESE_BY_ID(this.dioceseId) +
-    BASE_URL.FORANE_BY_ID(this.foraneId) +
-    BASE_URL.PARISH_BY_ID(this.parishId);
+  private dioceseId!: string;
+  private foraneId!: string;
+  private parishId!: string;
+  private baseUrl!: string;
+
+  private loadBaseUrl() {
+    if (!this.dioceseId) {
+      let diocese = localStorage.getItem(DIOCESE);
+      this.dioceseId = diocese ? JSON.parse(diocese) : 'dioceseId1';
+    }
+    if (!this.foraneId) {
+      let forane = localStorage.getItem(FORANE);
+      this.foraneId = forane ? JSON.parse(forane) : 'foraneId1';
+    }
+    if (!this.parishId) {
+      let parish = localStorage.getItem(PARISH);
+      this.parishId = parish ? JSON.parse(parish) : 'parishId1';
+    }
+    if (!this.baseUrl) {
+      this.baseUrl =
+        'data' +
+        BASE_URL.DIOCESE_BY_ID(this.dioceseId) +
+        BASE_URL.FORANE_BY_ID(this.foraneId) +
+        BASE_URL.PARISH_BY_ID(this.parishId);
+    }
+    return this.baseUrl;
+  }
 
   private headers(): HttpHeaders {
     const token = this.auth.getToken();
@@ -28,25 +48,25 @@ export class ApiService {
 
   get<T>(url: string): Observable<T> {
     return this.http
-      .get<T>(`${this.baseUrl}${url}`, { headers: this.headers() })
+      .get<T>(`${this.loadBaseUrl()}${url}`, { headers: this.headers() })
       .pipe(catchError(this.handleError));
   }
 
   post<T>(url: string, data: any): Observable<T> {
     return this.http
-      .post<T>(`${this.baseUrl}${url}`, data, { headers: this.headers() })
+      .post<T>(`${this.loadBaseUrl()}${url}`, data, { headers: this.headers() })
       .pipe(catchError(this.handleError));
   }
 
   put<T>(url: string, data: any): Observable<T> {
     return this.http
-      .put<T>(`${this.baseUrl}${url}`, data, { headers: this.headers() })
+      .put<T>(`${this.loadBaseUrl()}${url}`, data, { headers: this.headers() })
       .pipe(catchError(this.handleError));
   }
 
   delete<T>(url: string): Observable<T> {
     return this.http
-      .delete<T>(`${this.baseUrl}${url}`, { headers: this.headers() })
+      .delete<T>(`${this.loadBaseUrl()}${url}`, { headers: this.headers() })
       .pipe(catchError(this.handleError));
   }
 
