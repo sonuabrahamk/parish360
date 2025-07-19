@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
-import { HyperLink } from '../../../services/common/table-components';
 import { CommonModule } from '@angular/common';
 import { FamilyRecords } from '../../../services/api/family-records.service';
 import { FamilyRecord } from '../../../services/interfaces/family-record.interface';
@@ -16,9 +15,7 @@ import { SCREENS } from '../../../services/common/common.constants';
   styleUrl: './records-list.component.css',
 })
 export class RecordsListComponent {
-  constructor(
-    private familyRecordService: FamilyRecords
-  ) {}
+  constructor(private familyRecordService: FamilyRecords) {}
 
   screen: string = SCREENS.FAMILY_RECORD;
   paginationPageSize = 10;
@@ -30,7 +27,12 @@ export class RecordsListComponent {
   };
 
   columnDefs: ColDef[] = [
-    { headerName: 'Record ID', field: 'id', cellRenderer: HyperLink },
+    {
+      headerName: 'Record ID',
+      field: 'id',
+      cellRenderer: (params: any) =>
+        `<a href="/family-records/${params.value}" >${params.value}</a>`,
+    },
     { headerName: 'Book No', field: 'book_no' },
     { headerName: 'Head of Family', field: 'head_of_family' },
     { headerName: 'Family Name', field: 'family_name' },

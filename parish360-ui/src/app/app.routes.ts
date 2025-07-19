@@ -13,6 +13,7 @@ import { AssociationsListComponent } from './pages/pious-associations/associatio
 import { PaymentsListComponent } from './pages/payments-register/payments-list/payments-list.component';
 import { ExpensesListComponent } from './pages/expense-register/expenses-list/expenses-list.component';
 import { UsersListComponent } from './pages/users-management/users-list/users-list.component';
+import { CeremonyViewComponent } from './pages/ceremony-register/ceremony-view/ceremony-view.component';
 
 export const routes: Routes = [
   {
@@ -53,8 +54,13 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'ceremonys',
+    path: 'ceremonies',
     component: CeremonyListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'ceremonies/:id',
+    component: CeremonyViewComponent,
     canActivate: [AuthGuard],
   },
   {

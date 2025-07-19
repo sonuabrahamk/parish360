@@ -7,6 +7,10 @@
     "screen": {
         "family-records": ["CREATE", "EDIT", "DELETE", "VIEW"],
         "payments": ["CREATE", "EDIT", "DELETE", "VIEW"],
-        "bookings": ["CREATE", "EDIT", "DELETE", "VIEW"]
+        "bookings": ["CREATE", "EDIT", "DELETE", "VIEW"],
+        "ceremonys": ["CREATE", "EDIT", "DELETE", "VIEW"],
+        "associations": ["CREATE", "EDIT", "DELETE", "VIEW"],
+        "expenses": ["CREATE", "EDIT", "DELETE", "VIEW"],
+        "users": ["CREATE", "EDIT", "DELETE", "VIEW"]
     }
 }

@@ -29,3 +29,4 @@ export const MISCELLANOUS = '/miscellaneous';
 
 // Bookings API paths
 export const BOOKINGS = '/bookings';
+export const CEREMONIES = '/ceremonys';
