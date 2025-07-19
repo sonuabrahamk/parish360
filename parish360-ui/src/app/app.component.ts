@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavbarComponent } from "./panels/navbar/navbar.component";
-import { SidebarComponent } from "./panels/sidebar/sidebar.component";
+import { NavbarComponent } from "./components/panels/navbar/navbar.component";
+import { SidebarComponent } from "./components/panels/sidebar/sidebar.component";
 import { ClientSideRowModelModule, CsvExportModule, Module } from 'ag-grid-community';
 
 @Component({

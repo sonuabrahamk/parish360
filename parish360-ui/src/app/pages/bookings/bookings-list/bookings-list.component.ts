@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { CanCreateDirective } from '../../directives/can-create.directive';
+import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CommonModule } from '@angular/common';
-import { SCREENS } from '../../services/common/common.constants';
-import { Bookings } from '../../services/interfaces/bookings.interface';
+import { SCREENS } from '../../../services/common/common.constants';
+import { Bookings } from '../../../services/interfaces/bookings.interface';
 import { AgGridAngular } from 'ag-grid-angular';
 import {
   ColDef,
@@ -12,9 +12,9 @@ import {
   RowSelectionModule,
   RowSelectionOptions,
 } from 'ag-grid-community';
-import { BookingService } from '../../services/api/bookings.service';
+import { BookingService } from '../../../services/api/bookings.service';
 import { Router } from '@angular/router';
-import { CanDeleteDirective } from '../../directives/can-delete.directive';
+import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { StatusComponent } from './status.component';
 
 @Component({

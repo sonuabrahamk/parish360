@@ -6,16 +6,16 @@ import {
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TabsComponent, Tab } from '../../components/common/tabs/tabs.component';
-import { MembersComponent } from "../../components/family-records/members/members.component";
-import { IconService } from '../../services/common/icon.service';
+import { TabsComponent, Tab } from '../../../components/common/tabs/tabs.component';
+import { MembersComponent } from "../../../components/family-records/members/members.component";
+import { IconService } from '../../../services/common/icon.service';
 import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
-import { BlessingsSectionComponent } from "../../components/family-records/blessings-section/blessings-section.component";
-import { FamilyInfoComponent } from "../../components/family-records/family-info/family-info.component";
-import { SubscriptionsComponent } from '../../components/family-records/subscriptions/subscriptions.component';
-import { PaymentsComponent } from "../../components/family-records/payments/payments.component";
-import { MiscellenousComponent } from "../../components/family-records/miscellenous/miscellenous.component";
+import { BlessingsSectionComponent } from "../../../components/family-records/blessings-section/blessings-section.component";
+import { FamilyInfoComponent } from "../../../components/family-records/family-info/family-info.component";
+import { SubscriptionsComponent } from '../../../components/family-records/subscriptions/subscriptions.component';
+import { PaymentsComponent } from "../../../components/family-records/payments/payments.component";
+import { MiscellenousComponent } from "../../../components/family-records/miscellenous/miscellenous.component";
 
 @Component({
   selector: 'app-records-view',

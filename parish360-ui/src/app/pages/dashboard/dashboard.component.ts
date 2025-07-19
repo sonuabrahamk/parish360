@@ -10,12 +10,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  token: string | Observable<string> = '';
-
   constructor(public auth: AuthService) {}
 
   ngInit() {
-   this.token = this.auth.getToken();
   }
 
 }

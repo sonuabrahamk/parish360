@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
-import { HyperLink } from '../../services/common/table-components';
+import { HyperLink } from '../../../services/common/table-components';
 import { CommonModule } from '@angular/common';
-import { FamilyRecords } from '../../services/api/family-records.service';
-import { FamilyRecord } from '../../services/interfaces/family-record.interface';
-import { CanCreateDirective } from '../../directives/can-create.directive';
-import { SCREENS } from '../../services/common/common.constants';
+import { FamilyRecords } from '../../../services/api/family-records.service';
+import { FamilyRecord } from '../../../services/interfaces/family-record.interface';
+import { CanCreateDirective } from '../../../directives/can-create.directive';
+import { SCREENS } from '../../../services/common/common.constants';
 
 @Component({
   selector: 'app-records-list',

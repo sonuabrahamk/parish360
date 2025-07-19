@@ -25,7 +25,7 @@ export class SidebarComponent {
     { label: 'Parish Dashboard', icon: faLayerGroup, route: 'dashboard' },
     { label: 'Family Records', icon: faPeopleRoof, route: 'family-records' },
     { label: 'Bookings', icon: faCalendarCheck, route: 'bookings' },
-    { label: 'Ceremony Register', icon: faBook, route: 'ceremony' },
+    { label: 'Ceremony Register', icon: faBook, route: 'ceremonys' },
     { label: 'Pious Associations', icon: faPeopleGroup, route: 'associations' },
     { label: 'Payment Register', icon: faFileInvoiceDollar, route: 'payments' },
     { label: 'Expense Register', icon: faMoneyBillWave, route: 'expenses' },

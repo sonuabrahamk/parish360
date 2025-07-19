@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBars, faBell } from '@fortawesome/free-solid-svg-icons';
-import { AuthService } from '../../authentication/auth.service';
-import { PermissionsService } from '../../services/common/permissions.service';
+import { AuthService } from '../../../authentication/auth.service';
+import { PermissionsService } from '../../../services/common/permissions.service';
 import { Router } from '@angular/router';
 
 @Component({
