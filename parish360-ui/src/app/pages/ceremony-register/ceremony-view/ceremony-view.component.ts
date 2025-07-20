@@ -8,6 +8,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FooterComponent } from '../../../components/family-records/footer/footer.component';
+import { SectionFormComponent } from "../../../components/common/section-form/section-form.component";
 
 @Component({
   selector: 'app-ceremony-view',
@@ -17,7 +18,8 @@ import { FooterComponent } from '../../../components/family-records/footer/foote
     ReactiveFormsModule,
     FontAwesomeModule,
     FooterComponent,
-  ],
+    SectionFormComponent
+],
   templateUrl: './ceremony-view.component.html',
   styleUrl: './ceremony-view.component.css',
 })
@@ -72,6 +74,7 @@ export class CeremonyViewComponent {
       parishioner: [this.ceremony?.parishioner || false],
       priest: [this.ceremony?.minister?.name || ''],
       priest_title: [this.ceremony?.minister?.title || ''],
+      baptism_name: [this.ceremony?.details?.baptism_name || ''],
     });
     if (!this.isEditMode) {
       this.ceremonyForm.disable();
