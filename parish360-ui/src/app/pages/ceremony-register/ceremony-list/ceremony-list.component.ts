@@ -17,12 +17,12 @@ import { AgGridModule } from 'ag-grid-angular';
 @Component({
   selector: 'app-ceremony-list',
   standalone: true,
-  imports: [CommonModule, CanCreateDirective, CanDeleteDirective, AgGridModule],
+  imports: [CommonModule, CanCreateDirective, AgGridModule],
   templateUrl: './ceremony-list.component.html',
   styleUrl: './ceremony-list.component.css',
 })
 export class CeremonyListComponent {
-  screen: string = SCREENS.CEREMONYS;
+  screen: string = SCREENS.CEREMONIES;
 
   rowData: Ceremony[] = [];
   private gridApi!: GridApi;
@@ -84,9 +84,5 @@ export class CeremonyListComponent {
 
   onCreate() {
     this.router.navigate(['/ceremonies/create']);
-  }
-
-  onDelete() {
-    console.log(this.gridApi.getSelectedRows());
   }
 }

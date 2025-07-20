@@ -8,7 +8,7 @@
         "family-records": ["CREATE", "EDIT", "VIEW"],
         "payments": ["CREATE", "EDIT", "VIEW"],
         "bookings": ["CREATE", "EDIT", "VIEW"],
-        "ceremonys": ["CREATE", "EDIT", "VIEW"],
+        "ceremonies": ["CREATE", "EDIT", "VIEW"],
         "associations": ["CREATE", "EDIT", "VIEW"],
         "expenses": ["CREATE", "EDIT", "VIEW"],
         "users": ["CREATE", "EDIT", "VIEW"]

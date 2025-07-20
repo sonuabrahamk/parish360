@@ -2,7 +2,7 @@ export const SCREENS = {
   FAMILY_RECORD: 'family-records',
   PAYMENTS: 'payments',
   BOOKINGS: 'bookings',
-  CEREMONYS: 'ceremonys'
+  CEREMONIES: 'ceremonies'
 };
 
 export const DIOCESE = 'diocese';

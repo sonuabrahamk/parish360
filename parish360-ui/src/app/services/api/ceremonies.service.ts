@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { CEREMONIES, EXTENSION } from './api.constants';
+import { CEREMONIES, CEREMONY_BY_ID, EXTENSION } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { Ceremony } from '../interfaces/ceremonys.interface';
@@ -10,5 +10,9 @@ export class CeremoniesService {
 
   getCeremonies(): Observable<Ceremony[]> {
     return this.apiService.get<Ceremony[]>(CEREMONIES + EXTENSION);
+  }
+
+  getCeremony(id: string): Observable<Ceremony>{
+    return this.apiService.get<Ceremony>(CEREMONY_BY_ID(id) + EXTENSION);
   }
 }

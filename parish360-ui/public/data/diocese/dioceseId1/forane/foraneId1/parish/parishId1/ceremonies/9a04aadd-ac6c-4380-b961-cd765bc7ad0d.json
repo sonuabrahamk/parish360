@@ -1,0 +1,49 @@
+{
+  "id": "9a04aadd-ac6c-4380-b961-cd765bc7ad0d",
+  "type": "BAPTISM",
+  "date": "2024-10-17T19:35:17",
+  "minister": {
+    "name": "Fr. Mathew",
+    "title": "Archbishop"
+  },
+  "name": "Maria Mathew",
+  "parishioner": true,
+  "details": {
+    "baptism_name": "Mary",
+    "dob": "2024-03-30T19:35:17",
+    "place_of_birth": {
+      "location": "Muthanallur",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    "marital_status": "Unmarried",
+    "father": "Mr. Kurian",
+    "mother": "Mrs. Leena",
+    "god_parents": {
+      "father": {
+        "name": "Thomas Kurian",
+        "parish": "Holy Family Church",
+        "baptism_name": "Peter",
+        "contact": 9260691949
+      },
+      "mother": {
+        "name": "Leena Maria",
+        "parish": "Christ the King Church",
+        "baptism_name": "Mary",
+        "contact": 9822434732
+      }
+    },
+    "parish": {
+      "name": "St. Thomas Church",
+      "place": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "diocese": "Archdiocese of Bombay"
+    }
+  },
+  "remarks": "Ceremony recorded successfully."
+}

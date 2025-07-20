@@ -1,0 +1,2652 @@
+[
+  {
+    "id": "9a04aadd-ac6c-4380-b961-cd765bc7ad0d",
+    "type": "BAPTISM",
+    "date": "1993-10-17T19:35:17",
+    "minister": {
+      "name": "Fr. Mathew",
+      "title": "Archbishop"
+    },
+    "name": "Maria Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Mary",
+      "dob": "1943-10-30T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Kurian",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9260691949
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9822434732
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "witness": [
+      {
+        "name": "George Mathew",
+        "relation": "Friend",
+        "parish": "St. Mary's Basilica",
+        "contact": 9805215114
+      },
+      {
+        "name": "George Thomas",
+        "relation": "Uncle",
+        "parish": "Christ the King Church",
+        "contact": 9791993525
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1962-10-25T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9091653120
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9873703083
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1992-10-17T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "619cd043-6130-4844-a47d-f93a8cb05afd",
+    "type": "HOLY_COMMUNION",
+    "date": "1992-11-23T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "Ann Varghese",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Mary",
+      "dob": "1943-12-06T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9883126189
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9918184694
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "Paul Mathew",
+        "relation": "Brother",
+        "parish": "Holy Family Church",
+        "contact": 9429654427
+      },
+      {
+        "name": "George Mathew",
+        "relation": "Uncle",
+        "parish": "Christ the King Church",
+        "contact": 9600573261
+      }
+    ],
+    "spouse_details": {
+      "name": "Paul Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1953-12-03T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Francis",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9916058155
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9269401941
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1991-11-24T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "da47ca55-4a4c-41ab-8c9e-beb9a7664d5e",
+    "type": "BAPTISM",
+    "date": "1977-01-06T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Rev. Fr."
+    },
+    "name": "Elizabeth Mathew",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1930-01-18T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9748575958
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9091850814
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Rita Mathew",
+        "relation": "Cousin",
+        "parish": "Holy Family Church",
+        "contact": 9062537445
+      },
+      {
+        "name": "Rita Mathew",
+        "relation": "Cousin",
+        "parish": "St. Thomas Church",
+        "contact": 9677301674
+      }
+    ],
+    "spouse_details": {
+      "name": "John Joseph",
+      "baptism_name": "St. Mary",
+      "dob": "1944-01-15T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9155785156
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9867528775
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Jesuit",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1976-01-07T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "2b4173dd-3925-4267-9358-c49f5f307dfa",
+    "type": "ORDINATION",
+    "date": "1983-12-17T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "Joseph Mathew",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1929-12-30T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9268625328
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9356025034
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "John Mathew",
+        "relation": "Brother",
+        "parish": "Holy Family Church",
+        "contact": 9264350061
+      },
+      {
+        "name": "John Mathew",
+        "relation": "Sister",
+        "parish": "St. Thomas Church",
+        "contact": 9631336331
+      }
+    ],
+    "spouse_details": {
+      "name": "John Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1965-12-21T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9952416405
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9571259536
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1982-12-17T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "76a47906-e362-415f-9c2c-2926a34e1db0",
+    "type": "ORDINATION",
+    "date": "2015-03-25T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Rev. Fr."
+    },
+    "name": "Ann Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1996-03-29T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9570439651
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9191774355
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "John Mathew",
+        "relation": "Friend",
+        "parish": "Christ the King Church",
+        "contact": 9170869076
+      },
+      {
+        "name": "Paul Thomas",
+        "relation": "Friend",
+        "parish": "Christ the King Church",
+        "contact": 9376675291
+      }
+    ],
+    "spouse_details": {
+      "name": "Rose Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1966-04-06T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9671925882
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9900589058
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Kerala",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2014-03-25T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "676b109e-da52-4a06-862c-66fbbb17a33a",
+    "type": "DEATH",
+    "date": "1986-09-20T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Monsignor"
+    },
+    "name": "Joseph Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1950-09-29T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9852415381
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9236232819
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "George Mathew",
+        "relation": "Aunt",
+        "parish": "St. Thomas Church",
+        "contact": 9870160574
+      },
+      {
+        "name": "Rita Thomas",
+        "relation": "Friend",
+        "parish": "St. Thomas Church",
+        "contact": 9030588470
+      }
+    ],
+    "spouse_details": {
+      "name": "Paul Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1933-10-03T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Anna",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9320338229
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9456375767
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Kerala",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1985-09-20T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": "1986-09-20T19:35:17",
+      "place_of_death": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "cemetry": "St. Thomas Cemetery",
+      "cemetry_place": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Tamil Nadu",
+        "country": "India"
+      }
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "5fe1e92b-9612-4499-bdb4-f8b5dc160885",
+    "type": "DEATH",
+    "date": "1998-12-27T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Monsignor"
+    },
+    "name": "George John",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1958-01-06T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9463159873
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9821919189
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Susan Thomas",
+        "relation": "Cousin",
+        "parish": "St. Thomas Church",
+        "contact": 9531944010
+      },
+      {
+        "name": "John Mathew",
+        "relation": "Cousin",
+        "parish": "Christ the King Church",
+        "contact": 9766860133
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1976-01-02T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Francis",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9098431064
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9747627197
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Jesuit",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Karnataka",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1997-12-27T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": "1998-12-27T19:35:17",
+      "place_of_death": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "cemetry": "St. Thomas Cemetery",
+      "cemetry_place": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India"
+      }
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "f99bba8e-81e6-408b-b434-d2f4891f969f",
+    "type": "MARRIAGE",
+    "date": "2017-04-27T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "Maria Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1958-05-12T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9090769825
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9792035490
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "witness": [
+      {
+        "name": "Rita Thomas",
+        "relation": "Uncle",
+        "parish": "St. Thomas Church",
+        "contact": 9621688359
+      },
+      {
+        "name": "Susan Mathew",
+        "relation": "Cousin",
+        "parish": "Holy Family Church",
+        "contact": 9325223340
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1989-05-04T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Francis",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9964197822
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9231595288
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Jesuit",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2016-04-27T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "0a80a171-30d8-428d-b415-d67ba41cab76",
+    "type": "HOLY_CONFIRMATION",
+    "date": "2017-10-10T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Bishop"
+    },
+    "name": "George Varghese",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1996-10-15T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kochi",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9256280689
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9824809754
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "witness": [
+      {
+        "name": "Susan Mathew",
+        "relation": "Brother",
+        "parish": "St. Thomas Church",
+        "contact": 9516051755
+      },
+      {
+        "name": "Rita Mathew",
+        "relation": "Sister",
+        "parish": "St. Mary's Basilica",
+        "contact": 9577121252
+      }
+    ],
+    "spouse_details": {
+      "name": "Paul Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1999-10-15T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kochi",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Anna",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9087195576
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9901526046
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2016-10-10T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "fad7568d-dfe4-4576-ac2d-1aa7b8c8104d",
+    "type": "DEATH",
+    "date": "1994-09-27T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Monsignor"
+    },
+    "name": "Joseph John",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1959-10-06T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Kurian",
+      "mother": "Mrs. Elizabeth",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9437757231
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9103488917
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "George Thomas",
+        "relation": "Cousin",
+        "parish": "Christ the King Church",
+        "contact": 9016091441
+      },
+      {
+        "name": "Paul Mathew",
+        "relation": "Uncle",
+        "parish": "St. Thomas Church",
+        "contact": 9412092791
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1950-10-08T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9734400639
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9626612755
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1993-09-27T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": "1994-09-27T19:35:17",
+      "place_of_death": {
+        "location": "Near Main Road",
+        "city": "Kochi",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "cemetry": "St. Thomas Cemetery",
+      "cemetry_place": {
+        "location": "Near Main Road",
+        "city": "Kochi",
+        "state": "Maharashtra",
+        "country": "India"
+      }
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "b9682b9f-9664-437f-8e28-0a574be2f2a7",
+    "type": "HOLY_CONFIRMATION",
+    "date": "1995-12-05T19:35:17",
+    "minister": {
+      "name": "Fr. Mathew",
+      "title": "Monsignor"
+    },
+    "name": "Joseph Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1950-12-16T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9190382482
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9813940152
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "John Thomas",
+        "relation": "Cousin",
+        "parish": "St. Thomas Church",
+        "contact": 9957409654
+      },
+      {
+        "name": "John Thomas",
+        "relation": "Cousin",
+        "parish": "Holy Family Church",
+        "contact": 9230480659
+      }
+    ],
+    "spouse_details": {
+      "name": "Rose Joseph",
+      "baptism_name": "St. Thomas",
+      "dob": "1973-12-10T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9014782102
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9495607877
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Karnataka",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1994-12-05T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "9c5e5c68-b227-4a7d-acb1-ba2801eb37e7",
+    "type": "HOLY_COMMUNION",
+    "date": "1981-10-19T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "Elizabeth Varghese",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1955-10-26T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Kurian",
+      "mother": "Mrs. Elizabeth",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9932928807
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9276952797
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Paul Thomas",
+        "relation": "Aunt",
+        "parish": "Christ the King Church",
+        "contact": 9737857139
+      },
+      {
+        "name": "George Thomas",
+        "relation": "Uncle",
+        "parish": "St. Thomas Church",
+        "contact": 9115678899
+      }
+    ],
+    "spouse_details": {
+      "name": "John Joseph",
+      "baptism_name": "St. Thomas",
+      "dob": "1933-10-31T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kochi",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9013906158
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9588672478
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1980-10-19T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "1be366f4-ac72-4562-a6a5-062ae103382c",
+    "type": "DEATH",
+    "date": "2020-06-20T19:35:17",
+    "minister": {
+      "name": "Fr. Mathew",
+      "title": "Bishop"
+    },
+    "name": "Elizabeth Varghese",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Mary",
+      "dob": "1981-06-30T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9457660520
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9305574420
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "Paul Mathew",
+        "relation": "Uncle",
+        "parish": "Holy Family Church",
+        "contact": 9812531648
+      },
+      {
+        "name": "Susan Thomas",
+        "relation": "Cousin",
+        "parish": "St. Thomas Church",
+        "contact": 9019912291
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1984-06-29T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9714393856
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9679509437
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2019-06-21T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": "2020-06-20T19:35:17",
+      "place_of_death": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "cemetry": "St. Thomas Cemetery",
+      "cemetry_place": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "country": "India"
+      }
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "7bc414c6-8883-4c04-8b3e-9875aeb24446",
+    "type": "HOLY_CONFIRMATION",
+    "date": "2013-06-06T19:35:17",
+    "minister": {
+      "name": "Fr. Mathew",
+      "title": "Rev. Fr."
+    },
+    "name": "Ann Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1954-06-21T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9674890878
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9458136392
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "Rita Thomas",
+        "relation": "Cousin",
+        "parish": "Holy Family Church",
+        "contact": 9062773870
+      },
+      {
+        "name": "John Thomas",
+        "relation": "Sister",
+        "parish": "St. Mary's Basilica",
+        "contact": 9964041289
+      }
+    ],
+    "spouse_details": {
+      "name": "John Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1962-06-19T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Sebastian",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9421896515
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9534551486
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Kerala",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2012-06-06T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "d3015285-6309-4f88-a4a7-2fad6fd91a1b",
+    "type": "MARRIAGE",
+    "date": "1978-07-24T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "George Varghese",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1926-08-06T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Varghese",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9240732608
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9156323450
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "witness": [
+      {
+        "name": "Susan Thomas",
+        "relation": "Friend",
+        "parish": "St. Mary's Basilica",
+        "contact": 9353285056
+      },
+      {
+        "name": "Susan Mathew",
+        "relation": "Brother",
+        "parish": "Holy Family Church",
+        "contact": 9897714256
+      }
+    ],
+    "spouse_details": {
+      "name": "John Joseph",
+      "baptism_name": "St. Thomas",
+      "dob": "1918-08-08T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9603312062
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9675399346
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1977-07-24T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "dc50a202-513c-431e-938b-0d8693fd97de",
+    "type": "HOLY_CONFIRMATION",
+    "date": "1992-03-20T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Monsignor"
+    },
+    "name": "George Varghese",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Mary",
+      "dob": "1938-04-03T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9939391808
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9333376779
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Susan Thomas",
+        "relation": "Aunt",
+        "parish": "Holy Family Church",
+        "contact": 9335883282
+      },
+      {
+        "name": "Susan Thomas",
+        "relation": "Brother",
+        "parish": "Christ the King Church",
+        "contact": 9843460625
+      }
+    ],
+    "spouse_details": {
+      "name": "John Joseph",
+      "baptism_name": "St. Mary",
+      "dob": "1941-04-02T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Anna",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9841687845
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9029223723
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1991-03-21T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Thrissur",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "908dcd95-80a4-4d10-956a-89cd5e93c116",
+    "type": "HOLY_COMMUNION",
+    "date": "1998-08-09T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Bishop"
+    },
+    "name": "Thomas Varghese",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Mary",
+      "dob": "1968-08-16T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Mathew",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9521593424
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9775321494
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "witness": [
+      {
+        "name": "George Thomas",
+        "relation": "Uncle",
+        "parish": "St. Mary's Basilica",
+        "contact": 9875063908
+      },
+      {
+        "name": "George Thomas",
+        "relation": "Aunt",
+        "parish": "Christ the King Church",
+        "contact": 9981292930
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Joseph",
+      "baptism_name": "St. Thomas",
+      "dob": "1977-08-14T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Anna",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Peter",
+          "contact": 9768655384
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Mary",
+          "contact": 9717442798
+        }
+      },
+      "parish": {
+        "name": "Christ the King Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Diocesan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Kerala",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "1997-08-09T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "bishop": "Bishop Stephen"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "6b551f18-98e3-4ae5-972d-7cf7e8e85adf",
+    "type": "DEATH",
+    "date": "2003-11-17T19:35:17",
+    "minister": {
+      "name": "Bishop Thomas",
+      "title": "Rev. Fr."
+    },
+    "name": "Thomas John",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1950-11-30T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Kurian",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9906353269
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9201146163
+        }
+      },
+      "parish": {
+        "name": "Holy Family Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Rita Mathew",
+        "relation": "Friend",
+        "parish": "St. Mary's Basilica",
+        "contact": 9195612808
+      },
+      {
+        "name": "Susan Mathew",
+        "relation": "Sister",
+        "parish": "Christ the King Church",
+        "contact": 9561936496
+      }
+    ],
+    "spouse_details": {
+      "name": "John Kuriakose",
+      "baptism_name": "St. Thomas",
+      "dob": "1957-11-28T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Kottayam",
+        "state": "Tamil Nadu",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Francis",
+      "mother": "Mrs. Rebecca",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9504187005
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9367216005
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Kerala",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2002-11-17T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "bishop": "Bishop George"
+      }
+    },
+    "afterlife_details": {
+      "dod": "2003-11-17T19:35:17",
+      "place_of_death": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "cemetry": "St. Thomas Cemetery",
+      "cemetry_place": {
+        "location": "Near Main Road",
+        "city": "Thrissur",
+        "state": "Karnataka",
+        "country": "India"
+      }
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "70c53641-8f49-4e2b-ba30-a213f685a4b6",
+    "type": "ORDINATION",
+    "date": "2019-03-27T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Bishop"
+    },
+    "name": "Thomas Mathew",
+    "parishioner": true,
+    "details": {
+      "baptism_name": "St. Joseph",
+      "dob": "1996-04-01T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Ann",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Peter",
+          "contact": 9672962162
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9110957342
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "witness": [
+      {
+        "name": "Rita Mathew",
+        "relation": "Sister",
+        "parish": "Christ the King Church",
+        "contact": 9787094092
+      },
+      {
+        "name": "Susan Thomas",
+        "relation": "Cousin",
+        "parish": "St. Mary's Basilica",
+        "contact": 9704008300
+      }
+    ],
+    "spouse_details": {
+      "name": "Rose Kuriakose",
+      "baptism_name": "St. Mary",
+      "dob": "1996-04-01T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "country": "India"
+      },
+      "marital_status": "Single",
+      "father": "Mr. Francis",
+      "mother": "Mrs. Susan",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9334005447
+        },
+        "mother": {
+          "name": "Leena Maria",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Mary",
+          "contact": 9785412932
+        }
+      },
+      "parish": {
+        "name": "St. Mary's Basilica",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Mumbai",
+          "state": "Tamil Nadu",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Verapoly"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Jesuit",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kottayam",
+          "state": "Maharashtra",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2018-03-27T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  },
+  {
+    "id": "a911654b-2944-4c45-ac28-9f9c34252f28",
+    "type": "HOLY_COMMUNION",
+    "date": "2009-05-06T19:35:17",
+    "minister": {
+      "name": "Fr. Joseph",
+      "title": "Rev. Fr."
+    },
+    "name": "Joseph Varghese",
+    "parishioner": false,
+    "details": {
+      "baptism_name": "St. Thomas",
+      "dob": "1960-05-18T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Bangalore",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "marital_status": "Widowed",
+      "father": "Mr. Joseph",
+      "mother": "Mrs. Leena",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Sebastian",
+          "parish": "Christ the King Church",
+          "baptism_name": "St. Peter",
+          "contact": 9551651617
+        },
+        "mother": {
+          "name": "Leena Joseph",
+          "parish": "St. Mary's Basilica",
+          "baptism_name": "St. Mary",
+          "contact": 9411013554
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Kerala",
+          "country": "India"
+        },
+        "diocese": "Diocese of Kottayam"
+      }
+    },
+    "witness": [
+      {
+        "name": "Susan Thomas",
+        "relation": "Brother",
+        "parish": "Christ the King Church",
+        "contact": 9674367056
+      },
+      {
+        "name": "George Mathew",
+        "relation": "Brother",
+        "parish": "St. Mary's Basilica",
+        "contact": 9669501607
+      }
+    ],
+    "spouse_details": {
+      "name": "Ann Joseph",
+      "baptism_name": "St. Mary",
+      "dob": "1976-05-14T19:35:17",
+      "place_of_birth": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "marital_status": "Married",
+      "father": "Mr. Varghese",
+      "mother": "Mrs. Anna",
+      "god_parents": {
+        "father": {
+          "name": "Thomas Kurian",
+          "parish": "Holy Family Church",
+          "baptism_name": "St. Peter",
+          "contact": 9540440663
+        },
+        "mother": {
+          "name": "Leena Ann",
+          "parish": "St. Thomas Church",
+          "baptism_name": "St. Mary",
+          "contact": 9756039144
+        }
+      },
+      "parish": {
+        "name": "St. Thomas Church",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Bangalore",
+          "state": "Karnataka",
+          "country": "India"
+        },
+        "diocese": "Archdiocese of Bombay"
+      }
+    },
+    "ordination_details": {
+      "religious_order": "Franciscan",
+      "seminary": {
+        "name": "St. Joseph's Seminary",
+        "location": {
+          "location": "Near Main Road",
+          "city": "Kochi",
+          "state": "Karnataka",
+          "country": "India"
+        }
+      },
+      "previous_ordination": {
+        "type": "Deaconate",
+        "date": "2008-05-06T19:35:17",
+        "place": {
+          "location": "Near Main Road",
+          "city": "Chennai",
+          "state": "Maharashtra",
+          "country": "India"
+        },
+        "bishop": "Bishop Anthony"
+      }
+    },
+    "afterlife_details": {
+      "dod": null,
+      "place_of_death": null,
+      "cemetry": null,
+      "cemetry_place": null
+    },
+    "remarks": "Ceremony recorded successfully."
+  }
+]

@@ -8,7 +8,7 @@
         "family-records": ["VIEW"],
         "payments": ["VIEW"],
         "bookings": ["VIEW"],
-        "ceremonys": ["VIEW"],
+        "ceremonies": ["VIEW"],
         "associations": ["VIEW"],
         "expenses": ["VIEW"],
         "users": ["VIEW"]

@@ -1,1 +1,41 @@
-<p>ceremony-view works!</p>
+<div class="header">
+  <h1>Ceremony Details</h1>
+  <div class="header-right-section">
+    <span
+      class="text-primary-color cursor-pointer font-bold hover:text-secondary-color hover:underline"
+      (click)="onBackClick()"
+      ><fa-icon [icon]="faArrowLeft"></fa-icon>Ceremonies List</span
+    >
+  </div>
+</div>
+<div
+  [formGroup]="ceremonyForm"
+  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4"
+>
+  <!-- Field 1 -->
+  <div class="form-group">
+    <label>Ceremony Type</label>
+    <select formControlName="type" class="lg:col-span-2">
+      <option *ngFor="let ceremony of this.ceremonyList" [value]="ceremony">
+        {{ ceremony }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Field 2 -->
+  <div class="form-group">
+    <label>Date</label>
+    <input type="datetime-local" formControlName="date" class="lg:col-span-2" />
+  </div>
+
+  <!-- Field 3 -->
+  <div class="form-group">
+    <label>Parishioner</label>
+    <select formControlName="parishioner" class="lg:col-span-2">
+      <option value="false">No</option>
+      <option value="true">Yes</option>
+    </select>
+  </div>
+
+  <app-footer class="md:col-span-3 lg:col-span-3" (modeUpdated)="onModeUpdated($event)"></app-footer>
+</div>

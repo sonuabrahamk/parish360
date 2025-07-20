@@ -1,0 +1,101 @@
+{
+  "id": "f99bba8e-81e6-408b-b434-d2f4891f969f",
+  "type": "MARRIAGE",
+  "date": "2017-04-27T19:35:17",
+  "minister": {
+    "name": "Fr. Joseph",
+    "title": "Bishop"
+  },
+  "name": "Maria Mathew",
+  "parishioner": true,
+  "details": {
+    "baptism_name": "St. Joseph",
+    "dob": "1958-05-12T19:35:17",
+    "place_of_birth": {
+      "location": "Near Main Road",
+      "city": "Thrissur",
+      "state": "Kerala",
+      "country": "India"
+    },
+    "marital_status": "Single",
+    "father": "Mr. Joseph",
+    "mother": "Mrs. Leena",
+    "god_parents": {
+      "father": {
+        "name": "Thomas Kurian",
+        "parish": "St. Mary's Basilica",
+        "baptism_name": "St. Peter",
+        "contact": 9090769825
+      },
+      "mother": {
+        "name": "Leena Joseph",
+        "parish": "Christ the King Church",
+        "baptism_name": "St. Mary",
+        "contact": 9792035490
+      }
+    },
+    "parish": {
+      "name": "Christ the King Church",
+      "place": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Karnataka",
+        "country": "India"
+      },
+      "diocese": "Archdiocese of Bombay"
+    }
+  },
+  "witness": [
+    {
+      "name": "Rita Thomas",
+      "relation": "Uncle",
+      "parish": "St. Thomas Church",
+      "contact": 9621688359
+    },
+    {
+      "name": "Susan Mathew",
+      "relation": "Cousin",
+      "parish": "Holy Family Church",
+      "contact": 9325223340
+    }
+  ],
+  "spouse_details": {
+    "name": "Ann Kuriakose",
+    "baptism_name": "St. Mary",
+    "dob": "1989-05-04T19:35:17",
+    "place_of_birth": {
+      "location": "Near Main Road",
+      "city": "Chennai",
+      "state": "Kerala",
+      "country": "India"
+    },
+    "marital_status": "Single",
+    "father": "Mr. Francis",
+    "mother": "Mrs. Susan",
+    "god_parents": {
+      "father": {
+        "name": "Thomas Kurian",
+        "parish": "St. Mary's Basilica",
+        "baptism_name": "St. Peter",
+        "contact": 9964197822
+      },
+      "mother": {
+        "name": "Leena Ann",
+        "parish": "Holy Family Church",
+        "baptism_name": "St. Mary",
+        "contact": 9231595288
+      }
+    },
+    "parish": {
+      "name": "Holy Family Church",
+      "place": {
+        "location": "Near Main Road",
+        "city": "Chennai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "diocese": "Archdiocese of Verapoly"
+    }
+  },
+  "remarks": "Ceremony recorded successfully."
+}
