@@ -1,0 +1,65 @@
+{
+  "id": "676b109e-da52-4a06-862c-66fbbb17a33a",
+  "type": "REQUIEM",
+  "date": "1986-09-20T10:10:10",
+  "minister": {
+    "name": "Bishop Thomas",
+    "title": "Monsignor"
+  },
+  "name": "Joseph Mathew",
+  "parishioner": true,
+  "details": {
+    "baptism_name": "St. Joseph",
+    "dob": "1950-09-29",
+    "place_of_birth": {
+      "location": "Near Main Road",
+      "city": "Thrissur",
+      "state": "Tamil Nadu",
+      "country": "India"
+    },
+    "marital_status": "Married",
+    "father": "Mr. Joseph",
+    "mother": "Mrs. Leena",
+    "god_parents": {
+      "father": {
+        "name": "Thomas Kurian",
+        "parish": "Christ the King Church",
+        "baptism_name": "St. Peter",
+        "contact": 9852415381
+      },
+      "mother": {
+        "name": "Leena Maria",
+        "parish": "St. Thomas Church",
+        "baptism_name": "St. Mary",
+        "contact": 9236232819
+      }
+    },
+    "parish": {
+      "name": "St. Mary's Basilica",
+      "place": {
+        "location": "Near Main Road",
+        "city": "Mumbai",
+        "state": "Kerala",
+        "country": "India"
+      },
+      "diocese": "Diocese of Kottayam"
+    }
+  },
+  "afterlife_details": {
+    "dod": "1986-09-20",
+    "place_of_death": {
+      "location": "Near Main Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "country": "India"
+    },
+    "cemetry": "St. Thomas Cemetery",
+    "cemetry_place": {
+      "location": "Near Main Road",
+      "city": "Mumbai",
+      "state": "Tamil Nadu",
+      "country": "India"
+    }
+  },
+  "remarks": "Ceremony recorded successfully."
+}

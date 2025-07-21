@@ -2,7 +2,7 @@
   {
     "id": "9a04aadd-ac6c-4380-b961-cd765bc7ad0d",
     "type": "BAPTISM",
-    "date": "1993-10-17T19:35:17",
+    "date": "1993-10-17T00:00:00",
     "minister": {
       "name": "Fr. Mathew",
       "title": "Archbishop"
@@ -11,7 +11,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Mary",
-      "dob": "1943-10-30T19:35:17",
+      "dob": "1943-10-30",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -63,7 +63,7 @@
     "spouse_details": {
       "name": "Ann Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1962-10-25T19:35:17",
+      "dob": "1962-10-25",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -111,7 +111,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1992-10-17T19:35:17",
+        "date": "1992-10-17",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -132,7 +132,7 @@
   {
     "id": "619cd043-6130-4844-a47d-f93a8cb05afd",
     "type": "HOLY_COMMUNION",
-    "date": "1992-11-23T19:35:17",
+    "date": "1992-11-23T00:00:00",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -141,7 +141,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Mary",
-      "dob": "1943-12-06T19:35:17",
+      "dob": "1943-12-06",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -193,7 +193,7 @@
     "spouse_details": {
       "name": "Paul Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1953-12-03T19:35:17",
+      "dob": "1953-12-03",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -241,7 +241,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1991-11-24T19:35:17",
+        "date": "1991-11-24",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -262,7 +262,7 @@
   {
     "id": "da47ca55-4a4c-41ab-8c9e-beb9a7664d5e",
     "type": "BAPTISM",
-    "date": "1977-01-06T19:35:17",
+    "date": "1977-01-06T00:00:00",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Rev. Fr."
@@ -271,7 +271,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1930-01-18T19:35:17",
+      "dob": "1930-01-18",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -323,7 +323,7 @@
     "spouse_details": {
       "name": "John Joseph",
       "baptism_name": "St. Mary",
-      "dob": "1944-01-15T19:35:17",
+      "dob": "1944-01-15",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -371,7 +371,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1976-01-07T19:35:17",
+        "date": "1976-01-07",
         "place": {
           "location": "Near Main Road",
           "city": "Mumbai",
@@ -392,7 +392,7 @@
   {
     "id": "2b4173dd-3925-4267-9358-c49f5f307dfa",
     "type": "ORDINATION",
-    "date": "1983-12-17T19:35:17",
+    "date": "1983-12-17T00:00:00",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -401,7 +401,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1929-12-30T19:35:17",
+      "dob": "1929-12-30",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -453,7 +453,7 @@
     "spouse_details": {
       "name": "John Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1965-12-21T19:35:17",
+      "dob": "1965-12-21",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -501,7 +501,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1982-12-17T19:35:17",
+        "date": "1982-12-17",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -522,7 +522,7 @@
   {
     "id": "76a47906-e362-415f-9c2c-2926a34e1db0",
     "type": "ORDINATION",
-    "date": "2015-03-25T19:35:17",
+    "date": "2015-03-25T00:00:00",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Rev. Fr."
@@ -531,7 +531,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1996-03-29T19:35:17",
+      "dob": "1996-03-29",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -583,7 +583,7 @@
     "spouse_details": {
       "name": "Rose Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1966-04-06T19:35:17",
+      "dob": "1966-04-06",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -631,7 +631,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2014-03-25T19:35:17",
+        "date": "2014-03-25",
         "place": {
           "location": "Near Main Road",
           "city": "Kochi",
@@ -651,8 +651,8 @@
   },
   {
     "id": "676b109e-da52-4a06-862c-66fbbb17a33a",
-    "type": "DEATH",
-    "date": "1986-09-20T19:35:17",
+    "type": "REQUIEM",
+    "date": "1986-09-20T00:00:00",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Monsignor"
@@ -661,7 +661,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1950-09-29T19:35:17",
+      "dob": "1950-09-29",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -713,7 +713,7 @@
     "spouse_details": {
       "name": "Paul Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1933-10-03T19:35:17",
+      "dob": "1933-10-03",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -761,7 +761,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1985-09-20T19:35:17",
+        "date": "1985-09-20",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -772,7 +772,7 @@
       }
     },
     "afterlife_details": {
-      "dod": "1986-09-20T19:35:17",
+      "dod": "1986-09-20",
       "place_of_death": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -791,8 +791,8 @@
   },
   {
     "id": "5fe1e92b-9612-4499-bdb4-f8b5dc160885",
-    "type": "DEATH",
-    "date": "1998-12-27T19:35:17",
+    "type": "REQUIEM",
+    "date": "1998-12-27T00:00:00",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Monsignor"
@@ -801,7 +801,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1958-01-06T19:35:17",
+      "dob": "1958-01-06",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -853,7 +853,7 @@
     "spouse_details": {
       "name": "Ann Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1976-01-02T19:35:17",
+      "dob": "1976-01-02",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -901,7 +901,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1997-12-27T19:35:17",
+        "date": "1997-12-27",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -912,7 +912,7 @@
       }
     },
     "afterlife_details": {
-      "dod": "1998-12-27T19:35:17",
+      "dod": "1998-12-27",
       "place_of_death": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -932,7 +932,7 @@
   {
     "id": "f99bba8e-81e6-408b-b434-d2f4891f969f",
     "type": "MARRIAGE",
-    "date": "2017-04-27T19:35:17",
+    "date": "2017-04-27",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -941,7 +941,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1958-05-12T19:35:17",
+      "dob": "1958-05-12",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -993,7 +993,7 @@
     "spouse_details": {
       "name": "Ann Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1989-05-04T19:35:17",
+      "dob": "1989-05-04",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -1041,7 +1041,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2016-04-27T19:35:17",
+        "date": "2016-04-27",
         "place": {
           "location": "Near Main Road",
           "city": "Kottayam",
@@ -1062,7 +1062,7 @@
   {
     "id": "0a80a171-30d8-428d-b415-d67ba41cab76",
     "type": "HOLY_CONFIRMATION",
-    "date": "2017-10-10T19:35:17",
+    "date": "2017-10-10",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Bishop"
@@ -1071,7 +1071,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1996-10-15T19:35:17",
+      "dob": "1996-10-15",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kochi",
@@ -1123,7 +1123,7 @@
     "spouse_details": {
       "name": "Paul Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1999-10-15T19:35:17",
+      "dob": "1999-10-15",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kochi",
@@ -1171,7 +1171,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2016-10-10T19:35:17",
+        "date": "2016-10-10",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",
@@ -1191,8 +1191,8 @@
   },
   {
     "id": "fad7568d-dfe4-4576-ac2d-1aa7b8c8104d",
-    "type": "DEATH",
-    "date": "1994-09-27T19:35:17",
+    "type": "REQUIEM",
+    "date": "1994-09-27",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Monsignor"
@@ -1201,7 +1201,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1959-10-06T19:35:17",
+      "dob": "1959-10-06",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -1253,7 +1253,7 @@
     "spouse_details": {
       "name": "Ann Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1950-10-08T19:35:17",
+      "dob": "1950-10-08",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -1301,7 +1301,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1993-09-27T19:35:17",
+        "date": "1993-09-27",
         "place": {
           "location": "Near Main Road",
           "city": "Kottayam",
@@ -1312,7 +1312,7 @@
       }
     },
     "afterlife_details": {
-      "dod": "1994-09-27T19:35:17",
+      "dod": "1994-09-27",
       "place_of_death": {
         "location": "Near Main Road",
         "city": "Kochi",
@@ -1332,7 +1332,7 @@
   {
     "id": "b9682b9f-9664-437f-8e28-0a574be2f2a7",
     "type": "HOLY_CONFIRMATION",
-    "date": "1995-12-05T19:35:17",
+    "date": "1995-12-05",
     "minister": {
       "name": "Fr. Mathew",
       "title": "Monsignor"
@@ -1341,7 +1341,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1950-12-16T19:35:17",
+      "dob": "1950-12-16",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -1393,7 +1393,7 @@
     "spouse_details": {
       "name": "Rose Joseph",
       "baptism_name": "St. Thomas",
-      "dob": "1973-12-10T19:35:17",
+      "dob": "1973-12-10",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -1441,7 +1441,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1994-12-05T19:35:17",
+        "date": "1994-12-05",
         "place": {
           "location": "Near Main Road",
           "city": "Kottayam",
@@ -1462,7 +1462,7 @@
   {
     "id": "9c5e5c68-b227-4a7d-acb1-ba2801eb37e7",
     "type": "HOLY_COMMUNION",
-    "date": "1981-10-19T19:35:17",
+    "date": "1981-10-19",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -1471,7 +1471,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1955-10-26T19:35:17",
+      "dob": "1955-10-26",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -1523,7 +1523,7 @@
     "spouse_details": {
       "name": "John Joseph",
       "baptism_name": "St. Thomas",
-      "dob": "1933-10-31T19:35:17",
+      "dob": "1933-10-31",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kochi",
@@ -1571,7 +1571,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1980-10-19T19:35:17",
+        "date": "1980-10-19",
         "place": {
           "location": "Near Main Road",
           "city": "Thrissur",
@@ -1591,8 +1591,8 @@
   },
   {
     "id": "1be366f4-ac72-4562-a6a5-062ae103382c",
-    "type": "DEATH",
-    "date": "2020-06-20T19:35:17",
+    "type": "REQUIEM",
+    "date": "2020-06-20",
     "minister": {
       "name": "Fr. Mathew",
       "title": "Bishop"
@@ -1601,7 +1601,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Mary",
-      "dob": "1981-06-30T19:35:17",
+      "dob": "1981-06-30",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -1653,7 +1653,7 @@
     "spouse_details": {
       "name": "Ann Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1984-06-29T19:35:17",
+      "dob": "1984-06-29",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -1701,7 +1701,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2019-06-21T19:35:17",
+        "date": "2019-06-21",
         "place": {
           "location": "Near Main Road",
           "city": "Mumbai",
@@ -1712,7 +1712,7 @@
       }
     },
     "afterlife_details": {
-      "dod": "2020-06-20T19:35:17",
+      "dod": "2020-06-20",
       "place_of_death": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -1732,7 +1732,7 @@
   {
     "id": "7bc414c6-8883-4c04-8b3e-9875aeb24446",
     "type": "HOLY_CONFIRMATION",
-    "date": "2013-06-06T19:35:17",
+    "date": "2013-06-06T00:00:00",
     "minister": {
       "name": "Fr. Mathew",
       "title": "Rev. Fr."
@@ -1741,7 +1741,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1954-06-21T19:35:17",
+      "dob": "1954-06-21",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Thrissur",
@@ -1793,7 +1793,7 @@
     "spouse_details": {
       "name": "John Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1962-06-19T19:35:17",
+      "dob": "1962-06-19",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -1841,7 +1841,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2012-06-06T19:35:17",
+        "date": "2012-06-06",
         "place": {
           "location": "Near Main Road",
           "city": "Kottayam",
@@ -1862,7 +1862,7 @@
   {
     "id": "d3015285-6309-4f88-a4a7-2fad6fd91a1b",
     "type": "MARRIAGE",
-    "date": "1978-07-24T19:35:17",
+    "date": "1978-07-24T00:00:00",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -1871,7 +1871,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1926-08-06T19:35:17",
+      "dob": "1926-08-06",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -1923,7 +1923,7 @@
     "spouse_details": {
       "name": "John Joseph",
       "baptism_name": "St. Thomas",
-      "dob": "1918-08-08T19:35:17",
+      "dob": "1918-08-08",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -1971,7 +1971,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1977-07-24T19:35:17",
+        "date": "1977-07-24",
         "place": {
           "location": "Near Main Road",
           "city": "Kochi",
@@ -1992,7 +1992,7 @@
   {
     "id": "dc50a202-513c-431e-938b-0d8693fd97de",
     "type": "HOLY_CONFIRMATION",
-    "date": "1992-03-20T19:35:17",
+    "date": "1992-03-20T00:00:00",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Monsignor"
@@ -2001,7 +2001,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Mary",
-      "dob": "1938-04-03T19:35:17",
+      "dob": "1938-04-03",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -2053,7 +2053,7 @@
     "spouse_details": {
       "name": "John Joseph",
       "baptism_name": "St. Mary",
-      "dob": "1941-04-02T19:35:17",
+      "dob": "1941-04-02",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -2101,7 +2101,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1991-03-21T19:35:17",
+        "date": "1991-03-21",
         "place": {
           "location": "Near Main Road",
           "city": "Thrissur",
@@ -2122,7 +2122,7 @@
   {
     "id": "908dcd95-80a4-4d10-956a-89cd5e93c116",
     "type": "HOLY_COMMUNION",
-    "date": "1998-08-09T19:35:17",
+    "date": "1998-08-09",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Bishop"
@@ -2131,7 +2131,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Mary",
-      "dob": "1968-08-16T19:35:17",
+      "dob": "1968-08-16",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -2183,7 +2183,7 @@
     "spouse_details": {
       "name": "Ann Joseph",
       "baptism_name": "St. Thomas",
-      "dob": "1977-08-14T19:35:17",
+      "dob": "1977-08-14",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -2231,7 +2231,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "1997-08-09T19:35:17",
+        "date": "1997-08-09",
         "place": {
           "location": "Near Main Road",
           "city": "Mumbai",
@@ -2251,8 +2251,8 @@
   },
   {
     "id": "6b551f18-98e3-4ae5-972d-7cf7e8e85adf",
-    "type": "DEATH",
-    "date": "2003-11-17T19:35:17",
+    "type": "REQUIEM",
+    "date": "2003-11-17",
     "minister": {
       "name": "Bishop Thomas",
       "title": "Rev. Fr."
@@ -2261,7 +2261,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1950-11-30T19:35:17",
+      "dob": "1950-11-30",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Chennai",
@@ -2313,7 +2313,7 @@
     "spouse_details": {
       "name": "John Kuriakose",
       "baptism_name": "St. Thomas",
-      "dob": "1957-11-28T19:35:17",
+      "dob": "1957-11-28",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Kottayam",
@@ -2361,7 +2361,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2002-11-17T19:35:17",
+        "date": "2002-11-17",
         "place": {
           "location": "Near Main Road",
           "city": "Kottayam",
@@ -2372,7 +2372,7 @@
       }
     },
     "afterlife_details": {
-      "dod": "2003-11-17T19:35:17",
+      "dod": "2003-11-17",
       "place_of_death": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -2392,7 +2392,7 @@
   {
     "id": "70c53641-8f49-4e2b-ba30-a213f685a4b6",
     "type": "ORDINATION",
-    "date": "2019-03-27T19:35:17",
+    "date": "2019-03-27",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Bishop"
@@ -2401,7 +2401,7 @@
     "parishioner": true,
     "details": {
       "baptism_name": "St. Joseph",
-      "dob": "1996-04-01T19:35:17",
+      "dob": "1996-04-01",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -2453,7 +2453,7 @@
     "spouse_details": {
       "name": "Rose Kuriakose",
       "baptism_name": "St. Mary",
-      "dob": "1996-04-01T19:35:17",
+      "dob": "1996-04-01",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -2501,7 +2501,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2018-03-27T19:35:17",
+        "date": "2018-03-27",
         "place": {
           "location": "Near Main Road",
           "city": "Bangalore",
@@ -2522,7 +2522,7 @@
   {
     "id": "a911654b-2944-4c45-ac28-9f9c34252f28",
     "type": "HOLY_COMMUNION",
-    "date": "2009-05-06T19:35:17",
+    "date": "2009-05-06",
     "minister": {
       "name": "Fr. Joseph",
       "title": "Rev. Fr."
@@ -2531,7 +2531,7 @@
     "parishioner": false,
     "details": {
       "baptism_name": "St. Thomas",
-      "dob": "1960-05-18T19:35:17",
+      "dob": "1960-05-18",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Bangalore",
@@ -2583,7 +2583,7 @@
     "spouse_details": {
       "name": "Ann Joseph",
       "baptism_name": "St. Mary",
-      "dob": "1976-05-14T19:35:17",
+      "dob": "1976-05-14",
       "place_of_birth": {
         "location": "Near Main Road",
         "city": "Mumbai",
@@ -2631,7 +2631,7 @@
       },
       "previous_ordination": {
         "type": "Deaconate",
-        "date": "2008-05-06T19:35:17",
+        "date": "2008-05-06",
         "place": {
           "location": "Near Main Road",
           "city": "Chennai",

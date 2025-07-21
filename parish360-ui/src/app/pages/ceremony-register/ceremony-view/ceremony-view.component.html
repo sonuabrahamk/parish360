@@ -54,7 +54,6 @@
   <!-- Personal Details Section -->
   <app-section-form [title]="'Personal Details'" class="md:col-span-3">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="details">
-
       <!-- Parish details section -->
       <app-section-form [title]="'Parish Details'" class="md:col-span-3">
         <div class="form-section-3" formGroupName="parish">
@@ -71,11 +70,7 @@
           <!-- Parish Name -->
           <div class="form-group">
             <label>Parish Name</label>
-            <input
-              type="text"
-              formControlName="name"
-              class="lg:col-span-2"
-            />
+            <input type="text" formControlName="name" class="lg:col-span-2" />
           </div>
 
           <!-- Diocese Name -->
@@ -93,7 +88,10 @@
             [title]="'Location of Parish'"
             class="md:col-span-3"
           >
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="place">
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+              formGroupName="place"
+            >
               <div class="form-group">
                 <label>City</label>
                 <input
@@ -126,7 +124,7 @@
       <!-- Name -->
       <div class="form-group">
         <label>Name</label>
-        <input type="text" [formControl]="nameControl()" class="lg:col-span-2" />
+        <input type="text" [formControl]="name" class="lg:col-span-2" />
       </div>
 
       <!-- Baptism Name -->
@@ -169,22 +167,17 @@
 
       <!-- Place of Birth -->
       <app-section-form [title]="'Place of Birth'" class="md:col-span-3">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="place_of_birth">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-4"
+          formGroupName="place_of_birth"
+        >
           <div class="form-group">
             <label>City</label>
-            <input
-              type="text"
-              formControlName="city"
-              class="lg:col-span-2"
-            />
+            <input type="text" formControlName="city" class="lg:col-span-2" />
           </div>
           <div class="form-group">
             <label>State</label>
-            <input
-              type="text"
-              formControlName="state"
-              class="lg:col-span-2"
-            />
+            <input type="text" formControlName="state" class="lg:col-span-2" />
           </div>
           <div class="form-group">
             <label>Country</label>
@@ -197,9 +190,547 @@
         </div>
       </app-section-form>
 
+      <!-- God Parents Details  -->
+      <div
+        class="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4"
+        formGroupName="god_parents"
+      >
+        <!-- God Father Details  -->
+        <app-section-form [title]="'God Father Details'" formGroupName="father">
+          <!-- God Father name -->
+          <div class="form-group">
+            <label>God Father</label>
+            <input type="text" formControlName="name" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Father Baptism Name -->
+          <div class="form-group">
+            <label>Baptism Name</label>
+            <input
+              type="text"
+              formControlName="baptism_name"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- God Father Parish -->
+          <div class="form-group">
+            <label>Parish</label>
+            <input type="text" formControlName="parish" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Father Contact -->
+          <div class="form-group">
+            <label>Contact</label>
+            <input
+              type="number"
+              formControlName="contact"
+              class="lg:col-span-2"
+            />
+          </div>
+        </app-section-form>
+
+        <!-- God Mother details  -->
+        <app-section-form [title]="'God Mother Details'" formGroupName="mother">
+          <!-- God Mother name -->
+          <div class="form-group">
+            <label>God Mother</label>
+            <input type="text" formControlName="name" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Mother Baptism Name -->
+          <div class="form-group">
+            <label>Baptism Name</label>
+            <input
+              type="text"
+              formControlName="baptism_name"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- God Mother Parish -->
+          <div class="form-group">
+            <label>Parish</label>
+            <input type="text" formControlName="parish" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Mother Contact -->
+          <div class="form-group">
+            <label>Contact</label>
+            <input
+              type="number"
+              formControlName="contact"
+              class="lg:col-span-2"
+            />
+          </div>
+        </app-section-form>
+      </div>
     </div>
   </app-section-form>
-  
+
+  <!-- Spouse Details Section -->
+  <app-section-form
+    *ngIf="type === ceremonyType.MARRIAGE"
+    [title]="'Spouse Details'"
+    class="md:col-span-3"
+  >
+    <div
+      class="grid grid-cols-1 md:grid-cols-3 gap-4"
+      formGroupName="spouse_details"
+    >
+      <!-- Parish details section -->
+      <app-section-form [title]="'Parish Details'" class="md:col-span-3">
+        <div class="form-section-3" formGroupName="parish">
+          <!-- Book Id -->
+          <div class="form-group">
+            <label>Book ID</label>
+            <input
+              type="text"
+              formControlName="book_id"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- Parish Name -->
+          <div class="form-group">
+            <label>Parish Name</label>
+            <input type="text" formControlName="name" class="lg:col-span-2" />
+          </div>
+
+          <!-- Diocese Name -->
+          <div class="form-group">
+            <label>Diocese Name</label>
+            <input
+              type="text"
+              formControlName="diocese"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- Place of Parish -->
+          <app-section-form
+            [title]="'Location of Parish'"
+            class="md:col-span-3"
+          >
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+              formGroupName="place"
+            >
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input
+                  type="text"
+                  formControlName="state"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  formControlName="country"
+                  class="lg:col-span-2"
+                />
+              </div>
+            </div>
+          </app-section-form>
+        </div>
+      </app-section-form>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" formControlName="name" class="lg:col-span-2" />
+      </div>
+
+      <!-- Baptism Name -->
+      <div class="form-group">
+        <label>Baptism Name</label>
+        <input
+          type="text"
+          formControlName="baptism_name"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <label>Date of Birth</label>
+        <input type="date" formControlName="dob" class="lg:col-span-2" />
+      </div>
+
+      <!-- Father's name -->
+      <div class="form-group">
+        <label>Father's Name</label>
+        <input type="text" formControlName="father" class="lg:col-span-2" />
+      </div>
+
+      <!-- Mother's Name -->
+      <div class="form-group">
+        <label>Mother's Name</label>
+        <input type="text" formControlName="mother" class="lg:col-span-2" />
+      </div>
+
+      <!-- Marital Status -->
+      <div class="form-group">
+        <label>Marital Status</label>
+        <input
+          type="text"
+          formControlName="marital_status"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- Place of Birth -->
+      <app-section-form [title]="'Place of Birth'" class="md:col-span-3">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-4"
+          formGroupName="place_of_birth"
+        >
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" formControlName="city" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" formControlName="state" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input
+              type="text"
+              formControlName="country"
+              class="lg:col-span-2"
+            />
+          </div>
+        </div>
+      </app-section-form>
+
+      <!-- God Parents Details  -->
+      <div
+        class="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4"
+        formGroupName="god_parents"
+      >
+        <!-- God Father Details  -->
+        <app-section-form [title]="'God Father Details'" formGroupName="father">
+          <!-- God Father name -->
+          <div class="form-group">
+            <label>God Father</label>
+            <input type="text" formControlName="name" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Father Baptism Name -->
+          <div class="form-group">
+            <label>Baptism Name</label>
+            <input
+              type="text"
+              formControlName="baptism_name"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- God Father Parish -->
+          <div class="form-group">
+            <label>Parish</label>
+            <input type="text" formControlName="parish" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Father Contact -->
+          <div class="form-group">
+            <label>Contact</label>
+            <input
+              type="number"
+              formControlName="contact"
+              class="lg:col-span-2"
+            />
+          </div>
+        </app-section-form>
+
+        <!-- God Mother details  -->
+        <app-section-form [title]="'God Mother Details'" formGroupName="mother">
+          <!-- God Mother name -->
+          <div class="form-group">
+            <label>God Mother</label>
+            <input type="text" formControlName="name" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Mother Baptism Name -->
+          <div class="form-group">
+            <label>Baptism Name</label>
+            <input
+              type="text"
+              formControlName="baptism_name"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- God Mother Parish -->
+          <div class="form-group">
+            <label>Parish</label>
+            <input type="text" formControlName="parish" class="lg:col-span-2" />
+          </div>
+
+          <!-- God Mother Contact -->
+          <div class="form-group">
+            <label>Contact</label>
+            <input
+              type="number"
+              formControlName="contact"
+              class="lg:col-span-2"
+            />
+          </div>
+        </app-section-form>
+      </div>
+    </div>
+  </app-section-form>
+
+  <!-- Witness details section  -->
+  <app-section-form
+    *ngIf="type === ceremonyType.MARRIAGE"
+    [title]="'Witness Details'"
+    class="col-span-3"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" formArrayName="witness">
+      <ng-container
+        *ngFor="let witness of witnessFormArray.controls; let i = index"
+      >
+        <app-section-form [title]="'Witness ' + (i + 1)">
+          <div [formGroupName]="i">
+            <!-- Witness Name -->
+            <div class="form-group">
+              <label>Name</label>
+              <input type="text" formControlName="name" class="lg:col-span-2" />
+            </div>
+            <!-- Witness Relation -->
+            <div class="form-group">
+              <label>Relation</label>
+              <input
+                type="text"
+                formControlName="relation"
+                class="lg:col-span-2"
+              />
+            </div>
+            <!-- Witness Parish -->
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                formControlName="parish"
+                class="lg:col-span-2"
+              />
+            </div>
+            <!-- Witness Contact -->
+            <div class="form-group">
+              <label>Name</label>
+              <input
+                type="number"
+                formControlName="contact"
+                class="lg:col-span-2"
+              />
+            </div>
+          </div>
+        </app-section-form>
+      </ng-container>
+    </div>
+  </app-section-form>
+
+  <!-- Ordination details section -->
+  <app-section-form
+    *ngIf="type === ceremonyType.ORDINATION"
+    [title]="'Ordination Details'"
+    class="md:col-span-3"
+  >
+    <div class="form-section-3" formGroupName="ordination_details">
+      <!-- Religious Order -->
+      <div class="form-group">
+        <label>Religious Order</label>
+        <input
+          type="text"
+          formControlName="religious_order"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- Seminary details -->
+      <ng-container formGroupName="seminary">
+        <!-- Seminary Name -->
+        <div class="form-group">
+          <label>Seminary Name</label>
+          <input type="text" formControlName="name" class="lg:col-span-2" />
+        </div>
+
+        <!-- Seminary Location -->
+        <app-section-form [title]="'Seminary Location'" class="col-span-3">
+          <div
+            class="grid grid-cols-1 md:grid-cols-3 gap-4"
+            formGroupName="location"
+          >
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" formControlName="city" class="lg:col-span-2" />
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input
+                type="text"
+                formControlName="state"
+                class="lg:col-span-2"
+              />
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input
+                type="text"
+                formControlName="country"
+                class="lg:col-span-2"
+              />
+            </div>
+          </div>
+        </app-section-form>
+      </ng-container>
+
+      <!-- Previous Ordination Details -->
+      <app-section-form
+        [title]="'Previous Ordination Details'"
+        class="col-span-3"
+      >
+        <div class="form-section-3" formGroupName="previous_ordination">
+          <!-- Previous ordination Type -->
+          <div class="form-group">
+            <label>Type</label>
+            <input type="text" formControlName="type" class="lg:col-span-2" />
+          </div>
+
+          <!-- date -->
+          <div class="form-group">
+            <label>Date</label>
+            <input type="date" formControlName="date" class="lg:col-span-2" />
+          </div>
+
+          <!-- bishop -->
+          <div class="form-group">
+            <label>Bishop</label>
+            <input type="text" formControlName="bishop" class="lg:col-span-2" />
+          </div>
+
+          <!-- Previous ordination Place -->
+          <app-section-form
+            [title]="'Previous Ordination Place'"
+            class="col-span-3"
+          >
+            <div
+              class="grid grid-cols-1 md:grid-cols-3 gap-4"
+              formGroupName="place"
+            >
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input
+                  type="text"
+                  formControlName="state"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  formControlName="country"
+                  class="lg:col-span-2"
+                />
+              </div>
+            </div>
+          </app-section-form>
+        </div>
+      </app-section-form>
+    </div>
+  </app-section-form>
+
+  <!-- Afterlife details section -->
+  <app-section-form
+    *ngIf="type === ceremonyType.REQUIEM"
+    [title]="'Afterlife Details'"
+    class="md:col-span-3"
+  >
+    <div class="form-section-3" formGroupName="afterlife_details">
+      <!-- Date of Death -->
+      <div class="form-group">
+        <label>Date of Death</label>
+        <input type="date" formControlName="dod" class="lg:col-span-2" />
+      </div>
+
+      <!-- Place of Death -->
+      <app-section-form [title]="'Place of Death'" class="col-span-3">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-4"
+          formGroupName="place_of_death"
+        >
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" formControlName="city" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" formControlName="state" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input
+              type="text"
+              formControlName="country"
+              class="lg:col-span-2"
+            />
+          </div>
+        </div>
+      </app-section-form>
+
+      <!-- Cemetry -->
+      <div class="form-group">
+        <label>Cemetry Name</label>
+        <input type="text" formControlName="cemetry" class="lg:col-span-2" />
+      </div>
+
+      <!-- Place of Death -->
+      <app-section-form [title]="'Place of Cemetry'" class="col-span-3">
+        <div
+          class="grid grid-cols-1 md:grid-cols-3 gap-4"
+          formGroupName="cemetry_place"
+        >
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" formControlName="city" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <input type="text" formControlName="state" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <input
+              type="text"
+              formControlName="country"
+              class="lg:col-span-2"
+            />
+          </div>
+        </div>
+      </app-section-form>
+    </div>
+  </app-section-form>
 
   <app-footer
     class="md:col-span-3"

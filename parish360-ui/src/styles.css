@@ -56,7 +56,7 @@
   }
 
   .form-group {
-    @apply grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 shadow-sm items-center p-2;
+    @apply grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 shadow-sm items-center p-2;
   }
 
   .btn-warning {

@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SCREENS } from '../../../services/common/common.constants';
+import {
+  SCREENS,
+  CEREMONY_TYPE,
+} from '../../../services/common/common.constants';
 import { CeremoniesService } from '../../../services/api/ceremonies.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
+  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -31,6 +35,7 @@ import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
 })
 export class CeremonyViewComponent {
   screen: string = SCREENS.CEREMONIES;
+  ceremonyType = CEREMONY_TYPE;
   isEditMode: boolean = false;
   ceremonyId!: string;
   ceremony!: Ceremony;
@@ -40,12 +45,12 @@ export class CeremonyViewComponent {
   faArrowLeft = faArrowLeft;
 
   ceremonyList = [
-    'BAPTISM',
-    'HOLY_COMMUNION',
-    'HOLY_CONFIRMATION',
-    'MARRIAGE',
-    'ORDINATION',
-    'AFTERLIFE',
+    CEREMONY_TYPE.BAPTISM,
+    CEREMONY_TYPE.HOLY_COMMUNION,
+    CEREMONY_TYPE.HOLY_CONFIRMATION,
+    CEREMONY_TYPE.MARRIAGE,
+    CEREMONY_TYPE.ORDINATION,
+    CEREMONY_TYPE.REQUIEM,
   ];
 
   constructor(
@@ -77,6 +82,7 @@ export class CeremonyViewComponent {
     const ceremonyFormBuilder = new CeremonyFormBuilder(this.fb);
     this.ceremonyForm = ceremonyFormBuilder.buildForm(this.ceremony);
     this.ceremonyForm.disable();
+    console.log(this.ceremonyForm);
   }
 
   onBackClick() {
@@ -99,7 +105,15 @@ export class CeremonyViewComponent {
     console.log('cancelled!!');
   }
 
-  nameControl(): FormControl {
+  get name(): FormControl {
     return this.ceremonyForm.get('name') as FormControl;
+  }
+
+  get type(): string {
+    return this.ceremonyForm.get('type')?.value as string;
+  }
+
+  get witnessFormArray(): FormArray {
+    return this.ceremonyForm.get('witness') as FormArray;
   }
 }
