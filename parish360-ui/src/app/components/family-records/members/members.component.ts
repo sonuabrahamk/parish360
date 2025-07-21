@@ -116,13 +116,13 @@ export class MembersComponent implements OnInit {
 
   onModeUpdated(event: {
     isEditMode: boolean;
-    isSaveTriggerred: boolean;
-    isCancelTriggerred: boolean;
+    isSaveTriggered: boolean;
+    isCancelTriggered: boolean;
   }) {
     if (this.isEditMode) {
       this.ngOnInit(); // Reload members data when exiting edit mode
     }
-    if (event.isSaveTriggerred) {
+    if (event.isSaveTriggered) {
       this.onSubmit();
     }
     this.isEditMode = event.isEditMode;

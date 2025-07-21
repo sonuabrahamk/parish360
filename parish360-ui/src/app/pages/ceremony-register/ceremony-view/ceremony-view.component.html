@@ -8,10 +8,7 @@
     >
   </div>
 </div>
-<div
-  [formGroup]="ceremonyForm"
-  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4"
->
+<div [formGroup]="ceremonyForm" class="form-section-3 p-4">
   <!-- Ceremony Type -->
   <div class="form-group">
     <label>Ceremony Type</label>
@@ -37,69 +34,99 @@
     </select>
   </div>
 
-  <!-- Parish details section -->
-   <app-section-form [title]="'Parish Details'" class="md:col-span-3">
-      <div class="grid grid-col-1 md:grid-col3 gap-4">
-
-        <!-- Book Id -->
-        <div class="form-group">
-          <label>Book ID</label>
-          <input type="text" formControlName="book_id" class="lg:col-span-2" />
-        </div>
-        
-        <!-- Parish Name -->
-        <div class="form-group">
-          <label>Parish Name</label>
-          <input type="text" formControlName="parish_name" class="lg:col-span-2" />
-        </div>
-        
-        <!-- Diocese Name -->
-        <div class="form-group">
-          <label>Diocese Name</label>
-          <input type="text" formControlName="diocese_name" class="lg:col-span-2" />
-        </div>
-
-        <!-- Place of Parish -->
-        <app-section-form [title]="'Location of Parish'" class="md:col-span-3">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="form-group">
-              <label>City</label>
-              <input
-                type="text"
-                formControlName="parish_city"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group">
-              <label>State</label>
-              <input
-                type="text"
-                formControlName="parish_state"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group">
-              <label>Country</label>
-              <input
-                type="text"
-                formControlName="parish_country"
-                class="lg:col-span-2"
-              />
-            </div>
-          </div>
-        </app-section-form>
-
+  <!-- Minister information -->
+  <app-section-form [title]="'Minister Details'" class="md:col-span-3">
+    <div class="form-section-3" formGroupName="minister">
+      <!-- Priest -->
+      <div class="form-group">
+        <label>Priest</label>
+        <input type="text" formControlName="name" class="lg:col-span-2" />
       </div>
-   </app-section-form>
+
+      <!-- Priest Title -->
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" class="lg:col-span-2" />
+      </div>
+    </div>
+  </app-section-form>
 
   <!-- Personal Details Section -->
-  <app-section-form [title]="'Personal Details'"  class="md:col-span-3">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+  <app-section-form [title]="'Personal Details'" class="md:col-span-3">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="details">
+
+      <!-- Parish details section -->
+      <app-section-form [title]="'Parish Details'" class="md:col-span-3">
+        <div class="form-section-3" formGroupName="parish">
+          <!-- Book Id -->
+          <div class="form-group">
+            <label>Book ID</label>
+            <input
+              type="text"
+              formControlName="book_id"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- Parish Name -->
+          <div class="form-group">
+            <label>Parish Name</label>
+            <input
+              type="text"
+              formControlName="name"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- Diocese Name -->
+          <div class="form-group">
+            <label>Diocese Name</label>
+            <input
+              type="text"
+              formControlName="diocese"
+              class="lg:col-span-2"
+            />
+          </div>
+
+          <!-- Place of Parish -->
+          <app-section-form
+            [title]="'Location of Parish'"
+            class="md:col-span-3"
+          >
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="place">
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input
+                  type="text"
+                  formControlName="state"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <div class="form-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  formControlName="country"
+                  class="lg:col-span-2"
+                />
+              </div>
+            </div>
+          </app-section-form>
+        </div>
+      </app-section-form>
 
       <!-- Name -->
       <div class="form-group">
         <label>Name</label>
-        <input type="text" formControlName="name" class="lg:col-span-2" />
+        <input type="text" [formControl]="nameControl()" class="lg:col-span-2" />
       </div>
 
       <!-- Baptism Name -->
@@ -133,17 +160,21 @@
       <!-- Marital Status -->
       <div class="form-group">
         <label>Marital Status</label>
-        <input type="text" formControlName="marital_status" class="lg:col-span-2" />
+        <input
+          type="text"
+          formControlName="marital_status"
+          class="lg:col-span-2"
+        />
       </div>
 
       <!-- Place of Birth -->
       <app-section-form [title]="'Place of Birth'" class="md:col-span-3">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4" formGroupName="place_of_birth">
           <div class="form-group">
             <label>City</label>
             <input
               type="text"
-              formControlName="birth_city"
+              formControlName="city"
               class="lg:col-span-2"
             />
           </div>
@@ -151,7 +182,7 @@
             <label>State</label>
             <input
               type="text"
-              formControlName="birth_state"
+              formControlName="state"
               class="lg:col-span-2"
             />
           </div>
@@ -159,14 +190,16 @@
             <label>Country</label>
             <input
               type="text"
-              formControlName="birth_country"
+              formControlName="country"
               class="lg:col-span-2"
             />
           </div>
         </div>
       </app-section-form>
+
     </div>
   </app-section-form>
+  
 
   <app-footer
     class="md:col-span-3"

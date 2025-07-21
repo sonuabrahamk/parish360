@@ -75,6 +75,7 @@ export interface GodParents {
 }
 
 export interface Parish {
+  book_id: string;
   name: string;
   place: Place;
   diocese: string;

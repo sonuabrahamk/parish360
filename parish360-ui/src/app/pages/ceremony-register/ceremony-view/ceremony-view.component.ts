@@ -3,12 +3,18 @@ import { Component } from '@angular/core';
 import { SCREENS } from '../../../services/common/common.constants';
 import { CeremoniesService } from '../../../services/api/ceremonies.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { FooterComponent } from '../../../components/family-records/footer/footer.component';
-import { SectionFormComponent } from "../../../components/common/section-form/section-form.component";
+import { SectionFormComponent } from '../../../components/common/section-form/section-form.component';
+import { CeremonyFormBuilder } from './ceremony-form.builder';
+import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
 
 @Component({
   selector: 'app-ceremony-view',
@@ -18,8 +24,8 @@ import { SectionFormComponent } from "../../../components/common/section-form/se
     ReactiveFormsModule,
     FontAwesomeModule,
     FooterComponent,
-    SectionFormComponent
-],
+    SectionFormComponent,
+  ],
   templateUrl: './ceremony-view.component.html',
   styleUrl: './ceremony-view.component.css',
 })
@@ -43,10 +49,10 @@ export class CeremonyViewComponent {
   ];
 
   constructor(
-    private ceremonyService: CeremoniesService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private ceremonyService: CeremoniesService
   ) {}
 
   ngOnInit() {
@@ -68,17 +74,9 @@ export class CeremonyViewComponent {
   }
 
   loadCeremonyForm() {
-    this.ceremonyForm = this.fb.group({
-      type: [this.ceremony?.type || ''],
-      date: [this.ceremony?.date || ''],
-      parishioner: [this.ceremony?.parishioner || false],
-      priest: [this.ceremony?.minister?.name || ''],
-      priest_title: [this.ceremony?.minister?.title || ''],
-      baptism_name: [this.ceremony?.details?.baptism_name || ''],
-    });
-    if (!this.isEditMode) {
-      this.ceremonyForm.disable();
-    }
+    const ceremonyFormBuilder = new CeremonyFormBuilder(this.fb);
+    this.ceremonyForm = ceremonyFormBuilder.buildForm(this.ceremony);
+    this.ceremonyForm.disable();
   }
 
   onBackClick() {
@@ -88,5 +86,20 @@ export class CeremonyViewComponent {
   onModeUpdated(event: any) {
     this.isEditMode = event.isEditMode;
     this.isEditMode ? this.ceremonyForm.enable() : this.ceremonyForm.disable();
+    event.isSaveTriggered ? this.onSave() : null;
+    event.isCancelTriggered ? this.onCancel() : null;
+    console.log(event);
+  }
+
+  onSave() {
+    console.log(this.ceremonyForm.value);
+  }
+
+  onCancel() {
+    console.log('cancelled!!');
+  }
+
+  nameControl(): FormControl {
+    return this.ceremonyForm.get('name') as FormControl;
   }
 }

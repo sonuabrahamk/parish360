@@ -54,8 +54,8 @@ export class FooterComponent {
     this.isEditMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isSaveTriggerred: true,
-      isCancelTriggerred: false,
+      isSaveTriggered: true,
+      isCancelTriggered: false,
     });
     this.isLoading = false;
   }
@@ -66,8 +66,8 @@ export class FooterComponent {
     this.isEditMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
-      isSaveTriggerred: false,
-      isCancelTriggerred: true,
+      isSaveTriggered: false,
+      isCancelTriggered: true,
     });
     this.isLoading = false;
   }

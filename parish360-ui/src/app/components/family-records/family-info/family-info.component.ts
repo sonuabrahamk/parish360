@@ -60,17 +60,17 @@ export class FamilyInfoComponent {
 
   onModeUpdated(event: {
     isEditMode: boolean;
-    isSaveTriggerred: boolean;
-    isCancelTriggerred: boolean;
+    isSaveTriggered: boolean;
+    isCancelTriggered: boolean;
   }) {
     this.isEditMode = event.isEditMode;
     this.isEditMode
       ? this.familyInfoForm.enable()
       : this.familyInfoForm.disable();
-    if (event.isSaveTriggerred) {
+    if (event.isSaveTriggered) {
       console.log();
     }
-    if (event.isCancelTriggerred) {
+    if (event.isCancelTriggered) {
       this.ngOnInit();
     }
   }
