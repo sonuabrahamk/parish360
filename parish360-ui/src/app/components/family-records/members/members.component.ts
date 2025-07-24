@@ -22,6 +22,7 @@ import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { MemberService } from '../../../services/api/members.service';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
+import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 
 @Component({
   selector: 'app-members',
@@ -114,11 +115,7 @@ export class MembersComponent implements OnInit {
     this.activeSideTab = 0; // Reset to the first side tab
   }
 
-  onModeUpdated(event: {
-    isEditMode: boolean;
-    isSaveTriggered: boolean;
-    isCancelTriggered: boolean;
-  }) {
+  onModeUpdated(event: FooterEvent) {
     if (this.isEditMode) {
       this.ngOnInit(); // Reload members data when exiting edit mode
     }

@@ -1,0 +1,352 @@
+[
+  {
+    "id": "PAY-001",
+    "parish_id": "PAR-001",
+    "type": "SUBSCRIPTIONS",
+    "received_by": "Alice",
+    "payee": "John Smith",
+    "payment_on": "2025-07-24",
+    "amount": 25.0,
+    "currency": "USD",
+    "remarks": "Monthly bulletin",
+    "subscriptions": [
+      {
+        "book_no": "B001",
+        "from": "2025-07-01",
+        "to": "2025-07-31",
+        "note": "Bulletin July"
+      }
+    ],
+    "donations": [],
+    "bookings": []
+  },
+  {
+    "id": "PAY-002",
+    "parish_id": "PAR-002",
+    "type": "DONATIONS",
+    "received_by": "Bob",
+    "payee": "Mary Johnson",
+    "payment_on": "2025-07-22",
+    "amount": 100.0,
+    "currency": "USD",
+    "remarks": "Annual fund",
+    "subscriptions": [],
+    "donations": [
+      {
+        "association": "Youth Ministry",
+        "note": "Support for summer camp"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "id": "PAY-003",
+    "parish_id": "PAR-001",
+    "type": "BOOKINGS",
+    "received_by": "Clara",
+    "payee": "Paul Green",
+    "payment_on": "2025-07-21",
+    "amount": 150.0,
+    "currency": "USD",
+    "remarks": "Booking fee for hall",
+    "subscriptions": [],
+    "donations": [],
+    "bookings": [
+      {
+        "booking_id": "BK-001",
+        "type": "Wedding"
+      }
+    ]
+  },
+  {
+    "id": "PAY-004",
+    "parish_id": "PAR-003",
+    "type": "MASS_COLLECTION",
+    "received_by": "Diane",
+    "payee": "Congregation",
+    "payment_on": "2025-07-20",
+    "amount": 300.0,
+    "currency": "USD",
+    "remarks": "Sunday mass collection"
+  },
+  {
+    "id": "PAY-005",
+    "parish_id": "PAR-002",
+    "type": "SUBSCRIPTIONS",
+    "received_by": "Ethan",
+    "payee": "Linda White",
+    "payment_on": "2025-07-19",
+    "amount": 20.0,
+    "currency": "USD",
+    "remarks": "Newsletter sub",
+    "subscriptions": [
+      {
+        "book_no": "B002",
+        "from": "2025-07-01",
+        "to": "2025-12-31",
+        "note": "Bi-annual"
+      }
+    ],
+    "donations": [],
+    "bookings": []
+  },
+  {
+    "id": "PAY-006",
+    "parish_id": "PAR-004",
+    "type": "DONATIONS",
+    "received_by": "Fiona",
+    "payee": "Samuel Doe",
+    "payment_on": "2025-07-18",
+    "amount": 50.0,
+    "currency": "USD",
+    "remarks": "Donation for repairs",
+    "subscriptions": [],
+    "donations": [
+      {
+        "association": "Church Renovation",
+        "note": "Roof repairs"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "id": "PAY-007",
+    "parish_id": "PAR-001",
+    "type": "BOOKINGS",
+    "received_by": "Grace",
+    "payee": "Peter Thomas",
+    "payment_on": "2025-07-17",
+    "amount": 200.0,
+    "currency": "USD",
+    "remarks": "Funeral service booking",
+    "subscriptions": [],
+    "donations": [],
+    "bookings": [
+      {
+        "booking_id": "BK-002",
+        "type": "Funeral"
+      }
+    ]
+  },
+  {
+    "id": "PAY-008",
+    "parish_id": "PAR-003",
+    "type": "MASS_COLLECTION",
+    "received_by": "Helen",
+    "payee": "Congregation",
+    "payment_on": "2025-07-16",
+    "amount": 275.0,
+    "currency": "USD",
+    "remarks": "Saturday mass"
+  },
+  {
+    "id": "PAY-009",
+    "parish_id": "PAR-005",
+    "type": "SUBSCRIPTIONS",
+    "received_by": "Ian",
+    "payee": "Clara Lee",
+    "payment_on": "2025-07-15",
+    "amount": 30.0,
+    "currency": "USD",
+    "remarks": "Devotional magazine",
+    "subscriptions": [
+      {
+        "book_no": "B003",
+        "from": "2025-08-01",
+        "to": "2026-01-31",
+        "note": "6-month sub"
+      }
+    ],
+    "donations": [],
+    "bookings": []
+  },
+  {
+    "id": "PAY-010",
+    "parish_id": "PAR-006",
+    "type": "DONATIONS",
+    "received_by": "Jack",
+    "payee": "George Wells",
+    "payment_on": "2025-07-14",
+    "amount": 120.0,
+    "currency": "USD",
+    "remarks": "Special offering",
+    "subscriptions": [],
+    "donations": [
+      {
+        "association": "Mission Fund",
+        "note": "Foreign missions"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "id": "PAY-011",
+    "parish_id": "PAR-002",
+    "type": "BOOKINGS",
+    "received_by": "Kara",
+    "payee": "Eva Martin",
+    "payment_on": "2025-07-13",
+    "amount": 180.0,
+    "currency": "USD",
+    "remarks": "Anniversary booking",
+    "subscriptions": [],
+    "donations": [],
+    "bookings": [
+      {
+        "booking_id": "BK-003",
+        "type": "Anniversary"
+      }
+    ]
+  },
+  {
+    "id": "PAY-012",
+    "parish_id": "PAR-003",
+    "type": "MASS_COLLECTION",
+    "received_by": "Leo",
+    "payee": "Congregation",
+    "payment_on": "2025-07-12",
+    "amount": 260.0,
+    "currency": "USD",
+    "remarks": "Feast day mass"
+  },
+  {
+    "id": "PAY-013",
+    "parish_id": "PAR-004",
+    "type": "SUBSCRIPTIONS",
+    "received_by": "Mila",
+    "payee": "Tom Banner",
+    "payment_on": "2025-07-11",
+    "amount": 15.0,
+    "currency": "USD",
+    "remarks": "Catechism series",
+    "subscriptions": [
+      {
+        "book_no": "B004",
+        "from": "2025-07-10",
+        "to": "2025-08-10",
+        "note": "One month"
+      }
+    ],
+    "donations": [],
+    "bookings": []
+  },
+  {
+    "id": "PAY-014",
+    "parish_id": "PAR-005",
+    "type": "DONATIONS",
+    "received_by": "Nina",
+    "payee": "Rachel King",
+    "payment_on": "2025-07-10",
+    "amount": 60.0,
+    "currency": "USD",
+    "remarks": "Choir fund",
+    "subscriptions": [],
+    "donations": [
+      {
+        "association": "Music Ministry",
+        "note": "Choir robes"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "id": "PAY-015",
+    "parish_id": "PAR-001",
+    "type": "BOOKINGS",
+    "received_by": "Oscar",
+    "payee": "Chris Adams",
+    "payment_on": "2025-07-09",
+    "amount": 90.0,
+    "currency": "USD",
+    "remarks": "Meeting room",
+    "subscriptions": [],
+    "donations": [],
+    "bookings": [
+      {
+        "booking_id": "BK-004",
+        "type": "Meeting"
+      }
+    ]
+  },
+  {
+    "id": "PAY-016",
+    "parish_id": "PAR-002",
+    "type": "MASS_COLLECTION",
+    "received_by": "Peter",
+    "payee": "Congregation",
+    "payment_on": "2025-07-08",
+    "amount": 240.0,
+    "currency": "USD",
+    "remarks": "Regular mass"
+  },
+  {
+    "id": "PAY-017",
+    "parish_id": "PAR-003",
+    "type": "SUBSCRIPTIONS",
+    "received_by": "Quinn",
+    "payee": "Angela Hart",
+    "payment_on": "2025-07-07",
+    "amount": 12.0,
+    "currency": "USD",
+    "remarks": "Weekly updates",
+    "subscriptions": [
+      {
+        "book_no": "B005",
+        "from": "2025-07-01",
+        "to": "2025-09-30",
+        "note": "Quarterly plan"
+      }
+    ],
+    "donations": [],
+    "bookings": []
+  },
+  {
+    "id": "PAY-018",
+    "parish_id": "PAR-004",
+    "type": "DONATIONS",
+    "received_by": "Rose",
+    "payee": "Ben White",
+    "payment_on": "2025-07-06",
+    "amount": 80.0,
+    "currency": "USD",
+    "remarks": "General donation",
+    "subscriptions": [],
+    "donations": [
+      {
+        "association": "General Fund",
+        "note": "Blessings"
+      }
+    ],
+    "bookings": []
+  },
+  {
+    "id": "PAY-019",
+    "parish_id": "PAR-005",
+    "type": "BOOKINGS",
+    "received_by": "Steve",
+    "payee": "Naomi Wood",
+    "payment_on": "2025-07-05",
+    "amount": 210.0,
+    "currency": "USD",
+    "remarks": "Birthday celebration",
+    "subscriptions": [],
+    "donations": [],
+    "bookings": [
+      {
+        "booking_id": "BK-005",
+        "type": "Birthday"
+      }
+    ]
+  },
+  {
+    "id": "PAY-020",
+    "parish_id": "PAR-001",
+    "type": "MASS_COLLECTION",
+    "received_by": "Tom",
+    "payee": "Congregation",
+    "payment_on": "2025-07-04",
+    "amount": 310.0,
+    "currency": "USD",
+    "remarks": "Independence day mass"
+  }
+]

@@ -14,6 +14,7 @@ import { PaymentsListComponent } from './pages/payments-register/payments-list/p
 import { ExpensesListComponent } from './pages/expense-register/expenses-list/expenses-list.component';
 import { UsersListComponent } from './pages/users-management/users-list/users-list.component';
 import { CeremonyViewComponent } from './pages/ceremony-register/ceremony-view/ceremony-view.component';
+import { PaymentsViewComponent } from './pages/payments-register/payments-view/payments-view.component';
 
 export const routes: Routes = [
   {
@@ -71,6 +72,16 @@ export const routes: Routes = [
   {
     path: 'payments',
     component: PaymentsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'payments/view/:paymentId',
+    component: PaymentsViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'payments/create',
+    component: PaymentsViewComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -7,6 +7,7 @@ import { LoaderService } from '../../../services/common/loader.service';
 import { LoaderComponent } from '../../common/loader/loader.component';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { SCREENS } from '../../../services/common/common.constants';
+import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 
 @Component({
   selector: 'app-family-info',
@@ -15,7 +16,7 @@ import { SCREENS } from '../../../services/common/common.constants';
     CommonModule,
     LoaderComponent,
     FooterComponent,
-    CanEditDirective
+    CanEditDirective,
   ],
   templateUrl: './family-info.component.html',
   styleUrl: './family-info.component.css',
@@ -58,11 +59,7 @@ export class FamilyInfoComponent {
     this.loader.hide();
   }
 
-  onModeUpdated(event: {
-    isEditMode: boolean;
-    isSaveTriggered: boolean;
-    isCancelTriggered: boolean;
-  }) {
+  onModeUpdated(event: FooterEvent) {
     this.isEditMode = event.isEditMode;
     this.isEditMode
       ? this.familyInfoForm.enable()

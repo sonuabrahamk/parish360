@@ -1,0 +1,21 @@
+{
+  "id": "PAY-001",
+  "parish_id": "PAR-001",
+  "type": "SUBSCRIPTIONS",
+  "received_by": "Alice",
+  "payee": "John Smith",
+  "payment_on": "2025-07-24",
+  "amount": 25.0,
+  "currency": "USD",
+  "remarks": "Monthly bulletin",
+  "subscriptions": [
+    {
+      "book_no": "B001",
+      "from": "2025-07-01",
+      "to": "2025-07-31",
+      "note": "Bulletin July"
+    }
+  ],
+  "donations": [],
+  "bookings": []
+}

@@ -24,7 +24,6 @@ export const EXTENSION = '.json'; // To be removed when API's are replaced
 // Family records API paths
 export const SUBSCRIPTIONS = '/subscriptions';
 export const BLESSINGS = '/blessings';
-export const PAYMENTS = '/payments';
 export const MISCELLANOUS = '/miscellaneous';
 
 // Bookings API paths
@@ -32,4 +31,9 @@ export const BOOKINGS = '/bookings';
 
 // Ceremonies API paths
 export const CEREMONIES = '/ceremonys';
-export const CEREMONY_BY_ID = (ceremonyId: string) => `/ceremonies/${ceremonyId}`;
+export const CEREMONY_BY_ID = (ceremonyId: string) =>
+  `/ceremonies/${ceremonyId}`;
+
+// Payments API paths
+export const PAYMENTS = '/payments';
+export const PAYMENT_BY_ID = (paymentId: string) => `/payments/${paymentId}`;

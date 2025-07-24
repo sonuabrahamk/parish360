@@ -8,6 +8,7 @@ import {
   faPencil,
   faFloppyDisk,
 } from '@fortawesome/free-solid-svg-icons';
+import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 
 @Component({
   selector: 'app-footer',
@@ -17,9 +18,9 @@ import {
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-  @Output() modeUpdated = new EventEmitter<any>();
+  @Output() modeUpdated = new EventEmitter<FooterEvent>();
+  @Input() isEditMode: boolean = false;
 
-  isEditMode: boolean = false;
   icons = {
     faPlus,
     faTimes,
@@ -35,6 +36,8 @@ export class FooterComponent {
     this.isEditMode = false;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
+      isCancelTriggered: false,
+      isSaveTriggered: false,
     });
     this.isLoading = false;
   }
@@ -45,6 +48,8 @@ export class FooterComponent {
     this.isEditMode = true;
     this.modeUpdated.emit({
       isEditMode: this.isEditMode,
+      isCancelTriggered: false,
+      isSaveTriggered: false,
     });
     this.isLoading = false;
   }
