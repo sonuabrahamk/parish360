@@ -1,1 +1,20 @@
-<p>associations-list works!</p>
+<div class="header">
+  <h1>Associations List</h1>
+  <div class="header-right-section">
+    <!-- Right section content to be added here  -->
+  </div>
+</div>
+<div class="p-2 ag-theme-alpine w-full overflow-x-auto">
+  <ag-grid-angular
+    class="ag-theme-alpine w-full"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+    [rowSelection]="rowSelection"
+  />
+</div>

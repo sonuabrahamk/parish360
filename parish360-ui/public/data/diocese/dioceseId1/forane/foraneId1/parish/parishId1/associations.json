@@ -1,0 +1,67 @@
+[
+  {
+    "id": "PA-001",
+    "parish_id": "PAR-001",
+    "name": "Parish Council",
+    "description": "A lay apostolic association devoted to prayer, service, and evangelization.",
+    "president": "Maria Fernandez",
+    "vice_president": "Joseph D'Souza",
+    "secretary": "Anita Joseph",
+    "treasurer": "Thomas Mathew",
+    "members_count": 32,
+    "founded_on": "1995-06-15",
+    "status": "Active"
+  },
+  {
+    "id": "PA-002",
+    "parish_id": "PAR-001",
+    "name": "Pithruvedhi",
+    "description": "Parish association of Fathers.",
+    "president": "Paul Noronha",
+    "vice_president": "Linda D'Costa",
+    "secretary": "Kevin Pereira",
+    "treasurer": "Sandra Joseph",
+    "members_count": 18,
+    "founded_on": "2001-09-22",
+    "status": "Active"
+  },
+  {
+    "id": "PA-003",
+    "parish_id": "PAR-001",
+    "name": "Youth",
+    "description": "Parish youth group.",
+    "president": "Rachel Dias",
+    "vice_president": "David Fernandes",
+    "secretary": "Samuel Pinto",
+    "treasurer": "Rebecca D’Souza",
+    "members_count": 45,
+    "founded_on": "2010-01-10",
+    "status": "Active"
+  },
+  {
+    "id": "PA-004",
+    "parish_id": "PAR-001",
+    "name": "Holy Family Unit",
+    "description": "Parish Unit",
+    "president": "Father Thomas",
+    "vice_president": "Senior Server",
+    "secretary": "N/A",
+    "treasurer": "N/A",
+    "members_count": 20,
+    "founded_on": "2005-03-28",
+    "status": "Active"
+  },
+  {
+    "id": "PA-005",
+    "parish_id": "PAR-001",
+    "name": "Choir Group",
+    "description": "Parish Choir Group",
+    "president": "John Lobo",
+    "vice_president": "Priya D’Souza",
+    "secretary": "Melvin Fernandes",
+    "treasurer": "Nina D’Costa",
+    "members_count": 25,
+    "founded_on": "1998-11-05",
+    "status": "Active"
+  }
+]

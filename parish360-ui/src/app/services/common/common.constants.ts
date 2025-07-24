@@ -4,6 +4,7 @@ export const SCREENS = {
   BOOKINGS: 'bookings',
   CEREMONIES: 'ceremonies',
   EXPENSES: 'expenses',
+  ASSOCIATIONS: 'associations',
 };
 
 export const DIOCESE = 'diocese';
