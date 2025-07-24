@@ -3,6 +3,7 @@ export const SCREENS = {
   PAYMENTS: 'payments',
   BOOKINGS: 'bookings',
   CEREMONIES: 'ceremonies',
+  EXPENSES: 'expenses',
 };
 
 export const DIOCESE = 'diocese';

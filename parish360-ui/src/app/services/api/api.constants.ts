@@ -37,3 +37,6 @@ export const CEREMONY_BY_ID = (ceremonyId: string) =>
 // Payments API paths
 export const PAYMENTS = '/payments';
 export const PAYMENT_BY_ID = (paymentId: string) => `/payments/${paymentId}`;
+
+// Expenses API paths
+export const EXPENSES = "/expenses";

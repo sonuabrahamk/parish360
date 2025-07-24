@@ -1,0 +1,202 @@
+[
+  {
+    "id": "EXP-001",
+    "date": "2025-07-01",
+    "category": "SALARIES",
+    "amount": 2800,
+    "currency": "USD",
+    "paid_to": "Church Staff",
+    "payment_method": "Bank Transfer",
+    "remarks": "Monthly salary payment"
+  },
+  {
+    "id": "EXP-002",
+    "date": "2025-07-02",
+    "category": "UTILITIES",
+    "amount": 190.5,
+    "currency": "USD",
+    "paid_to": "Electric Company",
+    "payment_method": "Online",
+    "remarks": "Electricity bill"
+  },
+  {
+    "id": "EXP-003",
+    "date": "2025-07-03",
+    "category": "MAINTENANCE",
+    "amount": 350,
+    "currency": "USD",
+    "paid_to": "John's Plumbing",
+    "payment_method": "Cash",
+    "remarks": "Pipe leak repair"
+  },
+  {
+    "id": "EXP-004",
+    "date": "2025-07-04",
+    "category": "CHARITY",
+    "amount": 500,
+    "currency": "USD",
+    "paid_to": "Community Kitchen",
+    "payment_method": "Cheque",
+    "remarks": "Donation for food program"
+  },
+  {
+    "id": "EXP-005",
+    "date": "2025-07-05",
+    "category": "EVENTS",
+    "amount": 1200,
+    "currency": "USD",
+    "paid_to": "Event Decorators Inc.",
+    "payment_method": "Bank Transfer",
+    "remarks": "Feast day decorations"
+  },
+  {
+    "id": "EXP-006",
+    "date": "2025-07-06",
+    "category": "SUPPLIES",
+    "amount": 250,
+    "currency": "USD",
+    "paid_to": "Office Supplies Co.",
+    "payment_method": "Online",
+    "remarks": "Stationery and cleaning items"
+  },
+  {
+    "id": "EXP-007",
+    "date": "2025-07-07",
+    "category": "TRANSPORT",
+    "amount": 80,
+    "currency": "USD",
+    "paid_to": "City Taxi",
+    "payment_method": "Cash",
+    "remarks": "Travel for charity delivery"
+  },
+  {
+    "id": "EXP-008",
+    "date": "2025-07-08",
+    "category": "SALARIES",
+    "amount": 1000,
+    "currency": "USD",
+    "paid_to": "Music Director",
+    "payment_method": "Bank Transfer",
+    "remarks": "Monthly stipend"
+  },
+  {
+    "id": "EXP-009",
+    "date": "2025-07-09",
+    "category": "MAINTENANCE",
+    "amount": 600,
+    "currency": "USD",
+    "paid_to": "Green Gardens",
+    "payment_method": "Cheque",
+    "remarks": "Landscaping service"
+  },
+  {
+    "id": "EXP-010",
+    "date": "2025-07-10",
+    "category": "UTILITIES",
+    "amount": 145,
+    "currency": "USD",
+    "paid_to": "Water Department",
+    "payment_method": "Online",
+    "remarks": "Water bill"
+  },
+  {
+    "id": "EXP-011",
+    "date": "2025-07-11",
+    "category": "CHARITY",
+    "amount": 350,
+    "currency": "USD",
+    "paid_to": "Shelter House",
+    "payment_method": "Cheque",
+    "remarks": "Support for homeless program"
+  },
+  {
+    "id": "EXP-012",
+    "date": "2025-07-12",
+    "category": "EVENTS",
+    "amount": 900,
+    "currency": "USD",
+    "paid_to": "Choir Services",
+    "payment_method": "Bank Transfer",
+    "remarks": "Music for Sunday service"
+  },
+  {
+    "id": "EXP-013",
+    "date": "2025-07-13",
+    "category": "SUPPLIES",
+    "amount": 75,
+    "currency": "USD",
+    "paid_to": "Printing Co.",
+    "payment_method": "Cash",
+    "remarks": "Bulletins printing"
+  },
+  {
+    "id": "EXP-014",
+    "date": "2025-07-14",
+    "category": "TRANSPORT",
+    "amount": 150,
+    "currency": "USD",
+    "paid_to": "Church Van Fuel",
+    "payment_method": "Online",
+    "remarks": "Fuel expense"
+  },
+  {
+    "id": "EXP-015",
+    "date": "2025-07-15",
+    "category": "SALARIES",
+    "amount": 1800,
+    "currency": "USD",
+    "paid_to": "Office Admins",
+    "payment_method": "Bank Transfer",
+    "remarks": "Half-month advance"
+  },
+  {
+    "id": "EXP-016",
+    "date": "2025-07-16",
+    "category": "UTILITIES",
+    "amount": 95,
+    "currency": "USD",
+    "paid_to": "Internet Provider",
+    "payment_method": "Online",
+    "remarks": "Monthly internet bill"
+  },
+  {
+    "id": "EXP-017",
+    "date": "2025-07-17",
+    "category": "MAINTENANCE",
+    "amount": 450,
+    "currency": "USD",
+    "paid_to": "Window Fix Services",
+    "payment_method": "Cheque",
+    "remarks": "Window replacement"
+  },
+  {
+    "id": "EXP-018",
+    "date": "2025-07-18",
+    "category": "SUPPLIES",
+    "amount": 120,
+    "currency": "USD",
+    "paid_to": "Candle Supplier",
+    "payment_method": "Cash",
+    "remarks": "Altar candles"
+  },
+  {
+    "id": "EXP-019",
+    "date": "2025-07-19",
+    "category": "EVENTS",
+    "amount": 1600,
+    "currency": "USD",
+    "paid_to": "Event Catering",
+    "payment_method": "Bank Transfer",
+    "remarks": "Feast day catering"
+  },
+  {
+    "id": "EXP-020",
+    "date": "2025-07-20",
+    "category": "CHARITY",
+    "amount": 200,
+    "currency": "USD",
+    "paid_to": "School Donation",
+    "payment_method": "Cheque",
+    "remarks": "Support for needy students"
+  }
+]

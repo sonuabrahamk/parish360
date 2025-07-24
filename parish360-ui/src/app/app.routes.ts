@@ -15,6 +15,7 @@ import { ExpensesListComponent } from './pages/expense-register/expenses-list/ex
 import { UsersListComponent } from './pages/users-management/users-list/users-list.component';
 import { CeremonyViewComponent } from './pages/ceremony-register/ceremony-view/ceremony-view.component';
 import { PaymentsViewComponent } from './pages/payments-register/payments-view/payments-view.component';
+import { ExpenseViewComponent } from './pages/expense-register/expense-view/expense-view.component';
 
 export const routes: Routes = [
   {
@@ -87,6 +88,16 @@ export const routes: Routes = [
   {
     path: 'expenses',
     component: ExpensesListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'expenses/create',
+    component: ExpenseViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'expenses/view/:expenseId',
+    component: ExpenseViewComponent,
     canActivate: [AuthGuard],
   },
   {
