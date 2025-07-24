@@ -1,0 +1,10 @@
+{
+  "id": "EXP-005",
+  "date": "2025-07-05",
+  "category": "EVENTS",
+  "amount": 1200,
+  "currency": "USD",
+  "paid_to": "Event Decorators Inc.",
+  "payment_method": "Bank Transfer",
+  "remarks": "Feast day decorations"
+}

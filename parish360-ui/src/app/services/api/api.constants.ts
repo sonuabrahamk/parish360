@@ -39,4 +39,5 @@ export const PAYMENTS = '/payments';
 export const PAYMENT_BY_ID = (paymentId: string) => `/payments/${paymentId}`;
 
 // Expenses API paths
-export const EXPENSES = "/expenses";
+export const EXPENSES = '/expenses';
+export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;

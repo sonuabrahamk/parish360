@@ -1,0 +1,10 @@
+{
+  "id": "EXP-004",
+  "date": "2025-07-04",
+  "category": "CHARITY",
+  "amount": 500,
+  "currency": "USD",
+  "paid_to": "Community Kitchen",
+  "payment_method": "Cheque",
+  "remarks": "Donation for food program"
+}

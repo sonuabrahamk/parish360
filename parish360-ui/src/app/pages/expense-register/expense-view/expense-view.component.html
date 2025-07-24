@@ -1,1 +1,56 @@
-<p>expense-view works!</p>
+<div class="header">
+  <h1>Expense Details</h1>
+  <div class="header-right-section">
+    <span
+      class="text-primary-color cursor-pointer font-bold hover:text-secondary-color hover:underline"
+      (click)="onBackClick()"
+      ><fa-icon [icon]="faArrowLeft"></fa-icon>Payments List</span
+    >
+  </div>
+</div>
+
+<div [formGroup]="expenseForm" class="form-section-3 p-4">
+  <!-- Id -->
+  <div class="form-group">
+    <label>Expense Id</label>
+    <input type="text" formControlName="id" class="col-span-2" />
+  </div>
+
+  <!-- Expense Category -->
+  <div class="form-group">
+    <label>Expense Category</label>
+    <input type="text" formControlName="category" class="col-span-2" />
+  </div>
+
+  <!-- Expense Date -->
+  <div class="form-group">
+    <label>Expense Date</label>
+    <input type="date" formControlName="date" class="col-span-2" />
+  </div>
+
+  <!-- Paid To -->
+  <div class="form-group">
+    <label>Paid To</label>
+    <input type="text" formControlName="paid_to" class="col-span-2" />
+  </div>
+
+  <!-- Amount -->
+  <div class="form-group">
+    <label>Amount</label>
+    <input type="number" formControlName="amount" class="col-span-2" />
+  </div>
+
+  <!-- Payment Method -->
+  <div class="form-group">
+    <label>Payment Method</label>
+    <input type="text" formControlName="payment_method" class="col-span-2" />
+  </div>
+
+  <!-- Remarks -->
+  <div class="form-group col-span-3 grid grid-cols-1 md:grid-cols-10">
+    <label>Remarks</label>
+    <input type="text" formControlName="remarks" class="col-span-9" />
+  </div>
+</div>
+
+<app-footer (modeUpdated)="onModeUpdate($event)"></app-footer>

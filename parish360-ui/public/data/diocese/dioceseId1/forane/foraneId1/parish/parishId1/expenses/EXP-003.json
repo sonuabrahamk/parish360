@@ -1,0 +1,10 @@
+{
+  "id": "EXP-003",
+  "date": "2025-07-03",
+  "category": "MAINTENANCE",
+  "amount": 350,
+  "currency": "USD",
+  "paid_to": "John's Plumbing",
+  "payment_method": "Cash",
+  "remarks": "Pipe leak repair"
+}

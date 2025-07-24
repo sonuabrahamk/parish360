@@ -1,0 +1,10 @@
+{
+  "id": "EXP-002",
+  "date": "2025-07-02",
+  "category": "UTILITIES",
+  "amount": 190.5,
+  "currency": "USD",
+  "paid_to": "Electric Company",
+  "payment_method": "Online",
+  "remarks": "Electricity bill"
+}

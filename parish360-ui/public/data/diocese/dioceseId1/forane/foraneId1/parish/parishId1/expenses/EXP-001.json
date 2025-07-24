@@ -1,0 +1,10 @@
+{
+  "id": "EXP-001",
+  "date": "2025-07-01",
+  "category": "SALARIES",
+  "amount": 2800,
+  "currency": "USD",
+  "paid_to": "Church Staff",
+  "payment_method": "Bank Transfer",
+  "remarks": "Monthly salary payment"
+}
