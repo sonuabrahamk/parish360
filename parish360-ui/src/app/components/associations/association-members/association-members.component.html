@@ -1,0 +1,14 @@
+<div class="p-2 ag-theme-alpine">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="members"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+    [rowSelection]="rowSelection"
+  />
+</div>

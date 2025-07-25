@@ -1,0 +1,61 @@
+<div class="header">
+  <h1>{{ association ? association.name : 'Title' }}</h1>
+  <div class="header-right-section">
+    <!-- Right side section to be added -->
+  </div>
+</div>
+
+<div class="p-4">
+  <!-- Parish Year selection -->
+  <div class="grid grid-cols-1 md:grid-cols-3 mb-8">
+    <div class="form-group">
+      <label>Parish Year</label>
+      <input class="col-span-2" list="parishYearList" id="parishYear" name="parishYear" [(ngModel)]="parishYear" (change)="onParishYearUpdate()" />
+      <datalist id="parishYearList">
+        <option *ngFor="let parishYear of parishYearList;let i=index" [value]="parishYear" ></option>
+      </datalist>
+    </div>
+  </div>
+
+  <app-tabs [tabs]="associationTabs"></app-tabs>
+  <ng-template #associationInfo >
+
+    <!-- Association Infor Section  -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4" [formGroup]="associationForm">
+
+      <!-- Association Name -->
+      <div class="form-group">
+        <label>Association</label>
+        <input type="text" class="col-span-2" formControlName="name" />
+      </div>
+
+      <!-- Association Founded Date -->
+      <div class="form-group">
+        <label>Foudned On</label>
+        <input type="date" class="col-span-2" formControlName="founded_on" />
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label>Status</label>
+        <input type="text" class="col-span-2" formControlName="status" />
+      </div>
+
+      <!-- Description -->
+      <div class="form-group col-span-3 md:grid-cols-10">
+        <label>Description</label>
+        <input type="text" class="col-span-9" formControlName="description" />
+      </div>
+    </div>
+
+    <app-footer class="pt-8" (modeUpdated)="onModeUpdate($event)"></app-footer>
+
+  </ng-template>
+  <ng-template #associationCommitteeInfo>
+    <app-association-committee [parishYear]="parishYear??''" [associationId]="associationId"></app-association-committee>
+  </ng-template>
+  <ng-template #associationMembersInfo>
+    <app-association-members [parishYear]="parishYear??''" [associationId]="associationId"></app-association-members>
+  </ng-template>
+  
+</div>

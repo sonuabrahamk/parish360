@@ -44,3 +44,6 @@ export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;
 
 //Associations API paths
 export const ASSOCIATIONS = '/associations';
+export const ASSOCIATION_BY_YEAR = (associationId: string, parishYear: string) => `/associations/${parishYear}/${associationId}`;
+export const COMMITTEE = '/committee';
+export const MEMBERS = '/members';

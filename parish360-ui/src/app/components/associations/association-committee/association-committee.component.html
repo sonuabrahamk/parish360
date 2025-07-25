@@ -1,0 +1,9 @@
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4" *ngIf="committeeMembers" [formGroup]="committeeForm">
+    <div class="form-group" *ngFor="let member of committeeMembers; let i=index">
+        <label>{{member.role}}</label>
+        <input type="text" formControlName="{{member.role}}" class="col-span-2" />
+    </div>
+</div>
+<div class="" *ngIf="!committeeMembers">
+    No Data to Show! Please reload!
+</div>
