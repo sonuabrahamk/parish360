@@ -1,3 +1,13 @@
+export interface User {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  contact: string;
+  status: string;
+  roles: string[];
+}
+
 export interface Permissions {
   data: {
     [key: string]: string[];

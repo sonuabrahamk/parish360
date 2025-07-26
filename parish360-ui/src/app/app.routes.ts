@@ -17,6 +17,7 @@ import { CeremonyViewComponent } from './pages/ceremony-register/ceremony-view/c
 import { PaymentsViewComponent } from './pages/payments-register/payments-view/payments-view.component';
 import { ExpenseViewComponent } from './pages/expense-register/expense-view/expense-view.component';
 import { AssociationViewComponent } from './pages/pious-associations/association-view/association-view.component';
+import { UserViewComponent } from './pages/users-management/user-view/user-view.component';
 
 export const routes: Routes = [
   {
@@ -109,6 +110,16 @@ export const routes: Routes = [
   {
     path: 'users',
     component: UsersListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users/create',
+    component: UserViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'users/view/:userId',
+    component: UserViewComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '/dashboard' },

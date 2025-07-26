@@ -1,0 +1,182 @@
+[
+  {
+    "id": "U001",
+    "first_name": "Alice",
+    "last_name": "Johnson",
+    "email": "alice.johnson@example.com",
+    "contact": "9876543210",
+    "status": "Active",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U002",
+    "first_name": "Bob",
+    "last_name": "Smith",
+    "email": "bob.smith@example.com",
+    "contact": "9876543211",
+    "status": "Active",
+    "roles": ["Member", "Editor"]
+  },
+  {
+    "id": "U003",
+    "first_name": "Charlie",
+    "last_name": "Brown",
+    "email": "charlie.brown@example.com",
+    "contact": "9876543212",
+    "status": "Inactive",
+    "roles": ["Viewer"]
+  },
+  {
+    "id": "U004",
+    "first_name": "Diana",
+    "last_name": "Miller",
+    "email": "diana.miller@example.com",
+    "contact": "9876543213",
+    "status": "Active",
+    "roles": ["Admin"]
+  },
+  {
+    "id": "U005",
+    "first_name": "Ethan",
+    "last_name": "Clark",
+    "email": "ethan.clark@example.com",
+    "contact": "9876543214",
+    "status": "Pending",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U006",
+    "first_name": "Fiona",
+    "last_name": "Walker",
+    "email": "fiona.walker@example.com",
+    "contact": "9876543215",
+    "status": "Active",
+    "roles": ["Editor"]
+  },
+  {
+    "id": "U007",
+    "first_name": "George",
+    "last_name": "Hall",
+    "email": "george.hall@example.com",
+    "contact": "9876543216",
+    "status": "Inactive",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U008",
+    "first_name": "Hannah",
+    "last_name": "Allen",
+    "email": "hannah.allen@example.com",
+    "contact": "9876543217",
+    "status": "Active",
+    "roles": ["Viewer", "Member"]
+  },
+  {
+    "id": "U009",
+    "first_name": "Ian",
+    "last_name": "Young",
+    "email": "ian.young@example.com",
+    "contact": "9876543218",
+    "status": "Active",
+    "roles": ["Admin"]
+  },
+  {
+    "id": "U010",
+    "first_name": "Jasmine",
+    "last_name": "King",
+    "email": "jasmine.king@example.com",
+    "contact": "9876543219",
+    "status": "Pending",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U011",
+    "first_name": "Kevin",
+    "last_name": "Green",
+    "email": "kevin.green@example.com",
+    "contact": "9876543220",
+    "status": "Active",
+    "roles": ["Editor"]
+  },
+  {
+    "id": "U012",
+    "first_name": "Laura",
+    "last_name": "Adams",
+    "email": "laura.adams@example.com",
+    "contact": "9876543221",
+    "status": "Inactive",
+    "roles": ["Viewer"]
+  },
+  {
+    "id": "U013",
+    "first_name": "Michael",
+    "last_name": "Nelson",
+    "email": "michael.nelson@example.com",
+    "contact": "9876543222",
+    "status": "Active",
+    "roles": ["Admin", "Editor"]
+  },
+  {
+    "id": "U014",
+    "first_name": "Nina",
+    "last_name": "Carter",
+    "email": "nina.carter@example.com",
+    "contact": "9876543223",
+    "status": "Active",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U015",
+    "first_name": "Oscar",
+    "last_name": "Roberts",
+    "email": "oscar.roberts@example.com",
+    "contact": "9876543224",
+    "status": "Pending",
+    "roles": ["Viewer"]
+  },
+  {
+    "id": "U016",
+    "first_name": "Paula",
+    "last_name": "Baker",
+    "email": "paula.baker@example.com",
+    "contact": "9876543225",
+    "status": "Active",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U017",
+    "first_name": "Quentin",
+    "last_name": "Turner",
+    "email": "quentin.turner@example.com",
+    "contact": "9876543226",
+    "status": "Inactive",
+    "roles": ["Editor"]
+  },
+  {
+    "id": "U018",
+    "first_name": "Rachel",
+    "last_name": "Phillips",
+    "email": "rachel.phillips@example.com",
+    "contact": "9876543227",
+    "status": "Active",
+    "roles": ["Member"]
+  },
+  {
+    "id": "U019",
+    "first_name": "Samuel",
+    "last_name": "Campbell",
+    "email": "samuel.campbell@example.com",
+    "contact": "9876543228",
+    "status": "Active",
+    "roles": ["Admin"]
+  },
+  {
+    "id": "U020",
+    "first_name": "Tina",
+    "last_name": "Mitchell",
+    "email": "tina.mitchell@example.com",
+    "contact": "9876543229",
+    "status": "Active",
+    "roles": ["Member"]
+  }
+]

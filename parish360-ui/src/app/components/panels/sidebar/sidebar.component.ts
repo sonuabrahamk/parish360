@@ -6,6 +6,7 @@ import {
   faBook,
   faCalendarCheck,
   faFileInvoiceDollar,
+  faGear,
   faLayerGroup,
   faMoneyBillWave,
   faPeopleGroup,
@@ -22,7 +23,7 @@ import {
 })
 export class SidebarComponent {
   navItems = [
-    { label: 'Parish Dashboard', icon: faLayerGroup, route: 'dashboard' },
+    { label: 'Dashboard', icon: faLayerGroup, route: 'dashboard' },
     { label: 'Family Records', icon: faPeopleRoof, route: 'family-records' },
     { label: 'Bookings', icon: faCalendarCheck, route: 'bookings' },
     { label: 'Ceremony Register', icon: faBook, route: 'ceremonies' },
@@ -30,5 +31,6 @@ export class SidebarComponent {
     { label: 'Payment Register', icon: faFileInvoiceDollar, route: 'payments' },
     { label: 'Expense Register', icon: faMoneyBillWave, route: 'expenses' },
     { label: 'Users', icon: faUsersCog, route: 'users' },
+    { label: 'Settings', icon: faGear, route: 'settings' },
   ];
 }
