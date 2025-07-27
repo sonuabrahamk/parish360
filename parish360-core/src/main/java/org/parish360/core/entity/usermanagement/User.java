@@ -4,17 +4,17 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Data
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private String UUID;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(unique = true, nullable = false)

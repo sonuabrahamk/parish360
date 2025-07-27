@@ -10,3 +10,10 @@ spring:
       ddl-auto: update
     show-sql: true
     open-in-view: false #default is set to true and warning occurs
+logging:
+  level:
+    org:
+      springframework:
+        security:
+          web:
+            FilterChainProxy: TRACE

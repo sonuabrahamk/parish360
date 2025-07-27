@@ -6,11 +6,12 @@ import io.jsonwebtoken.security.Keys;
 import org.parish360.core.entity.usermanagement.User;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
-    private final String SECRET_KEY = "your-256-bit-secret";
+    private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     public String generateToken(User user) {
         return Jwts.builder()
@@ -18,13 +19,13 @@ public class JwtUtil {
                 .claim("role", "Permissions to be added in the claim")
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
-                .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()), SignatureAlgorithm.HS256)
+                .signWith(SECRET_KEY)
                 .compact();
     }
 
     public String extractSubject(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY.getBytes())
+                .setSigningKey(SECRET_KEY)
                 .build()
                 .parseClaimsJws(token)
                 .getBody()
