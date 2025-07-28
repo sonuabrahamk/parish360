@@ -1,4 +1,4 @@
-package org.parish360.core.dto.usermanagement;
+package org.parish360.core.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

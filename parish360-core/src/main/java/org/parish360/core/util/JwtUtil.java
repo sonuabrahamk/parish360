@@ -1,4 +1,4 @@
-package org.parish360.core.authentication;
+package org.parish360.core.util;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

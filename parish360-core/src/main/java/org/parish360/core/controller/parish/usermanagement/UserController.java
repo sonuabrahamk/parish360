@@ -1,7 +1,7 @@
 package org.parish360.core.controller.parish.usermanagement;
 
 import org.apache.catalina.connector.Response;
-import org.parish360.core.dto.usermanagement.ErrorResponse;
+import org.parish360.core.dto.error.ErrorResponse;
 import org.parish360.core.dto.usermanagement.UserResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
