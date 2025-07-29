@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-users
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: username
+                  value: sonabr
+              - column:
+                  name: email
+                  value: sonu.abrahamk@gmail.com
+              - column:
+                  name: password
+                  value: 123
+              - column:
+                  name: first_name
+                  value: Sonu
+              - column:
+                  name: last_name
+                  value: Abraham
+              - column:
+                  name: contact
+                  value: 8123592966
+              - column:
+                  name: entity_name
+                  value: PARISH
+              - column:
+                  name: entity_id
+                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: username
+                  value: bobsmi
+              - column:
+                  name: email
+                  value: bob.smith@example.com
+              - column:
+                  name: password
+                  value: 123
+              - column:
+                  name: first_name
+                  value: Bob
+              - column:
+                  name: last_name
+                  value: smith
+              - column:
+                  name: contact
+                  value: 9876543211
+              - column:
+                  name: entity_name
+                  value: PARISH
+              - column:
+                  name: entity_id
+                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa

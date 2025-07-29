@@ -1,0 +1,353 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-role-permissions
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 0bb50cba-5e77-4238-a982-07e78e03c156
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 1b317207-db69-4f19-853d-0dd10e19126d
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 347305f0-e25d-49fa-ac60-8e59fe6bc429
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 360a1afb-6384-4f88-be1d-183504715bff
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 3b475e8e-ca43-4bf3-a991-3d283946e21c
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 4c9f5e8c-9f08-4c09-b51c-eb22e9a8aa9b
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 500534b7-20a9-4447-b84e-69ca3050695f
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 5f1acda1-eb0b-4f99-9a60-0e5604683b8f
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 72032480-db12-4e54-9bf7-a8b7a56d0d1a
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 73debe9a-9dab-4c32-8b5e-879c6c0fe40e
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 74290219-25d6-42c4-9c2d-6546fe644866
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 7997aab0-78a9-4676-aa27-3485b4f51d9d
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 80bda625-d86b-4eb2-9ea0-4c086240b7a1
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 83227330-32aa-4127-be3a-c14c3703d643
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 87ddcc94-ba0b-4651-89a8-da243bd3d2ca
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: 8f4dc259-dd9d-4eab-83dc-eee59bdb9ae5
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: ab462831-1ebe-438d-b409-4da842aec908
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: ad8a5653-4135-44c8-b623-62b84251500f
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: b8d374a4-ad87-4851-964c-aaa0a16b7d44
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: be9124dd-382a-475a-95d5-9995dfdc5ce3
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: cc79f785-23e5-46e6-87f0-6af4efd97610
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: cda5a293-49a9-4eb9-a16f-74c5f1b2bff5
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: ceb51bf5-ef04-46c8-8c4d-5b498a5e9dc1
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: d08c9b30-3863-4120-bb07-c12870fad292
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: dde6535f-5609-4f2e-a8e3-983b2d2e2a98
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: e0b651ed-8027-4997-8568-3a7f0170362e
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: e21d6956-4102-4fe6-b37f-ee6d034c49c2
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 46f0b4f6-b0eb-41e0-bb40-804b5a9b8bbd
+              - column:
+                  name: permission_id
+                  value: fc5cc9b7-7c02-40b3-986e-c173afeeb881
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: 0bb50cba-5e77-4238-a982-07e78e03c156
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: 73debe9a-9dab-4c32-8b5e-879c6c0fe40e
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: d08c9b30-3863-4120-bb07-c12870fad292
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: 74290219-25d6-42c4-9c2d-6546fe644866
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: 500534b7-20a9-4447-b84e-69ca3050695f
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: ceb51bf5-ef04-46c8-8c4d-5b498a5e9dc1
+
+        - insert:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: role_id
+                  value: 1e06297d-e9fb-4499-b36c-2c10c7c38303
+              - column:
+                  name: permission_id
+                  value: cda5a293-49a9-4eb9-a16f-74c5f1b2bff5

@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-role_permissions
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_permissions_role
+                    references: roles(id)
+              - column:
+                  name: permission_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_permissions_permission
+                    references: permissions(id)

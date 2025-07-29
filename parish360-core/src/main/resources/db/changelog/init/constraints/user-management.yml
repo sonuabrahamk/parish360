@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-constraints-user-management
+      author: Sonu Abraham
+      changes:
+        - addUniqueConstraint:
+            tableName: permissions
+            columnNames: module, permission
+            constraintName: uc_module_permission
+        - addUniqueConstraint:
+            tableName: user_roles
+            columnNames: user_id, role_id
+            constraintName: uc_user_role
+        - addUniqueConstraint:
+            tableName: role_permissions
+            columnNames: role_id, permission_id
+            constraintName: uc_role_permission

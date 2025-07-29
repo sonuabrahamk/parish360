@@ -1,0 +1,425 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-permissions
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-family-records
+              - column:
+                  name: description
+                  value: Permission to create new family-records
+              - column:
+                  name: module
+                  value: family-records
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-family-records
+              - column:
+                  name: description
+                  value: Permission to edit new family-records
+              - column:
+                  name: module
+                  value: family-records
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-family-records
+              - column:
+                  name: description
+                  value: Permission to view new family-records
+              - column:
+                  name: module
+                  value: family-records
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-family-records
+              - column:
+                  name: description
+                  value: Permission to delete new family-records
+              - column:
+                  name: module
+                  value: family-records
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-payments
+              - column:
+                  name: description
+                  value: Permission to create new payments
+              - column:
+                  name: module
+                  value: payments
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-payments
+              - column:
+                  name: description
+                  value: Permission to edit new payments
+              - column:
+                  name: module
+                  value: payments
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-payments
+              - column:
+                  name: description
+                  value: Permission to view new payments
+              - column:
+                  name: module
+                  value: payments
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-payments
+              - column:
+                  name: description
+                  value: Permission to delete new payments
+              - column:
+                  name: module
+                  value: payments
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-bookings
+              - column:
+                  name: description
+                  value: Permission to create new bookings
+              - column:
+                  name: module
+                  value: bookings
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-bookings
+              - column:
+                  name: description
+                  value: Permission to edit bookings
+              - column:
+                  name: module
+                  value: bookings
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-bookings
+              - column:
+                  name: description
+                  value: Permission to view bookings
+              - column:
+                  name: module
+                  value: bookings
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-bookings
+              - column:
+                  name: description
+                  value: Permission to delete bookings
+              - column:
+                  name: module
+                  value: bookings
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-ceremonies
+              - column:
+                  name: description
+                  value: Permission to create new ceremonies
+              - column:
+                  name: module
+                  value: ceremonies
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-ceremonies
+              - column:
+                  name: description
+                  value: Permission to edit ceremonies
+              - column:
+                  name: module
+                  value: ceremonies
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-ceremonies
+              - column:
+                  name: description
+                  value: Permission to view ceremonies
+              - column:
+                  name: module
+                  value: ceremonies
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-ceremonies
+              - column:
+                  name: description
+                  value: Permission to delete ceremonies
+              - column:
+                  name: module
+                  value: ceremonies
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-associations
+              - column:
+                  name: description
+                  value: Permission to create new associations
+              - column:
+                  name: module
+                  value: associations
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-associations
+              - column:
+                  name: description
+                  value: Permission to edit associations
+              - column:
+                  name: module
+                  value: associations
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-associations
+              - column:
+                  name: description
+                  value: Permission to view associations
+              - column:
+                  name: module
+                  value: associations
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-associations
+              - column:
+                  name: description
+                  value: Permission to delete associations
+              - column:
+                  name: module
+                  value: associations
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-expenses
+              - column:
+                  name: description
+                  value: Permission to create new expenses
+              - column:
+                  name: module
+                  value: expenses
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-expenses
+              - column:
+                  name: description
+                  value: Permission to edit expenses
+              - column:
+                  name: module
+                  value: expenses
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-expenses
+              - column:
+                  name: description
+                  value: Permission to view expenses
+              - column:
+                  name: module
+                  value: expenses
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-expenses
+              - column:
+                  name: description
+                  value: Permission to delete expenses
+              - column:
+                  name: module
+                  value: expenses
+              - column:
+                  name: permission
+                  value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-users
+              - column:
+                  name: description
+                  value: Permission to create new users
+              - column:
+                  name: module
+                  value: users
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-users
+              - column:
+                  name: description
+                  value: Permission to edit users
+              - column:
+                  name: module
+                  value: users
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-users
+              - column:
+                  name: description
+                  value: Permission to view users
+              - column:
+                  name: module
+                  value: users
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-users
+              - column:
+                  name: description
+                  value: Permission to delete users
+              - column:
+                  name: module
+                  value: users
+              - column:
+                  name: permission
+                  value: DELETE

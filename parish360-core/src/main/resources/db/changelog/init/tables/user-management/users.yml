@@ -73,3 +73,13 @@ databaseChangeLog:
               - column:
                   name: comment
                   type: TEXT
+              - column:
+                  name: entity_name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: entity_id
+                  type: UUID
+                  constraints:
+                    nullable: false

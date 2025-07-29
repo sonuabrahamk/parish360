@@ -58,4 +58,10 @@ public class User {
 
     @Column
     private String comment;
+
+    @Column(name = "entity_name", nullable = false)
+    private String entityName;
+
+    @Column(name = "entity_id", nullable = false)
+    private UUID entityId;
 }

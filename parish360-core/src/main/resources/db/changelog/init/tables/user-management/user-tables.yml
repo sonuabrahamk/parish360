@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/user-management/permissions.yml
+  - include:
+      file: db/changelog/init/tables/user-management/roles.yml
+  - include:
+      file: db/changelog/init/tables/user-management/users.yml
+  - include:
+      file: db/changelog/init/tables/user-management/role_permissions.yml
+  - include:
+      file: db/changelog/init/tables/user-management/user_roles.yml

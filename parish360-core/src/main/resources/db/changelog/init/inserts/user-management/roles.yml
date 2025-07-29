@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-roles
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: name
+                  value: super-admin
+              - column:
+                  name: description
+                  value: All permissions role
+              - column:
+                  name: entity_name
+                  value: PARISH
+              - column:
+                  name: entity_id
+                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa
+        - insert:
+            tableName: roles
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: name
+                  value: viewer
+              - column:
+                  name: description
+                  value: All screens viewer role
+              - column:
+                  name: entity_name
+                  value: PARISH
+              - column:
+                  name: entity_id
+                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa

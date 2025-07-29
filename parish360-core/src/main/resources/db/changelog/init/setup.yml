@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/tables.yml
+  - include:
+      file: db/changelog/init/constraints/user-management.yml
+  - include:
+      file: db/changelog/init/inserts/seed-data.yml

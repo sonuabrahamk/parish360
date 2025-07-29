@@ -7,5 +7,5 @@ databaseChangeLog:
             splitStatements: false
             stripComments: true
             sql: CREATE EXTENSION IF NOT EXISTS pgcrypto;
-  - includeAll:
-      path: db/changelog/init
+  - include:
+      file: db/changelog/init/setup.yml
