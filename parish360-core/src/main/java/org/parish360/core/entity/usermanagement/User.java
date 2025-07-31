@@ -74,4 +74,28 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "user_diocese",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "diocese_id")
+    private Set<UUID> dioceseIds = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "user_forane",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "forane_id")
+    private Set<UUID> foraneIds = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "user_parish",
+            joinColumns = @JoinColumn(name = "user_id")
+    )
+    @Column(name = "parish_id")
+    private Set<UUID> parishIds = new HashSet<>();
 }

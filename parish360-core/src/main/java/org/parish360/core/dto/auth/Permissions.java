@@ -1,36 +1,34 @@
 package org.parish360.core.dto.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Permissions {
-    private Set<String> create = new HashSet<>();
-    private Set<String> edit = new HashSet<>();
-    private Set<String> view = new HashSet<>();
-    private Set<String> delete = new HashSet<>();
+    @JsonProperty("data-owner")
+    private DataOwner dataOwner = new DataOwner();
+    private Modules modules = new Modules();
 
-    public void addCreate(String module) {
-        this.view.add(module);
+    @Data
+    @NoArgsConstructor
+    public static class DataOwner {
+        private Set<UUID> diocese = new HashSet<>();
+        private Set<UUID> forane = new HashSet<>();
+        private Set<UUID> parish = new HashSet<>();
     }
 
-    public void addEdit(String module) {
-        this.view.add(module);
-    }
-
-    public void addView(String module) {
-        this.view.add(module);
-    }
-
-    public void addDelete(String module) {
-        this.view.add(module);
+    @Data
+    @NoArgsConstructor
+    public static class Modules {
+        private Set<String> create = new HashSet<>();
+        private Set<String> edit = new HashSet<>();
+        private Set<String> view = new HashSet<>();
+        private Set<String> delete = new HashSet<>();
     }
 }
