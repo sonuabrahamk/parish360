@@ -1,0 +1,88 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-parish
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: parish
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: diocese
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_diocese_parish
+                    references: diocese(id)
+              - column:
+                  name: forane
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_forane_parish
+                    references: forane(id)
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: denomination
+                  type: VARCHAR(100)
+              - column:
+                  name: patron
+                  type: VARCHAR(100)
+              - column:
+                  name: contact
+                  type: VARCHAR(20)
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+              - column:
+                  name: founded_date
+                  type: DATE
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueComputed: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: state
+                  type: VARCHAR(100)
+              - column:
+                  name: country
+                  type: VARCHAR(100)
+              - column:
+                  name: website
+                  type: VARCHAR(100)
+              - column:
+                  name: locale
+                  type: VARCHAR(100)
+              - column:
+                  name: timezone
+                  type: VARCHAR(100)

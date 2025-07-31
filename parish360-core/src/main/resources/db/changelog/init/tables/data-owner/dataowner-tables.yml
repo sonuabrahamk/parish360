@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/data-owner/diocese.yml
+  - include:
+      file: db/changelog/init/tables/data-owner/forane.yml
+  - include:
+      file: db/changelog/init/tables/data-owner/parish.yml

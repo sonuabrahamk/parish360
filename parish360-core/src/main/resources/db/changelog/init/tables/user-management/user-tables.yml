@@ -9,3 +9,9 @@ databaseChangeLog:
       file: db/changelog/init/tables/user-management/role_permissions.yml
   - include:
       file: db/changelog/init/tables/user-management/user_roles.yml
+  - include:
+      file: db/changelog/init/tables/user-management/user_diocese.yml
+  - include:
+      file: db/changelog/init/tables/user-management/user_forane.yml
+  - include:
+      file: db/changelog/init/tables/user-management/user_parish.yml

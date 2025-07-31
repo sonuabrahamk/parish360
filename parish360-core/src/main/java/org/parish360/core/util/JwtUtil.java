@@ -3,19 +3,18 @@ package org.parish360.core.util;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.parish360.core.dto.auth.Permissions;
 import org.parish360.core.entity.usermanagement.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.Map;
-import java.util.Set;
 
 @Component
 public class JwtUtil {
     private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public String generateToken(User user, Map<String, Set<String>> permissions) {
+    public String generateToken(User user, Permissions permissions) {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim("permissions", permissions)

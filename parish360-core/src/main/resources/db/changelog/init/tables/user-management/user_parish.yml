@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-user_parish
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: user_parish
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_user
+                    references: users(id)
+              - column:
+                  name: parish_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_parish
+                    references: parish(id)

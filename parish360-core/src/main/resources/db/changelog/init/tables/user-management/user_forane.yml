@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-user_forane
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: user_forane
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_forane_user
+                    references: users(id)
+              - column:
+                  name: forane_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_forane_forane
+                    references: forane(id)

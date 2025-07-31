@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-parish
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: parish
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: diocese
+                  valueComputed: "(SELECT id FROM diocese)"
+              - column:
+                  name: forane
+                  valueComputed: "(SELECT id FROM forane)"
+              - column:
+                  name: name
+                  value: Velankani Matha Church
+              - column:
+                  name: denomination
+                  value: Roman Catholic
+              - column:
+                  name: patron
+                  value: Our Lady of Velankani
+              - column:
+                  name: contact
+                  value: +919656876836
+              - column:
+                  name: email
+                  value: velankani@gmail.com
+              - column:
+                  name: founded_date
+                  value: 2018-01-28
+              - column:
+                  name: location
+                  value: Muthanalluru
+              - column:
+                  name: city
+                  value: Bengaluru
+              - column:
+                  name: state
+                  value: Karnataka
+              - column:
+                  name: country
+                  value: India
+              - column:
+                  name: locale
+                  value: en-IN
+              - column:
+                  name: timezone
+                  value: Asia/Kolkata

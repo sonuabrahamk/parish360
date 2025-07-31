@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-user_diocese
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: user_diocese
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_diocese_user
+                    references: users(id)
+              - column:
+                  name: diocese_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_diocese_diocese
+                    references: diocese(id)

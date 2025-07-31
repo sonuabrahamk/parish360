@@ -24,7 +24,7 @@ public class Parish360Controller {
 
     @GetMapping("/health")
     public String heathCheck() {
-        return "Parish 360 app is running!!";
+        return "Parish.yml 360 app is running!!";
     }
 
     @PostMapping("/authenticate")

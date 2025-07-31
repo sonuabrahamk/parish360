@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-diocese
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: diocese
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: name
+                  value: The Diocese of Mandya
+              - column:
+                  name: denomination
+                  value: Roman Catholic
+              - column:
+                  name: patron
+                  value: St. Joseph
+              - column:
+                  name: contact
+                  value: +919656876836
+              - column:
+                  name: email
+                  value: mandya.diocese@gmail.com
+              - column:
+                  name: founded_date
+                  value: 2016-01-28
+              - column:
+                  name: location
+                  value: Kalenahalli
+              - column:
+                  name: city
+                  value: Mandya
+              - column:
+                  name: state
+                  value: Karnataka
+              - column:
+                  name: country
+                  value: India
+              - column:
+                  name: locale
+                  value: en-IN
+              - column:
+                  name: timezone
+                  value: Asia/Kolkata

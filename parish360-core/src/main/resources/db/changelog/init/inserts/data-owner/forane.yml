@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-forane
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: forane
+            columns:
+              - column:
+                  name: created_by
+                  value: initial_load
+              - column:
+                  name: diocese
+                  valueComputed: "(SELECT id FROM diocese)"
+              - column:
+                  name: name
+                  value: Mount Carmel Forane Church
+              - column:
+                  name: denomination
+                  value: Roman Catholic
+              - column:
+                  name: patron
+                  value: Our Lady of Mount Carmel
+              - column:
+                  name: contact
+                  value: +919656876836
+              - column:
+                  name: email
+                  value: mcfc.forane@gmail.com
+              - column:
+                  name: founded_date
+                  value: 2016-01-28
+              - column:
+                  name: location
+                  value: Carmelaram
+              - column:
+                  name: city
+                  value: Bengaluru
+              - column:
+                  name: state
+                  value: Karnataka
+              - column:
+                  name: country
+                  value: India
+              - column:
+                  name: locale
+                  value: en-IN
+              - column:
+                  name: timezone
+                  value: Asia/Kolkata

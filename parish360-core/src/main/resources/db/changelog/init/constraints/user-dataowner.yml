@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-constraints-user-dataowner
+      author: Sonu Abraham
+      changes:
+        - addUniqueConstraint:
+            tableName: user_diocese
+            columnNames: user_id, diocese_id
+            constraintName: uc_user_diocese
+        - addUniqueConstraint:
+            tableName: user_forane
+            columnNames: user_id, forane_id
+            constraintName: uc_user_forane
+        - addUniqueConstraint:
+            tableName: user_parish
+            columnNames: user_id, parish_id
+            constraintName: uc_user_parish

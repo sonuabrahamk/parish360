@@ -3,7 +3,7 @@ package org.parish360.core.entity.usermanagement;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -17,13 +17,13 @@ public class User {
     private UUID id;
 
     @Column(name = "created_at")
-    private Date createdAt;
+    private Instant createdAt;
 
     @Column(name = "created_by")
     private String createdBy;
 
     @Column(name = "updated_at")
-    private Date updatedAt;
+    private Instant updatedAt;
 
     @Column(name = "updated_by")
     private String updatedBy;
@@ -50,7 +50,7 @@ public class User {
     private Boolean active = true;
 
     @Column(name = "last_login")
-    private Date lastLogin;
+    private Instant lastLogin;
 
     @Column(name = "tou_accepted", nullable = false)
     private Boolean isTouAccepted = false;

@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-user-diocese
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: user_diocese
+            columns:
+              - column:
+                  name: user_id
+                  value: 1253ab2c-c275-405f-b53f-2d951d3e349d
+              - column:
+                  name: diocese_id
+                  valueComputed: "(SELECT id FROM diocese)"
+        - insert:
+            tableName: user_diocese
+            columns:
+              - column:
+                  name: user_id
+                  value: f58e1098-27d8-48a8-bd68-90ee95fc6094
+              - column:
+                  name: diocese_id
+                  valueComputed: "(SELECT id FROM diocese)"
