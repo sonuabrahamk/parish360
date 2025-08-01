@@ -1,6 +1,5 @@
 package org.parish360.core.service.auth;
 
-import org.parish360.core.service.usermanagement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +20,6 @@ public class SecurityConfig {
 
     @Autowired
     private AuthFilter authFilter;
-
-    @Autowired
-    private UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

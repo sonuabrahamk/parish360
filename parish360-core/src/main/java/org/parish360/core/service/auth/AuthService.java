@@ -55,10 +55,17 @@ public class AuthService {
 
     @Transactional(readOnly = true)
     public AuthenticationResponse authenticateUser(AuthenticationRequest authRequest) {
+        // validate username
         User user = userRepository.findByUsernameOrEmail(authRequest.getUsername(),
                         authRequest.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 
+        // validate rawPassword
+        if (!user.getPassword().equals(authRequest.getPassword())) {
+            throw new UsernameNotFoundException("Password is not matching");
+        }
+
+        // jwt token
         String jwt = jwtUtil.generateToken(user, setPermissions(user));
         return new AuthenticationResponse(jwt);
     }

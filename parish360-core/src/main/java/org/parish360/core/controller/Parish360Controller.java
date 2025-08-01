@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.parish360.core.dto.auth.AuthenticationRequest;
 import org.parish360.core.dto.auth.AuthenticationResponse;
 import org.parish360.core.dto.error.ErrorResponse;
+import org.parish360.core.service.auth.AuthConstants;
 import org.parish360.core.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -42,7 +43,7 @@ public class Parish360Controller {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
-                .maxAge(Duration.ofMinutes(2))
+                .maxAge(Duration.ofMinutes(AuthConstants.COOKIE_EXPIRY_MINUTES))
                 .sameSite("Strict")
                 .build();
 
