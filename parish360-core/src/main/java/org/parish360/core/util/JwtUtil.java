@@ -47,12 +47,9 @@ public class JwtUtil {
         ObjectMapper mapper = new ObjectMapper();
         Permissions permissions = mapper.convertValue(permissionsClaim, Permissions.class);
         System.out.println("Permissions: " + permissions);
-        if (claims.getSubject() != null
+        return claims.getSubject() != null
                 && (!claims.getExpiration().before(new Date()))
                 && (permissions != null)
-                && permissions.getDataOwner().getParish().contains(parishId)) {
-            return true;
-        }
-        return false;
+                && permissions.getDataOwner().getParish().contains(parishId);
     }
 }
