@@ -1,15 +1,14 @@
 package org.parish360.core.usermanagement.service;
 
-import org.parish360.core.usermanagement.dto.UserResponse;
+import org.parish360.core.usermanagement.dto.UserInfo;
 
 import java.util.List;
-import java.util.UUID;
 
 public interface UserManager {
 
-    List<UserResponse> getUsersList(String entityName, String entityID);
+    List<UserInfo> getUsersList(String entityID);
 
-    UserResponse getUser(UUID userId);
+    UserInfo getUser(String entityId, String userId);
 
-    UserResponse createUser(String entityName, String entityID);
+    UserInfo createUser(String entityName, String entityID, UserInfo userInfo);
 }

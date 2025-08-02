@@ -2,8 +2,6 @@ package org.parish360.core.dao.entity.usermanagement;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.parish360.core.usermanagement.dto.UserResponse;
-import org.parish360.core.util.AuthUtil;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -104,23 +102,4 @@ public class User {
     )
     @Column(name = "parish_id")
     private Set<UUID> parishIds = new HashSet<>();
-
-    public static User setUser(UserResponse user) {
-        return User.builder()
-                .updatedBy(AuthUtil.getCurrentUserId())
-                .username(user.getUsername())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .contact(user.getContact())
-                .isActive(user.getIsActive())
-                .lastLogin(user.getLastLogin())
-                .isTouAccepted(user.getIsTouAccepted())
-                .isResetPassword(user.getIsResetPassword())
-                .comment(user.getComment())
-                .entityName(user.getEntityName())
-                .entityId(user.getEntityId())
-                .build();
-    }
 }

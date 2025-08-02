@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import org.parish360.core.util.JwtUtil;
+import org.parish360.core.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -79,6 +80,6 @@ public class AuthFilter extends OncePerRequestFilter {
         if (pathArray.length == 0) {
             throw new RuntimeException("Could not extract parish ID");
         }
-        return UUID.fromString(pathArray[2]);
+        return UUIDUtil.decode(pathArray[2]);
     }
 }

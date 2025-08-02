@@ -16,11 +16,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-    @Autowired
-    private UserRepository userRepository;
 
+    private final UserRepository userRepository;
+    
     @Autowired
     private JwtUtil jwtUtil;
+
+    public AuthServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     private void applyPermission(Permissions permissions, Permission permission) {
         PermissionType permissionType = permission.getPermission();
