@@ -21,4 +21,17 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException(("User not found")));
         return UserResponse.setUserResponse(user);
     }
+
+    @Transactional
+    public UserResponse createUser(UserResponse userResponse) {
+        // create user entity from User request
+        User user = User.setUser(userResponse);
+
+        // save user to DB
+        User savedUser = userRepository.save(user);
+
+        // create user response to return
+        userResponse = UserResponse.setUserResponse(savedUser);
+        return userResponse;
+    }
 }

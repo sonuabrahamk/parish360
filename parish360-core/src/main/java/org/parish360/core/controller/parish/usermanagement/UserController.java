@@ -4,10 +4,7 @@ import org.parish360.core.dto.usermanagement.UserResponse;
 import org.parish360.core.service.usermanagement.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -17,6 +14,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping
+    public ResponseEntity<?> createUser(@PathVariable("parishId") UUID parishId, @RequestBody UserResponse userRequest) {
+        UserResponse user = userService.createUser(userRequest);
+        return ResponseEntity.ok(user);
+    }
 
     @GetMapping
     public ResponseEntity<?> getUsersList(@PathVariable("parishId") UUID parishId) {

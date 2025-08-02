@@ -1,7 +1,9 @@
 package org.parish360.core.entity.usermanagement;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import org.parish360.core.dto.usermanagement.UserResponse;
+import org.parish360.core.util.AuthUtil;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -10,7 +12,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -47,7 +53,7 @@ public class User {
     private String contact;
 
     @Column(name = "is_active", nullable = false)
-    private Boolean active = true;
+    private Boolean isActive = true;
 
     @Column(name = "last_login")
     private Instant lastLogin;
@@ -98,4 +104,23 @@ public class User {
     )
     @Column(name = "parish_id")
     private Set<UUID> parishIds = new HashSet<>();
+
+    public static User setUser(UserResponse user) {
+        return User.builder()
+                .updatedBy(AuthUtil.getCurrentUserId())
+                .username(user.getUsername())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .contact(user.getContact())
+                .isActive(user.getIsActive())
+                .lastLogin(user.getLastLogin())
+                .isTouAccepted(user.getIsTouAccepted())
+                .isResetPassword(user.getIsResetPassword())
+                .comment(user.getComment())
+                .entityName(user.getEntityName())
+                .entityId(user.getEntityId())
+                .build();
+    }
 }
