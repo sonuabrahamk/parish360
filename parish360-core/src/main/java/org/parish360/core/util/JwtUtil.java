@@ -5,9 +5,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.parish360.core.dto.auth.Permissions;
-import org.parish360.core.entity.usermanagement.User;
-import org.parish360.core.service.auth.AuthConstants;
+import org.parish360.core.auth.AuthConstants;
+import org.parish360.core.auth.dto.Permissions;
+import org.parish360.core.dao.entity.usermanagement.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
