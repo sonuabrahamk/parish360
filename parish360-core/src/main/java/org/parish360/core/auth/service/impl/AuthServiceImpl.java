@@ -7,6 +7,7 @@ import org.parish360.core.auth.service.AuthService;
 import org.parish360.core.dao.entity.usermanagement.Permission;
 import org.parish360.core.dao.entity.usermanagement.User;
 import org.parish360.core.dao.usermanagement.UserRepository;
+import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.util.JwtUtil;
 import org.parish360.core.util.enums.PermissionType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
-    
+
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -44,11 +45,11 @@ public class AuthServiceImpl implements AuthService {
         // validate username
         User user = userRepository.findByUsernameOrEmail(authRequest.getUsername(),
                         authRequest.getUsername())
-                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
         // validate rawPassword
         if (!user.getPassword().equals(authRequest.getPassword())) {
-            throw new UsernameNotFoundException("Password is not matching");
+            throw new AccessDeniedException("password is not matching");
         }
 
         // jwt token

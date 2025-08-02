@@ -7,6 +7,8 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import org.parish360.core.error.exception.AccessDeniedException;
+import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.util.JwtUtil;
 import org.parish360.core.util.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,7 @@ public class AuthFilter extends OncePerRequestFilter {
                         String token = cookie.getValue();
                         String path = request.getRequestURI();
                         if (path == null || !path.startsWith(AuthConstants.APP_DOMAIN)) {
-                            throw new RuntimeException("Invalid Request");
+                            throw new ResourceNotFoundException("invalid endpoint");
                         }
                         UUID parishId = extractParishId(path);
                         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -66,7 +68,7 @@ public class AuthFilter extends OncePerRequestFilter {
                             response.addCookie(refreshCookie);
                         }
                     } catch (JwtException e) {
-                        // handle invalid jwt
+                        throw new AccessDeniedException("invalid or malformed token");
                     }
                 }
             }
@@ -77,8 +79,8 @@ public class AuthFilter extends OncePerRequestFilter {
 
     private UUID extractParishId(String path) {
         var pathArray = path.split("/");
-        if (pathArray.length == 0) {
-            throw new RuntimeException("Could not extract parish ID");
+        if (pathArray.length < 3) {
+            throw new ResourceNotFoundException("invalid endpoint");
         }
         return UUIDUtil.decode(pathArray[2]);
     }

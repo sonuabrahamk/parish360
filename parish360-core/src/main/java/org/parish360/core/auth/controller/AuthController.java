@@ -5,7 +5,7 @@ import org.parish360.core.auth.AuthConstants;
 import org.parish360.core.auth.dto.AuthenticationRequest;
 import org.parish360.core.auth.dto.AuthenticationResponse;
 import org.parish360.core.auth.service.AuthService;
-import org.parish360.core.dto.error.ErrorResponse;
+import org.parish360.core.error.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -29,7 +29,7 @@ public class AuthController {
                                           HttpServletResponse response) {
         // Validate authenticationRequest
         if (authRequest.getUsername().isEmpty() || authRequest.getPassword().isEmpty()) {
-            return ResponseEntity.badRequest().body(new ErrorResponse());
+            throw new BadRequestException("username or password is empty");
         }
 
         // Authenticate user
