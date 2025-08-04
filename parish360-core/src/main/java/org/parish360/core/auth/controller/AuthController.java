@@ -1,11 +1,11 @@
 package org.parish360.core.auth.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.parish360.core.auth.AuthConstants;
 import org.parish360.core.auth.dto.AuthenticationRequest;
 import org.parish360.core.auth.dto.AuthenticationResponse;
 import org.parish360.core.auth.service.AuthService;
-import org.parish360.core.error.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -25,18 +25,13 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequest authRequest,
-                                          HttpServletResponse response) {
-        // Validate authenticationRequest
-        if (authRequest.getUsername().isEmpty() || authRequest.getPassword().isEmpty()) {
-            throw new BadRequestException("username or password is empty");
-        }
-
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest authRequest,
+                                                               HttpServletResponse response) {
         // Authenticate user
         AuthenticationResponse authenticationResponse = authService.authenticateUser(authRequest);
 
         // Create a cookie when authenticated
-        ResponseCookie cookie = ResponseCookie.from("auth-cookie",
+        ResponseCookie cookie = ResponseCookie.from(AuthConstants.AUTH_COOKIE_NAME,
                         authenticationResponse.getAccessToken())
                 .httpOnly(true)
                 .secure(true)

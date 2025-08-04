@@ -15,6 +15,7 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yml
   jackson:
     default-property-inclusion: non_null
+    property-naming-strategy: SNAKE_CASE
 #logging:
 #  level:
 #    org:

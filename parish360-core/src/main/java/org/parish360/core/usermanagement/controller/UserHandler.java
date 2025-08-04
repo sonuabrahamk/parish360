@@ -1,5 +1,6 @@
 package org.parish360.core.usermanagement.controller;
 
+import jakarta.validation.Valid;
 import org.parish360.core.usermanagement.dto.UserInfo;
 import org.parish360.core.usermanagement.service.UserManager;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class UserHandler {
 
     @PostMapping
     public ResponseEntity<?> createUser(@PathVariable("parishId") String entityId,
-                                        @RequestBody UserInfo userInfo) {
+                                        @Valid @RequestBody UserInfo userInfo) {
         return ResponseEntity.ok(userManager.createUser("parish", entityId, userInfo));
     }
 }

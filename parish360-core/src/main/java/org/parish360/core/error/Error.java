@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -14,6 +17,7 @@ import java.time.LocalDateTime;
 public class Error {
     private String error;
     private String message;
+    private List<Map<String, String>> validations = new ArrayList<>();
     private int status;
     private LocalDateTime timestamp;
     private String path;
