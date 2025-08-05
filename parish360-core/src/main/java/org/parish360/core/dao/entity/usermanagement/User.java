@@ -2,6 +2,7 @@ package org.parish360.core.dao.entity.usermanagement;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.parish360.core.util.enums.EntityType;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -66,7 +67,8 @@ public class User {
     private String comment;
 
     @Column(name = "entity_name", nullable = false)
-    private String entityName;
+    @Enumerated(EnumType.STRING)
+    private EntityType entityName;
 
     @Column(name = "entity_id", nullable = false)
     private UUID entityId;

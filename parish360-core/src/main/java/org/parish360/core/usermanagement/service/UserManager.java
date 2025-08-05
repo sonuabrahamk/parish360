@@ -1,6 +1,7 @@
 package org.parish360.core.usermanagement.service;
 
 import org.parish360.core.usermanagement.dto.UserInfo;
+import org.parish360.core.util.enums.EntityType;
 
 import java.util.List;
 
@@ -10,5 +11,7 @@ public interface UserManager {
 
     UserInfo getUser(String entityId, String userId);
 
-    UserInfo createUser(String entityName, String entityID, UserInfo userInfo);
+    UserInfo createUser(EntityType entityName, String entityID, UserInfo userInfo);
+
+    UserInfo updateUser(EntityType entityName, String entityID, String userId, UserInfo userInfo);
 }

@@ -4,9 +4,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.parish360.core.util.enums.EntityType;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -37,11 +37,11 @@ public class UserInfo {
 
     @NotNull(message = "status not set")
     private Boolean isActive;
-    
+
     private Instant lastLogin;
     private Boolean isTouAccepted;
     private Boolean isResetPassword;
     private String comment;
-    private String entityName;
-    private UUID entityId;
+    private EntityType entityName;
+    private String entityId;
 }

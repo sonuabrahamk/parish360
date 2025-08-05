@@ -3,6 +3,8 @@ package org.parish360.core.usermanagement.controller;
 import jakarta.validation.Valid;
 import org.parish360.core.usermanagement.dto.UserInfo;
 import org.parish360.core.usermanagement.service.UserManager;
+import org.parish360.core.util.enums.EntityType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +32,15 @@ public class UserHandler {
     @PostMapping
     public ResponseEntity<?> createUser(@PathVariable("parishId") String entityId,
                                         @Valid @RequestBody UserInfo userInfo) {
-        return ResponseEntity.ok(userManager.createUser("parish", entityId, userInfo));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userManager.createUser(EntityType.PARISH, entityId, userInfo));
+    }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<UserInfo> updateUser(@PathVariable("parishId") String entityId,
+                                               @PathVariable("userId") String userId,
+                                               @Valid @RequestBody UserInfo userInfo) {
+        return ResponseEntity.ok(userManager.updateUser(EntityType.PARISH, entityId, userId, userInfo));
     }
 }

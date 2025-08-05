@@ -46,7 +46,6 @@ public class JwtUtil {
         Object permissionsClaim = claims.get(AuthConstants.TOKEN_PERMISSIONS);
         ObjectMapper mapper = new ObjectMapper();
         Permissions permissions = mapper.convertValue(permissionsClaim, Permissions.class);
-        System.out.println("Permissions: " + permissions);
         return claims.getSubject() != null
                 && (!claims.getExpiration().before(new Date()))
                 && (permissions != null)
