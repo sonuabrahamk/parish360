@@ -10,6 +10,8 @@ import org.parish360.core.usermanagement.service.UserMapper;
 import org.parish360.core.util.AuthUtil;
 import org.parish360.core.util.UUIDUtil;
 import org.parish360.core.util.enums.EntityType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,9 @@ import java.util.UUID;
 public class UserManagerImpl implements UserManager {
 
     private final UserRepository userRepository;
-
     private final UserMapper userMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public UserManagerImpl(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
@@ -58,6 +61,12 @@ public class UserManagerImpl implements UserManager {
         userInfo.setEntityName(entityName);
         userInfo.setEntityId(entityId);
 
+        // password hashing for user creation
+        if (userInfo.getPassword() == null) {
+            throw new BadRequestException("password is required for user creation");
+        }
+        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+
         // save user records to repository
         User user = userMapper.userInfoToDao(userInfo);
 
@@ -80,6 +89,13 @@ public class UserManagerImpl implements UserManager {
         userInfo.setEntityName(entityName);
         userInfo.setUpdatedAt(Instant.now());
         userInfo.setUpdatedBy(AuthUtil.getCurrentUserId());
+
+        // hashing password if provided to update
+        if (userInfo.getPassword() != null) {
+            userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+        }
+
+        // user DAO created from userInfo
         User updateUser = userMapper.userInfoToDao(userInfo);
 
         // fetch current user details

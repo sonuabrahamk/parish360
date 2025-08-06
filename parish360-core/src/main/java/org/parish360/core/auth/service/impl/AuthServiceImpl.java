@@ -12,6 +12,7 @@ import org.parish360.core.util.JwtUtil;
 import org.parish360.core.util.enums.PermissionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +23,9 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private JwtUtil jwtUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public AuthServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -43,12 +47,12 @@ public class AuthServiceImpl implements AuthService {
     @Transactional(readOnly = true)
     public AuthenticationResponse authenticateUser(AuthenticationRequest authRequest) {
         // validate username
-        User user = userRepository.findByUsernameOrEmail(authRequest.getUsername(),
+        User user = userRepository.findByIsActiveTrueAndUsernameOrEmail(authRequest.getUsername(),
                         authRequest.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
         // validate rawPassword
-        if (!user.getPassword().equals(authRequest.getPassword())) {
+        if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             throw new AccessDeniedException("password is not matching");
         }
 

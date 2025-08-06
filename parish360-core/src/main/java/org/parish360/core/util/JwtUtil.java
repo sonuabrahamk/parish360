@@ -8,6 +8,9 @@ import io.jsonwebtoken.security.Keys;
 import org.parish360.core.auth.AuthConstants;
 import org.parish360.core.auth.dto.Permissions;
 import org.parish360.core.dao.entity.usermanagement.User;
+import org.parish360.core.error.exception.AccessDeniedException;
+import org.parish360.core.error.exception.ResourceNotFoundException;
+import org.parish360.core.util.enums.EntityType;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -37,7 +40,7 @@ public class JwtUtil {
                 .getSubject();
     }
 
-    public boolean validateToken(String token, UUID parishId) {
+    public boolean validateToken(String token, String path, String method) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
@@ -48,7 +51,57 @@ public class JwtUtil {
         Permissions permissions = mapper.convertValue(permissionsClaim, Permissions.class);
         return claims.getSubject() != null
                 && (!claims.getExpiration().before(new Date()))
-                && (permissions != null)
-                && permissions.getDataOwner().getParish().contains(parishId);
+                && isPermissionsAndPathValid(permissions, path, method);
     }
+
+    private boolean isPermissionsAndPathValid(Permissions permissions, String path, String method) {
+        validatePermissionsAndPathExist(permissions, path);
+
+        String[] pathArray = path.split("/");
+        validatePath(pathArray);
+
+        UUID parishId = UUIDUtil.decode(pathArray[2]);
+        validateParishPermission(permissions, parishId);
+
+        String context = pathArray[3];
+        validateModulePermission(permissions, context, method);
+
+        return true;
+    }
+
+    private void validatePermissionsAndPathExist(Permissions permissions, String path) {
+        if (permissions == null || path == null) {
+            throw new AccessDeniedException("invalid permission or endpoint");
+        }
+    }
+
+    private void validatePath(String[] pathArray) {
+        if (pathArray.length < 3 || !EntityType.PARISH.toString().equalsIgnoreCase(pathArray[1])) {
+            throw new ResourceNotFoundException("invalid endpoint");
+        }
+    }
+
+    private void validateParishPermission(Permissions permissions, UUID parishId) {
+        if (!permissions.getDataOwner().getParish().contains(parishId)) {
+            throw new AccessDeniedException("data owner permission is not valid");
+        }
+    }
+
+    private void validateModulePermission(Permissions permissions, String context, String method) {
+        var modules = permissions.getModules();
+        boolean hasPermission;
+
+        switch (method) {
+            case "GET" -> hasPermission = modules.getView().contains(context);
+            case "POST", "PUT" -> hasPermission = modules.getCreate().contains(context);
+            case "PATCH" -> hasPermission = modules.getEdit().contains(context);
+            case "DELETE" -> hasPermission = modules.getDelete().contains(context);
+            default -> throw new AccessDeniedException("invalid request method");
+        }
+
+        if (!hasPermission) {
+            throw new AccessDeniedException("permission denied to " + context);
+        }
+    }
+
 }
