@@ -9,8 +9,8 @@ import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.usermanagement.dto.UserInfo;
+import org.parish360.core.usermanagement.service.UserManagementMapper;
 import org.parish360.core.usermanagement.service.UserManager;
-import org.parish360.core.usermanagement.service.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,14 +26,14 @@ public class UserManagerImpl implements UserManager {
 
     private final DataownerRepository dataownerRepository;
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final UserManagementMapper userManagementMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserManagerImpl(DataownerRepository dataownerRepository, UserRepository userRepository, UserMapper userMapper) {
+    public UserManagerImpl(DataownerRepository dataownerRepository, UserRepository userRepository, UserManagementMapper userManagementMapper) {
         this.dataownerRepository = dataownerRepository;
         this.userRepository = userRepository;
-        this.userMapper = userMapper;
+        this.userManagementMapper = userManagementMapper;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserManagerImpl implements UserManager {
         List<User> userList = userRepository.findByDataownerId(decodedEntityId);
         List<UserInfo> userInfoList = new ArrayList<>();
         userList.forEach(user -> {
-            userInfoList.add(userMapper.daoToUserInfo(user));
+            userInfoList.add(userManagementMapper.daoToUserInfo(user));
         });
         return userInfoList;
     }
@@ -51,7 +51,7 @@ public class UserManagerImpl implements UserManager {
     public UserInfo getUser(String entityId, String userId) {
         UUID decodedUserId = UUIDUtil.decode(userId);
         UUID decodedEntityId = UUIDUtil.decode(entityId);
-        return userMapper.daoToUserInfo(
+        return userManagementMapper.daoToUserInfo(
                 userRepository.findByIdAndDataownerId(decodedUserId, decodedEntityId)
                         .orElseThrow(() -> new RuntimeException("user not found")));
     }
@@ -73,10 +73,10 @@ public class UserManagerImpl implements UserManager {
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
 
         // save user records to repository
-        User user = userMapper.userInfoToDao(userInfo);
+        User user = userManagementMapper.userInfoToDao(userInfo);
         user.setDataowner(dataowner);
 
-        return userMapper.daoToUserInfo(userRepository.save(user));
+        return userManagementMapper.daoToUserInfo(userRepository.save(user));
     }
 
     @Override
@@ -100,7 +100,7 @@ public class UserManagerImpl implements UserManager {
         }
 
         // user DAO created from userInfo
-        User updateUser = userMapper.userInfoToDao(userInfo);
+        User updateUser = userManagementMapper.userInfoToDao(userInfo);
 
         // fetch current user details
         User currentUserToUpdate = userRepository.findByIdAndDataownerId(updateUser.getId(),
@@ -113,9 +113,9 @@ public class UserManagerImpl implements UserManager {
         }
 
         // merge null values with current user values
-        userMapper.mergeUserIfTargetFieldIsNull(updateUser, currentUserToUpdate);
+        userManagementMapper.mergeUserNotNullFieldToTarget(updateUser, currentUserToUpdate);
 
-        return userMapper.daoToUserInfo(userRepository.save(currentUserToUpdate));
+        return userManagementMapper.daoToUserInfo(userRepository.save(currentUserToUpdate));
     }
 
     private boolean isImmutableFieldModified(User currentUser, User updateUser) {

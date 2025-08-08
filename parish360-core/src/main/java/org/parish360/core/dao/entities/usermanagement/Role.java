@@ -2,6 +2,7 @@ package org.parish360.core.dao.entities.usermanagement;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.parish360.core.dao.entities.dataowner.Dataowner;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -34,11 +35,9 @@ public class Role {
     @Column
     private String description;
 
-    @Column(name = "entity_name", nullable = false)
-    private String entityName;
-
-    @Column(name = "entity_id", nullable = false)
-    private UUID entityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dataowner_id", nullable = false)
+    private Dataowner dataowner;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

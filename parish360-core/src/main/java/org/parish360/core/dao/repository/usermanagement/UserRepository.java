@@ -13,10 +13,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @EntityGraph(attributePaths = {"roles", "roles.permissions"})
     Optional<User> findByIsActiveTrueAndUsernameOrEmail(String username, String email);
 
-    @EntityGraph(attributePaths = {"roles", "roles.permissions"})
-    @NonNull
-    Optional<User> findById(@NonNull UUID id);
-
     Optional<User> findByIdAndDataownerId(@NonNull UUID id, @NonNull UUID dataownerId);
 
     List<User> findByDataownerId(@NonNull UUID dataownerId);
