@@ -1,4 +1,4 @@
-package org.parish360.core.util;
+package org.parish360.core.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
@@ -7,10 +7,10 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.parish360.core.auth.AuthConstants;
 import org.parish360.core.auth.dto.Permissions;
+import org.parish360.core.common.enums.EntityType;
 import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
-import org.parish360.core.util.enums.EntityType;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;

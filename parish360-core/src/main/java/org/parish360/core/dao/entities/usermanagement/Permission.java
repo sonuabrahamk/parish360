@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.parish360.core.util.enums.PermissionType;
+import org.parish360.core.common.enums.PermissionType;
 
 import java.util.UUID;
 

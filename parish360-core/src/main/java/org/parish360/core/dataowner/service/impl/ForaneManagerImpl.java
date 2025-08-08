@@ -1,5 +1,7 @@
 package org.parish360.core.dataowner.service.impl;
 
+import org.parish360.core.common.util.AuthUtil;
+import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.dataowner.Diocese;
 import org.parish360.core.dao.entities.dataowner.Forane;
 import org.parish360.core.dao.repository.dataowner.DioceseRepository;
@@ -8,8 +10,6 @@ import org.parish360.core.dataowner.dto.ForaneInfo;
 import org.parish360.core.dataowner.service.DataownerMapper;
 import org.parish360.core.dataowner.service.ForaneManager;
 import org.parish360.core.error.exception.BadRequestException;
-import org.parish360.core.util.AuthUtil;
-import org.parish360.core.util.UUIDUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +48,7 @@ public class ForaneManagerImpl implements ForaneManager {
         forane.setCreatedBy(AuthUtil.getCurrentUserId());
         forane.setCreatedAt(Instant.now());
         forane.setDiocese(diocese);
-        
+
         return dataownerMapper.daoToForaneInfo(foraneRepository.save(forane));
     }
 }

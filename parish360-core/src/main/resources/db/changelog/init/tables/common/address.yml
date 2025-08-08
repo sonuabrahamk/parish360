@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-address
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: line1
+                  type: TEXT
+              - column:
+                  name: line2
+                  type: TEXT
+              - column:
+                  name: pincode
+                  type: varchar(20)
+              - column:
+                  name: location
+                  type: varchar(100)
+              - column:
+                  name: city
+                  type: varchar(100)
+              - column:
+                  name: state
+                  type: varchar(100)
+              - column:
+                  name: country
+                  type: varchar(100)

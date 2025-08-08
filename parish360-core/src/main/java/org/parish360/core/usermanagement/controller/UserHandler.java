@@ -1,9 +1,9 @@
 package org.parish360.core.usermanagement.controller;
 
 import jakarta.validation.Valid;
+import org.parish360.core.common.enums.EntityType;
 import org.parish360.core.usermanagement.dto.UserInfo;
 import org.parish360.core.usermanagement.service.UserManager;
-import org.parish360.core.util.enums.EntityType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

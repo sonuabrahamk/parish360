@@ -1,11 +1,11 @@
 package org.parish360.core.dao.entities.dataowner;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.parish360.core.dao.entities.common.Address;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -51,18 +51,6 @@ public class Diocese extends Dataowner {
     private Boolean isActive;
 
     @Column
-    private String location;
-
-    @Column
-    private String city;
-
-    @Column
-    private String state;
-
-    @Column
-    private String country;
-
-    @Column
     private String website;
 
     @Column
@@ -70,4 +58,8 @@ public class Diocese extends Dataowner {
 
     @Column
     private String timezone;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", nullable = true)
+    private Address address;
 }

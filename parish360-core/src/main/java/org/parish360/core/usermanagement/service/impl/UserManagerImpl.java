@@ -1,5 +1,8 @@
 package org.parish360.core.usermanagement.service.impl;
 
+import org.parish360.core.common.enums.EntityType;
+import org.parish360.core.common.util.AuthUtil;
+import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.BadRequestException;
@@ -7,9 +10,6 @@ import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.usermanagement.dto.UserInfo;
 import org.parish360.core.usermanagement.service.UserManager;
 import org.parish360.core.usermanagement.service.UserMapper;
-import org.parish360.core.util.AuthUtil;
-import org.parish360.core.util.UUIDUtil;
-import org.parish360.core.util.enums.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

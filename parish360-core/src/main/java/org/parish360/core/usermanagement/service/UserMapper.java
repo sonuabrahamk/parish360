@@ -1,9 +1,9 @@
 package org.parish360.core.usermanagement.service;
 
 import org.mapstruct.*;
+import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.usermanagement.dto.UserInfo;
-import org.parish360.core.util.UUIDUtil;
 
 @Mapper(componentModel = "spring",
         uses = {UUIDUtil.class},

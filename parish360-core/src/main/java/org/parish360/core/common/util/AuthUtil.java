@@ -1,4 +1,4 @@
-package org.parish360.core.util;
+package org.parish360.core.common.util;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

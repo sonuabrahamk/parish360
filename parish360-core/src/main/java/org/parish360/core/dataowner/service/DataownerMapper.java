@@ -4,13 +4,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.dataowner.Diocese;
 import org.parish360.core.dao.entities.dataowner.Forane;
 import org.parish360.core.dao.entities.dataowner.Parish;
 import org.parish360.core.dataowner.dto.DioceseInfo;
 import org.parish360.core.dataowner.dto.ForaneInfo;
 import org.parish360.core.dataowner.dto.ParishInfo;
-import org.parish360.core.util.UUIDUtil;
 
 @Mapper(componentModel = "spring",
         uses = {UUIDUtil.class},

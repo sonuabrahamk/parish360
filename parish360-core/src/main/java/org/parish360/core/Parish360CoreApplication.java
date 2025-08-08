@@ -1,6 +1,6 @@
 package org.parish360.core;
 
-import org.parish360.core.util.UUIDUtil;
+import org.parish360.core.common.util.UUIDUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;

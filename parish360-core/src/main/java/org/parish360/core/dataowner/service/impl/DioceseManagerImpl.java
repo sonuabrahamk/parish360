@@ -1,11 +1,11 @@
 package org.parish360.core.dataowner.service.impl;
 
+import org.parish360.core.common.util.AuthUtil;
 import org.parish360.core.dao.entities.dataowner.Diocese;
 import org.parish360.core.dao.repository.dataowner.DioceseRepository;
 import org.parish360.core.dataowner.dto.DioceseInfo;
 import org.parish360.core.dataowner.service.DataownerMapper;
 import org.parish360.core.dataowner.service.DioceseManager;
-import org.parish360.core.util.AuthUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,10 +1,12 @@
 package org.parish360.core.dataowner.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.parish360.core.common.dto.Address;
 
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,14 +26,12 @@ public class DioceseInfo {
     private String denomination;
     private String patron;
     private String contact;
+    @Email(message = "email is not valid")
     private String email;
     private LocalDate foundedDate;
     private Boolean isActive;
-    private String location;
-    private String city;
-    private String state;
-    private String country;
     private String website;
     private String locale;
     private String timezone;
+    private Address address;
 }
