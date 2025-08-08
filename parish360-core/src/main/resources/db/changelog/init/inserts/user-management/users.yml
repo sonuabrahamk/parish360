@@ -29,7 +29,7 @@ databaseChangeLog:
                   value: 8123592966
               - column:
                   name: dataowner_id
-                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa
+                  valueComputed: "(SELECT id FROM dataowner WHERE type='Parish')"
         - insert:
             tableName: users
             columns:
@@ -55,5 +55,5 @@ databaseChangeLog:
                   name: contact
                   value: 9876543211
               - column:
-                  name: entity_id
-                  value: 2b4173dd-3925-4267-9358-c49f5f307dfa
+                  name: dataowner_id
+                  valueComputed: "(SELECT id FROM dataowner WHERE type='Parish')"
