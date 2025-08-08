@@ -11,13 +11,11 @@ import org.parish360.core.usermanagement.dto.UserInfo;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface UserMapper {
 
-    //    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
-//    @Mapping(source = "dataowner", target = "dataowner", qualifiedByName = "uuidToBase64")
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
     @Mapping(target = "password", ignore = true)
     UserInfo daoToUserInfo(User user);
 
-    //    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
-//    @Mapping(source = "dataowner", target = "dataowner", qualifiedByName = "base64ToUuid")
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
     User userInfoToDao(UserInfo userInfo);
 
     void mergeUserIfTargetFieldIsNull(User source, @MappingTarget User target);

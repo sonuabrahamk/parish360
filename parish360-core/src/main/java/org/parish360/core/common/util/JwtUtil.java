@@ -60,7 +60,7 @@ public class JwtUtil {
         String[] pathArray = path.split("/");
         validatePath(pathArray);
 
-        UUID parishId = UUID.fromString(pathArray[2]);
+        UUID parishId = UUIDUtil.decode(pathArray[2]);
         validateParishPermission(permissions, parishId);
 
         String context = pathArray[3];

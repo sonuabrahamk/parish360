@@ -1,9 +1,10 @@
 package org.parish360.core.usermanagement.service.impl;
 
-import org.parish360.core.common.enums.EntityType;
 import org.parish360.core.common.util.AuthUtil;
 import org.parish360.core.common.util.UUIDUtil;
+import org.parish360.core.dao.entities.dataowner.Dataowner;
 import org.parish360.core.dao.entities.usermanagement.User;
+import org.parish360.core.dao.repository.dataowner.DataownerRepository;
 import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
@@ -23,12 +24,14 @@ import java.util.UUID;
 @Service
 public class UserManagerImpl implements UserManager {
 
+    private final DataownerRepository dataownerRepository;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserManagerImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserManagerImpl(DataownerRepository dataownerRepository, UserRepository userRepository, UserMapper userMapper) {
+        this.dataownerRepository = dataownerRepository;
         this.userRepository = userRepository;
         this.userMapper = userMapper;
     }
@@ -54,11 +57,14 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
-    public UserInfo createUser(EntityType entityName, String entityId, UserInfo userInfo) {
+    public UserInfo createUser(String dataownerId, UserInfo userInfo) {
+
+        Dataowner dataowner = dataownerRepository.findById(UUIDUtil.decode(dataownerId))
+                .orElseThrow(() -> new BadRequestException("invalid dataowner"));
 
         // set default values and entity ID
         userInfo.setCreatedBy(AuthUtil.getCurrentUserId());
-        // userInfo.setEntityId(entityId);
+        userInfo.setCreatedAt(Instant.now());
 
         // password hashing for user creation
         if (userInfo.getPassword() == null) {
@@ -68,13 +74,14 @@ public class UserManagerImpl implements UserManager {
 
         // save user records to repository
         User user = userMapper.userInfoToDao(userInfo);
+        user.setDataowner(dataowner);
 
         return userMapper.daoToUserInfo(userRepository.save(user));
     }
 
     @Override
     @Transactional
-    public UserInfo updateUser(EntityType entityName, String entityId, String userId, UserInfo userInfo) {
+    public UserInfo updateUser(String dataownerId, String userId, UserInfo userInfo) {
 
         // validate userInfo id with endpoint if present
         if (userInfo.getId() != null && !userInfo.getId().equals(userId)) {
@@ -84,8 +91,6 @@ public class UserManagerImpl implements UserManager {
         // copy id and entity fields to userInfo
         // create User DAO from userInfo
         userInfo.setId(userId);
-//        userInfo.setEntityId(entityId);
-//        userInfo.setEntityName(entityName);
         userInfo.setUpdatedAt(Instant.now());
         userInfo.setUpdatedBy(AuthUtil.getCurrentUserId());
 
@@ -99,7 +104,7 @@ public class UserManagerImpl implements UserManager {
 
         // fetch current user details
         User currentUserToUpdate = userRepository.findByIdAndDataownerId(updateUser.getId(),
-                        updateUser.getDataowner().getId())
+                        UUIDUtil.decode(dataownerId))
                 .orElseThrow(() -> new ResourceNotFoundException("could not find user to update"));
 
         // validate if immutable fields are updated
@@ -115,7 +120,6 @@ public class UserManagerImpl implements UserManager {
 
     private boolean isImmutableFieldModified(User currentUser, User updateUser) {
         return !currentUser.getUsername().equals(updateUser.getUsername()) // validate username
-                || !currentUser.getEmail().equals(updateUser.getEmail()) // validate email
-                || !currentUser.getDataowner().equals(updateUser.getDataowner()); // validate dataowner
+                || !currentUser.getEmail().equals(updateUser.getEmail()); // validate email
     }
 }
