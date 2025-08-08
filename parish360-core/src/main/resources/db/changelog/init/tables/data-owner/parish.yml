@@ -12,6 +12,8 @@ databaseChangeLog:
                   defaultValueComputed: gen_random_uuid()
                   constraints:
                     primaryKey: true
+                    foreignKeyName: fk_dataowner_parish
+                    references: dataowner(id)
               - column:
                   name: created_at
                   type: TIMESTAMPTZ
@@ -26,14 +28,14 @@ databaseChangeLog:
                   name: updated_by
                   type: VARCHAR(100)
               - column:
-                  name: diocese
+                  name: diocese_id
                   type: UUID
                   constraints:
                     nullable: false
                     foreignKeyName: fk_diocese_parish
                     references: diocese(id)
               - column:
-                  name: forane
+                  name: forane_id
                   type: UUID
                   constraints:
                     nullable: false

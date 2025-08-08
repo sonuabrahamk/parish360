@@ -3,19 +3,20 @@ package org.parish360.core.usermanagement.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.parish360.core.util.enums.EntityType;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfo {
     private String id;
-    private Instant createAt;
+    private Instant createdAt;
     private String createdBy;
     private Instant updatedAt;
     private String updatedBy;
@@ -42,6 +43,5 @@ public class UserInfo {
     private Boolean isTouAccepted;
     private Boolean isResetPassword;
     private String comment;
-    private EntityType entityName;
-    private String entityId;
+    private String dataownerId;
 }

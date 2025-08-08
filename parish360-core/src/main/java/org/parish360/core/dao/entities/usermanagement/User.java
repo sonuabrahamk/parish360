@@ -1,8 +1,8 @@
-package org.parish360.core.dao.entity.usermanagement;
+package org.parish360.core.dao.entities.usermanagement;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.parish360.core.util.enums.EntityType;
+import org.parish360.core.dao.entities.dataowner.Dataowner;
 
 import java.time.Instant;
 import java.util.HashSet;
@@ -66,12 +66,9 @@ public class User {
     @Column
     private String comment;
 
-    @Column(name = "entity_name", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private EntityType entityName;
-
-    @Column(name = "entity_id", nullable = false)
-    private UUID entityId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "dataowner_id", nullable = false)
+    private Dataowner dataowner;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -80,28 +77,4 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "user_diocese",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Column(name = "diocese_id")
-    private Set<UUID> dioceseIds = new HashSet<>();
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "user_forane",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Column(name = "forane_id")
-    private Set<UUID> foraneIds = new HashSet<>();
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(
-            name = "user_parish",
-            joinColumns = @JoinColumn(name = "user_id")
-    )
-    @Column(name = "parish_id")
-    private Set<UUID> parishIds = new HashSet<>();
 }

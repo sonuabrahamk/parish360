@@ -1,7 +1,7 @@
-package org.parish360.core.dao.usermanagement;
+package org.parish360.core.dao.repository.usermanagement;
 
 import lombok.NonNull;
-import org.parish360.core.dao.entity.usermanagement.User;
+import org.parish360.core.dao.entities.usermanagement.User;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -17,7 +17,7 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     @NonNull
     Optional<User> findById(@NonNull UUID id);
 
-    Optional<User> findByIdAndEntityId(@NonNull UUID id, @NonNull UUID entityId);
+    Optional<User> findByIdAndDataownerId(@NonNull UUID id, @NonNull UUID dataownerId);
 
-    List<User> findByEntityId(@NonNull UUID entityId);
+    List<User> findByDataownerId(@NonNull UUID dataownerId);
 }

@@ -1,7 +1,7 @@
 package org.parish360.core.usermanagement.service.impl;
 
-import org.parish360.core.dao.entity.usermanagement.User;
-import org.parish360.core.dao.usermanagement.UserRepository;
+import org.parish360.core.dao.entities.usermanagement.User;
+import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.usermanagement.dto.UserInfo;
@@ -36,7 +36,7 @@ public class UserManagerImpl implements UserManager {
     @Override
     public List<UserInfo> getUsersList(String entityId) {
         UUID decodedEntityId = UUIDUtil.decode(entityId);
-        List<User> userList = userRepository.findByEntityId(decodedEntityId);
+        List<User> userList = userRepository.findByDataownerId(decodedEntityId);
         List<UserInfo> userInfoList = new ArrayList<>();
         userList.forEach(user -> {
             userInfoList.add(userMapper.daoToUserInfo(user));
@@ -49,7 +49,7 @@ public class UserManagerImpl implements UserManager {
         UUID decodedUserId = UUIDUtil.decode(userId);
         UUID decodedEntityId = UUIDUtil.decode(entityId);
         return userMapper.daoToUserInfo(
-                userRepository.findByIdAndEntityId(decodedUserId, decodedEntityId)
+                userRepository.findByIdAndDataownerId(decodedUserId, decodedEntityId)
                         .orElseThrow(() -> new RuntimeException("user not found")));
     }
 
@@ -58,8 +58,7 @@ public class UserManagerImpl implements UserManager {
 
         // set default values and entity ID
         userInfo.setCreatedBy(AuthUtil.getCurrentUserId());
-        userInfo.setEntityName(entityName);
-        userInfo.setEntityId(entityId);
+        // userInfo.setEntityId(entityId);
 
         // password hashing for user creation
         if (userInfo.getPassword() == null) {
@@ -85,8 +84,8 @@ public class UserManagerImpl implements UserManager {
         // copy id and entity fields to userInfo
         // create User DAO from userInfo
         userInfo.setId(userId);
-        userInfo.setEntityId(entityId);
-        userInfo.setEntityName(entityName);
+//        userInfo.setEntityId(entityId);
+//        userInfo.setEntityName(entityName);
         userInfo.setUpdatedAt(Instant.now());
         userInfo.setUpdatedBy(AuthUtil.getCurrentUserId());
 
@@ -99,7 +98,8 @@ public class UserManagerImpl implements UserManager {
         User updateUser = userMapper.userInfoToDao(userInfo);
 
         // fetch current user details
-        User currentUserToUpdate = userRepository.findByIdAndEntityId(updateUser.getId(), updateUser.getEntityId())
+        User currentUserToUpdate = userRepository.findByIdAndDataownerId(updateUser.getId(),
+                        updateUser.getDataowner().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("could not find user to update"));
 
         // validate if immutable fields are updated
@@ -116,7 +116,6 @@ public class UserManagerImpl implements UserManager {
     private boolean isImmutableFieldModified(User currentUser, User updateUser) {
         return !currentUser.getUsername().equals(updateUser.getUsername()) // validate username
                 || !currentUser.getEmail().equals(updateUser.getEmail()) // validate email
-                || !currentUser.getEntityId().equals(updateUser.getEntityId()) // validate entityId
-                || !currentUser.getEntityName().equals(updateUser.getEntityName()); // validate entityName
+                || !currentUser.getDataowner().equals(updateUser.getDataowner()); // validate dataowner
     }
 }

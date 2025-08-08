@@ -28,10 +28,7 @@ databaseChangeLog:
                   name: contact
                   value: 8123592966
               - column:
-                  name: entity_name
-                  value: PARISH
-              - column:
-                  name: entity_id
+                  name: dataowner_id
                   value: 2b4173dd-3925-4267-9358-c49f5f307dfa
         - insert:
             tableName: users
@@ -57,9 +54,6 @@ databaseChangeLog:
               - column:
                   name: contact
                   value: 9876543211
-              - column:
-                  name: entity_name
-                  value: PARISH
               - column:
                   name: entity_id
                   value: 2b4173dd-3925-4267-9358-c49f5f307dfa

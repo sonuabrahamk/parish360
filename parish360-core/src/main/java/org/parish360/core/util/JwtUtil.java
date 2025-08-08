@@ -7,7 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.parish360.core.auth.AuthConstants;
 import org.parish360.core.auth.dto.Permissions;
-import org.parish360.core.dao.entity.usermanagement.User;
+import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.util.enums.EntityType;
@@ -60,7 +60,7 @@ public class JwtUtil {
         String[] pathArray = path.split("/");
         validatePath(pathArray);
 
-        UUID parishId = UUIDUtil.decode(pathArray[2]);
+        UUID parishId = UUID.fromString(pathArray[2]);
         validateParishPermission(permissions, parishId);
 
         String context = pathArray[3];

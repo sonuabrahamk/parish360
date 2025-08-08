@@ -1,18 +1,20 @@
-package org.parish360.core.dao.entity.dataowner;
+package org.parish360.core.dao.entities.dataowner;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Data
 @Entity
-public class Forane {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Forane extends Dataowner {
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -25,9 +27,6 @@ public class Forane {
 
     @Column(name = "updated_by")
     private String updatedBy;
-
-    @Column(nullable = false)
-    private UUID diocese;
 
     @Column(nullable = false)
     private String name;
@@ -70,4 +69,8 @@ public class Forane {
 
     @Column
     private String timezone;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "diocese_id", nullable = false)
+    private Diocese diocese;
 }

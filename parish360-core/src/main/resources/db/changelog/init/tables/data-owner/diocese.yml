@@ -12,6 +12,8 @@ databaseChangeLog:
                   defaultValueComputed: gen_random_uuid()
                   constraints:
                     primaryKey: true
+                    foreignKeyName: fk_dataowner_diocese
+                    references: dataowner(id)
               - column:
                   name: created_at
                   type: TIMESTAMPTZ

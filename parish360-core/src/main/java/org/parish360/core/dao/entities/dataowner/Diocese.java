@@ -1,18 +1,21 @@
-package org.parish360.core.dao.entity.dataowner;
+package org.parish360.core.dao.entities.dataowner;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.UUID;
 
-@Data
 @Entity
-public class Diocese {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class Diocese extends Dataowner {
 
     @Column(name = "created_at")
     private Instant createdAt;

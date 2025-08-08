@@ -74,12 +74,9 @@ databaseChangeLog:
                   name: comment
                   type: TEXT
               - column:
-                  name: entity_name
-                  type: VARCHAR(20)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: entity_id
+                  name: dataowner_id
                   type: UUID
                   constraints:
                     nullable: false
+                    foreignKeyName: fk_user_dataowner
+                    references: dataowner(id)

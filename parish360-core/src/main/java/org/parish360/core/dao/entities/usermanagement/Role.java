@@ -1,4 +1,4 @@
-package org.parish360.core.dao.entity.usermanagement;
+package org.parish360.core.dao.entities.usermanagement;
 
 import jakarta.persistence.*;
 import lombok.Data;

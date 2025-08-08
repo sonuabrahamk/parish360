@@ -4,9 +4,9 @@ import org.parish360.core.auth.dto.AuthenticationRequest;
 import org.parish360.core.auth.dto.AuthenticationResponse;
 import org.parish360.core.auth.dto.Permissions;
 import org.parish360.core.auth.service.AuthService;
-import org.parish360.core.dao.entity.usermanagement.Permission;
-import org.parish360.core.dao.entity.usermanagement.User;
-import org.parish360.core.dao.usermanagement.UserRepository;
+import org.parish360.core.dao.entities.usermanagement.Permission;
+import org.parish360.core.dao.entities.usermanagement.User;
+import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.util.JwtUtil;
 import org.parish360.core.util.enums.PermissionType;
@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -71,9 +73,9 @@ public class AuthServiceImpl implements AuthService {
         ));
 
         // add allowed data-owner access to permissions
-        permissions.getDataOwner().setDiocese(user.getDioceseIds());
-        permissions.getDataOwner().setForane(user.getForaneIds());
-        permissions.getDataOwner().setParish(user.getParishIds());
+        if (user.getDataowner() != null) {
+            permissions.getDataOwner().setParish(Set.of(user.getDataowner().getId()));
+        }
 
         return permissions;
     }
