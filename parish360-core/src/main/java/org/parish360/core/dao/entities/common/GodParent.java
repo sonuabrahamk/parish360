@@ -6,17 +6,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Embeddable
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-    private String line1;
-    private String line2;
-    private String pincode;
-    private String location;
-    private String city;
-    private String state;
-    private String country;
+@Embeddable
+public class GodParent {
+    private String name;
+    private String parish;
+    private String baptismName;
+    private String contact;
 }
