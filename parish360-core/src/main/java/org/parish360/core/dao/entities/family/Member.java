@@ -35,9 +35,6 @@ public class Member extends BaseEntity {
     @Column(name = "contact_verified")
     private boolean contactVerified;
 
-    @Column(name = "is_head_of_family")
-    private boolean isHof;
-
     @Column(name = "marital_status")
     private String maritalStatus;
 

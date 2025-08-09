@@ -1,0 +1,52 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-subscriptions
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: subscriptions
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: year
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: month
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: amount
+                  type: DECIMAL(19,2)
+              - column:
+                  name: currency
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: family_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_families_subscriptions
+                    references: families(id)

@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-sacraments
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: sacraments
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: type
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: priest
+                  type: VARCHAR(100)
+              - column:
+                  name: parish
+                  type: VARCHAR(100)
+              - column:
+                  name: location
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: state
+                  type: VARCHAR(100)
+              - column:
+                  name: country
+                  type: VARCHAR(100)
+              - column:
+                  name: member_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_members_sacraments
+                    references: members(id)

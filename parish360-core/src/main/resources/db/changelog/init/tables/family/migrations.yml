@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-migrations
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: migrations
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: migrated_on
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: return_date
+                  type: DATE
+              - column:
+                  name: comment
+                  type: TEXT
+              - column:
+                  name: location
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: state
+                  type: VARCHAR(100)
+              - column:
+                  name: country
+                  type: VARCHAR(100)
+              - column:
+                  name: member_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_members_migrations
+                    references: members(id)

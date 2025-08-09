@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/family/family.yml
+  - include:
+      file: db/changelog/init/tables/family/members.yml
+  - include:
+      file: db/changelog/init/tables/family/blessings.yml
+  - include:
+      file: db/changelog/init/tables/family/subscriptions.yml
+  - include:
+      file: db/changelog/init/tables/family/miscellaneous.yml
+  - include:
+      file: db/changelog/init/tables/family/migrations.yml
+  - include:
+      file: db/changelog/init/tables/family/documents.yml
+  - include:
+      file: db/changelog/init/tables/family/sacraments.yml

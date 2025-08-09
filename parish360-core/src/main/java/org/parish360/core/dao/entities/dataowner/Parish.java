@@ -60,8 +60,7 @@ public class Parish extends Dataowner {
     @Column
     private String timezone;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = true)
+    @Embedded
     private Address address;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

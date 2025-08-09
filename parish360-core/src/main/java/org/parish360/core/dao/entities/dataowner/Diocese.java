@@ -1,6 +1,8 @@
 package org.parish360.core.dao.entities.dataowner;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -59,7 +61,6 @@ public class Diocese extends Dataowner {
     @Column
     private String timezone;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = true)
+    @Embedded
     private Address address;
 }

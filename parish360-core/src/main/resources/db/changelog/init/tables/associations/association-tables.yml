@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/associations/accounts.yml
+  - include:
+      file: db/changelog/init/tables/associations/associations.yml
+  - include:
+      file: db/changelog/init/tables/associations/committee_members.yml
+  - include:
+      file: db/changelog/init/tables/associations/associates.yml

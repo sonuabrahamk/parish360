@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-committee-members
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: committee_members
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: designation
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: position
+                  type: INTEGER
+              - column:
+                  name: member_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_members_committee_members
+                    references: members(id)
+              - column:
+                  name: association_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_associations_committee_members
+                    references: associations(id)

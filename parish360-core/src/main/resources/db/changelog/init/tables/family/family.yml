@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-families
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: families
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: family_code
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: family_name
+                  type: VARCHAR(100)
+              - column:
+                  name: contact
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: address
+                  type: TEXT
+              - column:
+                  name: contact_verified
+                  type: BOOLEAN
+                  defaultValueComputed: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: joined_date
+                  type: DATE
+              - column:
+                  name: parish_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_families
+                    references: parish(id)

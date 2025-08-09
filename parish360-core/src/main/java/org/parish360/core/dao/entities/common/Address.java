@@ -12,9 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Address {
-    private String line1;
-    private String line2;
-    private String pincode;
     private String location;
     private String city;
     private String state;

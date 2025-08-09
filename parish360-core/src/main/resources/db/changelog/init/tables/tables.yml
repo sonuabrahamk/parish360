@@ -5,3 +5,7 @@ databaseChangeLog:
       file: db/changelog/init/tables/data-owner/dataowner-tables.yml
   - include:
       file: db/changelog/init/tables/user-management/user-tables.yml
+  - include:
+      file: db/changelog/init/tables/family/family-tables.yml
+  - include:
+      file: db/changelog/init/tables/associations/association-tables.yml
