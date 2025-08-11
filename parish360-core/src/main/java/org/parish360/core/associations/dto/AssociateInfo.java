@@ -1,4 +1,4 @@
-package org.parish360.core.common.dto;
+package org.parish360.core.associations.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-    private String location;
-    private String city;
-    private String state;
-    private String country;
+public class AssociateInfo {
+    private String id;
+    private String associationId;
+    private String associatesId;
 }

@@ -17,8 +17,12 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Table(name = "sacraments")
 public class Sacrament extends BaseEntity {
+    @Column(nullable = false)
     private String type;
+
+    @Column(nullable = false)
     private LocalDate date;
+    
     private String priest;
     private String parish;
 

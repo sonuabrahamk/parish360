@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
-    private String location;
-    private String city;
-    private String state;
-    private String country;
+public class GodParent {
+    private String name;
+    private String parish;
+    private String baptismName;
+    private String contact;
 }

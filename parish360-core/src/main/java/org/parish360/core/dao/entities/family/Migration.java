@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Table(name = "migrations")
 public class Migration extends BaseEntity {
 
-    @Column(name = "migrated_on")
+    @Column(name = "migrated_on", nullable = false)
     private LocalDate migratedOn;
 
     @Column(name = "return_date")
