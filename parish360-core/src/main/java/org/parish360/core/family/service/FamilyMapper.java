@@ -3,7 +3,9 @@ package org.parish360.core.family.service;
 import org.mapstruct.*;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.family.Family;
+import org.parish360.core.dao.entities.family.Member;
 import org.parish360.core.family.dto.FamilyInfo;
+import org.parish360.core.family.dto.MemberInfo;
 
 @Mapper(componentModel = "spring",
         uses = {UUIDUtil.class},
@@ -19,4 +21,13 @@ public interface FamilyMapper {
     FamilyInfo daoToFamilyInfo(Family family);
 
     void mergeNotNullFamilyFieldToTarget(Family source, @MappingTarget Family target);
+
+    // Member Info Mapper
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
+    Member memberInfoToDao(MemberInfo memberInfo);
+
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    MemberInfo daoToMemberInfo(Member member);
+
+    void mergeNotNullMemberFieldToTarget(Member source, @MappingTarget Member target);
 }
