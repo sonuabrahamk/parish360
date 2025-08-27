@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.Month;
+import java.time.Year;
 
 @Getter
 @Setter
@@ -21,10 +23,10 @@ public class SubscriptionInfo {
     private String updatedBy;
 
     @NotNull(message = "year is not mentioned")
-    private String year;
+    private Year year;
 
     @NotNull(message = "month is not mentioned")
-    private String month;
+    private Month month;
 
     private BigDecimal amount;
     private String currency;

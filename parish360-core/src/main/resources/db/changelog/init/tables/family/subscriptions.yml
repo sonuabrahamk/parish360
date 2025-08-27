@@ -27,12 +27,12 @@ databaseChangeLog:
                   type: VARCHAR(100)
               - column:
                   name: year
-                  type: VARCHAR(100)
+                  type: INT
                   constraints:
                     nullable: false
               - column:
                   name: month
-                  type: VARCHAR(100)
+                  type: INT
                   constraints:
                     nullable: false
               - column:

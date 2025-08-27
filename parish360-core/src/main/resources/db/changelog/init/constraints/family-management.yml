@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-constraints-family-management
+      author: Sonu Abraham
+      changes:
+        - addUniqueConstraint:
+            tableName: subscriptions
+            columnNames: family_id, year, month
+            constraintName: uc_family_id_year_month

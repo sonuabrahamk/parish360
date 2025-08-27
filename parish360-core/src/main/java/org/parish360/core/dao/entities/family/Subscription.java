@@ -17,10 +17,10 @@ import java.math.BigDecimal;
 @Table(name = "subscriptions")
 public class Subscription extends BaseEntity {
     @Column(nullable = false)
-    private String year;
+    private int year;
 
     @Column(nullable = false)
-    private String month;
+    private int month;
 
     @Column(precision = 19, scale = 2)
     private BigDecimal amount;
