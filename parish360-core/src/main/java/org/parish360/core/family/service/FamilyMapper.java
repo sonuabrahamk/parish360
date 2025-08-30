@@ -77,6 +77,15 @@ public interface FamilyMapper {
 
     @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
     Miscellaneous miscellaneousInfoToDao(MiscellaneousInfo miscellaneousInfo);
-    
+
     void mergeNotNullMiscellaneousFieldToTarget(Miscellaneous source, @MappingTarget Miscellaneous target);
+
+    // Sacrament Info Mapper
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
+    Sacrament sacramentInfoToDao(SacramentInfo sacramentInfo);
+
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    SacramentInfo daoToSacramentInfo(Sacrament sacrament);
+
+    void mergeNotNullSacramentFieldToTarget(Sacrament source, @MappingTarget Sacrament target);
 }
