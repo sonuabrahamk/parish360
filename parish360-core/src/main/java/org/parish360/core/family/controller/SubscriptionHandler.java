@@ -33,7 +33,7 @@ public class SubscriptionHandler {
             @PathVariable("familyId") String familyId,
             @PathVariable("subscriptionId") String subscriptionId,
             @Valid @RequestBody SubscriptionInfo subscriptionInfo) {
-        //validate blessing ID
+        //validate subscription ID
         if (subscriptionInfo.getFamilyId() != null && !subscriptionInfo.getFamilyId().equals(subscriptionId)) {
             throw new BadRequestException("subscription information mismatch");
         }

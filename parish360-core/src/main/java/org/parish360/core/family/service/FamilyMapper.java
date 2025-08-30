@@ -88,4 +88,13 @@ public interface FamilyMapper {
     SacramentInfo daoToSacramentInfo(Sacrament sacrament);
 
     void mergeNotNullSacramentFieldToTarget(Sacrament source, @MappingTarget Sacrament target);
+
+    // Migration Info Mapper
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
+    Migration migrationInfoToDao(MigrationInfo migrationInfo);
+
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    MigrationInfo daoToMigrationInfo(Migration migration);
+
+    void mergeNotNullMigrationFieldToTarget(Migration source, @MappingTarget Migration target);
 }
