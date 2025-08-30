@@ -10,6 +10,7 @@ import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.common.GodParent;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -77,4 +78,13 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "family_id")
     private Family family;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documents;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Migration> migrations;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Sacrament> sacraments;
 }
