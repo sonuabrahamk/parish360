@@ -2,14 +2,8 @@ package org.parish360.core.family.service;
 
 import org.mapstruct.*;
 import org.parish360.core.common.util.UUIDUtil;
-import org.parish360.core.dao.entities.family.Blessing;
-import org.parish360.core.dao.entities.family.Family;
-import org.parish360.core.dao.entities.family.Member;
-import org.parish360.core.dao.entities.family.Subscription;
-import org.parish360.core.family.dto.BlessingInfo;
-import org.parish360.core.family.dto.FamilyInfo;
-import org.parish360.core.family.dto.MemberInfo;
-import org.parish360.core.family.dto.SubscriptionInfo;
+import org.parish360.core.dao.entities.family.*;
+import org.parish360.core.family.dto.*;
 
 import java.time.Month;
 import java.time.Year;
@@ -60,7 +54,7 @@ public interface FamilyMapper {
 
     void mergeNotNullSubscriptionFieldToTarget(Subscription source, @MappingTarget Subscription target);
 
-    // Custom mapping methods
+    // Custom mapping methods for subscription info Year and Month
     default Year mapYear(int year) {
         return Year.of(year);
     }
@@ -76,4 +70,13 @@ public interface FamilyMapper {
     default int mapMonth(Month month) {
         return month.getValue();
     }
+
+    // Miscellaneous Info Mapper
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    MiscellaneousInfo daoToMiscellaneousInfo(Miscellaneous miscellaneous);
+
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
+    Miscellaneous miscellaneousInfoToDao(MiscellaneousInfo miscellaneousInfo);
+    
+    void mergeNotNullMiscellaneousFieldToTarget(Miscellaneous source, @MappingTarget Miscellaneous target);
 }

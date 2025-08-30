@@ -1,5 +1,6 @@
 package org.parish360.core.family.controller;
 
+import jakarta.validation.Valid;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.family.dto.SubscriptionInfo;
 import org.parish360.core.family.service.SubscriptionManager;
@@ -22,7 +23,7 @@ public class SubscriptionHandler {
     ResponseEntity<SubscriptionInfo> createSubscription(
             @PathVariable("parishId") String parishId,
             @PathVariable("familyId") String familyId,
-            @RequestBody SubscriptionInfo subscriptionInfo) {
+            @Valid @RequestBody SubscriptionInfo subscriptionInfo) {
         return ResponseEntity.ok(
                 subscriptionManager.createSubscription(parishId, familyId, subscriptionInfo));
     }
@@ -31,12 +32,12 @@ public class SubscriptionHandler {
     ResponseEntity<SubscriptionInfo> updateSubscription(
             @PathVariable("familyId") String familyId,
             @PathVariable("subscriptionId") String subscriptionId,
-            @RequestBody SubscriptionInfo subscriptionInfo) {
+            @Valid @RequestBody SubscriptionInfo subscriptionInfo) {
         //validate blessing ID
         if (subscriptionInfo.getFamilyId() != null && !subscriptionInfo.getFamilyId().equals(subscriptionId)) {
             throw new BadRequestException("subscription information mismatch");
         }
-        
+
         return ResponseEntity.ok(
                 subscriptionManager.updateSubscription(familyId, subscriptionId, subscriptionInfo));
     }
