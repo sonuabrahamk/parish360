@@ -1,11 +1,11 @@
-package org.parish360.core.dao.entities.configurations;
+package org.parish360.core.dao.entities.associations;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.parish360.core.dao.entities.associations.Association;
+import org.parish360.core.dao.entities.configurations.ParishYear;
 
 import java.util.UUID;
 

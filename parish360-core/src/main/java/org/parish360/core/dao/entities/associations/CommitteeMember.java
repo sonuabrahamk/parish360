@@ -2,7 +2,6 @@ package org.parish360.core.dao.entities.associations;
 
 import jakarta.persistence.*;
 import org.parish360.core.dao.entities.common.BaseEntity;
-import org.parish360.core.dao.entities.configurations.ParishYearAssociation;
 import org.parish360.core.dao.entities.family.Member;
 
 @Entity
