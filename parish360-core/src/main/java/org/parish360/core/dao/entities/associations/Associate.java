@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.parish360.core.dao.entities.configurations.ParishYearAssociation;
 
 import java.util.UUID;
 
@@ -20,8 +21,8 @@ public class Associate {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "association_id")
-    private Association association;
+    @JoinColumn(name = "py_association_id")
+    private ParishYearAssociation parishYearAssociation;
 
     @Column(nullable = false)
     private UUID associates;

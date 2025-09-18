@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/init/tables/configurations/accounts.yml
+  - include:
+      file: db/changelog/init/tables/configurations/parish_year.yml

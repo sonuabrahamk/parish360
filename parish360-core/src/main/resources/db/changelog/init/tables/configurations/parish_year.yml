@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-table-committee-members
+      id: create-table-parish-year
       author: Sonu Abraham
       changes:
         - createTable:
-            tableName: committee_members
+            tableName: parish_year
             columns:
               - column:
                   name: id
@@ -26,24 +26,31 @@ databaseChangeLog:
                   name: updated_by
                   type: VARCHAR(100)
               - column:
-                  name: designation
+                  name: name
                   type: VARCHAR(100)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
-                  name: position
-                  type: INTEGER
+                  name: start_date
+                  type: DATE
               - column:
-                  name: member_id
+                  name: end_date
+                  type: DATE
+              - column:
+                  name: status
+                  type: VARCHAR(100)
+              - column:
+                  name: locked
+                  type: BOOLEAN
+                  defaultValueComputed: false
+              - column:
+                  name: comment
+                  type: VARCHAR(100)
+              - column:
+                  name: parish_id
                   type: UUID
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_members_committee_members
-                    references: members(id)
-              - column:
-                  name: py_association_id
-                  type: UUID
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_py_associations_associates
-                    references: parish_year_associations(id)
+                    foreignKeyName: fk_parish_parish_year
+                    references: parish(id)

@@ -2,6 +2,7 @@ package org.parish360.core.dao.entities.associations;
 
 import jakarta.persistence.*;
 import org.parish360.core.dao.entities.common.BaseEntity;
+import org.parish360.core.dao.entities.configurations.ParishYearAssociation;
 import org.parish360.core.dao.entities.family.Member;
 
 @Entity
@@ -18,6 +19,6 @@ public class CommitteeMember extends BaseEntity {
     private Member memberDetails;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "association_id")
-    private Association associationId;
+    @JoinColumn(name = "py_association_id")
+    private ParishYearAssociation parishYearAssociation;
 }

@@ -56,13 +56,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: account
-                  type: UUID
-                  constraints:
-                    nullable: true
-                    foreignKeyName: fk_accounts_associations
-                    references: accounts(id)
-              - column:
                   name: parish_id
                   type: UUID
                   constraints:

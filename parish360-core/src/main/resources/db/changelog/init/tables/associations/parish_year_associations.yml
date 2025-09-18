@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: create-table-associates
+      id: create-table-parish-year-associations
       author: Sonu Abraham
       changes:
         - createTable:
-            tableName: associates
+            tableName: parish_year_associations
             columns:
               - column:
                   name: id
@@ -13,14 +13,16 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
               - column:
-                  name: associates
+                  name: parish_year_id
                   type: UUID
                   constraints:
                     nullable: false
+                    foreignKeyName: fk_py_associations_parish_year
+                    references: parish_year(id)
               - column:
-                  name: py_association_id
+                  name: association_id
                   type: UUID
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_py_associations_associates
-                    references: parish_year_associations(id)
+                    foreignKeyName: fk_py_associations_association
+                    references: associations(id)

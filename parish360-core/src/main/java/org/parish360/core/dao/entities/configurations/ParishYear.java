@@ -1,4 +1,4 @@
-package org.parish360.core.dao.entities.associations;
+package org.parish360.core.dao.entities.configurations;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,18 +8,24 @@ import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.dataowner.Parish;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "accounts")
-public class Account extends BaseEntity {
-    @Column(nullable = false, unique = true)
+@Table(name = "parish_year")
+public class ParishYear extends BaseEntity {
+
     private String name;
-    private String description;
-    private String type;
-    private String owner;
+    @Column(name = "start_date")
+    private LocalDate startDate;
+    @Column(name = "end_date")
+    private LocalDate endDate;
+    private String status;
+    private boolean locked;
+    private String comment;
 
     @ManyToOne
     @JoinColumn(name = "parish_id")
