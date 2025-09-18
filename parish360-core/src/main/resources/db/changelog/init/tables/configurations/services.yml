@@ -1,0 +1,63 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-services
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: services
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: type
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_time
+                  type: TIME
+              - column:
+                  name: end_time
+                  type: TIME
+              - column:
+                  name: resource_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_resource_services
+                    references: resources(id)
+              - column:
+                  name: parish_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_services
+                    references: parish(id)

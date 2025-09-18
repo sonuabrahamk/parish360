@@ -10,4 +10,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/init/tables/configurations/configuration-tables.yml
   - include:
+      file: db/changelog/init/tables/bookings/booking-tables.yml
+  - include:
       file: db/changelog/init/tables/associations/association-tables.yml

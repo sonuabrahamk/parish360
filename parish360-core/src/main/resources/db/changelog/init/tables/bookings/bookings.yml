@@ -1,0 +1,70 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-bookings
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: bookings
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: booked_by
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: from
+                  type: TIMESTAMPTZ
+              - column:
+                  name: to
+                  type: TIMESTAMPTZ
+              - column:
+                  name: contact
+                  type: VARCHAR(50)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: event
+                  type: VARCHAR(100)
+              - column:
+                  name: status
+                  type: VARCHAR(100)
+              - column:
+                  name: family_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_families_bookings
+                    references: families(id)
+              - column:
+                  name: resource_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_resources_bookings
+                    references: resources(id)
+              - column:
+                  name: parish_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_bookings
+                    references: parish(id)

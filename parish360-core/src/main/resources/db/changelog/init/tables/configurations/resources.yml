@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-table-resources
+      author: Sonu Abraham
+      changes:
+        - createTable:
+            tableName: resources
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  defaultValueComputed: gen_random_uuid()
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: created_at
+                  type: TIMESTAMPTZ
+                  defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: created_by
+                  type: VARCHAR(100)
+              - column:
+                  name: updated_at
+                  type: TIMESTAMPTZ
+              - column:
+                  name: updated_by
+                  type: VARCHAR(100)
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: description
+                  type: VARCHAR(100)
+              - column:
+                  name: capacity
+                  type: INT
+              - column:
+                  name: is_mass_compatible
+                  type: BOOLEAN
+              - column:
+                  name: parish_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_parish_resources
+                    references: parish(id)
