@@ -423,3 +423,63 @@ databaseChangeLog:
               - column:
                   name: permission
                   value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-configurations
+              - column:
+                  name: description
+                  value: Permission to create new configurations
+              - column:
+                  name: module
+                  value: configurations
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-configurations
+              - column:
+                  name: description
+                  value: Permission to edit configurations
+              - column:
+                  name: module
+                  value: configurations
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-configurations
+              - column:
+                  name: description
+                  value: Permission to view configurations
+              - column:
+                  name: module
+                  value: configurations
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-configurations
+              - column:
+                  name: description
+                  value: Permission to delete configurations
+              - column:
+                  name: module
+                  value: configurations
+              - column:
+                  name: permission
+                  value: DELETE

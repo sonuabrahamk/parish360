@@ -18,6 +18,7 @@ import java.time.LocalDate;
 @Table(name = "parish_year")
 public class ParishYear extends BaseEntity {
 
+    @Column(nullable = false, unique = true)
     private String name;
     @Column(name = "start_date")
     private LocalDate startDate;

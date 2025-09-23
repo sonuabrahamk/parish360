@@ -17,7 +17,7 @@ databaseChangeLog:
                   value: sonu.abrahamk@gmail.com
               - column:
                   name: password
-                  value: 123
+                  value: $argon2id$v=19$m=65536,t=2,p=1$IMzARRvzPmltCB12Ztb5NA$J8Sn/vmQkws6HHmA73NfJKdkLE69am04hp3RFpRlpeA
               - column:
                   name: first_name
                   value: Sonu
@@ -44,7 +44,7 @@ databaseChangeLog:
                   value: bob.smith@example.com
               - column:
                   name: password
-                  value: 123
+                  value: $argon2id$v=19$m=65536,t=2,p=1$IMzARRvzPmltCB12Ztb5NA$J8Sn/vmQkws6HHmA73NfJKdkLE69am04hp3RFpRlpeA
               - column:
                   name: first_name
                   value: Bob
