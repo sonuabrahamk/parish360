@@ -1,10 +1,11 @@
-package org.parish360.core.dao.entities.associations;
+package org.parish360.core.dao.entities.configurations;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.parish360.core.common.enums.AssociationType;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.dataowner.Parish;
 
@@ -21,7 +22,11 @@ public class Association extends BaseEntity {
     private String name;
 
     private String description;
-    private String type;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AssociationType type;
+
     private String director;
     private String scope;
     private String patron;

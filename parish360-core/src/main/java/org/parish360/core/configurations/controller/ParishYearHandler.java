@@ -1,6 +1,8 @@
 package org.parish360.core.configurations.controller;
 
 import jakarta.validation.Valid;
+import org.parish360.core.configurations.dto.PYAssociationRequest;
+import org.parish360.core.configurations.dto.PYAssociationResponse;
 import org.parish360.core.configurations.dto.ParishYearInfo;
 import org.parish360.core.configurations.service.ParishYearManager;
 import org.parish360.core.error.exception.BadRequestException;
@@ -53,6 +55,28 @@ public class ParishYearHandler {
     public ResponseEntity<ParishYearInfo> getParishYearInfo(@PathVariable("parishId") String parishId,
                                                             @PathVariable("parishYearId") String parishYearId) {
         return ResponseEntity.ok(parishYearManager.getParishYearInfo(parishId, parishYearId));
+    }
+
+    @PostMapping("/{parishYearId}/associations")
+    public ResponseEntity<List<PYAssociationResponse>> mapAssociationsToParishYear(
+            @PathVariable("parishId") String parishId,
+            @PathVariable("parishYearId") String parishYearId,
+            @Valid @RequestBody PYAssociationRequest pyAssociationRequest) {
+        return ResponseEntity.ok(parishYearManager.mapAssociations(parishId, parishYearId, pyAssociationRequest));
+    }
+
+    @DeleteMapping("/{parishYearId}/associations")
+    public ResponseEntity<List<PYAssociationResponse>> unMapAssociationsToParishYear(
+            @PathVariable("parishId") String parishId,
+            @PathVariable("parishYearId") String parishYearId,
+            @Valid @RequestBody PYAssociationRequest pyAssociationRequest) {
+        return ResponseEntity.ok(parishYearManager.unMapAssociations(parishId, parishYearId, pyAssociationRequest));
+    }
+
+    @GetMapping("/{parishYearId}/associations")
+    public ResponseEntity<List<PYAssociationResponse>> getPyAssociations(
+            @PathVariable("parishYearId") String parishYearId) {
+        return ResponseEntity.ok(parishYearManager.getPyAssociations(parishYearId));
     }
 
 }

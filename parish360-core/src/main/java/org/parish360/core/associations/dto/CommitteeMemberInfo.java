@@ -23,6 +23,8 @@ public class CommitteeMemberInfo {
     private String designation;
 
     private int position;
-    private String memberId;
+    private String name;
+    private String contact;
+    private String email;
     private String associationId;
 }

@@ -1,10 +1,17 @@
 package org.parish360.core.dao.entities.associations;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
-import org.parish360.core.dao.entities.family.Member;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "committee_members")
 public class CommitteeMember extends BaseEntity {
 
@@ -13,11 +20,13 @@ public class CommitteeMember extends BaseEntity {
 
     private int position;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "member_id")
-    private Member memberDetails;
+    @Column(nullable = false)
+    private String name;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    private String contact;
+    private String email;
+
+    @ManyToOne
     @JoinColumn(name = "py_association_id")
     private ParishYearAssociation parishYearAssociation;
 }

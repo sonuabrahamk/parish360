@@ -34,12 +34,16 @@ databaseChangeLog:
                   name: position
                   type: INTEGER
               - column:
-                  name: member_id
-                  type: UUID
+                  name: name
+                  type: VARCHAR(100)
                   constraints:
                     nullable: false
-                    foreignKeyName: fk_members_committee_members
-                    references: members(id)
+              - column:
+                  name: contact
+                  type: VARCHAR(50)
+              - column:
+                  name: email
+                  type: VARCHAR(100)
               - column:
                   name: py_association_id
                   type: UUID
