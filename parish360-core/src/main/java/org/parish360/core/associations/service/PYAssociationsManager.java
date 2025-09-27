@@ -1,5 +1,6 @@
 package org.parish360.core.associations.service;
 
+import org.parish360.core.associations.dto.AssociatesRequest;
 import org.parish360.core.associations.dto.CommitteeMemberInfo;
 
 import java.util.List;
@@ -15,4 +16,10 @@ public interface PYAssociationsManager {
     List<CommitteeMemberInfo> getListOfCommitteeMembers(String pyAssociationId);
 
     void deleteCommitteeMember(String pyAssociationId, String committeeMemberId);
+
+    void mapAssociates(String pyAssociationId, AssociatesRequest associatesRequest);
+
+    void unMapAssociates(String pyAssociationId, AssociatesRequest associatesRequest);
+
+    List<Object> getAssociatesList(String pyAssociationId);
 }
