@@ -1,0 +1,55 @@
+package org.parish360.core.configurations.controller;
+
+import jakarta.validation.Valid;
+import org.parish360.core.common.enums.ServiceRecurrencePattern;
+import org.parish360.core.configurations.dto.ServiceInfo;
+import org.parish360.core.configurations.dto.ServiceRequest;
+import org.parish360.core.configurations.dto.ServiceResponse;
+import org.parish360.core.configurations.service.ServiceManager;
+import org.parish360.core.error.exception.BadRequestException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/parish/{parishId}/configurations/services")
+public class ServiceHandler {
+    private final ServiceManager serviceManager;
+
+    public ServiceHandler(ServiceManager serviceManager) {
+        this.serviceManager = serviceManager;
+    }
+
+    @PostMapping
+    public ResponseEntity<ServiceResponse> createServiceInfo(@PathVariable("parishId") String parishId,
+                                                             @Valid @RequestBody ServiceRequest serviceRequest) {
+        //validate recurring information in request
+        if (serviceRequest.isRecurring()) {
+            if (serviceRequest.getStartDate().isAfter(serviceRequest.getEndDate())) {
+                throw new BadRequestException("start date cannot be after the end date");
+            }
+            if (serviceRequest.getEndDate() == null || serviceRequest.getServiceRecurrencePattern() == null) {
+                throw new BadRequestException(
+                        "service occurrence pattern and end date cannot be null for recurring requests");
+            }
+            if (serviceRequest.getServiceRecurrencePattern() == ServiceRecurrencePattern.WEEKLY
+                    && serviceRequest.getDaysOfWeek() == null) {
+                throw new BadRequestException("days of the week has to be specified for weekly service requests");
+            }
+        }
+        ServiceResponse serviceResponse = serviceManager.createServiceInfo(parishId, serviceRequest);
+        return ResponseEntity.status(serviceResponse.getStatus()).body(serviceResponse);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ServiceInfo>> getListOfServices(@PathVariable("parishId") String parishId) {
+        return ResponseEntity.ok(serviceManager.getListOfServices(parishId));
+    }
+
+    @GetMapping("/{serviceId}")
+    public ResponseEntity<ServiceInfo> getListOfServices(@PathVariable("parishId") String parishId,
+                                                         @PathVariable("serviceId") String serviceId) {
+        return ResponseEntity.ok(serviceManager.getService(parishId, serviceId));
+    }
+}

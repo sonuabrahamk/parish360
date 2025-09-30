@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
-import org.parish360.core.dao.entities.configurations.Service;
+import org.parish360.core.dao.entities.configurations.Services;
 import org.parish360.core.dao.entities.dataowner.Parish;
 import org.parish360.core.dao.entities.family.Family;
 
@@ -26,7 +26,7 @@ public class ServiceIntention extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
-    private Service service;
+    private Services service;
 
     @ManyToOne
     @JoinColumn(name = "family_id")

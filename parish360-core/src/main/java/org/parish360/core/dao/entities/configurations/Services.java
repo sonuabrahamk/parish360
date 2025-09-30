@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "services")
-public class Service extends BaseEntity {
+public class Services extends BaseEntity {
     @Column(nullable = false)
     private String name;
     @Column(nullable = false)
