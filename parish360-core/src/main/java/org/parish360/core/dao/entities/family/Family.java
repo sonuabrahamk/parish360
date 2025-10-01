@@ -19,7 +19,7 @@ import java.util.List;
 @Table(name = "families")
 public class Family extends BaseEntity {
 
-    @Column(name = "family_code", nullable = false, unique = true)
+    @Column(name = "family_code", nullable = false)
     private String familyCode;
 
     @Column(name = "family_name")

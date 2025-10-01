@@ -11,4 +11,6 @@ public interface FamilyInfoRepository extends JpaRepository<Family, UUID> {
     Optional<Family> findByIdAndParishId(UUID id, UUID parishId);
 
     Optional<List<Family>> findByParishId(UUID parishId);
+
+    Optional<Family> findByFamilyCodeAndParishId(String familyCode, UUID parishId);
 }
