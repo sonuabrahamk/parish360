@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-service-intention-permissions
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: create-service-intentions
+              - column:
+                  name: description
+                  value: Permission to create new service-intentions
+              - column:
+                  name: module
+                  value: service-intentions
+              - column:
+                  name: permission
+                  value: CREATE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: edit-service-intentions
+              - column:
+                  name: description
+                  value: Permission to edit new service-intentions
+              - column:
+                  name: module
+                  value: service-intentions
+              - column:
+                  name: permission
+                  value: EDIT
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-service-intentions
+              - column:
+                  name: description
+                  value: Permission to view new service-intentions
+              - column:
+                  name: module
+                  value: service-intentions
+              - column:
+                  name: permission
+                  value: VIEW
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: delete-service-intentions
+              - column:
+                  name: description
+                  value: Permission to delete service-intentions
+              - column:
+                  name: module
+                  value: service-intentions
+              - column:
+                  name: permission
+                  value: DELETE

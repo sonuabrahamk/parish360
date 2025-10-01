@@ -20,7 +20,7 @@ public class ServiceIntention extends BaseEntity {
     @Column(name = "booked_by", nullable = false)
     private String bookedBy;
     private String contact;
-    private String description;
+    private String intention;
     private String event;
     private String status;
 

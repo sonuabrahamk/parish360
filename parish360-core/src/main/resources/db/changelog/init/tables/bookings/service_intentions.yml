@@ -34,7 +34,7 @@ databaseChangeLog:
                   name: contact
                   type: VARCHAR(50)
               - column:
-                  name: description
+                  name: intention
                   type: TEXT
               - column:
                   name: event
