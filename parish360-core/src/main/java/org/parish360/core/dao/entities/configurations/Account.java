@@ -21,6 +21,14 @@ public class Account extends BaseEntity {
     private String type;
     private String owner;
 
+    @Column(name = "bank_name")
+    private String bankName;
+    @Column(name = "account_number")
+    private String accountNumber;
+    private String branch;
+    @Column(name = "ifsc_code")
+    private String ifscCode;
+
     @ManyToOne
     @JoinColumn(name = "parish_id")
     private Parish parish;

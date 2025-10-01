@@ -4,10 +4,7 @@ import org.mapstruct.*;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.configurations.dto.*;
 import org.parish360.core.dao.entities.associations.ParishYearAssociation;
-import org.parish360.core.dao.entities.configurations.Association;
-import org.parish360.core.dao.entities.configurations.ParishYear;
-import org.parish360.core.dao.entities.configurations.Resource;
-import org.parish360.core.dao.entities.configurations.Services;
+import org.parish360.core.dao.entities.configurations.*;
 
 @Mapper(componentModel = "spring",
         uses = {UUIDUtil.class},
@@ -51,4 +48,13 @@ public interface ConfigurationMapper {
 
     @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
     ServiceInfo daoToServiceInfo(Services service);
+
+    // Account Mapper
+    @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
+    Account accountInfoToDao(AccountInfo accountInfo);
+
+    @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    AccountInfo daoToAccountInfo(Account account);
+
+    void mergeNotNullAccountInfo(Account source, @MappingTarget Account target);
 }

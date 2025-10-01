@@ -41,6 +41,18 @@ databaseChangeLog:
                   name: owner
                   type: VARCHAR(100)
               - column:
+                  name: bank_name
+                  type: VARCHAR(100)
+              - column:
+                  name: account_number
+                  type: VARCHAR(100)
+              - column:
+                  name: branch
+                  type: VARCHAR(100)
+              - column:
+                  name: ifsc_code
+                  type: VARCHAR(100)
+              - column:
                   name: parish_id
                   type: UUID
                   constraints:

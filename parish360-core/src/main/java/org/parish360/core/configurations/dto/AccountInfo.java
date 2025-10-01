@@ -24,5 +24,9 @@ public class AccountInfo {
     private String description;
     private String type;
     private String owner;
+    private String bankName;
+    private String accountNumber;
+    private String branch;
+    private String ifscCode;
     private String parishId;
 }
