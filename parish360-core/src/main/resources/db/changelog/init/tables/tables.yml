@@ -15,3 +15,5 @@ databaseChangeLog:
       file: db/changelog/init/tables/associations/association-tables.yml
   - include:
       file: db/changelog/init/tables/payments.yml
+  - include:
+      file: db/changelog/init/tables/expenses.yml
