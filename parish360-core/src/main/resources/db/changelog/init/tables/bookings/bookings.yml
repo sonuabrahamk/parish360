@@ -31,10 +31,10 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: from
+                  name: booked_from
                   type: TIMESTAMPTZ
               - column:
-                  name: to
+                  name: booked_to
                   type: TIMESTAMPTZ
               - column:
                   name: contact

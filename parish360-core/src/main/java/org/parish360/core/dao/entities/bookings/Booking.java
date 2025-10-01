@@ -21,10 +21,10 @@ import java.time.LocalDateTime;
 public class Booking extends BaseEntity {
     @Column(nullable = false)
     private String bookedBy;
-    @Column(nullable = false)
-    private LocalDateTime from;
-    @Column(nullable = false)
-    private LocalDateTime to;
+    @Column(name = "booked_from", nullable = false)
+    private LocalDateTime bookedFrom;
+    @Column(name = "booked_to", nullable = false)
+    private LocalDateTime bookedTo;
     private String contact;
     private String description;
     private String event;
