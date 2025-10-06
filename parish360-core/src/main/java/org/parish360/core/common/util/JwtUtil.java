@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.UUID;
 
 @Component
 public class JwtUtil {
@@ -60,8 +59,7 @@ public class JwtUtil {
         String[] pathArray = path.split("/");
         validatePath(pathArray);
 
-        UUID parishId = UUIDUtil.decode(pathArray[2]);
-        validateParishPermission(permissions, parishId);
+        validateParishPermission(permissions, pathArray[2]);
 
         String context = pathArray[3];
         validateModulePermission(permissions, context, method);
@@ -81,7 +79,7 @@ public class JwtUtil {
         }
     }
 
-    private void validateParishPermission(Permissions permissions, UUID parishId) {
+    private void validateParishPermission(Permissions permissions, String parishId) {
         if (!permissions.getDataOwner().getParish().contains(parishId)) {
             throw new AccessDeniedException("data owner permission is not valid");
         }

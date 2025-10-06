@@ -6,6 +6,7 @@ import org.parish360.core.auth.dto.Permissions;
 import org.parish360.core.auth.service.AuthService;
 import org.parish360.core.common.enums.PermissionType;
 import org.parish360.core.common.util.JwtUtil;
+import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.usermanagement.Permission;
 import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.dao.repository.usermanagement.UserRepository;
@@ -59,8 +60,9 @@ public class AuthServiceImpl implements AuthService {
         }
 
         // jwt token
-        String jwt = jwtUtil.generateToken(user, getPermissions(user));
-        return new AuthenticationResponse(jwt);
+        Permissions permissions = getPermissions(user);
+        String jwt = jwtUtil.generateToken(user, permissions);
+        return new AuthenticationResponse(jwt, permissions);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class AuthServiceImpl implements AuthService {
 
         // add allowed data-owner access to permissions
         if (user.getDataowner() != null) {
-            permissions.getDataOwner().setParish(Set.of(user.getDataowner().getId()));
+            permissions.getDataOwner().setParish(Set.of(UUIDUtil.encode(user.getDataowner().getId())));
         }
 
         return permissions;

@@ -1,26 +1,23 @@
 package org.parish360.core.auth.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Data
 @NoArgsConstructor
 public class Permissions {
-    @JsonProperty("data-owner")
     private DataOwner dataOwner = new DataOwner();
     private Modules modules = new Modules();
 
     @Data
     @NoArgsConstructor
     public static class DataOwner {
-        private Set<UUID> diocese = new HashSet<>();
-        private Set<UUID> forane = new HashSet<>();
-        private Set<UUID> parish = new HashSet<>();
+        private Set<String> diocese = new HashSet<>();
+        private Set<String> forane = new HashSet<>();
+        private Set<String> parish = new HashSet<>();
     }
 
     @Data

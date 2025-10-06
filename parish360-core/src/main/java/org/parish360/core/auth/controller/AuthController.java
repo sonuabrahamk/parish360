@@ -37,7 +37,7 @@ public class AuthController {
                 .secure(true)
                 .path("/")
                 .maxAge(Duration.ofMinutes(AuthConstants.COOKIE_EXPIRY_MINUTES))
-                .sameSite("Strict")
+                .sameSite("none")
                 .build();
 
         // Add cookie to response header
