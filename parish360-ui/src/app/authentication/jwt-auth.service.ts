@@ -19,8 +19,7 @@ export class JwtAuthService {
     return this.http
       .post<{ accessToken: string; permissions: Permissions }>(
         'http://localhost:8080/auth/login',
-        { username, password },
-        { withCredentials: true }
+        { username, password }
       )
       .pipe(
         tap((response) => {

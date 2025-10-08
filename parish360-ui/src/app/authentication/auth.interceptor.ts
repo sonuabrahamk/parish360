@@ -12,10 +12,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
 
   const authReq = req.clone({
-    setHeaders: { withCredentials: 'true' },
+    withCredentials: true,
   });
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
+      alert('Error status code: ' + error.status);
       if (error.status === 403) {
         localStorage.removeItem(PERMISSIONS_KEY);
         localStorage.removeItem(PARISH);

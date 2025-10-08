@@ -10,27 +10,27 @@ export class AssociationService {
   constructor(private apiService: ApiService) {}
 
   getAssociations(): Observable<Association[]> {
-    return this.apiService.get<Association[]>(ASSOCIATIONS + EXTENSION);
+    return this.apiService.get<Association[]>(ASSOCIATIONS);
   }
 
   getAssociation(associationId: string, parishYear?: string): Observable<Association> {
     if (!parishYear){
       parishYear = 'JAN2025-DEC2025';
     }
-    return this.apiService.get<Association>(ASSOCIATION_BY_YEAR(associationId, parishYear) + `/${associationId}` + EXTENSION)
+    return this.apiService.get<Association>(ASSOCIATION_BY_YEAR(associationId, parishYear) + `/${associationId}`)
   }
 
   getAssociationCommitteeMembers(associationId: string, parishYear?: string): Observable<Member[]> {
     if (!parishYear){
       parishYear = 'JAN2025-DEC2025';
     }
-    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + COMMITTEE + EXTENSION)
+    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + COMMITTEE)
   }
 
   getAssociationMembers(associationId: string, parishYear?: string): Observable<Member[]> {
     if (!parishYear){
       parishYear = 'JAN2025-DEC2025';
     }
-    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + MEMBERS + EXTENSION)
+    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + MEMBERS)
   }
 }

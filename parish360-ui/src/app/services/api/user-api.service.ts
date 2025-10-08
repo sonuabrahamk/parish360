@@ -9,22 +9,22 @@ export class UserService {
   constructor(private api: ApiService) {}
 
   getUsers(): Observable<User[]> {
-    return this.api.get<User[]>(USERS + EXTENSION);
+    return this.api.get<User[]>(USERS);
   }
 
   getUser(id: string): Observable<User> {
-    return this.api.get<User>(USER_BY_ID(id) + EXTENSION);
+    return this.api.get<User>(USER_BY_ID(id));
   }
 
   createUser(data: Partial<User>): Observable<User> {
-    return this.api.post<User>(USERS + EXTENSION, data);
+    return this.api.post<User>(USERS, data);
   }
 
   updateUser(id: string, data: Partial<User>): Observable<User> {
-    return this.api.put<User>(USER_BY_ID(id) + EXTENSION, data);
+    return this.api.put<User>(USER_BY_ID(id), data);
   }
 
   deleteUser(id: string): Observable<void> {
-    return this.api.delete<void>(USER_BY_ID(id) + EXTENSION);
+    return this.api.delete<void>(USER_BY_ID(id));
   }
 }

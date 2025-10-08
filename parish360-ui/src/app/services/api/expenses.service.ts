@@ -9,10 +9,10 @@ export class ExpenseService {
   constructor(private apiService: ApiService) {}
 
   getExpenses(): Observable<Expense[]> {
-    return this.apiService.get<Expense[]>(EXPENSES + EXTENSION);
+    return this.apiService.get<Expense[]>(EXPENSES);
   }
 
   getExpense(expenseId: string): Observable<Expense> {
-    return this.apiService.get<Expense>(EXPENSE_BY_ID(expenseId) + EXTENSION);
+    return this.apiService.get<Expense>(EXPENSE_BY_ID(expenseId));
   }
 }

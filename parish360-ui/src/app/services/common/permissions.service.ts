@@ -67,7 +67,6 @@ export class PermissionsService {
     if (!this.permissions) {
       this.loadFromLocalStorage();
     }
-    debugger;
     return this.permissions?.modules?.[EDIT]?.includes(screen.toLowerCase()) ?? false;
   }
 

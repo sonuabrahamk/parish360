@@ -9,10 +9,10 @@ export class CeremoniesService {
   constructor(private apiService: ApiService) {}
 
   getCeremonies(): Observable<Ceremony[]> {
-    return this.apiService.get<Ceremony[]>(CEREMONIES + EXTENSION);
+    return this.apiService.get<Ceremony[]>(CEREMONIES);
   }
 
   getCeremony(id: string): Observable<Ceremony>{
-    return this.apiService.get<Ceremony>(CEREMONY_BY_ID(id) + EXTENSION);
+    return this.apiService.get<Ceremony>(CEREMONY_BY_ID(id));
   }
 }

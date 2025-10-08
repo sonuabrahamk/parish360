@@ -9,10 +9,10 @@ export class PaymentService {
   constructor(private apiService: ApiService) {}
 
   getPayments(): Observable<Payment[]> {
-    return this.apiService.get<Payment[]>(PAYMENTS + EXTENSION);
+    return this.apiService.get<Payment[]>(PAYMENTS);
   }
 
   getPayment(paymentId: string): Observable<Payment> {
-    return this.apiService.get<Payment>(PAYMENT_BY_ID(paymentId) + EXTENSION);
+    return this.apiService.get<Payment>(PAYMENT_BY_ID(paymentId));
   }
 }
