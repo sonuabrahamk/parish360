@@ -19,39 +19,31 @@ import { Router } from '@angular/router';
 export class PermissionsService {
   private permissions: Permissions | null = null;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  // constructor(private apiService: ApiService, private router: Router) {}
 
-  getPermissions(userId: string): Observable<Permissions> {
-    return this.apiService.get<Permissions>(BASE_URL.PERMISSIONS(userId));
-  }
+  // getPermissions(userId: string): Observable<Permissions> {
+  //   return this.apiService.get<Permissions>(BASE_URL.PERMISSIONS(userId));
+  // }
 
-  setPermissions(userId: string) {
-    this.getPermissions(userId).subscribe((permissions) => {
-      this.permissions = permissions;
-      localStorage.setItem(PERMISSIONS_KEY, JSON.stringify(permissions));
-      localStorage.setItem(
-        DIOCESE,
-        JSON.stringify(permissions?.data?.[DIOCESE][0])
-      );
-      localStorage.setItem(
-        FORANE,
-        JSON.stringify(permissions?.data?.[FORANE][0])
-      );
-      localStorage.setItem(
-        PARISH,
-        JSON.stringify(permissions?.data?.[PARISH][0])
-      );
-      this.router.navigate(['/']);
-    });
-  }
-
-  removePermissions() {
-    this.permissions = null;
-    localStorage.removeItem(PARISH);
-    localStorage.removeItem(FORANE);
-    localStorage.removeItem(DIOCESE);
-    localStorage.removeItem(PERMISSIONS_KEY);
-  }
+  // setPermissions(userId: string) {
+  //   this.getPermissions(userId).subscribe((permissions) => {
+  //     this.permissions = permissions;
+  //     localStorage.setItem(PERMISSIONS_KEY, JSON.stringify(permissions));
+  //     localStorage.setItem(
+  //       DIOCESE,
+  //       JSON.stringify(permissions?.data_owner?.[DIOCESE][0])
+  //     );
+  //     localStorage.setItem(
+  //       FORANE,
+  //       JSON.stringify(permissions?.data_owner?.[FORANE][0])
+  //     );
+  //     localStorage.setItem(
+  //       PARISH,
+  //       JSON.stringify(permissions?.data_owner?.[PARISH][0])
+  //     );
+  //     this.router.navigate(['/']);
+  //   });
+  // }
 
   loadFromLocalStorage() {
     if (localStorage.getItem(PERMISSIONS_KEY)) {
@@ -66,7 +58,7 @@ export class PermissionsService {
       this.loadFromLocalStorage();
     }
     return (
-      this.permissions?.screen?.[screen]?.includes(permission.toUpperCase()) ??
+      this.permissions?.modules?.[permission.toUpperCase()]?.includes(screen.toLowerCase()) ??
       false
     );
   }
@@ -75,27 +67,28 @@ export class PermissionsService {
     if (!this.permissions) {
       this.loadFromLocalStorage();
     }
-    return this.permissions?.screen?.[screen]?.includes(EDIT) ?? false;
+    debugger;
+    return this.permissions?.modules?.[EDIT]?.includes(screen.toLowerCase()) ?? false;
   }
 
   canCreate(screen: string): boolean {
     if (!this.permissions) {
       this.loadFromLocalStorage();
     }
-    return this.permissions?.screen?.[screen]?.includes(CREATE) ?? false;
+    return this.permissions?.modules?.[CREATE]?.includes(screen.toLowerCase()) ?? false;
   }
 
   canDelete(screen: string): boolean {
     if (!this.permissions) {
       this.loadFromLocalStorage();
     }
-    return this.permissions?.screen?.[screen]?.includes(DELETE) ?? false;
+    return this.permissions?.modules?.[DELETE]?.includes(screen.toLowerCase()) ?? false;
   }
 
   canView(screen: string): boolean {
     if (!this.permissions) {
       this.loadFromLocalStorage();
     }
-    return this.permissions?.screen?.[screen]?.includes(VIEW) ?? false;
+    return this.permissions?.modules?.[VIEW]?.includes(screen.toLowerCase()) ?? false;
   }
 }

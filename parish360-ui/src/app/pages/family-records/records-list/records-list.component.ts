@@ -33,19 +33,17 @@ export class RecordsListComponent {
       cellRenderer: (params: any) =>
         `<a href="/family-records/${params.value}" >${params.value}</a>`,
     },
-    { headerName: 'Book No', field: 'book_no' },
-    { headerName: 'Head of Family', field: 'head_of_family' },
+    { headerName: 'Book No', field: 'family_code' },
     { headerName: 'Family Name', field: 'family_name' },
-    { headerName: 'Parish', field: 'parish' },
-    { headerName: 'Unit', field: 'unit' },
-    { headerName: 'Mobile', field: 'mobile' },
+    { headerName: 'Mobile', field: 'contact' },
   ];
 
   rowData: FamilyRecord[] | undefined;
 
   ngOnInit() {
     this.familyRecordService.getFamilyRecords().subscribe((records) => {
-      this.rowData = records?.family_records;
+      console.log(records);
+      this.rowData = records;
     });
   }
 }

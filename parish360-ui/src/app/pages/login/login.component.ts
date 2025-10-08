@@ -28,7 +28,7 @@ export class LoginComponent {
     e.preventDefault();
     this.auth.loginInternal(u, p).subscribe({
       next: () => {
-        this.permissions.setPermissions(u);
+        this.router.navigate(['/']);
       }
     });
   }

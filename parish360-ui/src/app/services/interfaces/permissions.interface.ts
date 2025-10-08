@@ -9,10 +9,10 @@ export interface User {
 }
 
 export interface Permissions {
-  data: {
+  data_owner: {
     [key: string]: string[];
   };
-  screen: {
+  modules: {
     [key: string]: string[];
   };
 }

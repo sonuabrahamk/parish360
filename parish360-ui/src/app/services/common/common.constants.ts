@@ -14,10 +14,10 @@ export const PARISH = 'parish';
 
 export const PERMISSIONS_KEY = 'permissions';
 
-export const CREATE = 'CREATE';
-export const EDIT = 'EDIT';
-export const DELETE = 'DELETE';
-export const VIEW = 'VIEW';
+export const CREATE = 'create';
+export const EDIT = 'edit';
+export const DELETE = 'delete';
+export const VIEW = 'view';
 
 export const CEREMONY_TYPE = {
   BAPTISM: 'BAPTISM',

@@ -1,15 +1,31 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import {
+  HttpErrorResponse,
+  HttpHandler,
+  HttpInterceptorFn,
+} from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from './auth.service';
+import { DIOCESE, FORANE, PARISH, PERMISSIONS_KEY } from '../services/common/common.constants';
+import { catchError, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const auth = inject(AuthService);
-  const token = auth.getToken();
-  if (token) {
-    const authReq = req.clone({
-      setHeaders: { Authorization: `Bearer ${token}` },
-    });
-    return next(authReq);
-  }
-  return next(req);
+  const router = inject(Router);
+
+  const authReq = req.clone({
+    setHeaders: { withCredentials: 'true' },
+  });
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      if (error.status === 403) {
+        localStorage.removeItem(PERMISSIONS_KEY);
+        localStorage.removeItem(PARISH);
+        localStorage.removeItem(FORANE);
+        localStorage.removeItem(DIOCESE);
+    
+        localStorage.removeItem('auth-token');
+        router.navigate(['/login']);
+      }
+      return throwError(() => error);
+    })
+  );
 };

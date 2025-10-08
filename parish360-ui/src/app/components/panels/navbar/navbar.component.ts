@@ -23,7 +23,6 @@ export class NavbarComponent {
   ) {}
 
   logout() {
-    this.permissions.removePermissions();
     this.auth.logout();
     this.router.navigate(['/logout']);
   }

@@ -16,23 +16,21 @@ export class ApiService {
   private baseUrl!: string;
 
   private loadBaseUrl() {
-    if (!this.dioceseId) {
-      let diocese = localStorage.getItem(DIOCESE);
-      this.dioceseId = diocese ? JSON.parse(diocese) : 'dioceseId1';
-    }
-    if (!this.foraneId) {
-      let forane = localStorage.getItem(FORANE);
-      this.foraneId = forane ? JSON.parse(forane) : 'foraneId1';
-    }
+    // if (!this.dioceseId) {
+    //   let diocese = localStorage.getItem(DIOCESE);
+    //   this.dioceseId = diocese ? JSON.parse(diocese) : 'dioceseId1';
+    // }
+    // if (!this.foraneId) {
+    //   let forane = localStorage.getItem(FORANE);
+    //   this.foraneId = forane ? JSON.parse(forane) : 'foraneId1';
+    // }
     if (!this.parishId) {
       let parish = localStorage.getItem(PARISH);
       this.parishId = parish ? JSON.parse(parish) : 'parishId1';
     }
     if (!this.baseUrl) {
       this.baseUrl =
-        'data' +
-        BASE_URL.DIOCESE_BY_ID(this.dioceseId) +
-        BASE_URL.FORANE_BY_ID(this.foraneId) +
+        'http://localhost:8080' +
         BASE_URL.PARISH_BY_ID(this.parishId);
     }
     return this.baseUrl;
@@ -42,7 +40,6 @@ export class ApiService {
     const token = this.auth.getToken();
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     });
   }
 

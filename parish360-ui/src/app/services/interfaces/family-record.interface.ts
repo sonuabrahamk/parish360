@@ -1,13 +1,15 @@
 export interface FamilyRecord {
   id: string;
-  book_no: string;
-  head_of_family: string;
+  created_at: Date;
+  created_by: string;
+  updated_at: Date;
+  updated_by: string;
+  family_code: string;
   family_name: string;
-  parish: string;
-  unit: string;
-  mobile: string;
+  contact: string;
   address: string;
-  created_date: string;
+  contact_verified: boolean;
+  joined_date: Date;
 }
 
 export interface FamilyRecordResponse {

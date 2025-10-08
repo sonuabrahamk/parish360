@@ -9,6 +9,6 @@ export class BookingService {
   constructor(private apiService: ApiService) {}
 
   getBookings(): Observable<Bookings[]> {
-    return this.apiService.get<Bookings[]>(BOOKINGS + EXTENSION);
+    return this.apiService.get<Bookings[]>(BOOKINGS);
   }
 }
