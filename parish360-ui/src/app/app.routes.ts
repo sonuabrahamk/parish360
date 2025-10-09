@@ -48,6 +48,16 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'family-records/:id/:section',
+    component: RecordsViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'family-records/:id/:section/:sectionId',
+    component: RecordsViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'bookings',
     component: BookingsListComponent,
     canActivate: [AuthGuard],

@@ -1,8 +1,9 @@
 <div class="relative w-full min-h-[200px] overflow-hidden">
   <app-loader></app-loader>
   <app-tabs
-    *ngIf="!isEditMode"
+    *ngIf="activeMember"
     [tabs]="membersTabs"
+    [activeTabIndex]="activeMemberTab"
     (tabSelected)="onTabChange($event)"
   ></app-tabs>
 
@@ -18,40 +19,22 @@
       </button>
     </aside>
     <main class="side-tab-content w-full min-h-[400px] p-4">
-      <form *ngIf="memberForm" [formGroup]="memberForm">
-        <div *ngIf="activeSideTab === 0" class="w-full">
-          <app-personal-section
-            [isEditMode]="isEditMode"
-            [memberForm]="memberForm"
-          ></app-personal-section>
+      <div *ngIf="activeSideTab === 0" class="w-full">
+        <app-personal-section *ngIf="this.activeMember" [member]="activeMember"></app-personal-section>
+      </div>
+      <div *ngIf="activeSideTab === 1" class="tab-content">
+        <app-sacraments-section></app-sacraments-section>
+      </div>
+      <div *ngIf="activeSideTab === 2" class="tab-content">
+        <app-add-document *appCanCreate="screen"></app-add-document>
+        <div class="flex w-full">
+          <app-document-view></app-document-view>
         </div>
-        <div *ngIf="activeSideTab === 1" class="tab-content">
-          <app-sacraments-section
-            [isEditMode]="isEditMode"
-            [memberForm]="memberForm"
-          ></app-sacraments-section>
-        </div>
-        <div *ngIf="activeSideTab === 2" class="tab-content">
-          <app-add-document *appCanCreate="screen"></app-add-document>
-          <div class="flex w-full">
-            <ng-container *ngFor="let document of this.documentArray.controls">
-              <app-document-view
-                [isEditMode]="isEditMode"
-                [documentName]="document?.get('name')?.value"
-                [documentId]="document?.get('id')?.value"
-              ></app-document-view>
-            </ng-container>
-          </div>
-        </div>
-        <div *ngIf="activeSideTab === 3" class="tab-content">
-          <h2>Migration Details</h2>
-          <p>Migration details will be displayed here.</p>
-        </div>
-      </form>
+      </div>
+      <div *ngIf="activeSideTab === 3" class="tab-content">
+        <h2>Migration Details</h2>
+        <p>Migration details will be displayed here.</p>
+      </div>
     </main>
   </div>
-  <app-footer
-    *appCanEdit="screen"
-    (modeUpdated)="onModeUpdated($event)"
-  ></app-footer>
 </div>

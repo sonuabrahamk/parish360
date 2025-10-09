@@ -1,3 +1,5 @@
+import { Place } from "./ceremonys.interface";
+
 export interface Member {
   id: string;
   first_name: string;
@@ -5,15 +7,14 @@ export interface Member {
   father: string;
   mother: string;
   email: string;
-  phone: string;
+  contact: string;
   address: string;
   dob: string;
   occupation: string;
   qualification: string;
-  birth_place: string;
+  birth_place: Place;
   relationship: string;
   gender: string;
-  age: number;
   sacraments_details: Sacrament[];
   documents: Document[];
   migration_details: MigrationDetails[];

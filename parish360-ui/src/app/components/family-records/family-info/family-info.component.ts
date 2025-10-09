@@ -39,12 +39,12 @@ export class FamilyInfoComponent {
     this.familyRecordsService.getFamilyRecordInfo(this.recordId).subscribe({
       next: (familyRecord: any) => {
         this.familyInfoForm = this.fb.group({
-          book_no: [familyRecord.book_no || ''],
+          book_no: [familyRecord.family_code || ''],
           head_of_family: [familyRecord.head_of_family || ''],
           family_name: [familyRecord.family_name || ''],
           parish: [familyRecord.parish || ''],
           unit: [familyRecord.unit || ''],
-          mobile: [familyRecord.mobile || ''],
+          mobile: [familyRecord.contact || ''],
           address: [familyRecord.address || ''],
           created_date: [familyRecord.created_date || ''],
         });

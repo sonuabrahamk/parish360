@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
 import { Member } from '../../../services/interfaces/member.interface';
 import { PersonalSectionComponent } from '../personal-section/personal-section.component';
@@ -23,6 +29,7 @@ import { MemberService } from '../../../services/api/members.service';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-members',
@@ -31,14 +38,12 @@ import { FooterEvent } from '../../../services/interfaces/permissions.interface'
     CommonModule,
     TabsComponent,
     PersonalSectionComponent,
-    FooterComponent,
     LoaderComponent,
     ReactiveFormsModule,
     FormsModule,
     SacramentsSectionComponent,
     AddDocumentComponent,
     DocumentViewComponent,
-    CanEditDirective,
     CanCreateDirective,
   ],
   templateUrl: './members.component.html',
@@ -48,14 +53,10 @@ export class MembersComponent implements OnInit {
   @Input() recordId!: string;
 
   screen: string = SCREENS.FAMILY_RECORD;
-
   members: Member[] = [];
   membersTabs: Tab[] = [];
   activeMember: Member | null = null;
-  memberForm!: FormGroup;
-  documentArray!: FormArray;
-
-  isEditMode: boolean = false; // Edit mode for the component
+  activeMemberTab: number = 0;
 
   sideTab: string[] = [
     'Personel Details',
@@ -66,22 +67,20 @@ export class MembersComponent implements OnInit {
   activeSideTab: number = 0;
 
   constructor(
-    private fb: FormBuilder,
-    private loader: LoaderService,
+    private route: ActivatedRoute,
     private memberService: MemberService,
     private cdr: ChangeDetectorRef,
     private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
-    this.loader.show();
     this.memberService.getMembers(this.recordId).subscribe((response) => {
-      this.members = response.members;
-      console.log(this.members);
+      this.members = response;
       this.membersTabs = this.members.map((member: Member): Tab => {
         return {
           label: member.first_name + ' ' + member.last_name,
           data: member,
+          url: '/family-records/' + this.recordId + '/members/' + member.id,
         };
       });
       this.membersTabs = this.permissionsService.hasPermission(
@@ -90,107 +89,39 @@ export class MembersComponent implements OnInit {
       )
         ? [
             ...this.membersTabs,
-            { label: 'Add Member', data: null, icon: faPlus },
+            { label: 'Add Member', data: null, icon: faPlus, url: '/family-records/' + this.recordId + '/members/add' },
           ]
         : [...this.membersTabs];
-      this.activeMember = this.members[0]; // Set the first member as active by default
 
-      this.loadMemberFormGroup(); // Loads active member data to form group
+      this.route.params.subscribe((params) => {
+        const memberId = params['sectionId'];
+        if (memberId) {
+          const index = this.members.findIndex(member => member.id === memberId);
+          if (index !== -1) {
+            this.activeMember = this.members[index];
+            this.activeMemberTab = index;
+            this.sideTab = ['Personel Details', 'Sacrament Details', 'Documents', 'Migration Details'];
+          } else {
+            this.activeMember = {} as Member;
+            this.activeMemberTab = this.membersTabs.length - 1; // 'Add Member' tab
+            this.sideTab = ['Personel Details'];
+          }
+        } else {
+          this.activeMember = this.members[0];
+          this.activeMemberTab = 0;
+        }
+      });
 
       this.cdr.detectChanges();
     });
-    this.loader.hide();
   }
 
   onTabChange(selectedMember: Member) {
-    if (selectedMember === null) {
-      this.isEditMode = true; // Set edit mode when "Add Member" tab is selected
-      this.memberForm.reset();
-      (this.memberForm.get('sacraments_details') as FormArray).clear();
-      this.documentArray?.clear();
-    } else {
-      this.memberForm.patchValue(selectedMember);
-    }
     this.activeMember = selectedMember;
     this.activeSideTab = 0; // Reset to the first side tab
   }
 
-  onModeUpdated(event: FooterEvent) {
-    if (this.isEditMode) {
-      this.ngOnInit(); // Reload members data when exiting edit mode
-    }
-    if (event.isSaveTriggered) {
-      this.onSubmit();
-    }
-    this.isEditMode = event.isEditMode;
-  }
-
   selectTab(index: number) {
     this.activeSideTab = index;
-  }
-
-  onSubmit() {
-    console.log('Form submitted:', this.memberForm.value);
-  }
-
-  createSacramentGroup(sacrament: any = {}): FormGroup {
-    return this.fb.group({
-      type: [sacrament.type || ''],
-      date: [sacrament.date || ''],
-      parish: [sacrament.parish || ''],
-      priest: [sacrament.priest || ''],
-      place: [sacrament.place || ''],
-      god_father: [sacrament.god_father || ''],
-      god_mother: [sacrament.god_mother || ''],
-      spouse: [sacrament.spouse || ''],
-    });
-  }
-
-  createDocumentGroup(document: any = {}): FormGroup {
-    return this.fb.group({
-      id: [document.id || ''],
-      name: [document.name || ''],
-    });
-  }
-
-  loadMemberFormGroup(): void {
-    if (this.activeMember) {
-      this.memberForm = this.fb.group({
-        first_name: [this.activeMember.first_name || ''],
-        last_name: [this.activeMember.last_name || ''],
-        dob: [this.activeMember.dob || ''],
-        birth_place: [this.activeMember.birth_place || ''],
-        father: [this.activeMember.father || ''],
-        mother: [this.activeMember.mother || ''],
-        address: [this.activeMember.address || ''],
-        phone: [this.activeMember.phone || ''],
-        email: [this.activeMember.email || ''],
-        gender: [this.activeMember.gender || ''],
-        age: [this.activeMember.age || ''],
-        relationship: [this.activeMember.relationship || ''],
-        qualification: [this.activeMember.qualification || ''],
-        occupation: [this.activeMember.occupation || ''],
-        sacraments_details: this.fb.array([]),
-        documents: this.fb.array([]),
-      });
-      if (this.activeMember?.sacraments_details?.length) {
-        this.activeMember.sacraments_details.forEach((sacrament: any) => {
-          const sacramentsArray = this.memberForm.get(
-            'sacraments_details'
-          ) as FormArray;
-          if (sacramentsArray) {
-            sacramentsArray.push(this.createSacramentGroup(sacrament));
-          }
-        });
-      }
-      if (this.activeMember?.documents?.length) {
-        this.activeMember.documents.forEach((document: any) => {
-          this.documentArray = this.memberForm.get('documents') as FormArray;
-          if (this.documentArray) {
-            this.documentArray.push(this.createDocumentGroup(document));
-          }
-        });
-      }
-    }
   }
 }

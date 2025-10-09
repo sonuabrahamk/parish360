@@ -58,7 +58,7 @@ export class PermissionsService {
       this.loadFromLocalStorage();
     }
     return (
-      this.permissions?.modules?.[permission.toUpperCase()]?.includes(screen.toLowerCase()) ??
+      this.permissions?.modules?.[permission]?.includes(screen.toLowerCase()) ??
       false
     );
   }
