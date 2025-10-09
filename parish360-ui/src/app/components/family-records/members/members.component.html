@@ -23,7 +23,7 @@
         <app-personal-section *ngIf="this.activeMember" [member]="activeMember"></app-personal-section>
       </div>
       <div *ngIf="activeSideTab === 1" class="tab-content">
-        <app-sacraments-section></app-sacraments-section>
+        <app-sacraments-section *ngIf="this.activeMember" [memberId]="activeMember.id" [recordId]="recordId"></app-sacraments-section>
       </div>
       <div *ngIf="activeSideTab === 2" class="tab-content">
         <app-add-document *appCanCreate="screen"></app-add-document>

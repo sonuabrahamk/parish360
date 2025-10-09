@@ -23,10 +23,10 @@ export interface Member {
 export interface Sacrament {
   id: string;
   type: string;
-  place: string;
-  parish: string;
+  place: Place;
   date: string;
   priest: string;
+  parish: string;
   god_father: string;
   god_mother: string;
   spouse: string;

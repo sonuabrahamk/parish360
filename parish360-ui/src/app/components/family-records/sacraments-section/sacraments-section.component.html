@@ -1,88 +1,109 @@
-<div [formGroup]="memberForm">
-  <div formArrayName="sacraments_details">
-    <ng-container
-      *ngFor="let sacrament of sacramentFormArray.controls; let i = index"
-    >
-      <div [formGroupName]="i">
-        <app-accordion
-          [title]="getSacramentTypeName(i)"
-          [isEditMode]="isEditMode"
-          (remove)="removeSacrament(i)"
-        >
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
-            <div class="form-group">
-              <label>Type</label>
-              <select id="type" formControlName="type" class="lg:col-span-2">
-                <option value="">Select Type</option>
-                <option *ngFor="let type of sacramentTypes" [value]="type.id">
-                  {{ type.name }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Date</label>
-              <input type="text" formControlName="date" class="lg:col-span-2" />
-            </div>
-            <div class="form-group">
-              <label>Place</label>
-              <input
-                type="text"
-                formControlName="place"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group">
-              <label>Parish</label>
-              <input
-                type="text"
-                formControlName="parish"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group">
-              <label>Priest</label>
-              <input
-                type="text"
-                formControlName="priest"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group" *ngIf="sacrament.get('god_father')?.value">
-              <label>God Father</label>
-              <input
-                type="text"
-                formControlName="god_father"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group" *ngIf="sacrament.get('god_mother')?.value">
-              <label>God Mother</label>
-              <input
-                type="text"
-                formControlName="god_mother"
-                class="lg:col-span-2"
-              />
-            </div>
-            <div class="form-group" *ngIf="sacrament.get('spouse')?.value">
-              <label>Spouse</label>
-              <input
-                type="text"
-                formControlName="spouse"
-                class="lg:col-span-2"
-              />
-            </div>
-          </div>
-        </app-accordion>
-      </div>
-    </ng-container>
-    <span *appCanCreate="screen">
-      <button
-        class="accordion-btn border-1 border-primary-color hover:border-none justify-center"
-        (click)="addSacrament()"
-        *ngIf="isEditMode"
+<form [formGroup]="sacramentForm" *ngIf="sacramentForm">
+  <ng-container
+    formArrayName="sacrament_details"
+    *ngFor="let sacrament of sacramentFormArray.controls; let i = index"
+  >
+    <div [formGroupName]="i">
+      <app-accordion
+        [title]="getSacramentTypeName(i)"
+        (remove)="removeSacrament(getSacramentId(i), i)"
       >
-        <fa-icon [icon]="faPlus"></fa-icon> Add Sacrament
-      </button>
-    </span>
-  </div>
-</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          <div class="form-group">
+            <label>Type</label>
+            <select id="type" formControlName="type" class="lg:col-span-2">
+              <option value="">Select Type</option>
+              <option *ngFor="let type of sacramentTypes" [value]="type.id">
+                {{ type.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Date</label>
+            <input type="text" formControlName="date" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>Parish</label>
+            <input type="text" formControlName="parish" class="lg:col-span-2" />
+          </div>
+          <div class="form-group">
+            <label>Priest</label>
+            <input type="text" formControlName="priest" class="lg:col-span-2" />
+          </div>
+          <div class="form-group" *ngIf="sacrament.get('god_father')?.value">
+            <label>God Father</label>
+            <input
+              type="text"
+              formControlName="god_father"
+              class="lg:col-span-2"
+            />
+          </div>
+          <div class="form-group" *ngIf="sacrament.get('god_mother')?.value">
+            <label>God Mother</label>
+            <input
+              type="text"
+              formControlName="god_mother"
+              class="lg:col-span-2"
+            />
+          </div>
+          <div class="form-group" *ngIf="sacrament.get('spouse')?.value">
+            <label>Spouse</label>
+            <input type="text" formControlName="spouse" class="lg:col-span-2" />
+          </div>
+          <!-- Place section -->
+          <app-section-form [title]="'Place'" class="md:col-span-3">
+            <div class="form-section-3" formGroupName="place">
+              <!-- City -->
+              <div class="form-group">
+                <label>City</label>
+                <input
+                  type="text"
+                  formControlName="city"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <!-- State -->
+              <div class="form-group">
+                <label>State</label>
+                <input
+                  type="text"
+                  formControlName="state"
+                  class="lg:col-span-2"
+                />
+              </div>
+              <!-- Country -->
+              <div class="form-group">
+                <label>Country</label>
+                <input
+                  type="text"
+                  formControlName="country"
+                  class="lg:col-span-2"
+                />
+              </div>
+            </div>
+          </app-section-form>
+        </div>
+
+        <!-- Action section -->
+        <footer
+          class="side-tab-footer w-full mt-4 p-2 flex justify-end items-center border-t-gray-200 border-t-2"
+           *appCanEdit="screen"
+        >
+        <ng-container *ngIf="sacramentFormArray.length > i">
+          <button class="mr-2" (click)="save(getSacramentId(i), i)">
+            <fa-icon [icon]="faFloppyDisk"></fa-icon> Save
+          </button>
+          </ng-container>
+        </footer>
+      </app-accordion>
+    </div>
+  </ng-container>
+</form>
+<span *appCanCreate="screen">
+  <button
+    class="accordion-btn border-1 border-primary-color hover:border-none justify-center"
+    (click)="addSacrament()"
+  >
+    <fa-icon [icon]="faPlus"></fa-icon> Add Sacrament
+  </button>
+</span>

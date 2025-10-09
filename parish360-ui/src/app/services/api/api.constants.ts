@@ -17,6 +17,9 @@ export const BASE_URL = {
 
   MEMBERS_LIST: `/members`,
   MEMBER_BY_ID: (memberId: string) => `/members/${memberId}`,
+
+  SACRAMENTS_LIST: `/sacraments`,
+  SACRAMENT_BY_ID: (sacramentId: string) => `/sacraments/${sacramentId}`,
 };
 
 export const EXTENSION = '.json'; // To be removed when API's are replaced
