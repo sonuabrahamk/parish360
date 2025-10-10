@@ -19,12 +19,8 @@ export interface FamilyRecordResponse {
 export interface FamilyRecordSubscription {
   year: string;
   month: string;
-  paid: boolean;
   amount: number;
-}
-
-export interface FamilyRecordSubscriptionResponse {
-  subscriptions: FamilyRecordSubscription[];
+  currency: string;
 }
 
 export interface BlessingRecord {

@@ -16,18 +16,18 @@ export class SubscriptionsComponent {
   @Input() recordId!: string;
 
   allMonths = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
+    'JANUARY',
+    'FEBRUARY',
+    'MARCH',
+    'APRIL',
+    'MAY',
+    'JUNE',
+    'JULY',
+    'AUGUST',
+    'SEPTEMBER',
+    'OCTOBER',
+    'NOVEMBER',
+    'DECEMBER',
   ];
 
   columnDefs: ColDef[] = [];
@@ -40,14 +40,11 @@ export class SubscriptionsComponent {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.recordId = params.get('id') ?? '';
-    });
 
     this.familyRecordService
       .getFamilyRecordSubscriptions(this.recordId)
       .subscribe((response) => {
-        this.subscriptions = response.subscriptions;
+        this.subscriptions = response;
         let years = [...new Set(this.subscriptions.map((s) => s.year))];
 
         // Column Defs
@@ -56,7 +53,7 @@ export class SubscriptionsComponent {
           ...years.map((year) => ({
             field: String(year),
             headerName: String(year),
-            cellRenderer: (params: any) => {
+            valueFormatter: (params: any) => {
               if (!params.value || !params.value.paid) return '';
               return `Rs. ${params.value.amount.toFixed(0)}`;
             },
@@ -74,9 +71,13 @@ export class SubscriptionsComponent {
   transformToPivot(breakdown: any[]) {
     const pivotMap: { [month: string]: any } = {};
     breakdown.forEach((entry) => {
-      const { year, month, paid, amount } = entry;
+      const { year, month, amount, currency } = entry;
+
+      // Initialize month entry if not present
       if (!pivotMap[month]) pivotMap[month] = { month };
-      pivotMap[month][year] = { paid, amount };
+
+      // Add year data
+      pivotMap[month][year] = { paid: true, amount, currency };
     });
 
     // Ensure all months are present

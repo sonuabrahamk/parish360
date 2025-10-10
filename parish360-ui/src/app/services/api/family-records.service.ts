@@ -3,8 +3,7 @@ import {
   BlessingRecord,
   FamilyPayments,
   FamilyRecord,
-  FamilyRecordResponse,
-  FamilyRecordSubscriptionResponse,
+  FamilyRecordSubscription,
   MiscellaneousRecord,
 } from '../interfaces/family-record.interface';
 import {
@@ -36,8 +35,8 @@ export class FamilyRecords {
 
   getFamilyRecordSubscriptions(
     recordId: string
-  ): Observable<FamilyRecordSubscriptionResponse> {
-    return this.apiService.get<FamilyRecordSubscriptionResponse>(
+  ): Observable<FamilyRecordSubscription[]> {
+    return this.apiService.get<FamilyRecordSubscription[]>(
       BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + SUBSCRIPTIONS
     );
   }
