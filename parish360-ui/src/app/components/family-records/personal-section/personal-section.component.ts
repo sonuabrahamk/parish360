@@ -66,7 +66,7 @@ export class PersonalSectionComponent {
       this.memberForm.disable();
       this.isEditMode = false;
     } 
-    if(this.memberId === '' || this.memberId === 'add') {
+    if(this.memberId === 'add') {
       this.memberForm.enable();
       this.isEditMode = true;
     }

@@ -20,6 +20,9 @@ export const BASE_URL = {
 
   SACRAMENTS_LIST: `/sacraments`,
   SACRAMENT_BY_ID: (sacramentId: string) => `/sacraments/${sacramentId}`,
+
+  MIGRATIONS_LIST: `/migrations`,
+  MIGRATION_BY_ID: (migrationId: string) => `/migrations/${migrationId}`,
 };
 
 export const EXTENSION = '.json'; // To be removed when API's are replaced
@@ -47,7 +50,10 @@ export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;
 
 //Associations API paths
 export const ASSOCIATIONS = '/associations';
-export const ASSOCIATION_BY_YEAR = (associationId: string, parishYear: string) => `/associations/${parishYear}/${associationId}`;
+export const ASSOCIATION_BY_YEAR = (
+  associationId: string,
+  parishYear: string
+) => `/associations/${parishYear}/${associationId}`;
 export const COMMITTEE = '/committee';
 export const MEMBERS = '/members';
 

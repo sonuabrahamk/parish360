@@ -43,13 +43,13 @@ export interface Document {
 
 export interface MigrationDetails {
   id: string;
-  date_of_migration: string;
-  place_of_migration: string;
-  reason: string;
-  current_residence: string;
-  contact: string;
+  migrated_on: string;
+  comment: string;
   parish: string;
+  address: string;
   return_date: string;
+  place: Place;
+  status: string;
 }
 
 export interface MembersResponse {

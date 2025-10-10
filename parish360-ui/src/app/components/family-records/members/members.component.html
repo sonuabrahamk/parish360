@@ -20,20 +20,30 @@
     </aside>
     <main class="side-tab-content w-full min-h-[400px] p-4">
       <div *ngIf="activeSideTab === 0" class="w-full">
-        <app-personal-section *ngIf="this.activeMember" [member]="activeMember"></app-personal-section>
+        <app-personal-section
+          *ngIf="this.activeMember"
+          [member]="activeMember"
+        ></app-personal-section>
       </div>
       <div *ngIf="activeSideTab === 1" class="tab-content">
-        <app-sacraments-section *ngIf="this.activeMember" [memberId]="activeMember.id" [recordId]="recordId"></app-sacraments-section>
+        <app-sacraments-section
+          *ngIf="this.activeMember"
+          [memberId]="activeMember.id"
+          [recordId]="recordId"
+        ></app-sacraments-section>
       </div>
       <div *ngIf="activeSideTab === 2" class="tab-content">
+        <app-migration-section
+          *ngIf="this.activeMember"
+          [memberId]="activeMember.id"
+          [recordId]="recordId"
+        ></app-migration-section>
+      </div>
+      <div *ngIf="activeSideTab === 3" class="tab-content">
         <app-add-document *appCanCreate="screen"></app-add-document>
         <div class="flex w-full">
           <app-document-view></app-document-view>
         </div>
-      </div>
-      <div *ngIf="activeSideTab === 3" class="tab-content">
-        <h2>Migration Details</h2>
-        <p>Migration details will be displayed here.</p>
       </div>
     </main>
   </div>

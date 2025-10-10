@@ -1,35 +1,20 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Tab, TabsComponent } from '../../common/tabs/tabs.component';
 import { Member } from '../../../services/interfaces/member.interface';
 import { PersonalSectionComponent } from '../personal-section/personal-section.component';
-import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { LoaderService } from '../../../services/common/loader.service';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { LoaderComponent } from '../../common/loader/loader.component';
 import { SacramentsSectionComponent } from '../sacraments-section/sacraments-section.component';
-import {
-  FormGroup,
-  FormBuilder,
-  ReactiveFormsModule,
-  FormsModule,
-  FormArray,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AddDocumentComponent } from '../add-document/add-document.component';
 import { DocumentViewComponent } from '../document-view/document-view.component';
 import { CREATE, SCREENS } from '../../../services/common/common.constants';
-import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { MemberService } from '../../../services/api/members.service';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
-import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MigrationSectionComponent } from '../migration-section/migration-section.component';
 
 @Component({
   selector: 'app-members',
@@ -45,6 +30,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     AddDocumentComponent,
     DocumentViewComponent,
     CanCreateDirective,
+    MigrationSectionComponent,
   ],
   templateUrl: './members.component.html',
   styleUrl: './members.component.css',
@@ -61,7 +47,6 @@ export class MembersComponent implements OnInit {
   sideTab: string[] = [
     'Personel Details',
     'Sacrament Details',
-    'Documents',
     'Migration Details',
   ];
   activeSideTab: number = 0;
@@ -89,18 +74,29 @@ export class MembersComponent implements OnInit {
       )
         ? [
             ...this.membersTabs,
-            { label: 'Add Member', data: null, icon: faPlus, url: '/family-records/' + this.recordId + '/members/add' },
+            {
+              label: 'Add Member',
+              data: null,
+              icon: faPlus,
+              url: '/family-records/' + this.recordId + '/members/add',
+            },
           ]
         : [...this.membersTabs];
 
       this.route.params.subscribe((params) => {
         const memberId = params['sectionId'];
         if (memberId) {
-          const index = this.members.findIndex(member => member.id === memberId);
+          const index = this.members.findIndex(
+            (member) => member.id === memberId
+          );
           if (index !== -1) {
             this.activeMember = this.members[index];
             this.activeMemberTab = index;
-            this.sideTab = ['Personel Details', 'Sacrament Details', 'Documents', 'Migration Details'];
+            this.sideTab = [
+              'Personel Details',
+              'Sacrament Details',
+              'Migration Details',
+            ];
           } else {
             this.activeMember = {} as Member;
             this.activeMemberTab = this.membersTabs.length - 1; // 'Add Member' tab
