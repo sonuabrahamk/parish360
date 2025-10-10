@@ -4,12 +4,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi } from 'ag-grid-community';
-import { FamilyRecords } from '../../../services/api/family-records.service';
 import { BlessingRecord } from '../../../services/interfaces/family-record.interface';
 import { SCREENS } from '../../../services/common/common.constants';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { PermissionsService } from '../../../services/common/permissions.service';
-import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { BlessingService } from '../../../services/api/blessings.service';
 
 @Component({
@@ -96,11 +94,14 @@ export class BlessingsSectionComponent {
         if (!this.permissionService.canDelete(this.screen)) {
           alert('You do not have permission to delete an entry!!');
         } else {
-          confirm('Are you sure you want to delete this entry?') ?
-          this.blessingsService.deleteBlessingsRecord(this.recordId, id).subscribe(() => {
-            this.rowData = this.rowData.filter((row) => row.id !== id);
-            this.gridApi.applyTransaction({ update: [...this.rowData] });
-          }) : null;
+          confirm('Are you sure you want to delete this entry?')
+            ? this.blessingsService
+                .deleteBlessingsRecord(this.recordId, id)
+                .subscribe(() => {
+                  this.rowData = this.rowData.filter((row) => row.id !== id);
+                  this.gridApi.applyTransaction({ update: [...this.rowData] });
+                })
+            : null;
         }
       }
 
