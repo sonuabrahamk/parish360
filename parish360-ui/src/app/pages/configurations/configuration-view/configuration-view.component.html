@@ -1,1 +1,14 @@
-<p>configuration-view works!</p>
+<div class="header">
+  <h1>Parish Configurations</h1>
+</div>
+<div class="panel m-4 shadow-sm">
+  <app-tabs
+    [tabs]="configurationTabs"
+    [activeTabIndex]="activeTabIndex"
+  ></app-tabs>
+  <app-parish-info *ngIf="activeTabIndex === 0"></app-parish-info>
+  <app-services *ngIf="activeTabIndex === 1"></app-services>
+  <app-resources *ngIf="activeTabIndex === 2"></app-resources>
+  <app-associations *ngIf="activeTabIndex === 3"></app-associations>
+  <app-parish-year *ngIf="activeTabIndex === 4"></app-parish-year>
+</div>

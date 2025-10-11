@@ -138,5 +138,15 @@ export const routes: Routes = [
     component: ConfigurationViewComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'configurations/:section',
+    component: ConfigurationViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'configurations/:section/:sectionId',
+    component: ConfigurationViewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '/dashboard' },
 ];
