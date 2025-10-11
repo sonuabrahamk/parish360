@@ -45,10 +45,5 @@ export class PaymentsComponent {
   constructor(private familyRecordsService: FamilyRecords) {}
 
   ngOnInit() {
-    this.familyRecordsService
-      .getPaymentsList(this.recordId)
-      .subscribe((paymentsList) => {
-        this.rowData = paymentsList;
-      });
   }
 }

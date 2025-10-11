@@ -60,53 +60,73 @@ export class MembersComponent implements OnInit {
 
   ngOnInit(): void {
     this.memberService.getMembers(this.recordId).subscribe((response) => {
-      this.members = response;
-      this.membersTabs = this.members.map((member: Member): Tab => {
-        return {
-          label: member.first_name + ' ' + member.last_name,
-          data: member,
-          url: '/family-records/' + this.recordId + '/members/' + member.id,
-        };
-      });
-      this.membersTabs = this.permissionsService.hasPermission(
-        this.screen,
-        CREATE
-      )
-        ? [
-            ...this.membersTabs,
-            {
-              label: 'Add Member',
-              data: null,
-              icon: faPlus,
-              url: '/family-records/' + this.recordId + '/members/add',
-            },
-          ]
-        : [...this.membersTabs];
+      if (response.length > 0) {
+        this.members = response;
+        this.membersTabs = this.members.map((member: Member): Tab => {
+          return {
+            label: member.first_name + ' ' + member.last_name,
+            data: member,
+            url: '/family-records/' + this.recordId + '/members/' + member.id,
+          };
+        });
 
-      this.route.params.subscribe((params) => {
-        const memberId = params['sectionId'];
-        if (memberId) {
-          const index = this.members.findIndex(
-            (member) => member.id === memberId
-          );
-          if (index !== -1) {
-            this.activeMember = this.members[index];
-            this.activeMemberTab = index;
-            this.sideTab = [
-              'Personel Details',
-              'Sacrament Details',
-              'Migration Details',
-            ];
+        this.membersTabs = this.permissionsService.hasPermission(
+          this.screen,
+          CREATE
+        )
+          ? [
+              ...this.membersTabs,
+              {
+                label: 'Add Member',
+                data: null,
+                icon: faPlus,
+                url: '/family-records/' + this.recordId + '/members/add',
+              },
+            ]
+          : [...this.membersTabs];
+
+        this.route.params.subscribe((params) => {
+          const memberId = params['sectionId'];
+          if (memberId) {
+            const index = this.members.findIndex(
+              (member) => member.id === memberId
+            );
+            if (index !== -1) {
+              this.activeMember = this.members[index];
+              this.activeMemberTab = index;
+              this.sideTab = [
+                'Personel Details',
+                'Sacrament Details',
+                'Migration Details',
+              ];
+            } else {
+              this.activeMember = {} as Member;
+              this.activeMemberTab = this.membersTabs.length - 1; // 'Add Member' tab
+              this.sideTab = ['Personel Details'];
+            }
           } else {
-            this.activeMember = {} as Member;
-            this.activeMemberTab = this.membersTabs.length - 1; // 'Add Member' tab
-            this.sideTab = ['Personel Details'];
+            this.activeMember = this.members[0];
+            this.activeMemberTab = 0;
           }
-        } else {
-          this.activeMember = this.members[0];
-          this.activeMemberTab = 0;
-        }
-      });
+        });
+      } else {
+        this.membersTabs = this.permissionsService.hasPermission(
+          this.screen,
+          CREATE
+        )
+          ? [
+              {
+                label: 'Add Member',
+                data: null,
+                icon: faPlus,
+                url: '/family-records/' + this.recordId + '/members/add',
+              },
+            ]
+          : [];
+        this.activeMember = {} as Member;
+        this.activeMemberTab = 0; // 'Add Member' tab
+        this.sideTab = ['Personel Details'];
+      }
 
       this.cdr.detectChanges();
     });

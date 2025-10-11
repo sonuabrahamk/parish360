@@ -8,6 +8,7 @@ import { LoaderComponent } from '../../common/loader/loader.component';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { SCREENS } from '../../../services/common/common.constants';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-family-info',
@@ -29,24 +30,37 @@ export class FamilyInfoComponent {
   familyInfoForm!: FormGroup;
 
   constructor(
-    private loader: LoaderService,
     private familyRecordsService: FamilyRecords,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) {}
 
   ngOnInit() {
-    this.loader.show();
+    if (this.recordId === 'new') {
+      this.familyInfoForm = this.fb.group({
+          family_code: [''],
+          head_of_family: [''],
+          family_name: [''],
+          parish: [''],
+          unit: [''],
+          contact: [''],
+          address: [''],
+          joined_date: [''],
+        });
+        this.isEditMode = true;
+        return;
+    }
     this.familyRecordsService.getFamilyRecordInfo(this.recordId).subscribe({
       next: (familyRecord: any) => {
         this.familyInfoForm = this.fb.group({
-          book_no: [familyRecord.family_code || ''],
+          family_code: [familyRecord.family_code || ''],
           head_of_family: [familyRecord.head_of_family || ''],
           family_name: [familyRecord.family_name || ''],
           parish: [familyRecord.parish || ''],
           unit: [familyRecord.unit || ''],
-          mobile: [familyRecord.contact || ''],
+          contact: [familyRecord.contact || ''],
           address: [familyRecord.address || ''],
-          created_date: [familyRecord.created_date || ''],
+          joined_date: [familyRecord.joined_date || ''],
         });
         this.isEditMode
           ? this.familyInfoForm.enable()
@@ -56,7 +70,6 @@ export class FamilyInfoComponent {
         console.error('Data load from backend failed: ', err);
       },
     });
-    this.loader.hide();
   }
 
   onModeUpdated(event: FooterEvent) {
@@ -65,10 +78,39 @@ export class FamilyInfoComponent {
       ? this.familyInfoForm.enable()
       : this.familyInfoForm.disable();
     if (event.isSaveTriggered) {
-      console.log();
+      this.onSave();
     }
     if (event.isCancelTriggered) {
       this.ngOnInit();
+    }
+  }
+
+  onSave() {
+    this.familyInfoForm.enable();
+    if (this.familyInfoForm.valid) {
+      confirm('Are you sure you want to save the changes?') &&
+        (this.recordId === 'new'
+          ? this.familyRecordsService.createFamilyRecordInfo(this.familyInfoForm.value).subscribe({
+              next: (response) => {
+                window.location.href = `/family-records/${response.id}`;
+              },
+              error: (err) => {
+                console.error('Error creating new family record', err);
+              },
+            })
+          : this.familyRecordsService.updateFamilyRecordInfo(this.recordId, this.familyInfoForm.value).subscribe({
+              next: (response) => {
+                console.log('Family record updated successfully', response);
+                this.isEditMode = false;
+                this.familyInfoForm.disable();
+              },
+              error: (err) => {
+                console.error('Error updating family record', err);
+              },
+            })  
+        );
+    } else {
+      console.warn('Please validate all required fields before saving.');
     }
   }
 }

@@ -8,7 +8,7 @@
     <!-- Field 1 -->
     <div class="form-group">
       <label>Book No</label>
-      <input type="text" formControlName="book_no" class="lg:col-span-2" />
+      <input type="text" formControlName="family_code" class="lg:col-span-2" />
     </div>
 
     <!-- Field 2 -->
@@ -42,13 +42,13 @@
     <!-- Field 6 -->
     <div class="form-group">
       <label>Mobile</label>
-      <input type="text" formControlName="mobile" class="lg:col-span-2" />
+      <input type="text" formControlName="contact" class="lg:col-span-2" />
     </div>
 
     <!-- Field 7 -->
     <div class="form-group">
       <label>Create On</label>
-      <input type="date" formControlName="created_date" class="lg:col-span-2" />
+      <input type="date" formControlName="joined_date" class="lg:col-span-2" />
     </div>
 
     <!-- Field 7 -->
@@ -60,5 +60,5 @@
     </div>
   </div>
 
-  <app-footer *appCanEdit="screen" (modeUpdated)="onModeUpdated($event)"></app-footer>
+  <app-footer *appCanEdit="screen" [isEditMode]="isEditMode" (modeUpdated)="onModeUpdated($event)"></app-footer>
 </div>

@@ -8,8 +8,6 @@ import {
 import {
   BASE_URL,
   BLESSINGS,
-  EXTENSION,
-  MISCELLANOUS,
   PAYMENTS,
   SUBSCRIPTIONS,
 } from './api.constants';
@@ -38,15 +36,22 @@ export class FamilyRecords {
     );
   }
 
-  getBlessingsRecords(recordId: string): Observable<BlessingRecord[]> {
-    return this.apiService.get<BlessingRecord[]>(
-      BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + BLESSINGS
+  createFamilyRecordInfo(
+    familyRecord: FamilyRecord
+  ): Observable<FamilyRecord> {
+    return this.apiService.post<FamilyRecord>(
+      BASE_URL.FAMILY_RECORDS_LIST,
+      familyRecord
     );
   }
 
-  getPaymentsList(recordId: string): Observable<FamilyPayments[]> {
-    return this.apiService.get<FamilyPayments[]>(
-      BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + PAYMENTS
+  updateFamilyRecordInfo(
+    recordId: string,
+    familyRecord: FamilyRecord
+  ): Observable<FamilyRecord> {
+    return this.apiService.patch<FamilyRecord>(
+      BASE_URL.FAMILY_RECORDS_BY_ID(recordId),
+      familyRecord
     );
   }
 }

@@ -55,37 +55,54 @@ export class RecordsViewComponent implements AfterViewInit {
   recordId!: string;
   section: string | null = null;
   activeTabIndex = 0;
+  newFamilyRecord?: boolean = false;
 
   constructor(private cdr: ChangeDetectorRef, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.recordId = params.get('id') ?? '';
-      this.section = params.get('section');
-      switch (this.section) {
-        case 'members':
-          this.activeTabIndex = 1;
-          break;
-        case 'blessings':
-          this.activeTabIndex = 2;
-          break;
-        case 'subscriptions':
-          this.activeTabIndex = 3;
-          break;
-        case 'payments':
-          this.activeTabIndex = 4;
-          break;
-        case 'miscellaneous':
-          this.activeTabIndex = 5;
-          break;
-        default:
-          this.activeTabIndex = 0;
+      if (this.recordId === 'new') {
+        this.newFamilyRecord = true;
+      } else {
+        this.section = params.get('section');
+        switch (this.section) {
+          case 'members':
+            this.activeTabIndex = 1;
+            break;
+          case 'blessings':
+            this.activeTabIndex = 2;
+            break;
+          case 'subscriptions':
+            this.activeTabIndex = 3;
+            break;
+          case 'payments':
+            this.activeTabIndex = 4;
+            break;
+          case 'miscellaneous':
+            this.activeTabIndex = 5;
+            break;
+          default:
+            this.activeTabIndex = 0;
+        }
       }
     });
   }
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => {
+      if (this.newFamilyRecord) {
+        this.familyTabs = [
+          {
+            label: 'Family Info',
+            content: this.familyInfoTemplate,
+            icon: faHouse,
+            url: `/family-records/${this.recordId}`,
+          },
+        ];
+        this.cdr.detectChanges();
+        return;
+      }
       this.familyTabs = [
         {
           label: 'Family Info',
