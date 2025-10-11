@@ -31,6 +31,6 @@ export class SidebarComponent {
     { label: 'Payment Register', icon: faFileInvoiceDollar, route: 'payments' },
     { label: 'Expense Register', icon: faMoneyBillWave, route: 'expenses' },
     { label: 'Users', icon: faUsersCog, route: 'users' },
-    { label: 'Settings', icon: faGear, route: 'settings' },
+    { label: 'Configurations', icon: faGear, route: 'configurations' },
   ];
 }

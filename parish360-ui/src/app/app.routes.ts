@@ -18,6 +18,7 @@ import { PaymentsViewComponent } from './pages/payments-register/payments-view/p
 import { ExpenseViewComponent } from './pages/expense-register/expense-view/expense-view.component';
 import { AssociationViewComponent } from './pages/pious-associations/association-view/association-view.component';
 import { UserViewComponent } from './pages/users-management/user-view/user-view.component';
+import { ConfigurationViewComponent } from './pages/configurations/configuration-view/configuration-view.component';
 
 export const routes: Routes = [
   {
@@ -130,6 +131,11 @@ export const routes: Routes = [
   {
     path: 'users/view/:userId',
     component: UserViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'configurations',
+    component: ConfigurationViewComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '/dashboard' },
