@@ -1,1 +1,29 @@
-<p>services works!</p>
+<div class="header">
+  <h2>Services List</h2>
+  <div class="header-right-section">
+    <button class="button" *appCanCreate="screen" (click)="onCreate()">
+      Create
+    </button>
+    <button
+      class="button btn-danger mx-4"
+      *appCanDelete="screen"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
+  </div>
+</div>
+<div class="p-2 ag-theme-alpine">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+    [rowSelection]="rowSelection"
+  />
+</div>

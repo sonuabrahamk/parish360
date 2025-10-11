@@ -66,3 +66,6 @@ export const MEMBERS = '/members';
 // User Management API's
 export const USERS = '/users';
 export const USER_BY_ID = (userId: string) => `/users/${userId}`;
+
+// Liturgy Service API paths
+export const SERVICES = '/configurations/services';

@@ -12,6 +12,10 @@
     @apply text-2xl font-bold text-primary-color;
   }
 
+  h2 {
+    @apply text-xl font-bold text-primary-color;
+  }
+
   input,
   select {
     @apply rounded-md border-gray-300 border-1 p-2 focus:border-secondary-color focus:outline-none text-sm font-medium;
