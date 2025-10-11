@@ -1,1 +1,21 @@
-<p>associations works!</p>
+<div class="p-4">
+  <div *appCanCreate="screen" class="flex mb-4 justify-between items-center">
+    <h4 class="pt-2 font-semibold">Associations</h4>
+    <button (click)="addRow()">
+      <fa-icon [icon]="faAdd"></fa-icon>Add Resource
+    </button>
+  </div>
+
+  <ag-grid-angular
+    class="ag-theme-alpine w-full"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    [defaultColDef]="{ sortable: true, filter: false, resizable: true }"
+    (gridReady)="onGridReady($event)"
+    [domLayout]="'autoHeight'"
+    [rowHeight]="50"
+    [getRowId]="getRowId"
+    [animateRows]="true"
+  >
+  </ag-grid-angular>
+</div>

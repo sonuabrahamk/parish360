@@ -68,11 +68,7 @@ export class AssociationMembersComponent {
   constructor(private associationService: AssociationService) {}
 
   ngOnInit() {
-    this.associationService
-      .getAssociationMembers(this.associationId, this.parishYear)
-      .subscribe((members) => {
-        this.members = members;
-      });
+    console.log('initialised!')
   }
 
   onGridReady(params: GridReadyEvent) {

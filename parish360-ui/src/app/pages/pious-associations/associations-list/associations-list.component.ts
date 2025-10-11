@@ -48,30 +48,6 @@ export class AssociationsListComponent {
       headerName: 'Description',
       field: 'description',
     },
-    {
-      headerName: 'President',
-      field: 'president',
-    },
-    {
-      headerName: 'President Contact',
-      field: 'p_contact',
-    },
-    {
-      headerName: 'Vice-President',
-      field: 'vice_president',
-    },
-    {
-      headerName: 'Contact',
-      field: 'vp_contact',
-    },
-    {
-      headerName: 'Members Count',
-      field: 'members_count',
-    },
-    {
-      headerName: 'Status',
-      field: 'status',
-    },
   ];
 
   constructor(private associationService: AssociationService) {}

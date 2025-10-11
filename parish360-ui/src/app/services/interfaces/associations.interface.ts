@@ -1,16 +1,12 @@
 export interface Association {
   id: string;
-  parish_id: string;
-  parish_year: string;
   name: string;
   description: string;
-  president: string;
-  p_contact: string;
-  vice_president: string;
-  vp_contact: string;
-  members_count: number;
-  founded_on: Date;
-  status: boolean;
+  type: string;
+  director: string;
+  founded_date: Date;
+  patron: string;
+  active: boolean;
 }
 
 export interface Member {

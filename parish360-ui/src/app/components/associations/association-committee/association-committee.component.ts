@@ -23,10 +23,7 @@ export class AssociationCommitteeComponent {
   constructor(private associationService: AssociationService, private fb: FormBuilder){}
 
   ngOnInit(){
-    this.associationService.getAssociationCommitteeMembers(this.associationId, this.parishYear).subscribe((committee) => {
-      this.committeeMembers = committee;
-      this.loadCommitteeForm();
-    })
+    console.log('initialised!');
     
   }
 

@@ -91,20 +91,13 @@ export class AssociationViewComponent {
 
   getAssociation() {
     console.log('Update parish year: ' + this.parishYear);
-    this.associationService
-      .getAssociation(this.associationId, this.parishYear??'')
-      .subscribe((association) => {
-        this.association = association;
-        this.parishYear = association.parish_year;
-        this.loadAssociationForm();
-      });
   }
 
   loadAssociationForm() {
     this.associationForm = this.fb.group({
       name: [this.association?.name || ''],
-      founded_on: [this.association?.founded_on || ''],
-      status: [this.association?.status || ''],
+      founded_on: [this.association?.founded_date || ''],
+      status: [this.association?.active || ''],
       description: [this.association?.description || ''],
     })
   }

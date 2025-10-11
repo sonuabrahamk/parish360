@@ -1,9 +1,8 @@
 import { Observable } from 'rxjs';
-import { ASSOCIATION_BY_YEAR, ASSOCIATIONS, COMMITTEE, EXTENSION, MEMBERS } from './api.constants';
+import { ASSOCIATION_BY_ID, ASSOCIATIONS } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
-import { Bookings } from '../interfaces/bookings.interface';
-import { Association, Member } from '../interfaces/associations.interface';
+import { Association } from '../interfaces/associations.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AssociationService {
@@ -13,24 +12,15 @@ export class AssociationService {
     return this.apiService.get<Association[]>(ASSOCIATIONS);
   }
 
-  getAssociation(associationId: string, parishYear?: string): Observable<Association> {
-    if (!parishYear){
-      parishYear = 'JAN2025-DEC2025';
-    }
-    return this.apiService.get<Association>(ASSOCIATION_BY_YEAR(associationId, parishYear) + `/${associationId}`)
+  createAssociation(association: Association):Observable<Association>{
+    return this.apiService.post<Association>(ASSOCIATIONS, association);
   }
 
-  getAssociationCommitteeMembers(associationId: string, parishYear?: string): Observable<Member[]> {
-    if (!parishYear){
-      parishYear = 'JAN2025-DEC2025';
-    }
-    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + COMMITTEE)
+  updateAssociation(associationId: string, association: Association):Observable<Association>{
+    return this.apiService.patch<Association>(ASSOCIATION_BY_ID(associationId), association);
   }
 
-  getAssociationMembers(associationId: string, parishYear?: string): Observable<Member[]> {
-    if (!parishYear){
-      parishYear = 'JAN2025-DEC2025';
-    }
-    return this.apiService.get<Member[]>(ASSOCIATION_BY_YEAR(associationId, parishYear) + MEMBERS)
+  deleteAssociation(associationId: string):Observable<void>{
+    return this.apiService.delete<void>(ASSOCIATION_BY_ID(associationId));
   }
 }
