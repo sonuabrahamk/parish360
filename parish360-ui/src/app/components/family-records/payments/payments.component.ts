@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { FamilyRecords } from '../../../services/api/family-records.service';
 
 @Component({
   selector: 'app-payments',
-  imports: [CommonModule, AgGridAngular],
+  imports: [CommonModule, AgGridModule],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.css',
 })
@@ -44,6 +44,5 @@ export class PaymentsComponent {
 
   constructor(private familyRecordsService: FamilyRecords) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 }

@@ -72,3 +72,8 @@ export const SERVICES = '/configurations/services';
 export const RESOURCES = '/configurations/resources';
 export const RESOURCE_BY_ID = (resourceId: string) =>
   `/configurations/resources/${resourceId}`;
+
+// Accounts API paths
+export const ACCOUNTS = '/configurations/accounts';
+export const ACCOUNT_BY_ID = (accountId: string) =>
+  `/configurations/accounts/${accountId}`;

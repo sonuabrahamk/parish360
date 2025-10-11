@@ -5,14 +5,14 @@ import { SCREENS } from '../../../services/common/common.constants';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { MiscellaneousRecord } from '../../../services/interfaces/family-record.interface';
 import { CommonModule } from '@angular/common';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MiscellenousService } from '../../../services/api/miscellenous.service';
 
 @Component({
   selector: 'app-miscellenous',
-  imports: [CommonModule, AgGridAngular, CanCreateDirective, FontAwesomeModule],
+  imports: [CommonModule, AgGridModule, CanCreateDirective, FontAwesomeModule],
   templateUrl: './miscellenous.component.html',
   styleUrl: './miscellenous.component.css',
 })

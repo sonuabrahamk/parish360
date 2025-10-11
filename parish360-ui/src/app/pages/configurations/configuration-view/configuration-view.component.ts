@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { ServicesComponent } from '../../../components/configurations/services/services.component';
 import { ResourcesComponent } from '../../../components/configurations/resources/resources.component';
 import { AssociationsComponent } from '../../../components/configurations/associations/associations.component';
-import { ParishYearComponent } from '../../../components/configurations/parish-year/parish-year.component';
+import { AccountsComponent } from "../../../components/configurations/accounts/accounts.component";
 
 @Component({
   selector: 'app-configuration-view',
@@ -22,8 +22,8 @@ import { ParishYearComponent } from '../../../components/configurations/parish-y
     ServicesComponent,
     ResourcesComponent,
     AssociationsComponent,
-    ParishYearComponent,
-  ],
+    AccountsComponent
+],
   templateUrl: './configuration-view.component.html',
   styleUrl: './configuration-view.component.css',
 })
@@ -32,12 +32,12 @@ export class ConfigurationViewComponent {
     { label: 'Parish Info', icon: faHouse, url: '/configurations/general' },
     { label: 'Services', icon: faHouse, url: '/configurations/services' },
     { label: 'Resources', icon: faHouse, url: '/configurations/resources' },
+    { label: 'Accounts', icon: faHouse, url: '/configurations/accounts' },
     {
       label: 'Associstions',
       icon: faHouse,
       url: '/configurations/associations',
     },
-    { label: 'Parish Year', icon: faHouse, url: '/configurations/parish-year' },
   ];
   activeTabIndex = 0;
 

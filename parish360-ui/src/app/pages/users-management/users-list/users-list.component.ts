@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { SCREENS } from '../../../services/common/common.constants';
 import { User } from '../../../services/interfaces/permissions.interface';
-import { GridApi, ColDef, RowSelectionOptions, GridReadyEvent } from 'ag-grid-community';
+import {
+  GridApi,
+  ColDef,
+  RowSelectionOptions,
+  GridReadyEvent,
+} from 'ag-grid-community';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { UserService } from '../../../services/api/user-api.service';
@@ -12,7 +17,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-users-list',
   standalone: true,
-  imports: [CommonModule, AgGridAngular, CanCreateDirective, CanDeleteDirective],
+  imports: [CommonModule, AgGridModule, CanCreateDirective, CanDeleteDirective],
   templateUrl: './users-list.component.html',
   styleUrl: './users-list.component.css',
 })
@@ -44,40 +49,40 @@ export class UsersListComponent {
     },
     {
       headerName: 'First Name',
-      field: 'first_name'
+      field: 'first_name',
     },
     {
       headerName: 'Last Name',
-      field: 'last_name'
+      field: 'last_name',
     },
     {
       headerName: 'Email',
-      field: 'email'
+      field: 'email',
     },
     {
       headerName: 'Contact',
-      field: 'contact'
+      field: 'contact',
     },
     {
       headerName: 'Status',
-      field: 'status'
+      field: 'status',
     },
   ];
 
-  constructor(private userService: UserService, private router: Router){}
+  constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
-    })
+    });
   }
-  
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
   }
 
   onCreate() {
-    this.router.navigate(['/users/create'])
+    this.router.navigate(['/users/create']);
   }
 
   onDelete() {

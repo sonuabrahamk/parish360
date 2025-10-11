@@ -4,7 +4,7 @@ import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { SCREENS } from '../../../services/common/common.constants';
 import { Services } from '../../../services/interfaces/services.interface';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
   GridApi,
@@ -21,7 +21,7 @@ import { StatusComponent } from '../../../pages/bookings/bookings-list/status.co
     CommonModule,
     CanCreateDirective,
     CanDeleteDirective,
-    AgGridAngular,
+    AgGridModule,
   ],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css',

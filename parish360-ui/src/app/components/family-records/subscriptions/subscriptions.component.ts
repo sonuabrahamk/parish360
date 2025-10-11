@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import { ColDef } from 'ag-grid-community';
 import { FamilyRecords } from '../../../services/api/family-records.service';
 import { FamilyRecordSubscription } from '../../../services/interfaces/family-record.interface';
@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-subscriptions',
-  imports: [CommonModule, AgGridAngular],
+  imports: [CommonModule, AgGridModule],
   templateUrl: './subscriptions.component.html',
   styleUrl: './subscriptions.component.css',
 })
@@ -40,7 +40,6 @@ export class SubscriptionsComponent {
   ) {}
 
   ngOnInit() {
-
     this.familyRecordService
       .getFamilyRecordSubscriptions(this.recordId)
       .subscribe((response) => {

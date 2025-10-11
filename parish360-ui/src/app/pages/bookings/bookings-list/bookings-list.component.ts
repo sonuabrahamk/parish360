@@ -3,7 +3,7 @@ import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CommonModule } from '@angular/common';
 import { SCREENS } from '../../../services/common/common.constants';
 import { Bookings } from '../../../services/interfaces/bookings.interface';
-import { AgGridAngular } from 'ag-grid-angular';
+import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
   GridApi,
@@ -20,12 +20,7 @@ import { StatusComponent } from './status.component';
 @Component({
   selector: 'app-bookings-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    CanCreateDirective,
-    CanDeleteDirective,
-    AgGridAngular,
-  ],
+  imports: [CommonModule, CanCreateDirective, CanDeleteDirective, AgGridModule],
   templateUrl: './bookings-list.component.html',
   styleUrl: './bookings-list.component.css',
 })
