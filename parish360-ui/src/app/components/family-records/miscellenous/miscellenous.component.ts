@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { GridApi, ColDef } from 'ag-grid-community';
-import { FamilyRecords } from '../../../services/api/family-records.service';
 import { SCREENS } from '../../../services/common/common.constants';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { MiscellaneousRecord } from '../../../services/interfaces/family-record.interface';
@@ -9,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MiscellenousService } from '../../../services/api/miscellenous.service';
 
 @Component({
   selector: 'app-miscellenous',
@@ -27,10 +27,9 @@ export class MiscellenousComponent {
 
   columnDefs: ColDef<MiscellaneousRecord>[] = [
     {
-      headerName: 'Date',
-      field: 'date',
-      cellDataType: 'date',
-      editable: (params) => this.isEditing(params.data),
+      headerName: 'Created Date',
+      field: 'created_at',
+      editable: false,
       cellEditor: 'agDateCellEditor',
     },
     {
@@ -66,10 +65,10 @@ export class MiscellenousComponent {
       if (event.event.target.classList.contains('btn-edit')) {
         this.editingRowId = id;
         this.gridApi.refreshCells();
-        this.gridApi.setFocusedCell(event.rowIndex, 'date');
+        this.gridApi.setFocusedCell(event.rowIndex, 'commented_by');
         this.gridApi.startEditingCell({
           rowIndex: event.rowIndex,
-          colKey: 'date',
+          colKey: 'commented_by',
         });
       }
 
@@ -81,25 +80,29 @@ export class MiscellenousComponent {
           this.onSave(event.data);
         } else {
           // if no entry to new record added
-          this.gridApi.setFocusedCell(event.rowIndex, 'date');
+          this.gridApi.setFocusedCell(event.rowIndex, 'commented_by');
           this.gridApi.startEditingCell({
             rowIndex: event.rowIndex,
-            colKey: 'date',
+            colKey: 'commented_by',
           });
         }
       }
 
       if (event.event.target.classList.contains('btn-delete')) {
         if (!this.permissionService.canDelete(this.screen)) {
-          alert('You do have permission to delete an entry!!');
+          alert('You do not have permission to delete an entry!!');
         } else {
-          this.rowData = this.rowData.filter((row) => row.id !== id);
-          this.gridApi.applyTransaction({ update: [...this.rowData] });
+          this.miscellenousService
+            .deleteMiscellaneousRecord(this.recordId, id)
+            .subscribe(() => {
+              this.rowData = this.rowData.filter((row) => row.id !== id);
+              this.gridApi.applyTransaction({ update: [...this.rowData] });
+            });
         }
       }
 
       if (event.event.target.classList.contains('btn-cancel')) {
-        if (this.gridApi.getDisplayedRowAtIndex(0)?.data.commented_by === '')  {
+        if (this.gridApi.getDisplayedRowAtIndex(0)?.data.commented_by === '') {
           this.rowData = this.rowData.filter((row) => row.id !== id);
           this.gridApi.applyTransaction({ update: [...this.rowData] });
         }
@@ -163,18 +166,15 @@ export class MiscellenousComponent {
   }
 
   constructor(
-    private familyRecordsService: FamilyRecords,
+    private miscellenousService: MiscellenousService,
     private permissionService: PermissionsService
   ) {}
 
   ngOnInit() {
-    this.familyRecordsService
+    this.miscellenousService
       .getMiscellaneousList(this.recordId)
       .subscribe((miscellaneousList) => {
-        this.rowData = miscellaneousList.map((item) => ({
-          ...item,
-          date: new Date(item.date), // Convert ISO string to Date object
-        }));
+        this.rowData = miscellaneousList;
       });
 
     this.permissionService.canEdit(this.screen)
@@ -183,22 +183,25 @@ export class MiscellenousComponent {
   }
 
   addRow() {
-    if (this.gridApi.getDisplayedRowAtIndex(0)?.data.date) {
-      const newId = Date.now().toString();
-      let newRowData = [
-        {
-          id: newId,
-          date: new Date(),
-          commented_by: '',
-          comment: '',
-        },
-      ];
+    let newRowData = [
+      {
+        id: 'new',
+        created_at: new Date(),
+        commented_by: '',
+        comment: '',
+      } as MiscellaneousRecord,
+    ];
+    if (this.gridApi.getDisplayedRowAtIndex(0)) {
       this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
-      this.editingRowId = newId;
+    } else {
+      this.gridApi.applyTransaction({ add: newRowData });
     }
-    this.gridApi.setFocusedCell(0, 'date');
-    this.gridApi.startEditingCell({ rowIndex: 0, colKey: 'date' });
-    this.gridApi.refreshCells();
+    this.editingRowId = 'new';
+    this.gridApi.setFocusedCell(0, 'commented_by');
+    this.gridApi.startEditingCell({
+      rowIndex: 0,
+      colKey: 'commented_by',
+    });
   }
 
   onEdit() {
@@ -214,6 +217,25 @@ export class MiscellenousComponent {
   };
 
   onSave(row: any) {
-    console.log(row);
+    confirm('Are you sure you want to save the changes?') &&
+      (row.id === 'new'
+        ? this.miscellenousService
+            .createMiscellaneousRecord(this.recordId, {
+              commented_by: row.commented_by,
+              comment: row.comment,
+            } as MiscellaneousRecord)
+            .subscribe((newRecord) => {
+              this.rowData = [newRecord, ...this.rowData];
+            })
+        : this.miscellenousService
+            .updateMiscellaneousRecord(this.recordId, row.id, {
+              commented_by: row.commented_by,
+              comment: row.comment,
+            } as MiscellaneousRecord)
+            .subscribe((updatedRecord) => {
+              this.rowData = this.rowData.map((r) =>
+                r.id === row.id ? updatedRecord : r
+              );
+            }));
   }
 }

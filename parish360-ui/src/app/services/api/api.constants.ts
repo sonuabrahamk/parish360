@@ -29,10 +29,14 @@ export const EXTENSION = '.json'; // To be removed when API's are replaced
 
 // Family records API paths
 export const SUBSCRIPTIONS = '/subscriptions';
+
 export const BLESSINGS = '/blessings';
 export const BLESSING_BY_ID = (blessingId: string) =>
   `/blessings/${blessingId}`;
+
 export const MISCELLANOUS = '/miscellaneous';
+export const MISCELLANOUS_BY_ID = (miscellenousId: string) =>
+  `/miscellaneous/${miscellenousId}`;
 
 // Bookings API paths
 export const BOOKINGS = '/bookings';

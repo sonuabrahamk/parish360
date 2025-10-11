@@ -42,7 +42,7 @@ export interface FamilyPayments {
 
 export interface MiscellaneousRecord {
   id: string;
-  date: Date;
+  created_at: Date;
   commented_by: string;
   comment: string;
 }

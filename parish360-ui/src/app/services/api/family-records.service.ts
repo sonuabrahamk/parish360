@@ -4,7 +4,6 @@ import {
   FamilyPayments,
   FamilyRecord,
   FamilyRecordSubscription,
-  MiscellaneousRecord,
 } from '../interfaces/family-record.interface';
 import {
   BASE_URL,
@@ -22,9 +21,7 @@ export class FamilyRecords {
   constructor(private apiService: ApiService) {}
 
   getFamilyRecords(): Observable<FamilyRecord[]> {
-    return this.apiService.get<FamilyRecord[]>(
-      BASE_URL.FAMILY_RECORDS_LIST
-    );
+    return this.apiService.get<FamilyRecord[]>(BASE_URL.FAMILY_RECORDS_LIST);
   }
 
   getFamilyRecordInfo(recordId: string): Observable<FamilyRecord> {
@@ -50,12 +47,6 @@ export class FamilyRecords {
   getPaymentsList(recordId: string): Observable<FamilyPayments[]> {
     return this.apiService.get<FamilyPayments[]>(
       BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + PAYMENTS
-    );
-  }
-
-  getMiscellaneousList(recordId: string): Observable<MiscellaneousRecord[]> {
-    return this.apiService.get<MiscellaneousRecord[]>(
-      BASE_URL.FAMILY_RECORDS_BY_ID(recordId) + MISCELLANOUS
     );
   }
 }

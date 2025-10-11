@@ -190,19 +190,20 @@ export class BlessingsSectionComponent {
   }
 
   addRow() {
-    if (this.gridApi.getDisplayedRowAtIndex(0)?.data.priest) {
-      const newId = 'add';
-      let newRowData = [
-        {
-          id: newId,
-          priest: '',
-          date: new Date(),
-          reason: '',
-        },
-      ];
+    let newRowData = [
+      {
+        id: 'add',
+        priest: '',
+        date: new Date(),
+        reason: '',
+      },
+    ];
+    if (this.gridApi.getDisplayedRowAtIndex(0)) {
       this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
-      this.editingRowId = newId;
+    } else {
+      this.gridApi.applyTransaction({ add: newRowData });
     }
+    this.editingRowId = 'add';
     this.gridApi.setFocusedCell(0, 'priest');
     this.gridApi.startEditingCell({ rowIndex: 0, colKey: 'priest' });
     this.gridApi.refreshCells();
@@ -226,26 +227,23 @@ export class BlessingsSectionComponent {
         ? this.blessingsService
             .createBlessingsRecord(this.recordId, {
               priest: row.priest,
-              date: row.date,
+              date: row.date.toISOString().split('T')[0],
               reason: row.reason,
             } as BlessingRecord)
             .subscribe((newRecord) => {
-              this.rowData = this.rowData.map((r) =>
-                r.id === this.editingRowId ? newRecord : r
-              );
-              this.gridApi.applyTransaction({ update: [...this.rowData] });
+              this.rowData = [newRecord, ...this.rowData];
             })
         : this.blessingsService
             .updateBlessingsRecord(this.recordId, row.id, {
               priest: row.priest,
-              date: row.date,
+              date: row.date.toISOString().split('T')[0],
               reason: row.reason,
             } as BlessingRecord)
             .subscribe((updatedRecord) => {
+              updatedRecord.date = new Date(updatedRecord.date);
               this.rowData = this.rowData.map((r) =>
                 r.id === row.id ? updatedRecord : r
               );
-              this.gridApi.applyTransaction({ update: [...this.rowData] });
             }));
   }
 }
