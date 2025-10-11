@@ -19,6 +19,8 @@ import { ExpenseViewComponent } from './pages/expense-register/expense-view/expe
 import { AssociationViewComponent } from './pages/pious-associations/association-view/association-view.component';
 import { UserViewComponent } from './pages/users-management/user-view/user-view.component';
 import { ConfigurationViewComponent } from './pages/configurations/configuration-view/configuration-view.component';
+import { ParishYearListComponent } from './pages/parish-year/parish-year-list/parish-year-list.component';
+import { ParishYearViewComponent } from './pages/parish-year/parish-year-view/parish-year-view.component';
 
 export const routes: Routes = [
   {
@@ -146,6 +148,16 @@ export const routes: Routes = [
   {
     path: 'configurations/:section/:sectionId',
     component: ConfigurationViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'parish-year',
+    component: ParishYearListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'parish-year/:parishYearId',
+    component: ParishYearViewComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: '/dashboard' },

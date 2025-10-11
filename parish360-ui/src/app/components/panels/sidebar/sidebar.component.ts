@@ -30,6 +30,7 @@ export class SidebarComponent {
     { label: 'Pious Associations', icon: faPeopleGroup, route: 'associations' },
     { label: 'Payment Register', icon: faFileInvoiceDollar, route: 'payments' },
     { label: 'Expense Register', icon: faMoneyBillWave, route: 'expenses' },
+    { label: 'Parish Year', icon: faPeopleGroup, route: 'parish-year' },
     { label: 'Users', icon: faUsersCog, route: 'users' },
     { label: 'Configurations', icon: faGear, route: 'configurations' },
   ];

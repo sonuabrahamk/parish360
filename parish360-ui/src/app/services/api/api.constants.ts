@@ -56,7 +56,8 @@ export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;
 
 //Associations API paths
 export const ASSOCIATIONS = '/configurations/association';
-export const ASSOCIATION_BY_ID = (associationId: string) => `/configurations/association/${associationId}`;
+export const ASSOCIATION_BY_ID = (associationId: string) =>
+  `/configurations/association/${associationId}`;
 
 export const COMMITTEE = '/committee';
 export const MEMBERS = '/members';
@@ -77,3 +78,8 @@ export const RESOURCE_BY_ID = (resourceId: string) =>
 export const ACCOUNTS = '/configurations/accounts';
 export const ACCOUNT_BY_ID = (accountId: string) =>
   `/configurations/accounts/${accountId}`;
+
+// Parish Year API paths
+export const PARISH_YEAR = '/configurations/parish-year';
+export const PARISH_YEAR_BY_ID = (parishYearId: string) =>
+  `/configurations/parish-year/${parishYearId}`;
