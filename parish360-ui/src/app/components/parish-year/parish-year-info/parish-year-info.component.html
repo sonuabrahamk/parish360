@@ -1,1 +1,57 @@
-<p>parish-year-info works!</p>
+<div class="relative w-full min-h-[200px] overflow-hidden">
+  <div
+    *ngIf="parishYearInfoForm"
+    [formGroup]="parishYearInfoForm"
+    class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4"
+  >
+    <!-- Field 1 -->
+    <div class="form-group">
+      <label>Parish Year Name</label>
+      <input type="text" formControlName="name" class="lg:col-span-2" />
+    </div>
+
+    <!-- Field 2 -->
+    <div class="form-group">
+      <label>Start Date</label>
+      <input type="date" formControlName="start_date" class="lg:col-span-2" />
+    </div>
+
+    <!-- Field 3 -->
+    <div class="form-group">
+      <label>End Date</label>
+      <input type="date" formControlName="end_date" class="lg:col-span-2" />
+    </div>
+
+    <!-- Field 4 -->
+    <div class="form-group">
+      <label>Status</label>
+      <select formControlName="status" class="lg:col-span-2">
+        <option value="IN-PROGRESS">IN-PROGRESS</option>
+        <option value="ACTIVE">ACTIVE</option>
+        <option value="COMPLETED">COMPLETED</option>
+      </select>
+    </div>
+
+    <!-- Field 5 -->
+    <div class="form-group">
+      <label>Locked</label>
+      <input
+        type="checkbox"
+        formControlName="locked"
+        class="lg:col-span-2 text-left"
+      />
+    </div>
+
+    <!-- Field 6 -->
+    <div class="form-group">
+      <label>Comment</label>
+      <input type="text" formControlName="comment" class="lg:col-span-2" />
+    </div>
+  </div>
+
+  <app-footer
+    *appCanEdit="screen"
+    [isEditMode]="isEditMode"
+    (modeUpdated)="onModeUpdated($event)"
+  ></app-footer>
+</div>

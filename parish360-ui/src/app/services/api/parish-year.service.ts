@@ -18,6 +18,10 @@ export class ParishYearService {
     return this.apiService.get<ParishYear[]>(PARISH_YEAR);
   }
 
+  getParishYearInfo(parishYearId: string): Observable<ParishYear> {
+    return this.apiService.get<ParishYear>(PARISH_YEAR_BY_ID(parishYearId));
+  }
+
   createParishYear(parishYear: ParishYear): Observable<ParishYear> {
     return this.apiService.post<ParishYear>(PARISH_YEAR, parishYear);
   }
