@@ -30,7 +30,6 @@ public class ParishYearManagerImpl implements ParishYearManager {
     private final ParishRepository parishRepository;
     private final ParishYearAssociationRepository parishYearAssociationRepository;
     private final AssociationRepository associationRepository;
-    private final AssociationMapper associationMapper;
 
     public ParishYearManagerImpl(ConfigurationMapper configurationMapper, ParishYearRepository parishYearRepository, ParishRepository parishRepository, ParishYearAssociationRepository parishYearAssociationRepository, AssociationRepository associationRepository, AssociationMapper associationMapper) {
         this.configurationMapper = configurationMapper;
@@ -38,7 +37,6 @@ public class ParishYearManagerImpl implements ParishYearManager {
         this.parishRepository = parishRepository;
         this.parishYearAssociationRepository = parishYearAssociationRepository;
         this.associationRepository = associationRepository;
-        this.associationMapper = associationMapper;
     }
 
     @Override
@@ -173,6 +171,7 @@ public class ParishYearManagerImpl implements ParishYearManager {
     }
 
     @Override
+    @Transactional
     public List<PYAssociationResponse> unMapAssociations(String parishId, String parishYearId,
                                                          PYAssociationRequest pyAssociationRequest) {
         // check for valid parish year
@@ -214,6 +213,7 @@ public class ParishYearManagerImpl implements ParishYearManager {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PYAssociationResponse> getPyAssociations(String parishYearId) {
         // generate response
         List<ParishYearAssociation> pyAssociations = parishYearAssociationRepository
