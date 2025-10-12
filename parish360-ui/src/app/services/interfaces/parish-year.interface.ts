@@ -1,3 +1,5 @@
+import { Association } from './associations.interface';
+
 export interface ParishYear {
   id: string;
   name: string;
@@ -6,4 +8,10 @@ export interface ParishYear {
   status: string;
   locked: boolean;
   comment: string;
+}
+
+export interface ParishYearAssociation {
+  id: string;
+  parish_year: ParishYear;
+  association: Association;
 }

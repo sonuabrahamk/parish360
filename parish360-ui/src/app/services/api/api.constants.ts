@@ -55,6 +55,7 @@ export const EXPENSES = '/expenses';
 export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;
 
 //Associations API paths
+export const MAPPED_ASSOCIATIONS = '/associations';
 export const ASSOCIATIONS = '/configurations/association';
 export const ASSOCIATION_BY_ID = (associationId: string) =>
   `/configurations/association/${associationId}`;

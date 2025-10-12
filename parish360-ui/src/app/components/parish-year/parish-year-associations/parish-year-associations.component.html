@@ -1,1 +1,29 @@
-<p>parish-year-associations works!</p>
+<div class="header">
+  <h2>Associations Linked</h2>
+  <div class="header-right-section">
+    <button class="button text-xs" *appCanCreate="screen" (click)="onCreate()">
+      Map New Association
+    </button>
+    <button
+      class="button btn-danger text-xs mx-4"
+      *appCanEdit="screen"
+      (click)="onDelete()"
+    >
+      Remove Association
+    </button>
+  </div>
+</div>
+<div class="p-2 ag-theme-alpine">
+  <ag-grid-angular
+    class="ag-theme-alpine"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+    [rowSelection]="rowSelection"
+  />
+</div>

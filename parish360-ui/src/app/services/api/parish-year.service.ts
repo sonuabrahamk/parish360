@@ -1,14 +1,15 @@
 import { Observable } from 'rxjs';
 import {
+  MAPPED_ASSOCIATIONS,
   PARISH_YEAR,
   PARISH_YEAR_BY_ID,
-  RESOURCE_BY_ID,
-  RESOURCES,
 } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
-import { Resource } from '../interfaces/resources.interface';
-import { ParishYear } from '../interfaces/parish-year.interface';
+import {
+  ParishYear,
+  ParishYearAssociation,
+} from '../interfaces/parish-year.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ParishYearService {
@@ -38,5 +39,13 @@ export class ParishYearService {
 
   deleteParishYear(parishYearId: string): Observable<void> {
     return this.apiService.delete<void>(PARISH_YEAR_BY_ID(parishYearId));
+  }
+
+  getParishYearAssociations(
+    parishYearId: string
+  ): Observable<ParishYearAssociation[]> {
+    return this.apiService.get<ParishYearAssociation[]>(
+      PARISH_YEAR_BY_ID(parishYearId) + MAPPED_ASSOCIATIONS
+    );
   }
 }
