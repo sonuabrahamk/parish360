@@ -13,6 +13,7 @@ import {
 } from 'ag-grid-community';
 import { ParishYearService } from '../../../services/api/parish-year.service';
 import { ParishYearAssociationRequest } from '../../../services/interfaces/parish-year.interface';
+import { AssociationService } from '../../../services/api/associations.service';
 
 @Component({
   selector: 'app-parish-year-associations',
@@ -23,10 +24,14 @@ import { ParishYearAssociationRequest } from '../../../services/interfaces/paris
 })
 export class ParishYearAssociationsComponent {
   @Input() parishYearId: string = '';
+  isMapAssociationsMode: boolean = false;
   screen: string = SCREENS.CONFIGURATIONS;
 
   private gridApi!: GridApi;
+  private selectGridApi!: GridApi;
 
+  selectionRowData: Association[] = [];
+  selectedRowData: Association[] = [];
   rowData: Association[] = [];
   paginationPageSize = 10;
   paginationPageSizeSelector: number[] | boolean = [5, 10, 20];
@@ -34,6 +39,9 @@ export class ParishYearAssociationsComponent {
     flex: 1,
     filter: true,
     floatingFilter: true,
+  };
+  selectedColDef: ColDef = {
+    flex: 1,
   };
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
@@ -69,7 +77,26 @@ export class ParishYearAssociationsComponent {
     },
   ];
 
-  constructor(private parishYearService: ParishYearService) {}
+  selectionColumnDefs: ColDef<Association>[] = [
+    {
+      headerName: 'Association Name',
+      field: 'name',
+    },
+    {
+      headerName: 'Description',
+      field: 'description',
+      flex: 1,
+    },
+    {
+      headerName: 'Type',
+      field: 'type',
+    },
+  ];
+
+  constructor(
+    private parishYearService: ParishYearService,
+    private associationService: AssociationService
+  ) {}
 
   ngOnInit() {
     this.parishYearService
@@ -93,8 +120,46 @@ export class ParishYearAssociationsComponent {
     this.gridApi = params.api;
   }
 
-  onCreate() {
-    console.log('create new association mapping logic here');
+  onSelectGridReady(params: GridReadyEvent) {
+    this.selectGridApi = params.api;
+  }
+
+  onCancel() {
+    console.log('Cancel triggered!');
+    this.isMapAssociationsMode = false;
+  }
+
+  onMapAssociationClick() {
+    this.associationService.getAssociations().subscribe({
+      next: (associations) => {
+        this.selectionRowData = associations;
+        this.isMapAssociationsMode = true;
+      },
+      error: () => {
+        console.log('Error loading associations to map');
+      },
+    });
+  }
+
+  onAssociationSelected(event: any) {
+    this.selectedRowData = this.selectGridApi.getSelectedRows();
+  }
+
+  onSave() {
+    const selectedAssociationIds = this.selectedRowData.map((row) => row.id);
+    this.parishYearService
+      .mapAssociationsToParishYear(this.parishYearId, {
+        associations: selectedAssociationIds,
+      })
+      .subscribe({
+        next: (ParishYearAssociations) => {
+          this.isMapAssociationsMode = false;
+          this.ngOnInit();
+        },
+        error: () => {
+          console.log('error in mapping associations to parish year');
+        },
+      });
   }
 
   onDelete() {

@@ -59,4 +59,14 @@ export class ParishYearService {
       associationIds
     );
   }
+
+  mapAssociationsToParishYear(
+    parishYearId: string,
+    associationIds: ParishYearAssociationRequest
+  ): Observable<ParishYearAssociation[]> {
+    return this.apiService.post<ParishYearAssociation[]>(
+      PARISH_YEAR_BY_ID(parishYearId) + MAPPED_ASSOCIATIONS,
+      associationIds
+    );
+  }
 }

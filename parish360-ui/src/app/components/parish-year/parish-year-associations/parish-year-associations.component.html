@@ -1,29 +1,80 @@
-<div class="header">
-  <h2>Associations Linked</h2>
-  <div class="header-right-section">
-    <button class="button text-xs" *appCanCreate="screen" (click)="onCreate()">
-      Map New Association
-    </button>
-    <button
-      class="button btn-danger text-xs mx-4"
-      *appCanEdit="screen"
-      (click)="onDelete()"
-    >
-      Remove Association
-    </button>
+<div *ngIf="!isMapAssociationsMode">
+  <div class="header">
+    <h2>Associations Linked</h2>
+    <div class="header-right-section">
+      <button
+        class="button text-xs"
+        *appCanCreate="screen"
+        (click)="onMapAssociationClick()"
+      >
+        Map New Association
+      </button>
+      <button
+        class="button btn-danger text-xs mx-4"
+        *appCanEdit="screen"
+        (click)="onDelete()"
+      >
+        Remove Association
+      </button>
+    </div>
+  </div>
+  <div class="p-2 ag-theme-alpine">
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [domLayout]="'autoHeight'"
+      (gridReady)="onGridReady($event)"
+      [rowSelection]="rowSelection"
+    />
   </div>
 </div>
-<div class="p-2 ag-theme-alpine">
-  <ag-grid-angular
-    class="ag-theme-alpine"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [pagination]="true"
-    [paginationPageSize]="paginationPageSize"
-    [paginationPageSizeSelector]="paginationPageSizeSelector"
-    [domLayout]="'autoHeight'"
-    (gridReady)="onGridReady($event)"
-    [rowSelection]="rowSelection"
-  />
+
+<!-- Map Association section -->
+<div *ngIf="isMapAssociationsMode">
+  <div class="header">
+    <h2>Map Associations</h2>
+    <div class="header-right-section">
+      <button class="btn-warning btn- text-xs" (click)="onCancel()">
+        Cancel
+      </button>
+      <button class="btn-primary text-xs mx-4" (click)="onSave()">
+        Save Changes
+      </button>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-4">
+    <div class="col-span-6">
+      <p class="my-4 font-bold">Select Associations</p>
+      <ag-grid-angular
+        class="ag-theme-alpine"
+        [rowData]="selectionRowData"
+        [columnDefs]="selectionColumnDefs"
+        [defaultColDef]="defaultColDef"
+        [pagination]="true"
+        [paginationPageSize]="paginationPageSize"
+        [paginationPageSizeSelector]="paginationPageSizeSelector"
+        [domLayout]="'autoHeight'"
+        (gridReady)="onSelectGridReady($event)"
+        [rowSelection]="rowSelection"
+        (rowSelected)="onAssociationSelected($event)"
+      />
+    </div>
+    <div class="col-span-6">
+      <p class="my-4 font-bold">Selected Associations To Map</p>
+      <ag-grid-angular
+        class="ag-theme-alpine"
+        [rowData]="selectedRowData"
+        [columnDefs]="selectionColumnDefs"
+        [pagination]="true"
+        [paginationPageSize]="paginationPageSize"
+        [paginationPageSizeSelector]="paginationPageSizeSelector"
+        [domLayout]="'autoHeight'"
+      />
+    </div>
+  </div>
 </div>
