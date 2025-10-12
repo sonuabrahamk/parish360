@@ -160,5 +160,10 @@ export const routes: Routes = [
     component: ParishYearViewComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: 'parish-year/:parishYearId/:section',
+    component: ParishYearViewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', redirectTo: '/dashboard' },
 ];

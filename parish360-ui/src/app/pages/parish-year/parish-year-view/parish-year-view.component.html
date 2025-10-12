@@ -1,1 +1,17 @@
-<p>parish-year-view works!</p>
+<div class="header">
+  <h1>Parish Year Details</h1>
+</div>
+<div class="panel m-4 shadow-sm">
+  <app-tabs
+    [tabs]="parishYearTabs"
+    [activeTabIndex]="activeTabIndex"
+  ></app-tabs>
+  <app-parish-year-info
+    *ngIf="activeTabIndex == 0"
+    [parishYearId]="parishYearId"
+  ></app-parish-year-info>
+  <app-parish-year-associations
+    *ngIf="activeTabIndex == 1"
+    [parishYearId]="parishYearId"
+  ></app-parish-year-associations>
+</div>
