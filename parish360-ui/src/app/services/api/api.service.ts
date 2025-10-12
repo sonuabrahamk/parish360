@@ -30,8 +30,7 @@ export class ApiService {
     }
     if (!this.baseUrl) {
       this.baseUrl =
-        'http://localhost:8080' +
-        BASE_URL.PARISH_BY_ID(this.parishId);
+        'http://localhost:8080' + BASE_URL.PARISH_BY_ID(this.parishId);
     }
     return this.baseUrl;
   }
@@ -57,7 +56,9 @@ export class ApiService {
 
   patch<T>(url: string, data: any): Observable<T> {
     return this.http
-      .patch<T>(`${this.loadBaseUrl()}${url}`, data, { headers: this.headers() })
+      .patch<T>(`${this.loadBaseUrl()}${url}`, data, {
+        headers: this.headers(),
+      })
       .pipe(catchError(this.handleError));
   }
 
@@ -67,7 +68,15 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  delete<T>(url: string): Observable<T> {
+  delete<T>(url: string, data?: any): Observable<T> {
+    if (data) {
+      return this.http
+        .delete<T>(`${this.loadBaseUrl()}${url}`, {
+          headers: this.headers(),
+          body: data,
+        })
+        .pipe(catchError(this.handleError));
+    }
     return this.http
       .delete<T>(`${this.loadBaseUrl()}${url}`, { headers: this.headers() })
       .pipe(catchError(this.handleError));

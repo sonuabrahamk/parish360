@@ -12,6 +12,7 @@ import {
   GridReadyEvent,
 } from 'ag-grid-community';
 import { ParishYearService } from '../../../services/api/parish-year.service';
+import { ParishYearAssociationRequest } from '../../../services/interfaces/parish-year.interface';
 
 @Component({
   selector: 'app-parish-year-associations',
@@ -77,6 +78,7 @@ export class ParishYearAssociationsComponent {
         next: (response) => {
           const associations: Association[] = [];
           response.map((item) => {
+            item.association.id = item.id;
             associations.push(item.association);
           });
           this.rowData = associations;
@@ -96,6 +98,30 @@ export class ParishYearAssociationsComponent {
   }
 
   onDelete() {
-    console.log('remove association mapping logic here');
+    const associationsToRemove = this.gridApi.getSelectedRows();
+    if (associationsToRemove.length <= 0) {
+      console.log('no associations selected to remove!');
+    }
+    if (
+      confirm(
+        'Are you sure you want to un-map ' +
+          associationsToRemove.length +
+          ' associations from this parish year ?'
+      )
+    ) {
+      const selectedIds = associationsToRemove.map((row) => row.id);
+      this.parishYearService
+        .unMapAssociationsFromParishYear(this.parishYearId, {
+          associations: selectedIds,
+        } as ParishYearAssociationRequest)
+        .subscribe({
+          next: () => {
+            this.ngOnInit();
+          },
+          error: () => {
+            console.log('error in remvoing association mapping');
+          },
+        });
+    }
   }
 }

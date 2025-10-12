@@ -15,3 +15,7 @@ export interface ParishYearAssociation {
   parish_year: ParishYear;
   association: Association;
 }
+
+export interface ParishYearAssociationRequest {
+  associations: string[];
+}

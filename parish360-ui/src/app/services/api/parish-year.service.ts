@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import {
   ParishYear,
   ParishYearAssociation,
+  ParishYearAssociationRequest,
 } from '../interfaces/parish-year.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -46,6 +47,16 @@ export class ParishYearService {
   ): Observable<ParishYearAssociation[]> {
     return this.apiService.get<ParishYearAssociation[]>(
       PARISH_YEAR_BY_ID(parishYearId) + MAPPED_ASSOCIATIONS
+    );
+  }
+
+  unMapAssociationsFromParishYear(
+    parishYearId: string,
+    associationIds: ParishYearAssociationRequest
+  ): Observable<ParishYearAssociation[]> {
+    return this.apiService.delete<ParishYearAssociation[]>(
+      PARISH_YEAR_BY_ID(parishYearId) + MAPPED_ASSOCIATIONS,
+      associationIds
     );
   }
 }
