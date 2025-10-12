@@ -40,12 +40,17 @@ export class ParishYearViewComponent {
           icon: faCalendarAlt,
           url: `/parish-year/${this.parishYearId}/general`,
         },
-        {
-          label: 'Associations',
-          icon: faPeopleGroup,
-          url: `/parish-year/${this.parishYearId}/associations`,
-        },
       ];
+      if (this.parishYearId != 'new' && this.parishYearId != '') {
+        this.parishYearTabs = [
+          ...this.parishYearTabs,
+          {
+            label: 'Associations',
+            icon: faPeopleGroup,
+            url: `/parish-year/${this.parishYearId}/associations`,
+          },
+        ];
+      }
       const tab = params.get('section');
       const index = this.parishYearTabs.findIndex((t) =>
         t.url?.endsWith(tab || '')
