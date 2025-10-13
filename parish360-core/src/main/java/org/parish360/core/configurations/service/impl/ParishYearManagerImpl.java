@@ -224,4 +224,13 @@ public class ParishYearManagerImpl implements ParishYearManager {
                 .map(configurationMapper::daoToPYAssociationResponse)
                 .toList();
     }
+
+    @Override
+    public PYAssociationResponse getPyAssociation(String pyAssociationId) {
+        return configurationMapper
+                .daoToPYAssociationResponse(parishYearAssociationRepository
+                        .findById(UUIDUtil.decode(pyAssociationId))
+                        .orElseThrow(() -> new
+                                ResourceNotFoundException("could not find parish year association information")));
+    }
 }

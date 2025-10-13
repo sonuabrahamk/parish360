@@ -24,4 +24,6 @@ public interface ParishYearManager {
                                                   PYAssociationRequest pyAssociationRequest);
 
     List<PYAssociationResponse> getPyAssociations(String parishYearId);
+
+    PYAssociationResponse getPyAssociation(String pyAssociationId);
 }

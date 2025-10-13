@@ -79,4 +79,11 @@ public class ParishYearHandler {
         return ResponseEntity.ok(parishYearManager.getPyAssociations(parishYearId));
     }
 
+    @GetMapping("/{parishYearId}/associations/{pyAssociationId}")
+    public ResponseEntity<PYAssociationResponse> getPyAssociation(
+            @PathVariable("parishYearId") String parishYearId,
+            @PathVariable("pyAssociationId") String pyAssociationId) {
+        return ResponseEntity.ok(parishYearManager.getPyAssociation(pyAssociationId));
+    }
+
 }
