@@ -1,7 +1,42 @@
 <div class="p-2 ag-theme-alpine">
+  <div class="mb-2 flex justify-end">
+    <div *ngIf="!isMappingEnabled">
+      <button
+        class="button text-xs"
+        *appCanEdit="screen"
+        (click)="onMapAssociationClick()"
+      >
+        Map New Associates
+      </button>
+      <button
+        class="button btn-danger text-xs mx-4"
+        *appCanEdit="screen"
+        (click)="onUnMapAssociationClick()"
+      >
+        Remove Assocites
+      </button>
+    </div>
+    <div *ngIf="isMappingEnabled">
+      <button
+        class="button btn-warning text-xs mx-4"
+        *appCanEdit="screen"
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+      <button
+        class="button text-xs"
+        *appCanEdit="screen"
+        (click)="onMapAssociates()"
+      >
+        Save
+      </button>
+    </div>
+  </div>
   <ag-grid-angular
+    *ngIf="!isMappingEnabled"
     class="ag-theme-alpine"
-    [rowData]="members"
+    [rowData]="rowData"
     [columnDefs]="columnDefs"
     [defaultColDef]="defaultColDef"
     [pagination]="true"
@@ -11,4 +46,10 @@
     (gridReady)="onGridReady($event)"
     [rowSelection]="rowSelection"
   />
+  <app-associates-mapping
+    *ngIf="isMappingEnabled"
+    [associationType]="associationType"
+    [pyAssociationId]="pyAssociationId"
+    (associatesChange)="onAssociatesMapped($event)"
+  ></app-associates-mapping>
 </div>

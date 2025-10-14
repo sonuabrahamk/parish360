@@ -4,7 +4,29 @@
     <!-- Right section content to be added here  -->
   </div>
 </div>
+
 <div class="p-2 ag-theme-alpine w-full overflow-x-auto">
+  <!-- Parish Year selection -->
+  <div class="grid grid-cols-1 md:grid-cols-3 mb-8">
+    <div class="form-group">
+      <label>Parish Year</label>
+      <input
+        class="col-span-2"
+        list="parishYearList"
+        id="parishYear"
+        name="parishYear"
+        [(ngModel)]="selectedParishYearName"
+        (change)="onParishYearUpdate()"
+      />
+      <datalist id="parishYearList">
+        <option
+          *ngFor="let parishYear of parishYearList; let i = index"
+          [value]="parishYear.name"
+        ></option>
+      </datalist>
+    </div>
+  </div>
+
   <ag-grid-angular
     class="ag-theme-alpine w-full"
     [rowData]="rowData"

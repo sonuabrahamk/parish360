@@ -1,9 +1,21 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4" *ngIf="committeeMembers" [formGroup]="committeeForm">
-    <div class="form-group" *ngFor="let member of committeeMembers; let i=index">
-        <label>{{member.role}}</label>
-        <input type="text" formControlName="{{member.role}}" class="col-span-2" />
-    </div>
-</div>
-<div class="" *ngIf="!committeeMembers">
-    No Data to Show! Please reload!
+<div class="p-4">
+  <div *appCanCreate="screen" class="flex mb-4 justify-between items-center">
+    <h4 class="pt-2 font-semibold"></h4>
+    <button (click)="addRow()" class="text-xs">
+      <fa-icon [icon]="faAdd"></fa-icon>Add Committee Member
+    </button>
+  </div>
+
+  <ag-grid-angular
+    class="ag-theme-alpine w-full"
+    [columnDefs]="columnDefs"
+    [rowData]="rowData"
+    [defaultColDef]="{ sortable: false, filter: false, resizable: true }"
+    (gridReady)="onGridReady($event)"
+    [domLayout]="'autoHeight'"
+    [rowHeight]="50"
+    [getRowId]="getRowId"
+    [animateRows]="true"
+  >
+  </ag-grid-angular>
 </div>

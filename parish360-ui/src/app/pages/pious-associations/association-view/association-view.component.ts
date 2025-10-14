@@ -1,112 +1,101 @@
-import { ChangeDetectorRef, Component, TemplateRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { SCREENS } from '../../../services/common/common.constants';
 import { ActivatedRoute } from '@angular/router';
-import { AssociationService } from '../../../services/api/associations.service';
-import {
-  Association,
-  Member,
-} from '../../../services/interfaces/associations.interface';
+import { Association } from '../../../services/interfaces/associations.interface';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
-  FormBuilder,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { Tab, TabsComponent } from '../../../components/common/tabs/tabs.component';
-import { faHouse, faUsers, faPrayingHands, faCalendarCheck, faIndianRupee, faBox } from '@fortawesome/free-solid-svg-icons';
-import { FooterComponent } from "../../../components/family-records/footer/footer.component";
-import { FooterEvent } from '../../../services/interfaces/permissions.interface';
-import { AssociationCommitteeComponent } from "../../../components/associations/association-committee/association-committee.component";
-import { AssociationMembersComponent } from "../../../components/associations/association-members/association-members.component";
+  Tab,
+  TabsComponent,
+} from '../../../components/common/tabs/tabs.component';
+import { faPeopleGroup, faPeopleLine } from '@fortawesome/free-solid-svg-icons';
+import { AssociationCommitteeComponent } from '../../../components/associations/association-committee/association-committee.component';
+import { AssociationMembersComponent } from '../../../components/associations/association-members/association-members.component';
+import { ParishYearService } from '../../../services/api/parish-year.service';
+import { ParishYearAssociation } from '../../../services/interfaces/parish-year.interface';
 
 @Component({
   selector: 'app-association-view',
-  imports: [CommonModule, FormsModule, TabsComponent, ReactiveFormsModule, FooterComponent, AssociationCommitteeComponent, AssociationMembersComponent],
+  standalone: true,
+  imports: [
+    CommonModule,
+    TabsComponent,
+    AssociationCommitteeComponent,
+    AssociationMembersComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './association-view.component.html',
   styleUrl: './association-view.component.css',
 })
 export class AssociationViewComponent {
-  @ViewChild('associationInfo') associationInfo!: TemplateRef<any>;
-  @ViewChild('associationCommitteeInfo') associationCommitteeInfo!: TemplateRef<any>;
-  @ViewChild('associationMembersInfo') associationMembersInfo!: TemplateRef<any>;
-
   screen: string = SCREENS.ASSOCIATIONS;
+  parishYearId: string = '';
+  pyAssociationId: string = '';
+  section!: string;
 
-  associationId!: string;
-  parishYear: string | null = null;
-
-  parishYearList: string[] = [
-    'JAN2022-DEC2022',
-    'JAN2025-DEC2025',
-    'JAN2024-DEC2024',
-    'JAN2023-DEC2023',
-  ];
   associationTabs: Tab[] = [];
+  activeTab = 0;
 
   association!: Association;
+  pyAssociation!: ParishYearAssociation;
   associationForm!: FormGroup;
 
   constructor(
-    private cdr: ChangeDetectorRef,
-    private route: ActivatedRoute,
-    private associationService: AssociationService,
     private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private parishYearService: ParishYearService
   ) {}
 
   ngOnInit() {
-    this.associationId =
-      this.route.snapshot.paramMap.get('associationId') || '';
-    this.parishYear =
-      this.route.snapshot.queryParamMap.get('parish_year') || '';
+    this.route.paramMap.subscribe((params) => {
+      const section = params.get('section');
+      this.parishYearId = params.get('parishYearId') || '';
+      this.pyAssociationId = params.get('pyAssociationId') || '';
 
-    // Get association details
-    this.getAssociation();
-    
-    this.loadAssociationForm();
-  }
-
-  ngAfterViewInit(): void {
-    Promise.resolve().then(() => {
       this.associationTabs = [
         {
-          label: 'Association Info',
-          content: this.associationInfo,
-          icon: faHouse,
+          label: 'Committee Members',
+          icon: faPeopleLine,
+          url: `associations/${this.parishYearId}/${this.pyAssociationId}/committee`,
         },
         {
-          label: 'Comittee Members',
-          content: this.associationCommitteeInfo,
-          icon: faPrayingHands,
-        },
-        {
-          label: 'Members',
-          content: this.associationMembersInfo,
-          icon: faCalendarCheck,
+          label: 'Associates',
+          icon: faPeopleGroup,
+          url: `associations/${this.parishYearId}/${this.pyAssociationId}/associates`,
         },
       ];
-      this.cdr.detectChanges();
+
+      const index = this.associationTabs.findIndex((t) =>
+        t.url?.endsWith(section || '')
+      );
+      this.activeTab = index !== -1 ? index : 0;
+
+      this.parishYearService
+        .getParishYearAssociation(this.parishYearId, this.pyAssociationId)
+        .subscribe({
+          next: (pyAssociation) => {
+            this.pyAssociation = pyAssociation;
+            this.association = pyAssociation.association;
+            this.associationForm = this.fb.group({
+              name: [this.association.name || ''],
+              description: [this.association?.description || ''],
+              patron: [this.association?.patron || ''],
+              founded_date: [this.association.founded_date || ''],
+              active: [this.association.active || ''],
+            });
+            this.associationForm.disable();
+          },
+          error: () => {
+            console.log('error fetching parish year association information!');
+          },
+        });
     });
-  }
-
-  getAssociation() {
-    console.log('Update parish year: ' + this.parishYear);
-  }
-
-  loadAssociationForm() {
     this.associationForm = this.fb.group({
       name: [this.association?.name || ''],
-      founded_on: [this.association?.founded_date || ''],
-      status: [this.association?.active || ''],
       description: [this.association?.description || ''],
-    })
-  }
-
-  onParishYearUpdate() {
-    this.getAssociation();
-  }
-
-  onModeUpdate(event: FooterEvent){
-    console.log(event);
+      patron: [this.association?.patron || ''],
+      founded_date: [this.association?.founded_date || ''],
+      active: [this.association?.active || ''],
+    });
   }
 }

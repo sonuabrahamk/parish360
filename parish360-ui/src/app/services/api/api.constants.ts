@@ -56,12 +56,20 @@ export const EXPENSE_BY_ID = (expenseId: string) => `/expenses/${expenseId}`;
 
 //Associations API paths
 export const MAPPED_ASSOCIATIONS = '/associations';
+export const MAPPED_ASSOCIATION_BY_ID = (pyAssociationId: string) =>
+  `/associations/${pyAssociationId}`;
+
 export const ASSOCIATIONS = '/configurations/association';
 export const ASSOCIATION_BY_ID = (associationId: string) =>
   `/configurations/association/${associationId}`;
 
 export const COMMITTEE = '/committee';
-export const MEMBERS = '/members';
+export const COMMITTEE_MEMBER_BY_ID = (commiteeMemberId: string) =>
+  `/committee/${commiteeMemberId}`;
+
+export const ASSOCIATES = '/associates';
+export const ASSOCIATES_MEMBER_BY_ID = (associateId: string) =>
+  `/committee/${associateId}`;
 
 // User Management API's
 export const USERS = '/users';

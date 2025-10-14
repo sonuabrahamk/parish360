@@ -9,17 +9,25 @@ import {
   RowSelectionOptions,
   GridReadyEvent,
 } from 'ag-grid-community';
-import { AssociationService } from '../../../services/api/associations.service';
+import { ParishYearService } from '../../../services/api/parish-year.service';
+import { ParishYear } from '../../../services/interfaces/parish-year.interface';
+import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-associations-list',
   standalone: true,
-  imports: [CommonModule, AgGridModule],
+  imports: [CommonModule, AgGridModule, FormsModule],
   templateUrl: './associations-list.component.html',
   styleUrl: './associations-list.component.css',
 })
 export class AssociationsListComponent {
   screen: string = SCREENS.ASSOCIATIONS;
+
+  parishYearId!: string;
+  parishYearList: ParishYear[] = [];
+  activeParishYear!: ParishYear;
+  selectedParishYearName: string = '';
 
   rowData: Association[] = [];
   private gridApi!: GridApi;
@@ -42,7 +50,7 @@ export class AssociationsListComponent {
       headerName: 'Association',
       field: 'name',
       cellRenderer: (params: any) =>
-        `<a href="/associations/view/${params.data.id}">${params.value}</a>`,
+        `<a href="/associations/${this.activeParishYear.id}/${params.data.id}">${params.value}</a>`,
     },
     {
       headerName: 'Description',
@@ -50,15 +58,58 @@ export class AssociationsListComponent {
     },
   ];
 
-  constructor(private associationService: AssociationService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private parishYearService: ParishYearService
+  ) {}
 
   ngOnInit() {
-    this.associationService
-      .getAssociations()
-      .subscribe((associations) => (this.rowData = associations));
+    this.parishYearService.getParishYearList().subscribe({
+      next: (parishYears) => {
+        this.parishYearList = parishYears;
+        this.parishYearId =
+          this.route.snapshot.paramMap.get('parishYearId') || '';
+        this.activeParishYear =
+          this.parishYearList.find((py) => py.id === this.parishYearId) ||
+          this.parishYearList[0];
+        this.selectedParishYearName = this.activeParishYear.name;
+
+        this.loadAssociationList(this.activeParishYear.id);
+      },
+      error: () => {
+        console.log('could not fetch parish year list');
+      },
+    });
+  }
+
+  loadAssociationList(parishYearId: string) {
+    this.parishYearService.getParishYearAssociations(parishYearId).subscribe({
+      next: (parishYearAssociations) => {
+        const associations: Association[] = [];
+        parishYearAssociations.map((pyAssociation) => {
+          const association = pyAssociation.association;
+          association.id = pyAssociation.id;
+          associations.push(association);
+        });
+        this.rowData = associations;
+      },
+      error: () => {
+        console.log('could not find association for active parish year');
+      },
+    });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+  }
+
+  onParishYearUpdate() {
+    this.activeParishYear =
+      this.parishYearList.find(
+        (py) => py.name === this.selectedParishYearName
+      ) || this.activeParishYear;
+    this.router.navigateByUrl(`associations/${this.activeParishYear.id}`);
+    this.loadAssociationList(this.activeParishYear.id);
   }
 }

@@ -1,5 +1,6 @@
 import { Observable } from 'rxjs';
 import {
+  MAPPED_ASSOCIATION_BY_ID,
   MAPPED_ASSOCIATIONS,
   PARISH_YEAR,
   PARISH_YEAR_BY_ID,
@@ -47,6 +48,16 @@ export class ParishYearService {
   ): Observable<ParishYearAssociation[]> {
     return this.apiService.get<ParishYearAssociation[]>(
       PARISH_YEAR_BY_ID(parishYearId) + MAPPED_ASSOCIATIONS
+    );
+  }
+
+  getParishYearAssociation(
+    parishYearId: string,
+    pyAssociationId: string
+  ): Observable<ParishYearAssociation> {
+    return this.apiService.get<ParishYearAssociation>(
+      PARISH_YEAR_BY_ID(parishYearId) +
+        MAPPED_ASSOCIATION_BY_ID(pyAssociationId)
     );
   }
 

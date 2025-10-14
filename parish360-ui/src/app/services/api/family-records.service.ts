@@ -1,18 +1,12 @@
 import { Observable } from 'rxjs';
 import {
-  BlessingRecord,
-  FamilyPayments,
   FamilyRecord,
   FamilyRecordSubscription,
 } from '../interfaces/family-record.interface';
-import {
-  BASE_URL,
-  BLESSINGS,
-  PAYMENTS,
-  SUBSCRIPTIONS,
-} from './api.constants';
+import { BASE_URL, SUBSCRIPTIONS } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
+import { Member } from '../interfaces/member.interface';
 
 @Injectable({ providedIn: 'root' })
 export class FamilyRecords {
@@ -20,6 +14,12 @@ export class FamilyRecords {
 
   getFamilyRecords(): Observable<FamilyRecord[]> {
     return this.apiService.get<FamilyRecord[]>(BASE_URL.FAMILY_RECORDS_LIST);
+  }
+
+  getAllMembers(): Observable<Member[]> {
+    return this.apiService.get<Member[]>(
+      BASE_URL.FAMILY_RECORDS_LIST + BASE_URL.MEMBERS_LIST
+    );
   }
 
   getFamilyRecordInfo(recordId: string): Observable<FamilyRecord> {
@@ -36,9 +36,7 @@ export class FamilyRecords {
     );
   }
 
-  createFamilyRecordInfo(
-    familyRecord: FamilyRecord
-  ): Observable<FamilyRecord> {
+  createFamilyRecordInfo(familyRecord: FamilyRecord): Observable<FamilyRecord> {
     return this.apiService.post<FamilyRecord>(
       BASE_URL.FAMILY_RECORDS_LIST,
       familyRecord

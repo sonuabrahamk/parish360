@@ -19,3 +19,11 @@ export interface Member {
   joined: Date;
   status: string;
 }
+export interface Committee {
+  id: string;
+  designation: string;
+  position: string;
+  name: string;
+  contact: string;
+  email: string;
+}

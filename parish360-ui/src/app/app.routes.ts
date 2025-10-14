@@ -86,7 +86,17 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'associations/view/:associationId',
+    path: 'associations/:parishYearId',
+    component: AssociationsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'associations/:parishYearId/:pyAssociationId',
+    component: AssociationViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'associations/:parishYearId/:pyAssociationId/:section',
     component: AssociationViewComponent,
     canActivate: [AuthGuard],
   },
