@@ -13,6 +13,8 @@ public interface MemberManager {
 
     List<MemberInfo> getMemberList(String familyId);
 
+    List<MemberInfo> getAllMembers(String parishId);
+
     void deleteMember(String familyId, String memberId);
 
 }

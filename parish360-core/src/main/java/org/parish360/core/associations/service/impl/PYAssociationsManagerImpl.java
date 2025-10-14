@@ -137,12 +137,16 @@ public class PYAssociationsManagerImpl implements PYAssociationsManager {
 
             //group all associates information
             List<Associate> associates = members.stream()
+                    .filter(member -> !associateRepository
+                            .existsByParishYearAssociation_IdAndAssociates(
+                                    parishYearAssociation.getId(), member.getId()))
                     .map(member -> {
                         Associate associate = new Associate();
                         associate.setParishYearAssociation(parishYearAssociation);
                         associate.setAssociates(member.getId());
                         return associate;
                     }).toList();
+
 
             associateRepository.saveAll(associates);
         }
@@ -155,6 +159,9 @@ public class PYAssociationsManagerImpl implements PYAssociationsManager {
 
             //group all associates information
             List<Associate> associates = associations.stream()
+                    .filter(assoc -> !associateRepository
+                            .existsByParishYearAssociation_IdAndAssociates(
+                                    parishYearAssociation.getId(), assoc.getId()))
                     .map(assoc -> {
                         Associate associate = new Associate();
                         associate.setParishYearAssociation(parishYearAssociation);
@@ -173,6 +180,9 @@ public class PYAssociationsManagerImpl implements PYAssociationsManager {
 
             //group all associates information
             List<Associate> associates = families.stream()
+                    .filter(family -> !associateRepository
+                            .existsByParishYearAssociation_IdAndAssociates(
+                                    parishYearAssociation.getId(), family.getId()))
                     .map(family -> {
                         Associate associate = new Associate();
                         associate.setParishYearAssociation(parishYearAssociation);
@@ -206,7 +216,7 @@ public class PYAssociationsManagerImpl implements PYAssociationsManager {
         List<Associate> associates = associateRepository
                 .findAllByParishYearAssociation_Id(UUIDUtil.decode(pyAssociationId))
                 .orElseThrow(() -> new ResourceNotFoundException("could not find associate information"));
-        
+
         if (associates.isEmpty()) {
             return List.of();
         }

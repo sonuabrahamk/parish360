@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.parish360.core.dao.entities.common.Address;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.common.GodParent;
+import org.parish360.core.dao.entities.dataowner.Parish;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -78,6 +79,10 @@ public class Member extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "family_id")
     private Family family;
+
+    @ManyToOne
+    @JoinColumn(name = "parish_id")
+    private Parish parish;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Document> documents;

@@ -3,7 +3,9 @@ package org.parish360.core.family.controller;
 import jakarta.validation.Valid;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.family.dto.FamilyInfo;
+import org.parish360.core.family.dto.MemberInfo;
 import org.parish360.core.family.service.FamilyInfoManager;
+import org.parish360.core.family.service.MemberManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,11 @@ import java.util.List;
 @RequestMapping("/parish/{parishId}/family-records")
 public class FamilyInfoHandler {
     private final FamilyInfoManager familyInfoManager;
+    private final MemberManager memberManager;
 
-    public FamilyInfoHandler(FamilyInfoManager familyInfoManager) {
+    public FamilyInfoHandler(FamilyInfoManager familyInfoManager, MemberManager memberManager) {
         this.familyInfoManager = familyInfoManager;
+        this.memberManager = memberManager;
     }
 
     @PostMapping
@@ -41,6 +45,11 @@ public class FamilyInfoHandler {
     @GetMapping
     public ResponseEntity<List<FamilyInfo>> getFamilyInfoList(@PathVariable("parishId") String parishId) {
         return ResponseEntity.ok(familyInfoManager.getFamilyRecordsList(parishId));
+    }
+
+    @GetMapping("/members")
+    public ResponseEntity<List<MemberInfo>> getMembersList(@PathVariable("parishId") String parishId) {
+        return ResponseEntity.ok(memberManager.getAllMembers(parishId));
     }
 
     @GetMapping("/{familyId}")
