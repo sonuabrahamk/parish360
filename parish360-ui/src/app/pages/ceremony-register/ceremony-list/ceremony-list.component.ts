@@ -73,9 +73,9 @@ export class CeremonyListComponent {
   ) {}
 
   ngOnInit() {
-    this.ceremoniesService.getCeremonies().subscribe((ceremonies) => {
-      this.rowData = ceremonies;
-    });
+    // this.ceremoniesService.getCeremonies().subscribe((ceremonies) => {
+    //   this.rowData = ceremonies;
+    // });
   }
 
   onGridReady(params: GridReadyEvent) {
