@@ -1,0 +1,163 @@
+<div class="header">
+  <h1>Booking Details</h1>
+</div>
+<div
+  [formGroup]="bookingsForm"
+  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4"
+>
+  <!-- Booking Code -->
+  <div class="form-group" *ngIf="bookingsForm.get('id')?.value !== 'create'">
+    <label>Booking Code</label>
+    <input type="text" class="md:col-span-2" formControlName="booking_code" />
+  </div>
+
+  <!-- Booked By -->
+  <div class="form-group">
+    <label>Booked By</label>
+    <input type="text" formControlName="booked_by" class="lg:col-span-2" />
+  </div>
+
+  <!-- Contact -->
+  <div class="form-group">
+    <label>Contact</label>
+    <input type="number" formControlName="contact" class="lg:col-span-2" />
+  </div>
+
+  <!-- Family Code -->
+  <div class="form-group">
+    <label>Family Code</label>
+    <input type="text" formControlName="family_code" class="lg:col-span-2" />
+  </div>
+
+  <!-- Event-->
+  <div class="form-group">
+    <label>Event</label>
+    <input type="text" formControlName="event" class="lg:col-span-2" />
+  </div>
+
+  <!-- Note-->
+  <div class="form-group">
+    <label>Note</label>
+    <input type="text" formControlName="note" class="lg:col-span-2" />
+  </div>
+
+  <app-section-form [title]="'Booking Information'" class="md:col-span-3">
+    <div class="form-section-3">
+      <!-- Booking type -->
+      <div class="form-group">
+        <label>Booking Type</label>
+        <select
+          formControlName="booking_type"
+          class="lg:col-span-2"
+          (change)="onBookingInfoUpdate()"
+        >
+          <option value="resource">Resource</option>
+          <option value="service-intention">Service Intentions</option>
+        </select>
+      </div>
+
+      <!-- From -->
+      <div class="form-group">
+        <label>Booked From</label>
+        <input
+          type="datetime-local"
+          formControlName="booked_from"
+          (change)="onBookingInfoUpdate()"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- To -->
+      <div class="form-group">
+        <label>Booked To</label>
+        <input
+          type="datetime-local"
+          formControlName="booked_to"
+          (change)="onBookingInfoUpdate()"
+          class="lg:col-span-2"
+        />
+      </div>
+    </div>
+    <p class="my-4 text-sm">Select Resource / Service Intentions to book</p>
+    <ag-grid-angular
+      class="ag-theme-alpine"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [domLayout]="'autoHeight'"
+      (gridReady)="onGridReady($event)"
+      [rowSelection]="rowSelection"
+    />
+  </app-section-form>
+
+  <app-section-form
+    [title]="'Payment details'"
+    [formGroup]="paymentForm"
+    class="md:col-span-3"
+  >
+    <div class="form-section-3">
+      <!-- Payment To -->
+      <div class="form-group">
+        <label>Payment To</label>
+        <input
+          type="text"
+          formControlName="received_by"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- Account -->
+      <div class="form-group">
+        <label>Account</label>
+        <select formControlName="account" class="lg:col-span-2">
+          <option
+            *ngFor="let account of accounts; let i = index"
+            [value]="account.id"
+          >
+            {{ account.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Payment description -->
+      <div class="form-group">
+        <label>Description</label>
+        <input
+          type="text"
+          formControlName="description"
+          class="lg:col-span-2"
+        />
+      </div>
+
+      <!-- Total Amount -->
+      <div class="form-group">
+        <label>Total Amount</label>
+        <input type="number" id="total_amount" class="lg:col-span-2" disabled />
+      </div>
+
+      <!-- Payment Amount -->
+      <div class="form-group">
+        <label>Payment Amount</label>
+        <input type="number" formControlName="amount" class="lg:col-span-2" />
+      </div>
+
+      <!-- Currency -->
+      <div class="form-group">
+        <label>Currency</label>
+        <select formControlName="currency" class="lg:col-span-2" value="INR">
+          <option value="INR">INR</option>
+        </select>
+      </div>
+    </div>
+  </app-section-form>
+</div>
+<div class="header mt-4">
+  <div></div>
+  <div class="header-right-section">
+    <button class="mr-4 btn-warning" (click)="onBackClick()">Back</button>
+    <button class="mr-4" (click)="onSave()">Make Payment</button>
+  </div>
+</div>

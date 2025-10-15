@@ -7,9 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
   GridApi,
-  GridOptions,
   GridReadyEvent,
-  RowSelectionModule,
   RowSelectionOptions,
 } from 'ag-grid-community';
 import { BookingService } from '../../../services/api/bookings.service';
@@ -45,8 +43,8 @@ export class BookingsListComponent {
 
   columnDefs: ColDef<Bookings>[] = [
     {
-      headerName: 'Booking ID',
-      field: 'booking_id',
+      headerName: 'Booking Code',
+      field: 'booking_code',
     },
     {
       headerName: 'Booking Type',
@@ -54,7 +52,7 @@ export class BookingsListComponent {
     },
     {
       headerName: 'Date',
-      field: 'date',
+      field: 'booked_from',
     },
     {
       headerName: 'Event',

@@ -81,15 +81,12 @@ export class PaymentsViewComponent {
   loadPaymentForm() {
     this.paymentForm = this.fb.group({
       type: [this.payment?.type || ''],
-      payment_on: [this.payment?.payment_on || new Date()],
+      payment_on: [this.payment?.created_at || new Date()],
       received_by: [this.payment?.received_by || ''],
       payee: [this.payment?.payee || ''],
       amount: [this.payment?.amount || ''],
       currency: [this.payment?.currency || ''],
-      remarks: [this.payment?.remarks || ''],
-      subscriptions: this.loadSubscriptions(this.payment?.subscriptions),
-      donations: this.loadDonations(this.payment?.donations),
-      bookings: this.loadBookings(this.payment?.bookings),
+      remarks: [this.payment?.description || '']
     });
     !this.isEditMode ? this.paymentForm.disable() : null;
   }

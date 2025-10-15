@@ -1,16 +1,15 @@
 export interface Payment {
   id: string;
-  parish_id: string;
+  created_at: Date;
   type: string;
   received_by: string;
   payee: string;
-  payment_on: Date;
+  description: string;
+  account: string;
   amount: number;
   currency: string;
-  remarks: string;
-  subscriptions: Subscription[];
-  donations: Donation[];
-  bookings: BookingsPayment[];
+  conversion_rate: string;
+  reference_id: string;
 }
 
 export interface Subscription {

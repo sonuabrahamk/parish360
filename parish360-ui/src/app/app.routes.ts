@@ -7,7 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { UnauthorizedComponent } from './pages/unauthorized/unauthorized.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { BookingsListComponent } from './pages/bookings/bookings-list/bookings-list.component';
-import { BookingsCreateComponent } from './pages/bookings/bookings-create/bookings-create.component';
+import { BookingsViewComponent } from './pages/bookings/bookings-view/bookings-view.component';
 import { CeremonyListComponent } from './pages/ceremony-register/ceremony-list/ceremony-list.component';
 import { AssociationsListComponent } from './pages/pious-associations/associations-list/associations-list.component';
 import { PaymentsListComponent } from './pages/payments-register/payments-list/payments-list.component';
@@ -66,8 +66,8 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'bookings/create',
-    component: BookingsCreateComponent,
+    path: 'bookings/:section',
+    component: BookingsViewComponent,
     canActivate: [AuthGuard],
   },
   {

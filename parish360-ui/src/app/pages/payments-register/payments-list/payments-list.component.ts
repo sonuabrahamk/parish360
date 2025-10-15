@@ -53,7 +53,7 @@ export class PaymentsListComponent {
     },
     {
       headerName: 'Payment Date',
-      field: 'payment_on',
+      field: 'created_at',
     },
     {
       headerName: 'Payment By',
@@ -69,7 +69,7 @@ export class PaymentsListComponent {
     },
     {
       headerName: 'Remarks',
-      field: 'remarks',
+      field: 'description',
     },
   ];
 
