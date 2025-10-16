@@ -67,6 +67,11 @@ export const routes: Routes = [
   },
   {
     path: 'bookings/:section',
+    component: BookingsListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'bookings/:section/:sectionId',
     component: BookingsViewComponent,
     canActivate: [AuthGuard],
   },
