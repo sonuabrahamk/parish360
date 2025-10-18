@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Getter
@@ -22,5 +23,8 @@ public class ResourceInfo {
     private String name;
     private String description;
     private int capacity;
+    private BigDecimal amount;
+    private String currency;
+    private BigDecimal conversionRate;
     private boolean isMassCompatible;
 }

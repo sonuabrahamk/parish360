@@ -2,6 +2,7 @@ package org.parish360.core.bookings.controller;
 
 import jakarta.validation.Valid;
 import org.parish360.core.bookings.dto.BookingInfo;
+import org.parish360.core.bookings.dto.BookingRequest;
 import org.parish360.core.bookings.service.BookingManager;
 import org.parish360.core.error.exception.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -20,13 +21,13 @@ public class BookingHandler {
     }
 
     @PostMapping
-    public ResponseEntity<BookingInfo> createBookingInfo(@PathVariable("parishId") String parishId,
-                                                         @Valid @RequestBody BookingInfo bookingInfo) {
+    public ResponseEntity<List<BookingInfo>> createBookingInfo(@PathVariable("parishId") String parishId,
+                                                               @Valid @RequestBody BookingRequest bookingRequest) {
         // validate if booking dates
-        if (bookingInfo.getBookedFrom().isAfter(bookingInfo.getBookedTo())) {
+        if (bookingRequest.getBookedFrom().isAfter(bookingRequest.getBookedTo())) {
             throw new BadRequestException("invalid date range selected");
         }
-        return ResponseEntity.ok(bookingManager.createBooking(parishId, bookingInfo));
+        return ResponseEntity.ok(bookingManager.createBooking(parishId, bookingRequest));
     }
 
     @PatchMapping("/{bookingId}")

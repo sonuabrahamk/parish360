@@ -8,6 +8,8 @@ import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.dataowner.Parish;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -19,6 +21,12 @@ public class Resource extends BaseEntity {
     private String name;
     private String description;
     private int capacity;
+
+    private BigDecimal amount;
+    private String currency;
+    @Column(name = "conversion_rate")
+    private BigDecimal conversionRate;
+
     @Column(name = "is_mass_compatible")
     private boolean isMassCompatible;
 

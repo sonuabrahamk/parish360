@@ -38,6 +38,15 @@ databaseChangeLog:
                   name: capacity
                   type: INT
               - column:
+                  name: amount
+                  type: DECIMAL(10,2)
+              - column:
+                  name: currency
+                  type: VARCHAR(100)
+              - column:
+                  name: conversion_rate
+                  type: DECIMAL(10,2)
+              - column:
                   name: is_mass_compatible
                   type: BOOLEAN
               - column:

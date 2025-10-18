@@ -1,11 +1,12 @@
 package org.parish360.core.bookings.service;
 
 import org.parish360.core.bookings.dto.BookingInfo;
+import org.parish360.core.bookings.dto.BookingRequest;
 
 import java.util.List;
 
 public interface BookingManager {
-    BookingInfo createBooking(String parishId, BookingInfo bookingInfo);
+    List<BookingInfo> createBooking(String parishId, BookingRequest bookingRequest);
 
     BookingInfo updateBooking(String parishId, String bookingId, BookingInfo bookingInfo);
 

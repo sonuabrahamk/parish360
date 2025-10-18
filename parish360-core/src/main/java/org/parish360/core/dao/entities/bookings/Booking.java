@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.configurations.Resource;
+import org.parish360.core.dao.entities.configurations.Services;
 import org.parish360.core.dao.entities.dataowner.Parish;
 import org.parish360.core.dao.entities.family.Family;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -19,7 +21,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "bookings")
 public class Booking extends BaseEntity {
-    @Column(nullable = false)
+    @Column(name = "booking_code", nullable = false)
+    private String bookingCode;
+    @Column(name = "booked_by", nullable = false)
     private String bookedBy;
     @Column(name = "booked_from", nullable = false)
     private LocalDateTime bookedFrom;
@@ -30,9 +34,21 @@ public class Booking extends BaseEntity {
     private String event;
     private String status;
 
+    @Column(name = "total_amount")
+    private BigDecimal totalAmount;
+    @Column(name = "amount_paid")
+    private BigDecimal amountPaid;
+    private String currency;
+    @Column(name = "conversion_rate")
+    private BigDecimal conversionRate;
+
     @ManyToOne
-    @JoinColumn(name = "resource_id", nullable = false)
+    @JoinColumn(name = "resource_id")
     private Resource resource;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Services service;
 
     @ManyToOne
     @JoinColumn(name = "family_id")

@@ -23,8 +23,8 @@ public class PaymentInfo {
 
     @NotNull(message = "payment to field cannot be null")
     private String paidTo;
-    @NotNull(message = "payment from field cannot be null")
-    private String paidBy;
+    @NotNull(message = "payee field cannot be null")
+    private String payee;
     @NotNull(message = "payment type field cannot be null")
     private PaymentType type;
     private String description;
@@ -32,8 +32,9 @@ public class PaymentInfo {
     private BigDecimal amount;
     private String currency;
     private BigDecimal conversionRate;
+    private String bookingCode;
     private String referenceId;
     private String accountId;
-
     private String familyCode;
+    private String parishId;
 }

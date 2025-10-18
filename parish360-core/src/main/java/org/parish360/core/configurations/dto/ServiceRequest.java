@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.parish360.core.common.enums.ServiceRecurrencePattern;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -32,6 +33,11 @@ public class ServiceRequest {
     private LocalTime startTime;
     @NotNull(message = "end time has to be mentioned")
     private LocalTime endTime;
+
+    private BigDecimal amount;
+    private String currency;
+    private BigDecimal conversionRate;
+
     @NotNull(message = "resource has to be mentioned")
     private String resourceId;
 }

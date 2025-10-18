@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -24,5 +25,8 @@ public class ServiceInfo {
     private LocalDate date;
     private LocalTime startTime;
     private LocalTime endTime;
+    private BigDecimal amount;
+    private String currency;
+    private BigDecimal conversionRate;
     private String resourceId;
 }

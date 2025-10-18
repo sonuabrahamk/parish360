@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.dataowner.Parish;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -28,6 +29,11 @@ public class Services extends BaseEntity {
     private LocalTime startTime;
     @Column(name = "end_time")
     private LocalTime endTime;
+
+    private BigDecimal amount;
+    private String currency;
+    @Column(name = "conversion_rate")
+    private BigDecimal conversionRate;
 
     @ManyToOne
     @JoinColumn(name = "resource_id", nullable = false)

@@ -47,6 +47,15 @@ databaseChangeLog:
                   name: end_time
                   type: TIME
               - column:
+                  name: amount
+                  type: DECIMAL(10,2)
+              - column:
+                  name: currency
+                  type: VARCHAR(100)
+              - column:
+                  name: conversion_rate
+                  type: DECIMAL(10,2)
+              - column:
                   name: resource_id
                   type: UUID
                   constraints:

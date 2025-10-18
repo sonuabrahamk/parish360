@@ -24,8 +24,7 @@ public class Payment extends BaseEntity {
     @Column(name = "paid_to")
     private String paidTo;
 
-    @Column(name = "paid_by")
-    private String paidBy;
+    private String payee;
 
     @Enumerated(EnumType.STRING)
     private PaymentType type;
@@ -36,6 +35,9 @@ public class Payment extends BaseEntity {
 
     @Column(name = "conversion_rate")
     private BigDecimal conversionRate;
+
+    @Column(name = "booking_code")
+    private String bookingCode;
 
     @Column(name = "reference_id")
     private UUID referenceId;

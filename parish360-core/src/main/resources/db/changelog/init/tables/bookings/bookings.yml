@@ -26,6 +26,11 @@ databaseChangeLog:
                   name: updated_by
                   type: VARCHAR(100)
               - column:
+                  name: booking_code
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
                   name: booked_by
                   type: VARCHAR(100)
                   constraints:
@@ -49,18 +54,35 @@ databaseChangeLog:
                   name: status
                   type: VARCHAR(100)
               - column:
+                  name: total_amount
+                  type: DECIMAL(10,2)
+              - column:
+                  name: amount_paid
+                  type: DECIMAL(10,2)
+              - column:
+                  name: currency
+                  type: VARCHAR(100)
+              - column:
+                  name: conversion_rate
+                  type: DECIMAL(10,2)
+              - column:
+                  name: resource_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_resources_bookings
+                    references: resources(id)
+              - column:
+                  name: service_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: fk_services_bookings
+                    references: services(id)
+              - column:
                   name: family_id
                   type: UUID
                   constraints:
                     foreignKeyName: fk_families_bookings
                     references: families(id)
-              - column:
-                  name: resource_id
-                  type: UUID
-                  constraints:
-                    nullable: false
-                    foreignKeyName: fk_resources_bookings
-                    references: resources(id)
               - column:
                   name: parish_id
                   type: UUID

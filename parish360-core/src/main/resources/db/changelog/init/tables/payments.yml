@@ -31,7 +31,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: paid_by
+                  name: payee
                   type: VARCHAR(100)
                   constraints:
                     nullable: false
@@ -52,6 +52,9 @@ databaseChangeLog:
               - column:
                   name: conversion_rate
                   type: DECIMAL(10,2)
+              - column:
+                  name: booking_code
+                  type: VARCHAR(100)
               - column:
                   name: reference_id
                   type: UUID

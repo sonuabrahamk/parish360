@@ -5,22 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.parish360.core.payments.dto.PaymentInfo;
 
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookingInfo {
+public class BookingRequest {
     private String id;
-    private Instant createdAt;
-    private String createdBy;
-    private Instant updatedAt;
-    private String updatedBy;
-
     private String bookingCode;
     @NotNull(message = "booked by field cannot be empty")
     private String bookedBy;
@@ -30,14 +24,10 @@ public class BookingInfo {
     private String event;
     private String description;
     private String bookingType;
-    private BigDecimal totalAmount;
-    private BigDecimal amountPaid;
-    private String currency;
-    private BigDecimal conversionRate;
     @NotNull(message = "booked from information cannot be empty")
     private LocalDateTime bookedFrom;
     @NotNull(message = "booked to information cannot be empty")
     private LocalDateTime bookedTo;
-    private String resourceId;
-    private String status;
+    private String[] items;
+    private PaymentInfo payment;
 }
