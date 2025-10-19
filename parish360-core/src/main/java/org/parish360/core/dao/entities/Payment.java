@@ -39,6 +39,9 @@ public class Payment extends BaseEntity {
     @Column(name = "booking_code")
     private String bookingCode;
 
+    @Column(name = "payment_mode")
+    private String paymentMode;
+
     @Column(name = "reference_id")
     private UUID referenceId;
 

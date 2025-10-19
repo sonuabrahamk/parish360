@@ -3,6 +3,7 @@ package org.parish360.core.bookings.controller;
 import jakarta.validation.Valid;
 import org.parish360.core.bookings.dto.BookingInfo;
 import org.parish360.core.bookings.dto.BookingRequest;
+import org.parish360.core.bookings.dto.BookingResponse;
 import org.parish360.core.bookings.service.BookingManager;
 import org.parish360.core.error.exception.BadRequestException;
 import org.springframework.http.HttpStatus;
@@ -47,6 +48,12 @@ public class BookingHandler {
         return ResponseEntity.ok(bookingManager.getBookingInfo(parishId, bookingId));
     }
 
+    @GetMapping("/view/{bookingCode}")
+    public ResponseEntity<BookingResponse> getBookingInfoByCode(@PathVariable("parishId") String parishId,
+                                                                @PathVariable("bookingCode") String bookingCode) {
+        return ResponseEntity.ok(bookingManager.getBookingByCode(parishId, bookingCode));
+    }
+
     @GetMapping
     public ResponseEntity<List<BookingInfo>> getListOfBookings(@PathVariable("parishId") String parishId) {
         return ResponseEntity.ok(bookingManager.getListOfBooking(parishId));
@@ -57,5 +64,11 @@ public class BookingHandler {
                                                     @PathVariable("bookingId") String bookingId) {
         bookingManager.deleteBookingInfo(parishId, bookingId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @PatchMapping("/{bookingId}/cancel")
+    public ResponseEntity<BookingInfo> cancelBookingInfo(@PathVariable("parishId") String parishId,
+                                                         @PathVariable("bookingId") String bookingId) {
+        return ResponseEntity.ok(bookingManager.cancelBookingInfo(parishId, bookingId));
     }
 }

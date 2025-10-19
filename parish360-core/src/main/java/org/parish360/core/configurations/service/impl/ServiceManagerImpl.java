@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -135,6 +136,9 @@ public class ServiceManagerImpl implements ServiceManager {
         service.setType(serviceRequest.getType());
         service.setStartTime(serviceRequest.getStartTime());
         service.setEndTime(serviceRequest.getEndTime());
+        service.setAmount(serviceRequest.getAmount());
+        service.setCurrency(serviceRequest.getCurrency());
+        service.setConversionRate(BigDecimal.ONE);
         service.setResource(resource);
         service.setParish(parish);
         return service;

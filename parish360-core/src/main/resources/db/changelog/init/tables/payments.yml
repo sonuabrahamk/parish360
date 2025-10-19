@@ -56,6 +56,9 @@ databaseChangeLog:
                   name: booking_code
                   type: VARCHAR(100)
               - column:
+                  name: payment_mode
+                  type: VARCHAR(100)
+              - column:
                   name: reference_id
                   type: UUID
               - column:

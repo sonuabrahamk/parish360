@@ -23,6 +23,8 @@ import java.time.LocalDateTime;
 public class Booking extends BaseEntity {
     @Column(name = "booking_code", nullable = false)
     private String bookingCode;
+    @Column(name = "booking_type", nullable = false)
+    private String bookingType;
     @Column(name = "booked_by", nullable = false)
     private String bookedBy;
     @Column(name = "booked_from", nullable = false)

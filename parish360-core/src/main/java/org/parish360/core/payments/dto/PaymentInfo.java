@@ -33,6 +33,7 @@ public class PaymentInfo {
     private String currency;
     private BigDecimal conversionRate;
     private String bookingCode;
+    private String paymentMode;
     private String referenceId;
     private String accountId;
     private String familyCode;
