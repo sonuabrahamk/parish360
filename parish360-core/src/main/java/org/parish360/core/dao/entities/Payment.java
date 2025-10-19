@@ -12,6 +12,7 @@ import org.parish360.core.dao.entities.dataowner.Parish;
 import org.parish360.core.dao.entities.family.Family;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -36,11 +37,17 @@ public class Payment extends BaseEntity {
     @Column(name = "conversion_rate")
     private BigDecimal conversionRate;
 
+    @Column(name = "payment_mode")
+    private String paymentMode;
+
     @Column(name = "booking_code")
     private String bookingCode;
 
-    @Column(name = "payment_mode")
-    private String paymentMode;
+    @Column(name = "subscription_from")
+    private LocalDate subscriptionFrom;
+
+    @Column(name = "subscription_to")
+    private LocalDate subscriptionTo;
 
     @Column(name = "reference_id")
     private UUID referenceId;

@@ -53,11 +53,17 @@ databaseChangeLog:
                   name: conversion_rate
                   type: DECIMAL(10,2)
               - column:
+                  name: payment_mode
+                  type: VARCHAR(100)
+              - column:
                   name: booking_code
                   type: VARCHAR(100)
               - column:
-                  name: payment_mode
-                  type: VARCHAR(100)
+                  name: subscription_from
+                  type: DATE
+              - column:
+                  name: subscription_to
+                  type: DATE
               - column:
                   name: reference_id
                   type: UUID

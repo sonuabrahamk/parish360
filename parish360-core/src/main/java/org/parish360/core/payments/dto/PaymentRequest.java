@@ -8,20 +8,13 @@ import lombok.Setter;
 import org.parish360.core.common.enums.PaymentType;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentInfo {
-    private String id;
-    private Instant createdAt;
-    private String createdBy;
-    private Instant updatedAt;
-    private String updatedBy;
-
+public class PaymentRequest {
     @NotNull(message = "payment to field cannot be null")
     private String paidTo;
     @NotNull(message = "payee field cannot be null")
@@ -33,12 +26,12 @@ public class PaymentInfo {
     private BigDecimal amount;
     private String currency;
     private BigDecimal conversionRate;
+    private String paymentMode;
+    private String accountId;
+    private String familyCode;
     private String bookingCode;
     private LocalDate subscriptionFrom;
     private LocalDate subscriptionTo;
-    private String paymentMode;
     private String referenceId;
-    private String accountId;
-    private String familyCode;
     private String parishId;
 }
