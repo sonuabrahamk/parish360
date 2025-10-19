@@ -7,9 +7,11 @@ import org.parish360.core.configurations.dto.ServiceRequest;
 import org.parish360.core.configurations.dto.ServiceResponse;
 import org.parish360.core.configurations.service.ServiceManager;
 import org.parish360.core.error.exception.BadRequestException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -43,8 +45,14 @@ public class ServiceHandler {
     }
 
     @GetMapping
-    public ResponseEntity<List<ServiceInfo>> getListOfServices(@PathVariable("parishId") String parishId) {
-        return ResponseEntity.ok(serviceManager.getListOfServices(parishId));
+    public ResponseEntity<List<ServiceInfo>> getListOfServices(@PathVariable("parishId") String parishId,
+                                                               @RequestParam(value = "startDate", required = false)
+                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                               LocalDate startDate,
+                                                               @RequestParam(value = "endDate", required = false)
+                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                               LocalDate endDate) {
+        return ResponseEntity.ok(serviceManager.getListOfServices(parishId, startDate, endDate));
     }
 
     @GetMapping("/{serviceId}")

@@ -15,6 +15,8 @@ public interface ServiceRepository extends JpaRepository<Services, UUID> {
 
     Optional<List<Services>> findByParishId(UUID parishId);
 
+    Optional<List<Services>> findByParishIdAndDateBetween(UUID parishId, LocalDate startDate, LocalDate endDate);
+
     @Query(value = """
             SELECT
             	CASE

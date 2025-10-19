@@ -64,11 +64,11 @@ public class ServiceManagerImpl implements ServiceManager {
             serviceDates.forEach(serviceDate -> {
                 Services service = createService(serviceRequest, parish, resource);
                 service.setDate(serviceDate);
-                if (!serviceRepository.existsByResourceAndDateAndTime(resource.getId(),
+                if (serviceRepository.existsByResourceAndDateAndTime(resource.getId(),
                         serviceDate, serviceRequest.getStartTime(), serviceRequest.getEndTime())) {
-                    servicesToCreate.add(service);
-                } else {
                     servicesToReject.add(service);
+                } else {
+                    servicesToCreate.add(service);
                 }
             });
         } else {
@@ -77,11 +77,11 @@ public class ServiceManagerImpl implements ServiceManager {
             service.setStartTime(serviceRequest.getStartTime());
             service.setEndTime(serviceRequest.getEndTime());
 
-            if (!serviceRepository.existsByResourceAndDateAndTime(resource.getId(),
+            if (serviceRepository.existsByResourceAndDateAndTime(resource.getId(),
                     serviceRequest.getStartDate(), serviceRequest.getStartTime(), serviceRequest.getEndTime())) {
-                servicesToCreate.add(service);
-            } else {
                 servicesToReject.add(service);
+            } else {
+                servicesToCreate.add(service);
             }
         }
 
@@ -111,10 +111,20 @@ public class ServiceManagerImpl implements ServiceManager {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ServiceInfo> getListOfServices(String parishId) {
-        List<Services> services = serviceRepository
-                .findByParishId(UUIDUtil.decode(parishId))
-                .orElseThrow(() -> new ResourceNotFoundException("could not find service information"));
+    public List<ServiceInfo> getListOfServices(String parishId, LocalDate startDate, LocalDate endDate) {
+        List<Services> services = new ArrayList<>();
+        if (startDate != null) {
+            if (endDate == null) {
+                endDate = startDate.plusDays(1);
+            }
+            services = serviceRepository
+                    .findByParishIdAndDateBetween(UUIDUtil.decode(parishId), startDate, endDate)
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find service information"));
+        } else {
+            services = serviceRepository
+                    .findByParishId(UUIDUtil.decode(parishId))
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find service information"));
+        }
         return services.stream()
                 .map(configurationMapper::daoToServiceInfo)
                 .toList();
