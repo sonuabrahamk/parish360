@@ -38,14 +38,16 @@ public class ResourceHandler {
     }
 
     @GetMapping
-    public ResponseEntity<List<ResourceInfo>> getListOfResources(@PathVariable("parishId") String parishId) {
-        return ResponseEntity.ok(resourceManager.getListOfResource(parishId));
+    public ResponseEntity<List<ResourceInfo>> getListOfResources(@PathVariable("parishId") String parishId,
+                                                                 @RequestParam(value = "isActive", required = false)
+                                                                 Boolean isActive) {
+        return ResponseEntity.ok(resourceManager.getListOfResource(parishId, isActive));
     }
 
-    @DeleteMapping
+    @DeleteMapping("{resourceId}")
     public ResponseEntity<Object> deleteResource(@PathVariable("parishId") String parishId,
                                                  @PathVariable("resourceId") String resourceId) {
-        resourceManager.getResource(parishId, resourceId);
+        resourceManager.deleteResource(parishId, resourceId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

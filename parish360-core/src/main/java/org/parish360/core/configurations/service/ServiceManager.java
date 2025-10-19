@@ -13,4 +13,6 @@ public interface ServiceManager {
     List<ServiceInfo> getListOfServices(String parishId, LocalDate startDate, LocalDate endDate);
 
     ServiceInfo getService(String parishId, String serviceId);
+
+    void deleteService(String parishId, String serviceId);
 }

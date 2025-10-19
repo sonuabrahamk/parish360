@@ -139,6 +139,14 @@ public class ServiceManagerImpl implements ServiceManager {
                         .orElseThrow(() -> new ResourceNotFoundException("coiuld not find service information")));
     }
 
+    @Override
+    public void deleteService(String parishId, String serviceId) {
+        Services service = serviceRepository
+                .findByIdAndParishId(UUIDUtil.decode(serviceId), UUIDUtil.decode(parishId))
+                .orElseThrow(() -> new ResourceNotFoundException("coiuld not find service information"));
+        serviceRepository.delete(service);
+    }
+
     // method to create a Service
     private Services createService(ServiceRequest serviceRequest, Parish parish, Resource resource) {
         Services service = new Services();

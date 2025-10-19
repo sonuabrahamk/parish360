@@ -27,4 +27,5 @@ public class ResourceInfo {
     private String currency;
     private BigDecimal conversionRate;
     private boolean isMassCompatible;
+    private boolean isActive;
 }

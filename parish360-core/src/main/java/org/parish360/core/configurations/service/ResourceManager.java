@@ -11,7 +11,7 @@ public interface ResourceManager {
 
     ResourceInfo getResource(String parishId, String resourceId);
 
-    List<ResourceInfo> getListOfResource(String parishId);
+    List<ResourceInfo> getListOfResource(String parishId, Boolean isActive);
 
     void deleteResource(String parishId, String resourceId);
 }

@@ -66,10 +66,17 @@ public class ResourceManagerImpl implements ResourceManager {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ResourceInfo> getListOfResource(String parishId) {
-        List<Resource> resources = resourceRepository
-                .findByParishId(UUIDUtil.decode(parishId))
-                .orElseThrow(() -> new ResourceNotFoundException("could not find resource information"));
+    public List<ResourceInfo> getListOfResource(String parishId, Boolean isActive) {
+        List<Resource> resources;
+        if (isActive != null) {
+            resources = resourceRepository
+                    .findByParishIdAndIsActive(UUIDUtil.decode(parishId), isActive)
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find resource information"));
+        } else {
+            resources = resourceRepository
+                    .findByParishId(UUIDUtil.decode(parishId))
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find resource information"));
+        }
         return resources.stream()
                 .map(configurationMapper::daoToResourceInfo)
                 .toList();

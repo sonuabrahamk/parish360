@@ -8,6 +8,7 @@ import org.parish360.core.configurations.dto.ServiceResponse;
 import org.parish360.core.configurations.service.ServiceManager;
 import org.parish360.core.error.exception.BadRequestException;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,8 +57,14 @@ public class ServiceHandler {
     }
 
     @GetMapping("/{serviceId}")
-    public ResponseEntity<ServiceInfo> getListOfServices(@PathVariable("parishId") String parishId,
-                                                         @PathVariable("serviceId") String serviceId) {
+    public ResponseEntity<ServiceInfo> getService(@PathVariable("parishId") String parishId,
+                                                  @PathVariable("serviceId") String serviceId) {
         return ResponseEntity.ok(serviceManager.getService(parishId, serviceId));
+    }
+
+    @DeleteMapping("/{serviceId}")
+    public ResponseEntity<Object> deleteService(@PathVariable("parishId") String parishId,
+                                                @PathVariable("serviceId") String serviceId) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

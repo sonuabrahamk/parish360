@@ -30,6 +30,9 @@ public class Resource extends BaseEntity {
     @Column(name = "is_mass_compatible")
     private boolean isMassCompatible;
 
+    @Column(name = "is_active")
+    private boolean isActive;
+
     @ManyToOne
     @JoinColumn(name = "parish_id", nullable = false)
     private Parish parish;

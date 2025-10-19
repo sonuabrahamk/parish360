@@ -50,6 +50,10 @@ databaseChangeLog:
                   name: is_mass_compatible
                   type: BOOLEAN
               - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueComputed: true
+              - column:
                   name: parish_id
                   type: UUID
                   constraints:

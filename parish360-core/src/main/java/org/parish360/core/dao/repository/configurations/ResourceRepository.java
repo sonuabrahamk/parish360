@@ -11,4 +11,6 @@ public interface ResourceRepository extends JpaRepository<Resource, UUID> {
     Optional<Resource> findByIdAndParishId(UUID id, UUID parishId);
 
     Optional<List<Resource>> findByParishId(UUID parishId);
+
+    Optional<List<Resource>> findByParishIdAndIsActive(UUID parishId, Boolean isActive);
 }

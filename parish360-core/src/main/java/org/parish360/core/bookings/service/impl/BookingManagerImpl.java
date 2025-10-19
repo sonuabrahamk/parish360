@@ -98,6 +98,15 @@ public class BookingManagerImpl implements BookingManager {
                         throw new BadRequestException("one of the resource is already booked for the given time");
                     }
 
+                    // check if resource is booked for any services if it is a mass-compatible location
+                    // multiple date resource booking is not validated, only same date booking is validated
+                    if (serviceRepository.existsByResourceAndDateAndTime(UUIDUtil.decode(item),
+                            bookingRequest.getBookedFrom().toLocalDate(),
+                            bookingRequest.getBookedFrom().toLocalTime(),
+                            bookingRequest.getBookedTo().toLocalTime())) {
+                        throw new BadRequestException("one of the resource is already booked for a service offering");
+                    }
+
                     // fetch resource information
                     Resource resource = resourceRepository
                             .findById(UUIDUtil.decode(item))
