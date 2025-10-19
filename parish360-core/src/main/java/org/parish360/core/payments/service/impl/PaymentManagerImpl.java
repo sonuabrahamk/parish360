@@ -179,8 +179,78 @@ public class PaymentManagerImpl implements PaymentManager {
     @Override
     public void deletePaymentInfo(String parishId, String paymentId) {
         Payment payment = paymentRepository
-                .findByIdAndParishId(UUIDUtil.decode(paymentId), UUIDUtil.decode(paymentId))
+                .findByIdAndParishId(UUIDUtil.decode(paymentId), UUIDUtil.decode(parishId))
                 .orElseThrow(() -> new ResourceNotFoundException("could not find payment information"));
+
+        // fetch reference information to revoke the changes
+        switch (payment.getType()) {
+            case PaymentType.BOOKING -> {
+                if (payment.getBookingCode() == null) {
+                    throw new BadRequestException("booking code should be specified for booking payments");
+                }
+                // update booking amounts based on the payment
+                List<Booking> bookings = bookingRepository
+                        .findWithResourceAndServiceByBookingCodeAndParishId(
+                                payment.getBookingCode(), payment.getParish().getId())
+                        .orElseThrow(() -> new ResourceNotFoundException("could not find booking information"))
+                        .stream()
+                        .filter(booking -> {
+                            String status = booking.getStatus();
+                            return "CONFIRMED".equals(status) || "IN-PROGRESS".equals(status);
+                        })
+                        .toList();
+
+                BigDecimal remainingAmount = payment.getAmount();
+
+                for (Booking booking : bookings) {
+                    BigDecimal total = booking.getTotalAmount();
+                    BigDecimal paid = booking.getAmountPaid();
+
+                    if (paid.compareTo(BigDecimal.ZERO) > 0) {
+                        if (remainingAmount.compareTo(paid) >= 0) {
+                            booking.setAmountPaid(paid.subtract(paid));
+                            remainingAmount = remainingAmount.subtract(paid);
+                        } else {
+                            booking.setAmountPaid(paid.subtract(remainingAmount));
+                            remainingAmount = BigDecimal.ZERO;
+                            break; // No more money left to allocate
+                        }
+                    }
+                }
+
+                if (remainingAmount.compareTo(BigDecimal.ZERO) > 0) {
+                    throw new BadRequestException("Please check the amount to be paid for this booking.");
+                }
+
+                bookingRepository.saveAll(bookings);
+
+            }
+            case PaymentType.SUBSCRIPTION -> {
+                if (payment.getSubscriptionFrom() == null || payment.getSubscriptionTo() == null) {
+                    throw new BadRequestException(
+                            "start date and end date should be specified for revoking subscription payments");
+                }
+                if (payment.getFamily().getId() == null) {
+                    throw new BadRequestException(
+                            "family information should be specified for revoking subscription payments");
+                }
+
+                // fetch subscriptions to create and create subscription entries for mentioned dates
+                List<Subscription> subscriptions = subscriptionRepository
+                        .findByFamilyIdAndStartDateAndEndDate(payment.getFamily().getId(),
+                                payment.getSubscriptionFrom().withDayOfMonth(1),
+                                payment.getSubscriptionTo().withDayOfMonth(1))
+                        .orElseThrow(() -> new ResourceNotFoundException("could not find subscriptions to revoke"));
+
+                BigDecimal amountToBeRevoked = BigDecimal.valueOf(subscriptions.size() * 100L);
+                if (payment.getAmount().compareTo(amountToBeRevoked) != 0) {
+                    throw new BadRequestException(
+                            "Please check the amount: total subscriptions amount to be revoked is : " + amountToBeRevoked);
+                }
+                subscriptionRepository.deleteAll(subscriptions);
+            }
+        }
+
         paymentRepository.delete(payment);
     }
 

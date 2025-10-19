@@ -42,7 +42,7 @@ public class PaymentHandler {
         return ResponseEntity.ok(paymentManager.getListOfPayments(parishId));
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{paymentId}")
     public ResponseEntity<Object> deletePayment(@PathVariable("parishId") String parishId,
                                                 @PathVariable("paymentId") String paymentId) {
         paymentManager.deletePaymentInfo(parishId, paymentId);
