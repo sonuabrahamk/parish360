@@ -40,6 +40,8 @@ public class Ceremony extends BaseEntity {
     private LocalDate dob;
     @Column(name = "marital_status")
     private String maritalStatus;
+    private String email;
+    private String contact;
     private String address;
     private String remarks;
 
