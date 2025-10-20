@@ -17,3 +17,5 @@ databaseChangeLog:
       file: db/changelog/init/tables/payments.yml
   - include:
       file: db/changelog/init/tables/expenses.yml
+  - include:
+      file: db/changelog/init/tables/ceremonies.yml
