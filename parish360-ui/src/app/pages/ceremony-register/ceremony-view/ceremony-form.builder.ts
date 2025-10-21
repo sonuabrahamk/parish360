@@ -1,7 +1,7 @@
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import {
   Ceremony,
-  GodParents,
+  GodParent,
   Parish,
   Place,
   Witness,
@@ -14,47 +14,53 @@ export class CeremonyFormBuilder {
     return this.fb.group({
       type: [ceremony?.type || ''],
       date: [ceremony?.date || ''],
-      parishioner: [ceremony?.parishioner || false],
+      is_parishioner: [ceremony?.is_parishioner || false],
       name: [ceremony?.name || ''],
+      baptism_name: [ceremony?.baptism_name || ''],
+      dob: [ceremony?.dob || ''],
+      marital_status: [ceremony?.marital_status || ''],
+      father: [ceremony?.father || ''],
+      mother: [ceremony?.mother || ''],
+      birth_place: this.setPlace(ceremony?.birth_place),
+      church: this.setParish(ceremony?.church),
+      god_father: this.setGodParent(ceremony?.god_father),
+      god_mother: this.setGodParent(ceremony?.god_mother),
       minister: this.setMinister(ceremony),
-      details: this.setDetails(ceremony?.details, false),
-      ordination_details: this.setOrdinationDetails(ceremony),
-      afterlife_details: this.setAfterlifeDetails(ceremony),
-      spouse_details: this.setDetails(ceremony?.spouse_details, true),
-      witness: this.setWitness(ceremony?.witness),
+      ordination: this.setOrdinationDetails(ceremony),
+      afterlife: this.setAfterlifeDetails(ceremony),
+      spouse: this.setSpouseDetails(ceremony?.spouse),
+      witness1: this.setWitness(ceremony?.witness1),
+      witness2: this.setWitness(ceremony?.witness2),
     });
   }
 
   private setMinister(ceremony?: Ceremony) {
     return this.fb.group({
-      name: [ceremony?.minister?.name || ''],
+      priest: [ceremony?.minister?.priest || ''],
       title: [ceremony?.minister?.title || ''],
     });
   }
 
-  private setDetails(details?: any, type?: boolean) {
-    const detailsGroup: any = {
-      baptism_name: [details?.baptism_name || ''],
-      dob: [details?.dob || ''],
-      marital_status: [details?.marital_status || ''],
-      father: [details?.father || ''],
-      mother: [details?.mother || ''],
-      place_of_birth: this.setPlace(details?.place_of_birth),
-      parish: this.setParish(details?.parish),
-      god_parents: this.setGodParents(details?.god_parents),
-    };
-    if (type) {
-      detailsGroup.name = details?.name;
-    }
-    return this.fb.group(detailsGroup);
+  private setSpouseDetails(spouse?: any) {
+    return this.fb.group({
+      spouse_name: [spouse?.spouse_name || ''],
+      spouse_baptism_name: [spouse?.spouse_baptism_name || ''],
+      spouse_dob: [spouse?.spouse_dob || ''],
+      spouse_marital_status: [spouse?.spouse_marital_status || ''],
+      spouse_father: [spouse?.spouse_father || ''],
+      spouse_mother: [spouse?.spouse_mother || ''],
+      spouse_birth_place: this.setPlace(spouse?.spouse_birth_place),
+      spouse_god_father: this.setGodParent(spouse?.spouse_god_father),
+      spouse_god_mother: this.setGodParent(spouse?.spouse_god_mother),
+    });
   }
 
   private setParish(parish?: Parish) {
     return this.fb.group({
-      book_id: [parish?.book_id || ''],
-      name: [parish?.name || ''],
+      family_code: [parish?.family_code || ''],
+      church: [parish?.church || ''],
       diocese: [parish?.diocese || ''],
-      place: this.setPlace(parish?.place),
+      church_location: this.setPlace(parish?.church_location),
     });
   }
 
@@ -67,71 +73,49 @@ export class CeremonyFormBuilder {
     });
   }
 
-  private setGodParents(godParents?: GodParents) {
+  private setGodParent(godParent?: GodParent) {
     return this.fb.group({
-      father: this.fb.group({
-        name: [godParents?.father?.name || ''],
-        parish: [godParents?.father?.parish || ''],
-        baptism_name: [godParents?.father?.baptism_name || ''],
-        contact: [godParents?.father?.contact || ''],
-      }),
-      mother: this.fb.group({
-        name: [godParents?.mother?.name || ''],
-        parish: [godParents?.mother?.parish || ''],
-        baptism_name: [godParents?.mother?.baptism_name || ''],
-        contact: [godParents?.mother?.contact || ''],
-      }),
+      name: [godParent?.name || ''],
+      parish: [godParent?.parish || ''],
+      baptism_name: [godParent?.baptism_name || ''],
+      contact: [godParent?.contact || ''],
     });
   }
 
   private setOrdinationDetails(ceremony?: Ceremony) {
     return this.fb.group({
-      religious_order: [ceremony?.ordination_details?.religious_order || ''],
-      seminary: this.fb.group({
-        name: [ceremony?.ordination_details?.seminary?.name || ''],
-        location: this.setPlace(
-          ceremony?.ordination_details?.seminary?.location
-        ),
-      }),
-      previous_ordination: this.fb.group({
-        type: [ceremony?.ordination_details?.previous_ordination?.type || ''],
-        date: [ceremony?.ordination_details?.previous_ordination?.date || ''],
-        bishop: [
-          ceremony?.ordination_details?.previous_ordination?.bishop || '',
-        ],
-        place: this.setPlace(
-          ceremony?.ordination_details?.previous_ordination?.place
-        ),
-      }),
+      religious_order: [ceremony?.ordination?.religious_order || ''],
+      seminary_name: [ceremony?.ordination?.seminary_name || ''],
+      previous_ordination_type: [
+        ceremony?.ordination?.previous_ordination_type || '',
+      ],
+      previous_ordination_date: [
+        ceremony?.ordination?.previous_ordination_date || '',
+      ],
+      seminary_address: this.setPlace(ceremony?.ordination.seminary_address),
+      previous_ordination_place: this.setPlace(
+        ceremony?.ordination?.previous_ordination_place
+      ),
     });
   }
 
   private setAfterlifeDetails(ceremony?: Ceremony) {
     return this.fb.group({
-      dod: [ceremony?.afterlife_details?.dod || ''],
+      dod: [ceremony?.afterlife?.dod || ''],
       place_of_death: this.setPlace(
-        ceremony?.afterlife_details?.place_of_death
+        ceremony?.afterlife?.place_of_death
       ),
-      cemetry: [ceremony?.afterlife_details?.cemetry || ''],
-      cemetry_place: this.setPlace(ceremony?.afterlife_details?.cemetry_place),
+      cemetry: [ceremony?.afterlife?.cemetry || ''],
+      cemetry_place: this.setPlace(ceremony?.afterlife?.cemetry_place),
     });
   }
 
-  private setWitness(witness?: Witness[]): FormArray<any> {
-    if (witness?.length) {
-      return this.fb.array(this.createWitnessForm(witness));
-    }
-    return this.fb.array([]);
-  }
-
-  private createWitnessForm(witness: Witness[]): FormGroup[] {
-    return witness.map((person) =>
-      this.fb.group({
-        name: [person?.name || ''],
-        relation: [person?.relation || ''],
-        parish: [person?.parish || ''],
-        contact: [person?.contact || ''],
-      })
-    );
+  private setWitness(witness?: Witness) {
+    return this.fb.group({
+      name: [witness?.name || ''],
+      relation: [witness?.relation || ''],
+      parish: [witness?.parish || ''],
+      contact: [witness?.contact || ''],
+    });
   }
 }

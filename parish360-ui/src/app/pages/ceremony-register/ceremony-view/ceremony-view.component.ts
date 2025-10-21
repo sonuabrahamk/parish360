@@ -36,7 +36,7 @@ import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
 export class CeremonyViewComponent {
   screen: string = SCREENS.CEREMONIES;
   ceremonyType = CEREMONY_TYPE;
-  isEditMode: boolean = false;
+  isEditMode: boolean = true;
   ceremonyId!: string;
   ceremony!: Ceremony;
   ceremonyForm!: FormGroup;
@@ -66,12 +66,15 @@ export class CeremonyViewComponent {
       this.ceremonyId = params.get('id') ?? '';
 
       //load ceremony data if ceremonyId is in url
-      if (this.ceremonyId) {
+      if (this.ceremonyId && this.ceremonyId !== 'create') {
         this.ceremonyService
           .getCeremony(this.ceremonyId)
           .subscribe((ceremony) => {
             this.ceremony = ceremony;
             this.loadCeremonyForm();
+            this.ceremonyForm.disable();
+            this.isEditMode = false;
+            this.ceremonyForm?.get('type')?.disable();
           });
       }
     });
@@ -81,8 +84,6 @@ export class CeremonyViewComponent {
   loadCeremonyForm() {
     const ceremonyFormBuilder = new CeremonyFormBuilder(this.fb);
     this.ceremonyForm = ceremonyFormBuilder.buildForm(this.ceremony);
-    this.ceremonyForm.disable();
-    console.log(this.ceremonyForm);
   }
 
   onBackClick() {
@@ -91,18 +92,38 @@ export class CeremonyViewComponent {
 
   onModeUpdated(event: any) {
     this.isEditMode = event.isEditMode;
-    this.isEditMode ? this.ceremonyForm.enable() : this.ceremonyForm.disable();
+    if(this.isEditMode){
+      this.ceremonyForm.enable();
+      this.ceremonyId !== 'create'? this.ceremonyForm?.get('type')?.disable() : null;
+    } else this.ceremonyForm.disable();
     event.isSaveTriggered ? this.onSave() : null;
-    event.isCancelTriggered ? this.onCancel() : null;
-    console.log(event);
   }
 
   onSave() {
     console.log(this.ceremonyForm.value);
-  }
-
-  onCancel() {
-    console.log('cancelled!!');
+    if (this.ceremonyId && this.ceremonyId !== 'create') {
+      this.ceremonyService
+        .updateCeremony(this.ceremonyId, this.ceremonyForm.value)
+        .subscribe({
+          next: (ceremony) => {
+            this.ceremony = ceremony;
+            console.log('ceremony record updated successfully!');
+          },
+          error: () => {
+            console.log('error creating a ceremony register');
+          },
+        });
+    } else {
+      this.ceremonyService.createCeremony(this.ceremonyForm.value).subscribe({
+        next: (ceremony) => {
+          this.ceremony = ceremony;
+            console.log('ceremony record created successfully!');
+        },
+        error: () => {
+          console.log('error creating a ceremony register');
+        },
+      });
+    }
   }
 
   get name(): FormControl {

@@ -26,4 +26,5 @@ public class SpouseInfo {
     private GodParent godFather;
     private GodParent godMother;
     private Address birthPlace;
+    private ChurchInfo spouseChurch;
 }

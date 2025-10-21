@@ -62,4 +62,14 @@ public class Spouse {
     })
     private Address birthPlace;
 
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "familyCode", column = @Column(name = "spouse_family_code")),
+            @AttributeOverride(name = "church", column = @Column(name = "spouse_church")),
+            @AttributeOverride(name = "diocese", column = @Column(name = "spouse_diocese")),
+            @AttributeOverride(name = "churchLocation", column = @Column(name = "spouse_church_location")),
+    })
+    private Church spouseChurch;
+
 }

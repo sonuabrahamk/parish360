@@ -42,7 +42,7 @@ export const MISCELLANOUS_BY_ID = (miscellenousId: string) =>
 export const BOOKINGS = '/bookings';
 
 // Ceremonies API paths
-export const CEREMONIES = '/ceremonys';
+export const CEREMONIES = '/ceremonies';
 export const CEREMONY_BY_ID = (ceremonyId: string) =>
   `/ceremonies/${ceremonyId}`;
 

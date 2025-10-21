@@ -3,47 +3,42 @@ export interface Ceremony {
   type: string;
   date: Date;
   minister: {
-    name: string;
+    priest: string;
     title: string;
   };
   name: string;
-  parishioner: boolean;
-  details: {
-    baptism_name: string;
-    dob: Date;
-    place_of_birth: Place;
-    marital_status: string;
-    father: string;
-    mother: string;
-    god_parents: GodParents;
-    parish: Parish;
+  is_parishioner: boolean;
+  baptism_name: string;
+  dob: Date;
+  birth_place: Place;
+  marital_status: string;
+  father: string;
+  mother: string;
+  god_father: GodParent;
+  god_mother: GodParent;
+  church: Parish;
+  witness1: Witness;
+  witness2: Witness;
+  spouse: {
+    spouse_name: string;
+    spouse_baptism_name: string;
+    spouse_dob: Date;
+    spouse_birth_place: Place;
+    spouse_marital_status: string;
+    spouse_father: string;
+    spouse_mother: string;
+    spouse_god_father: GodParent;
+    spouse_god_mother: GodParent;
   };
-  witness: Witness[];
-  spouse_details: {
-    name: string;
-    baptism_name: string;
-    dob: Date;
-    place_of_birth: Place;
-    marital_status: string;
-    father: string;
-    mother: string;
-    god_parents: GodParents;
-    parish: Parish;
-  };
-  ordination_details: {
+  ordination: {
     religious_order: string;
-    seminary: {
-      name: string;
-      location: Place;
-    };
-    previous_ordination: {
-      type: string;
-      date: Date;
-      place: Place;
-      bishop: string;
-    };
+    seminary_name: string;
+    seminary_address: Place;
+    previous_ordination_type: string;
+    previous_ordination_date: Date;
+    previous_ordination_place: Place;
   };
-  afterlife_details: {
+  afterlife: {
     dod: Date;
     place_of_death: Place;
     cemetry: string;
@@ -59,26 +54,18 @@ export interface Place {
   country: string;
 }
 
-export interface GodParents {
-  father: {
-    name: string;
-    parish: string;
-    baptism_name: string;
-    contact: number;
-  };
-  mother: {
-    name: string;
-    parish: string;
-    baptism_name: string;
-    contact: number;
-  };
+export interface GodParent {
+  name: string;
+  parish: string;
+  baptism_name: string;
+  contact: string;
 }
 
 export interface Parish {
-  book_id: string;
-  name: string;
-  place: Place;
+  family_code: string;
+  church: string;
   diocese: string;
+  church_location: Place;
 }
 
 export interface Witness {

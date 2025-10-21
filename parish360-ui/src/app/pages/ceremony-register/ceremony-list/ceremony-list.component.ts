@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { SCREENS } from '../../../services/common/common.constants';
 import { CommonModule } from '@angular/common';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
-import { CanDeleteDirective } from '../../../directives/can-delete.directive';
 import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
 import {
   ColDef,
@@ -61,7 +60,7 @@ export class CeremonyListComponent {
     },
     {
       headerName: 'Parishioner',
-      field: 'parishioner',
+      field: 'is_parishioner',
       cellRenderer: (params: any) => (params.value ? 'Yes' : 'No'),
       cellClass: 'text-center',
     },
@@ -73,9 +72,9 @@ export class CeremonyListComponent {
   ) {}
 
   ngOnInit() {
-    // this.ceremoniesService.getCeremonies().subscribe((ceremonies) => {
-    //   this.rowData = ceremonies;
-    // });
+    this.ceremoniesService.getCeremonies().subscribe((ceremonies) => {
+      this.rowData = ceremonies;
+    });
   }
 
   onGridReady(params: GridReadyEvent) {
