@@ -234,10 +234,17 @@ public class BookingManagerImpl implements BookingManager {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookingInfo> getListOfBooking(String parishId) {
-        List<Booking> bookings = bookingRepository
-                .findByParishId(UUIDUtil.decode(parishId))
-                .orElseThrow(() -> new ResourceNotFoundException("could not find bookings information"));
+    public List<BookingInfo> getListOfBooking(String parishId, String type) {
+        List<Booking> bookings;
+        if (type != null) {
+            bookings = bookingRepository
+                    .findByParishIdAndBookingType(UUIDUtil.decode(parishId), type)
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find bookings information"));
+        } else {
+            bookings = bookingRepository
+                    .findByParishId(UUIDUtil.decode(parishId))
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find bookings information"));
+        }
         return bookings.stream()
                 .map(bookingMapper::daoToBookingInfo)
                 .peek(bookingInfo -> {

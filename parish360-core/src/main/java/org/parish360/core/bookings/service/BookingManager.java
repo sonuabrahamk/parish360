@@ -15,7 +15,7 @@ public interface BookingManager {
 
     BookingResponse getBookingByCode(String parishId, String bookingCode);
 
-    List<BookingInfo> getListOfBooking(String parishId);
+    List<BookingInfo> getListOfBooking(String parishId, String type);
 
     void deleteBookingInfo(String parishId, String bookingId);
 

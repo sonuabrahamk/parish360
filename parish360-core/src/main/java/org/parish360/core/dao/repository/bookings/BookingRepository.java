@@ -18,6 +18,8 @@ public interface BookingRepository extends JpaRepository<Booking, UUID> {
 
     Optional<List<Booking>> findByParishId(UUID parishId);
 
+    Optional<List<Booking>> findByParishIdAndBookingType(UUID parishId, String bookingType);
+
     @Query(value = """
             SELECT CASE
                 WHEN EXISTS (

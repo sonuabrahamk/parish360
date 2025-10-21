@@ -55,8 +55,10 @@ public class BookingHandler {
     }
 
     @GetMapping
-    public ResponseEntity<List<BookingInfo>> getListOfBookings(@PathVariable("parishId") String parishId) {
-        return ResponseEntity.ok(bookingManager.getListOfBooking(parishId));
+    public ResponseEntity<List<BookingInfo>> getListOfBookings(@PathVariable("parishId") String parishId,
+                                                               @RequestParam(value = "type", required = false)
+                                                               String type) {
+        return ResponseEntity.ok(bookingManager.getListOfBooking(parishId, type));
     }
 
     @DeleteMapping("/{bookingId}")
