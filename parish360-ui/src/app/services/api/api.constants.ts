@@ -92,3 +92,6 @@ export const ACCOUNT_BY_ID = (accountId: string) =>
 export const PARISH_YEAR = '/configurations/parish-year';
 export const PARISH_YEAR_BY_ID = (parishYearId: string) =>
   `/configurations/parish-year/${parishYearId}`;
+
+// Dashboard API paths
+export const DASHBOARD = '/dashboard';
