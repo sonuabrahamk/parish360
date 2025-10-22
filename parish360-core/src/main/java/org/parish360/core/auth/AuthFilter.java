@@ -40,8 +40,10 @@ public class AuthFilter extends OncePerRequestFilter {
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
         if (request.getCookies() != null) {
+            boolean isCookiePresent = false;
             for (Cookie cookie : request.getCookies()) {
                 if (AuthConstants.AUTH_COOKIE_NAME.equals(cookie.getName())) {
+                    isCookiePresent = true;
                     String token = cookie.getValue();
                     String path = request.getRequestURI();
                     if (path == null) {
@@ -74,6 +76,15 @@ public class AuthFilter extends OncePerRequestFilter {
                     }
                 }
             }
+            if (!isCookiePresent) {
+                handlerExceptionResolver
+                        .resolveException(request, response, null, new UnAuthorizedException("cookie not found"));
+                return;
+            }
+        } else {
+            handlerExceptionResolver
+                    .resolveException(request, response, null, new UnAuthorizedException("cookie not found"));
+            return;
         }
 
         filterChain.doFilter(request, response);
