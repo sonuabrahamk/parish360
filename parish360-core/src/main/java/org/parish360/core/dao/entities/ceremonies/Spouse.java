@@ -68,7 +68,10 @@ public class Spouse {
             @AttributeOverride(name = "familyCode", column = @Column(name = "spouse_family_code")),
             @AttributeOverride(name = "church", column = @Column(name = "spouse_church")),
             @AttributeOverride(name = "diocese", column = @Column(name = "spouse_diocese")),
-            @AttributeOverride(name = "churchLocation", column = @Column(name = "spouse_church_location")),
+            @AttributeOverride(name = "churchLocation.location", column = @Column(name = "spouse_church_location")),
+            @AttributeOverride(name = "churchLocation.city", column = @Column(name = "spouse_church_city")),
+            @AttributeOverride(name = "churchLocation.state", column = @Column(name = "spouse_church_state")),
+            @AttributeOverride(name = "churchLocation.country", column = @Column(name = "spouse_church_country")),
     })
     private Church spouseChurch;
 

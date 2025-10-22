@@ -197,6 +197,27 @@ databaseChangeLog:
                   name: spouse_birth_country
                   type: VARCHAR(100)
               - column:
+                  name: spouse_family_code
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_church
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_diocese
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_church_location
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_church_city
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_church_state
+                  type: VARCHAR(100)
+              - column:
+                  name: spouse_church_country
+                  type: VARCHAR(100)
+              - column:
                   name: witness1_name
                   type: VARCHAR(100)
               - column:
