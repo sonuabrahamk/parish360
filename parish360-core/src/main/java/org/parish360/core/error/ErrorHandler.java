@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
+import org.parish360.core.error.exception.UnAuthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -82,6 +83,19 @@ public class ErrorHandler {
                 request.getRequestURI()
         );
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<Error> handleUnAuthorized(UnAuthorizedException ex, HttpServletRequest request) {
+        Error error = new Error(
+                "Unauthorized request",
+                ex.getMessage(),
+                null,
+                HttpStatus.UNAUTHORIZED.value(),
+                LocalDateTime.now(),
+                request.getRequestURI()
+        );
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(BadRequestException.class)

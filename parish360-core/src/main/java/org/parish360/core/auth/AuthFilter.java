@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import org.parish360.core.common.util.JwtUtil;
-import org.parish360.core.error.exception.AccessDeniedException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
+import org.parish360.core.error.exception.UnAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -68,7 +68,8 @@ public class AuthFilter extends OncePerRequestFilter {
                             response.addCookie(refreshCookie);
                         }
                     } catch (Exception e) {
-                        handlerExceptionResolver.resolveException(request, response, null, new AccessDeniedException(e.getMessage()));
+                        handlerExceptionResolver
+                                .resolveException(request, response, null, new UnAuthorizedException(e.getMessage()));
                         return;
                     }
                 }
