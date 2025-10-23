@@ -5,6 +5,7 @@
     class="md:w-5/6 min-h-screen max-h-screen md:ml-auto pt-16 overflow-auto"
   >
     <router-outlet></router-outlet>
+    <app-toast></app-toast>
   </div>
 </div>
 <div class="flex" *ngIf="!this.auth.isAuthenticated()">
