@@ -1,7 +1,20 @@
-<h2>Login</h2>
-<form>
-  <input placeholder="Username" #u />
-  <input placeholder="Password" type="password" #p />
-  <button (click)="loginInternal(u.value, p.value, $event)">Login (JWT)</button>
-</form>
-<button (click)="auth.loginOIDC()">Login with OIDC</button>
+<div class="w-100 bg-white/80 p-4 text-center rounded-lg align-middle py-10">
+  <img class="justify-center my-5 mb-10" src="/img/parish360.png" />
+  <h2>Sign-In</h2>
+  <hr class="my-4" />
+  <form>
+    <input class="w-full my-4 border-primary-color focus:border-secondary-color" (focus)="onChange()" placeholder="Username" #u />
+    <input class="w-full my-2 border-primary-color focus:border-secondary-color" (focus)="onChange()" placeholder="Password" type="password" #p />
+    <button
+      class="w-full my-6 py-2"
+      (click)="loginInternal(u.value, p.value, $event)"
+    >
+      Login
+    </button>
+    <h3 class="text-red-500" *ngIf="errorMessage && errorMessage !== ''">{{errorMessage}}</h3>
+  </form>
+  <hr class="hidden my-4" />
+  <button class="hidden w-full my-4" (click)="auth.loginOIDC()">
+    Login with OIDC
+  </button>
+</div>

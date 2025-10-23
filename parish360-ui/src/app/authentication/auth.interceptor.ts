@@ -1,6 +1,5 @@
 import {
   HttpErrorResponse,
-  HttpHandler,
   HttpInterceptorFn,
 } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -16,8 +15,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   });
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      alert('Error status code: ' + error.status);
-      if (error.status === 403) {
+      if (error.status === 401) {
         localStorage.removeItem(PERMISSIONS_KEY);
         localStorage.removeItem(PARISH);
         localStorage.removeItem(FORANE);
