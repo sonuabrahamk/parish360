@@ -22,7 +22,6 @@ export class DashboardComponent {
     this.dashboardService.getParishReport().subscribe({
       next: (summary) => {
         this.summary = summary;
-        this.toastService.info('Data loaded again!');
       },
       error: () => {
         this.toastService.error('error loading parish report');

@@ -1,23 +1,32 @@
 <!-- src/app/toast/toast.component.html -->
 <div
   *ngIf="message"
-  class="fixed inset-0 flex items-start justify-center z-50 mt-4"
+  class="fixed inset-0 flex items-start justify-center z-50 mt-16"
 >
   <div
     [ngClass]="{
-      'bg-green-500/80': message.type === 'success',
-      'bg-red-500/80': message.type === 'error',
-      'bg-yellow-500/80': message.type === 'warning',
-      'bg-primary-color/80': message.type === 'info'
+      'bg-green-700/90': message.type === 'success',
+      'bg-red-700/90': message.type === 'error',
+      'bg-yellow-600/90': message.type === 'warning',
+      'bg-primary-color/90':
+        message.type === 'info' || message.type === 'confirm'
     }"
-    class="flex items-start justify-between text-white text-md px-6 py-4 rounded-lg shadow-lg animate-fade-in-out max-w-md w-full mx-4"
+    class="items-start justify-between text-white text-md rounded-lg shadow-lg animate-fade-in-out max-w-md w-full mx-4 p-4"
   >
-    <span class="text-center w-full">{{ message.text }}</span>
-    <span
-      (click)="close()"
-      class="ml-4 text-lg text-primary-color hover:text-red-900 font-bold bg-none cursor-pointer"
-    >
-      ✕
-    </span>
+    <div class="w-full flex justify-between text-lg font-black">
+      <span>{{ this.message.title }}</span>
+      <span
+        (click)="close()"
+        class="ml-4 text-lg text-white hover:text-red-900 font-bold bg-none cursor-pointer"
+      >
+        ✕
+      </span>
+    </div>
+    <div class="py-4">
+      <span class="text-left w-full text-md">{{ message.text }}</span>
+    </div>
+    <div class="w-full flex justify-end" *ngIf="message?.type === 'confirm'">
+      <button class="btn-warning" (click)="confirm()">Confirm</button>
+    </div>
   </div>
 </div>
