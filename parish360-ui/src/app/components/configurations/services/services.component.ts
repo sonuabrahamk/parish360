@@ -8,11 +8,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
   GridApi,
-  GridOptions,
   GridReadyEvent,
   RowSelectionOptions,
-  SortModelItem,
-  SortOption,
 } from 'ag-grid-community';
 import { LiturgyService } from '../../../services/api/liturgy.service';
 import { StatusComponent } from '../../../pages/bookings/bookings-list/status.component';
@@ -39,8 +36,6 @@ export class ServicesComponent {
     floatingFilter: true,
     sortable: true,
   };
-
-  sortModel: SortModelItem[] = [{ colId: 'status', sort: 'asc' }];
 
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
@@ -87,12 +82,6 @@ export class ServicesComponent {
     },
   ];
 
-  gridOptions = {
-    columnDefs: this.columnDefs,
-    defaultColDef: this.defaultColDef,
-    sortModel: this.sortModel,
-  };
-
   constructor(
     private liturgyService: LiturgyService,
     private toast: ToastService
@@ -111,10 +100,9 @@ export class ServicesComponent {
             service.status = 'UPCOMING';
           }
         });
-        this.gridOptions.sortModel = this.sortModel;
       },
       error: () => {
-        console.log('Could not fetch services list!');
+        this.toast.error('Could not fetch services list!');
       },
     });
   }
@@ -124,7 +112,7 @@ export class ServicesComponent {
   }
 
   onCreate() {
-    console.log('Create service');
+   this.toast.warn('Create service');
   }
 
   onDelete() {

@@ -6,6 +6,7 @@ export interface Association {
   director: string;
   founded_date: Date;
   patron: string;
+  scope: string;
   active: boolean;
 }
 

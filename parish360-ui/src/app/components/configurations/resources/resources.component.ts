@@ -10,6 +10,7 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { Resource } from '../../../services/interfaces/resources.interface';
 import { ResourceService } from '../../../services/api/resource.service';
 import { PermissionsService } from '../../../services/common/permissions.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-resources',
@@ -51,7 +52,7 @@ export class ResourcesComponent {
       headerName: 'Booking Amount',
       field: 'amount',
       editable: (params) => this.isEditing(params.data),
-      cellEditor: 'agTextCellEditor',
+      cellEditor: 'agNumberCellEditor',
     },
     {
       headerName: 'Booking Amount',
@@ -90,7 +91,8 @@ export class ResourcesComponent {
 
   constructor(
     private resourceService: ResourceService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -105,7 +107,10 @@ export class ResourcesComponent {
 
     // Add action column if edit permission is allowed
     this.permissionService.canEdit(this.screen)
-      ? (this.columnDefs = [...this.columnDefs, this.editorColumnDef])
+      ? (this.columnDefs = [
+          ...this.columnDefs.filter((col) => col.headerName !== 'Actions'),
+          this.editorColumnDef,
+        ])
       : null;
   }
 
@@ -142,11 +147,20 @@ export class ResourcesComponent {
       }
 
       if (event.event.target.classList.contains('btn-delete')) {
-        console.log('delete triggered');
+        this.resourceService.deleteResourceRecord(id).subscribe({
+          next: () => {
+            this.toast.success('Resource removed successfully!');
+            this.ngOnInit();
+          },
+          error: (error) => {
+            console.log(error);
+            this.toast.error(error.error);
+          },
+        });
       }
 
       if (event.event.target.classList.contains('btn-cancel')) {
-        if (this.gridApi.getDisplayedRowAtIndex(0)?.data.commented_by === '') {
+        if (this.gridApi.getDisplayedRowAtIndex(0)?.data.id === 'new') {
           this.rowData = this.rowData.filter((row) => row.id !== id);
           this.gridApi.applyTransaction({ update: [...this.rowData] });
         }
@@ -221,7 +235,9 @@ export class ResourcesComponent {
       } as Resource,
     ];
     if (this.gridApi.getDisplayedRowAtIndex(0)) {
-      this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      if (this.gridApi.getDisplayedRowAtIndex(0)?.data?.id !== 'new') {
+        this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      }
     } else {
       this.gridApi.applyTransaction({ add: newRowData });
     }

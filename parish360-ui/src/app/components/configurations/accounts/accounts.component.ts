@@ -5,10 +5,11 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SCREENS } from '../../../services/common/common.constants';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { Account } from '../../../services/interfaces/accounts.interface';
-import { GridApi, ColDef } from 'ag-grid-community';
+import { GridApi, ColDef, PinnedRowModel } from 'ag-grid-community';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { AccountService } from '../../../services/api/accounts.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-accounts',
@@ -83,11 +84,13 @@ export class AccountsComponent {
     editable: false,
     suppressMovable: true,
     cellClass: 'flex justify-center',
+    pinned: 'right' as 'right',
   };
 
   constructor(
     private accountService: AccountService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -102,7 +105,10 @@ export class AccountsComponent {
 
     // Add action column if edit permission is allowed
     this.permissionService.canEdit(this.screen)
-      ? (this.columnDefs = [...this.columnDefs, this.editorColumnDef])
+      ? (this.columnDefs = [
+          ...this.columnDefs.filter((col) => col.headerName !== 'Actions'),
+          this.editorColumnDef,
+        ])
       : null;
   }
 
@@ -139,7 +145,15 @@ export class AccountsComponent {
       }
 
       if (event.event.target.classList.contains('btn-delete')) {
-        console.log('delete triggered');
+        this.accountService.deleteAccount(id).subscribe({
+          next: () => {
+            this.toast.success('Account deleted successfully!');
+            this.ngOnInit();
+          },
+          error: () => {
+            this.toast.error('error deleting this account');
+          },
+        });
       }
 
       if (event.event.target.classList.contains('btn-cancel')) {
@@ -215,7 +229,9 @@ export class AccountsComponent {
       } as Account,
     ];
     if (this.gridApi.getDisplayedRowAtIndex(0)) {
-      this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      if (this.gridApi.getDisplayedRowAtIndex(0)?.data?.id !== 'new') {
+        this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      }
     } else {
       this.gridApi.applyTransaction({ add: newRowData });
     }

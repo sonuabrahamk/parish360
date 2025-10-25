@@ -21,6 +21,8 @@
   <ag-grid-angular
     class="ag-theme-alpine"
     [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
     [pagination]="true"
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
@@ -28,6 +30,5 @@
     (gridReady)="onGridReady($event)"
     [rowSelection]="rowSelection"
     [alwaysMultiSort]="true"
-    [gridOptions]="gridOptions"
   />
 </div>

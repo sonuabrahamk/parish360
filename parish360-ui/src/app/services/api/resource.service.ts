@@ -30,6 +30,6 @@ export class ResourceService {
   }
 
   deleteResourceRecord(resourceId: string): Observable<void> {
-    return this.apiService.delete<void>(RESOURCES);
+    return this.apiService.delete<void>(RESOURCE_BY_ID(resourceId));
   }
 }

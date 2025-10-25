@@ -9,6 +9,7 @@ import { Association } from '../../../services/interfaces/associations.interface
 import { GridApi, ColDef } from 'ag-grid-community';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { AssociationService } from '../../../services/api/associations.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-associations',
@@ -62,6 +63,15 @@ export class AssociationsComponent {
       },
     },
     {
+      headerName: 'Association Scope',
+      field: 'scope',
+      editable: (params) => this.isEditing(params.data),
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: ['', 'UNIT', 'ASSOCIATION'],
+      },
+    },
+    {
       headerName: 'Status',
       field: 'active',
       editable: (params) => this.isEditing(params.data),
@@ -83,13 +93,14 @@ export class AssociationsComponent {
 
   constructor(
     private associationService: AssociationService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
     this.associationService.getAssociations().subscribe({
       next: (response) => {
-        this.rowData = response.map((item)=>({
+        this.rowData = response.map((item) => ({
           ...item,
           founded_date: new Date(item.founded_date),
         }));
@@ -101,7 +112,10 @@ export class AssociationsComponent {
 
     // Add action column if edit permission is allowed
     this.permissionService.canEdit(this.screen)
-      ? (this.columnDefs = [...this.columnDefs, this.editorColumnDef])
+      ? (this.columnDefs = [
+          ...this.columnDefs.filter((col) => col.headerName !== 'Actions'),
+          this.editorColumnDef,
+        ])
       : null;
   }
 
@@ -138,19 +152,15 @@ export class AssociationsComponent {
       }
 
       if (event.event.target.classList.contains('btn-delete')) {
-        confirm('Are you sure you want to delete this association?') &&
-        this.editingRowId
-          ? this.associationService
-              .deleteAssociation(this.editingRowId)
-              .subscribe({
-                next: () => {
-                  alert('Association deleted successfully!');
-                },
-                error: () => {
-                  console.log('Deleting association failed!');
-                },
-              })
-          : null;
+        this.associationService.deleteAssociation(id).subscribe({
+          next: () => {
+            this.toast.success('Association deleted successfully!');
+            this.ngOnInit();
+          },
+          error: () => {
+            this.toast.error('Deleting association failed!');
+          },
+        });
       }
 
       if (event.event.target.classList.contains('btn-cancel')) {
@@ -230,7 +240,9 @@ export class AssociationsComponent {
       } as Association,
     ];
     if (this.gridApi.getDisplayedRowAtIndex(0)) {
-      this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      if (this.gridApi.getDisplayedRowAtIndex(0)?.data?.id !== 'new') {
+        this.gridApi.applyTransaction({ add: newRowData, addIndex: 0 });
+      }
     } else {
       this.gridApi.applyTransaction({ add: newRowData });
     }
@@ -251,34 +263,47 @@ export class AssociationsComponent {
   };
 
   onSave(row: any) {
-    confirm('Are you sure you want to save the changes?') &&
-      (row.id === 'new'
-        ? this.associationService
-            .createAssociation({
-              name: row.name,
-              description: row.description,
-              founded_date: row.founded_date.toISOString().split('T')[0],
-              patron: row.patron,
-              type: row.type,
-              active: row.active,
-            } as Association)
-            .subscribe((newRecord) => {
+    row.id === 'new'
+      ? this.associationService
+          .createAssociation({
+            name: row.name,
+            description: row.description,
+            founded_date: row.founded_date.toISOString().split('T')[0],
+            patron: row.patron,
+            type: row.type,
+            active: row.active,
+          } as Association)
+          .subscribe({
+            next: (newRecord) => {
+              newRecord.founded_date = new Date(newRecord.founded_date);
               this.rowData = [newRecord, ...this.rowData];
-            })
-        : this.associationService
-            .updateAssociation(row.id, {
-              name: row.name,
-              description: row.description,
-              founded_date: row.founded_date.toISOString().split('T')[0],
-              patron: row.patron,
-              type: row.type,
-              active: row.active,
-            } as Association)
-            .subscribe((updatedRecord) => {
+              this.toast.success('Association created successfully!');
+            },
+            error: (error) => {
+              this.toast.error('Could not create new association!');
+            },
+          })
+      : this.associationService
+          .updateAssociation(row.id, {
+            name: row.name,
+            description: row.description,
+            founded_date: row.founded_date.toISOString().split('T')[0],
+            patron: row.patron,
+            type: row.type,
+            scope: row.scope,
+            active: row.active,
+          } as Association)
+          .subscribe({
+            next: (updatedRecord) => {
               updatedRecord.founded_date = new Date(updatedRecord.founded_date);
               this.rowData = this.rowData.map((r) =>
                 r.id === row.id ? updatedRecord : r
               );
-            }));
+              this.toast.success('Associationd details updated successfully!');
+            },
+            error: (error) => {
+              this.toast.error('Could not update association details!');
+            },
+          });
   }
 }
