@@ -9,11 +9,15 @@
 
 @layer base {
   h1 {
-    @apply text-2xl font-bold text-primary-color;
+    @apply text-xl font-bold text-primary-color;
   }
 
   h2 {
-    @apply text-xl font-bold text-primary-color;
+    @apply text-lg font-bold text-primary-color;
+  }
+
+  h3 {
+    @apply text-sm font-bold text-primary-color;
   }
 
   input,

@@ -65,6 +65,7 @@ public class ServiceHandler {
     @DeleteMapping("/{serviceId}")
     public ResponseEntity<Object> deleteService(@PathVariable("parishId") String parishId,
                                                 @PathVariable("serviceId") String serviceId) {
+        serviceManager.deleteService(parishId, serviceId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

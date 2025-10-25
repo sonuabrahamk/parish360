@@ -38,7 +38,7 @@
   <!-- Note-->
   <div class="form-group">
     <label>Note</label>
-    <input type="text" formControlName="note" class="lg:col-span-2" />
+    <input type="text" formControlName="description" class="lg:col-span-2" />
   </div>
 
   <app-section-form [title]="'Booking Information'" class="md:col-span-3">
@@ -149,6 +149,20 @@
         <label>Currency</label>
         <select formControlName="currency" class="lg:col-span-2" value="INR">
           <option value="INR">INR</option>
+        </select>
+      </div>
+
+      <!-- Payment Mode -->
+      <div class="form-group">
+        <label>Payment Mode</label>
+        <select
+          formControlName="payment_mode"
+          class="lg:col-span-2"
+          value="INR"
+        >
+          <option value="cash">Pay at Office</option>
+          <option value="upi">UPI</option>
+          <option value="online_payment">Online Payment</option>
         </select>
       </div>
     </div>

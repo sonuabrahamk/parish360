@@ -1,11 +1,15 @@
 <div class="header">
-  <h2>Services List</h2>
+  <h3>Services List</h3>
   <div class="header-right-section">
-    <button class="button" *appCanCreate="screen" (click)="onCreate()">
+    <button
+      class="button text-sm mx-2"
+      *appCanCreate="screen"
+      (click)="onCreate()"
+    >
       Create
     </button>
     <button
-      class="button btn-danger mx-4"
+      class="button btn-danger text-sm mx-2"
       *appCanDelete="screen"
       (click)="onDelete()"
     >
@@ -17,13 +21,13 @@
   <ag-grid-angular
     class="ag-theme-alpine"
     [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
     [pagination]="true"
     [paginationPageSize]="paginationPageSize"
     [paginationPageSizeSelector]="paginationPageSizeSelector"
     [domLayout]="'autoHeight'"
     (gridReady)="onGridReady($event)"
     [rowSelection]="rowSelection"
+    [alwaysMultiSort]="true"
+    [gridOptions]="gridOptions"
   />
 </div>

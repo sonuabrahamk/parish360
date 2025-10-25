@@ -42,20 +42,35 @@ export class ResourcesComponent {
       cellEditor: 'agTextCellEditor',
     },
     {
-      headerName: 'Booking Amount',
-      field: 'booking_amount',
-      editable: (params) => this.isEditing(params.data),
-      cellEditor: 'agTextCellEditor',
-    },
-    {
       headerName: 'Capacity',
       field: 'capacity',
       editable: (params) => this.isEditing(params.data),
       cellEditor: 'agTextCellEditor',
     },
     {
+      headerName: 'Booking Amount',
+      field: 'amount',
+      editable: (params) => this.isEditing(params.data),
+      cellEditor: 'agTextCellEditor',
+    },
+    {
+      headerName: 'Booking Amount',
+      field: 'currency',
+      editable: (params) => this.isEditing(params.data),
+      cellEditor: 'agTextCellEditor',
+    },
+    {
       headerName: 'Mass Compatible',
       field: 'mass_compatible',
+      editable: (params) => this.isEditing(params.data),
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: [true, false],
+      },
+    },
+    {
+      headerName: 'Status',
+      field: 'active',
       editable: (params) => this.isEditing(params.data),
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
@@ -200,6 +215,9 @@ export class ResourcesComponent {
         id: 'new',
         name: '',
         description: '',
+        amount: 0,
+        currency: 'INR',
+        active: true,
       } as Resource,
     ];
     if (this.gridApi.getDisplayedRowAtIndex(0)) {
@@ -232,7 +250,10 @@ export class ResourcesComponent {
               description: row.description,
               booking_amount: row.booking_amount,
               capacity: row.capacity,
+              amount: row.amount,
+              currency: row.currency,
               mass_compatible: row.mass_compatible,
+              active: row.active,
             } as Resource)
             .subscribe((newRecord) => {
               this.rowData = [newRecord, ...this.rowData];
@@ -243,7 +264,10 @@ export class ResourcesComponent {
               description: row.description,
               booking_amount: row.booking_amount,
               capacity: row.capacity,
+              amount: row.amount,
+              currency: row.currency,
               mass_compatible: row.mass_compatible,
+              active: row.active,
             } as Resource)
             .subscribe((updatedRecord) => {
               this.rowData = this.rowData.map((r) =>

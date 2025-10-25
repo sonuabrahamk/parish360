@@ -8,21 +8,20 @@ import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
   GridApi,
+  GridOptions,
   GridReadyEvent,
   RowSelectionOptions,
+  SortModelItem,
+  SortOption,
 } from 'ag-grid-community';
 import { LiturgyService } from '../../../services/api/liturgy.service';
 import { StatusComponent } from '../../../pages/bookings/bookings-list/status.component';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-services',
   standalone: true,
-  imports: [
-    CommonModule,
-    CanCreateDirective,
-    CanDeleteDirective,
-    AgGridModule,
-  ],
+  imports: [CommonModule, CanCreateDirective, CanDeleteDirective, AgGridModule],
   templateUrl: './services.component.html',
   styleUrl: './services.component.css',
 })
@@ -38,7 +37,11 @@ export class ServicesComponent {
     flex: 1,
     filter: true,
     floatingFilter: true,
+    sortable: true,
   };
+
+  sortModel: SortModelItem[] = [{ colId: 'status', sort: 'asc' }];
+
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
     checkboxes: true,
@@ -58,6 +61,7 @@ export class ServicesComponent {
     {
       headerName: 'Date',
       field: 'date',
+      sortable: true,
     },
     {
       headerName: 'Start Time',
@@ -68,13 +72,31 @@ export class ServicesComponent {
       field: 'end_time',
     },
     {
+      headerName: 'Amount',
+      field: 'amount',
+    },
+    {
+      headerName: 'Currency',
+      field: 'currency',
+    },
+    {
       headerName: 'Status',
       field: 'status',
+      sortable: true,
       cellRenderer: StatusComponent,
     },
   ];
 
-  constructor(private liturgyService: LiturgyService) {}
+  gridOptions = {
+    columnDefs: this.columnDefs,
+    defaultColDef: this.defaultColDef,
+    sortModel: this.sortModel,
+  };
+
+  constructor(
+    private liturgyService: LiturgyService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit() {
     this.liturgyService.getServices().subscribe({
@@ -86,9 +108,10 @@ export class ServicesComponent {
           if (serviceDate.getTime() < currentDate.getTime()) {
             service.status = 'COMPLETED';
           } else {
-            service.status = 'IN-PROGRESS';
+            service.status = 'UPCOMING';
           }
         });
+        this.gridOptions.sortModel = this.sortModel;
       },
       error: () => {
         console.log('Could not fetch services list!');
@@ -103,7 +126,25 @@ export class ServicesComponent {
   onCreate() {
     console.log('Create service');
   }
+
   onDelete() {
-    console.log('Delete service');
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length <= 0) {
+      this.toast.warn('No rows selected to be deleted!');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toast.warn('Delete action can be performed only on one row!');
+      return;
+    }
+    this.liturgyService.deleteService(selectedRows[0]?.id).subscribe({
+      next: () => {
+        this.toast.success('Service removed successfully!');
+        this.ngOnInit();
+      },
+      error: (error) => {
+        this.toast.error(error.error);
+      },
+    });
   }
 }
