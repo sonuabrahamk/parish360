@@ -54,7 +54,7 @@ export class ApiService {
       .pipe(catchError(this.handleError));
   }
 
-  patch<T>(url: string, data: any): Observable<T> {
+  patch<T>(url: string, data?: any): Observable<T> {
     return this.http
       .patch<T>(`${this.loadBaseUrl()}${url}`, data, {
         headers: this.headers(),

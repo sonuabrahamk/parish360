@@ -13,21 +13,21 @@
     <button
       class="button text-sm mx-2"
       *appCanCreate="screen"
-      (click)="onCreate()"
+      (click)="onRowAction('payment')"
     >
       Make Payment
     </button>
     <button
       class="button btn-warning text-sm mx-2"
       *appCanDelete="screen"
-      (click)="onDelete()"
+      (click)="onRowAction('cancel')"
     >
       Cancel
     </button>
     <button
       class="button btn-danger text-sm mx-2"
       *appCanDelete="screen"
-      (click)="onDelete()"
+      (click)="onRowAction('delete')"
     >
       Delete
     </button>

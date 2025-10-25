@@ -40,6 +40,10 @@ export const MISCELLANOUS_BY_ID = (miscellenousId: string) =>
 
 // Bookings API paths
 export const BOOKINGS = '/bookings';
+export const BOOKINGS_BY_TYPE = (type: string) => `/bookings?type=${type}`;
+export const BOOKING_BY_CODE = (code: string) => `/bookings/view/${code}`;
+export const BOOKING_BY_ID = (id: string) => `/bookings/${id}`;
+export const CANCEL_BOOKING_BY_ID = (id: string) => `/bookings/${id}/cancel`;
 
 // Ceremonies API paths
 export const CEREMONIES = '/ceremonies';

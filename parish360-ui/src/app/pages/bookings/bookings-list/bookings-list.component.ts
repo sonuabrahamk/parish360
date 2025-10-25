@@ -21,6 +21,7 @@ import {
   faBoxesPacking,
   faPrayingHands,
 } from '@fortawesome/free-solid-svg-icons';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-bookings-list',
@@ -70,7 +71,8 @@ export class BookingsListComponent {
   constructor(
     private bookingService: BookingService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) {}
 
   ngOnInit() {
@@ -106,29 +108,84 @@ export class BookingsListComponent {
     this.router.navigateByUrl(`/bookings/view/create`);
   }
 
-  onDelete() {
-    console.log(this.gridApi.getSelectedRows());
+  async onRowAction(type: string) {
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (!selectedRows || selectedRows.length <= 0) {
+      this.toastService.warn('No row selected to perform any operation!');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toastService.warn(
+        'Only one row can be selected to perform any operation!'
+      );
+      return;
+    }
+    const id = selectedRows[0]?.id ?? selectedRows[0]?.['id'];
+    switch (type) {
+      case 'delete':
+        if (
+          await this.toastService.confirm(
+            'Are you sure you want to perform delete opeation on ' +
+              selectedRows[0]?.booking_code +
+              ' ?'
+          )
+        ) {
+          this.bookingService.deleteBooking(id).subscribe({
+            next: () => {
+              this.toastService.success(
+                'Successfully delete a booking record!'
+              );
+              this.ngOnInit();
+            },
+            error: (error) => {
+              this.toastService.error(error);
+            },
+          });
+        }
+        break;
+      case 'cancel':
+        if (
+          await this.toastService.confirm(
+            'Are you sure you want to perform cancel opeation on ' +
+              selectedRows[0]?.booking_code +
+              ' ?'
+          )
+        ) {
+          this.bookingService.cancelBooking(id).subscribe({
+            next: () => {
+              this.toastService.success(
+                'Successfully cancelled a booking record!'
+              );
+              this.ngOnInit();
+            },
+            error: (error) => {
+              this.toastService.error(error);
+            },
+          });
+        }
+        break;
+      case 'payment':
+        this.router.navigateByUrl('/payments/create?booking_code=' + id);
+        break;
+      default:
+        this.toastService.warn('No action selected!');
+        break;
+    }
   }
 
   loadResourcesList() {
-    this.bookingService.getBookings().subscribe({
+    this.bookingService.getBookingsByType('resource').subscribe({
       next: (bookings) => {
         this.columnDefs = [
           {
             headerName: 'Booking Code',
             field: 'booking_code',
+            cellRenderer: (params: any) =>
+              `<a href="/bookings/view/${params.value}" >${params.value}</a>`,
           },
           {
-            headerName: 'Booking Type',
-            field: 'booking_type',
-          },
-          {
-            headerName: 'Date',
+            headerName: 'Booked From',
             field: 'booked_from',
-          },
-          {
-            headerName: 'Event',
-            field: 'event',
           },
           {
             headerName: 'Booked By',
@@ -139,8 +196,18 @@ export class BookingsListComponent {
             field: 'contact',
           },
           {
+            headerName: 'Event',
+            field: 'event',
+          },
+          {
             headerName: 'Note',
             field: 'note',
+          },
+          {
+            headerName: 'Payment Status',
+            field: 'payment_status',
+            cellClass: 'ag-center-cols-cell',
+            cellRenderer: StatusComponent,
           },
           {
             headerName: 'Status',
@@ -151,43 +218,47 @@ export class BookingsListComponent {
         ];
         this.rowData = bookings;
       },
-      error: () => {
-        console.log('error loading resource bookings');
+      error: (error) => {
+        this.toastService.error(error.error.message);
       },
     });
   }
 
   loadServiceIntentionsList() {
-    this.bookingService.getBookings().subscribe({
+    this.bookingService.getBookingsByType('service-intention').subscribe({
       next: (bookings) => {
         this.columnDefs = [
           {
             headerName: 'Booking Code',
             field: 'booking_code',
+            cellRenderer: (params: any) =>
+              `<a href="/bookings/view/${params.value}" >${params.value}</a>`,
           },
           {
             headerName: 'Booked By',
             field: 'booked_by',
           },
           {
-            headerName: 'Booking On',
-            field: 'booked_from',
+            headerName: 'Contact',
+            field: 'contact',
           },
           {
-            headerName: 'Event',
-            field: 'event',
+            headerName: 'Booking On',
+            field: 'booked_from',
           },
           {
             headerName: 'Intention',
             field: 'note',
           },
           {
-            headerName: 'Contact',
-            field: 'contact',
-          },
-          {
             headerName: 'Status',
             field: 'status',
+            cellClass: 'ag-center-cols-cell',
+            cellRenderer: StatusComponent,
+          },
+          {
+            headerName: 'Payment Status',
+            field: 'payment_status',
             cellClass: 'ag-center-cols-cell',
             cellRenderer: StatusComponent,
           },

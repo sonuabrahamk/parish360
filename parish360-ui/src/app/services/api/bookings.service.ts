@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { BOOKINGS, EXTENSION } from './api.constants';
+import { BOOKING_BY_CODE, BOOKING_BY_ID, BOOKINGS, BOOKINGS_BY_TYPE, CANCEL_BOOKING_BY_ID, EXTENSION } from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { Bookings } from '../interfaces/bookings.interface';
@@ -10,5 +10,33 @@ export class BookingService {
 
   getBookings(): Observable<Bookings[]> {
     return this.apiService.get<Bookings[]>(BOOKINGS);
+  }
+
+  getBookingsByType(type: string): Observable<Bookings[]> {
+    return this.apiService.get<Bookings[]>(BOOKINGS_BY_TYPE(type));
+  }
+
+  getBookingByCode(code: string): Observable<Bookings>{
+    return this.apiService.get<Bookings>(BOOKING_BY_CODE(code));
+  }
+
+  getBookingById(id: string): Observable<Bookings>{
+    return this.apiService.get<Bookings>(BOOKING_BY_ID(id));
+  }
+
+  createBookings(booking: Bookings): Observable<Bookings>{
+    return this.apiService.post<Bookings>(BOOKINGS, booking);
+  }
+
+  updateBookings(bookingId: string, booking: Bookings): Observable<Bookings>{
+    return this.apiService.patch<Bookings>(BOOKING_BY_ID(bookingId), booking);
+  }
+
+  deleteBooking(id: string): Observable<Bookings>{
+    return this.apiService.delete<Bookings>(BOOKING_BY_ID(id));
+  }
+
+  cancelBooking(bookingId: string): Observable<Bookings>{
+    return this.apiService.patch<Bookings>(CANCEL_BOOKING_BY_ID(bookingId));
   }
 }

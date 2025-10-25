@@ -54,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
                         authRequest.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("user not found"));
 
-        // validate rawPassword 
+        // validate rawPassword
         if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             throw new AccessDeniedException("password is not matching");
         }
