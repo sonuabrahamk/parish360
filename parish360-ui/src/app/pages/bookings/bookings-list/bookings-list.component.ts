@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CommonModule } from '@angular/common';
-import { SCREENS } from '../../../services/common/common.constants';
+import {
+  BOOKINGS,
+  RESOURCE_TYPE_BOOKING,
+  RESOURCES_TAB,
+  SCREENS,
+  SERVICE_INTENTION_TAB,
+  SERVICE_TYPE_BOOKING,
+} from '../../../services/common/common.constants';
 import { AgGridModule } from 'ag-grid-angular';
 import {
   ColDef,
@@ -41,11 +48,15 @@ export class BookingsListComponent {
 
   bookingType!: string;
   bookingTab: Tab[] = [
-    { label: 'Resources', icon: faBoxesPacking, url: `bookings/resources` },
     {
-      label: 'Service Intentions',
+      label: RESOURCES_TAB,
+      icon: faBoxesPacking,
+      url: `${BOOKINGS}/${RESOURCE_TYPE_BOOKING}`,
+    },
+    {
+      label: SERVICE_INTENTION_TAB,
       icon: faPrayingHands,
-      url: `bookings/service-intentions`,
+      url: `${BOOKINGS}/${SERVICE_TYPE_BOOKING}`,
     },
   ];
   activeTabIndex = 0;
@@ -79,24 +90,20 @@ export class BookingsListComponent {
     this.route.params.subscribe((params) => {
       const section = params['section'] ?? '';
       switch (section) {
-        case 'service-intentions':
-          this.bookingType = 'service-intentions';
+        case SERVICE_TYPE_BOOKING:
+          this.bookingType = SERVICE_TYPE_BOOKING;
           this.activeTabIndex = 1;
           this.loadServiceIntentionsList();
           break;
-        case 'resources':
-        case '':
-          this.bookingType = 'resources';
+        case RESOURCE_TYPE_BOOKING:
+          this.bookingType = SERVICE_TYPE_BOOKING;
           this.activeTabIndex = 0;
           this.loadResourcesList();
           break;
         default:
-          this.router.navigateByUrl('/bookings');
+          this.router.navigate([`/bookings/${RESOURCE_TYPE_BOOKING}`]);
           return;
       }
-    });
-    this.bookingService.getBookings().subscribe((bookings) => {
-      this.rowData = bookings;
     });
   }
 
@@ -174,7 +181,7 @@ export class BookingsListComponent {
   }
 
   loadResourcesList() {
-    this.bookingService.getBookingsByType('resource').subscribe({
+    this.bookingService.getBookingsByType(RESOURCE_TYPE_BOOKING).subscribe({
       next: (bookings) => {
         this.columnDefs = [
           {
@@ -201,7 +208,7 @@ export class BookingsListComponent {
           },
           {
             headerName: 'Note',
-            field: 'note',
+            field: 'description',
           },
           {
             headerName: 'Payment Status',
@@ -225,7 +232,7 @@ export class BookingsListComponent {
   }
 
   loadServiceIntentionsList() {
-    this.bookingService.getBookingsByType('service-intention').subscribe({
+    this.bookingService.getBookingsByType(SERVICE_TYPE_BOOKING).subscribe({
       next: (bookings) => {
         this.columnDefs = [
           {
@@ -248,7 +255,7 @@ export class BookingsListComponent {
           },
           {
             headerName: 'Intention',
-            field: 'note',
+            field: 'description',
           },
           {
             headerName: 'Status',

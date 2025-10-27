@@ -85,6 +85,6 @@ export class ApiService {
   private handleError(error: any) {
     // You can handle different status codes here
     console.error('API error:', error);
-    return throwError(() => new Error(error?.message || 'Server Error'));
+    return throwError(() => new Error(error?.error?.message || 'Server Error'));
   }
 }

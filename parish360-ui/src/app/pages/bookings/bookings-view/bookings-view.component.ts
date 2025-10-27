@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { SectionFormComponent } from '../../../components/common/section-form/section-form.component';
@@ -14,6 +14,7 @@ import {
 } from 'ag-grid-community';
 import {
   BookingRequest,
+  BookingResponse,
   Bookings,
 } from '../../../services/interfaces/bookings.interface';
 import { ResourceService } from '../../../services/api/resource.service';
@@ -21,6 +22,10 @@ import { LiturgyService } from '../../../services/api/liturgy.service';
 import { Payment } from '../../../services/interfaces/payments.interface';
 import { Account } from '../../../services/interfaces/accounts.interface';
 import { AccountService } from '../../../services/api/accounts.service';
+import { ToastService } from '../../../services/common/toast.service';
+import { BookingService } from '../../../services/api/bookings.service';
+import { Resource } from '../../../services/interfaces/resources.interface';
+import { Services } from '../../../services/interfaces/services.interface';
 
 @Component({
   selector: 'app-bookings-view',
@@ -44,8 +49,10 @@ export class BookingsViewComponent {
     .slice(0, 16);
   faArrowLeft = faArrowLeft;
 
-  booking!: Bookings;
+  bookingCode!: string;
+  booking!: BookingResponse;
   bookingsForm!: FormGroup;
+  isEditMode: boolean = true;
 
   accounts!: Account[];
   payment!: Payment;
@@ -68,28 +75,105 @@ export class BookingsViewComponent {
   };
 
   columnDefs: ColDef<any>[] = [];
+  resourceColDefs: ColDef<Resource>[] = [
+    {
+      headerName: 'Resource Name',
+      field: 'name',
+    },
+    {
+      headerName: 'Description',
+      field: 'description',
+      flex: 1,
+    },
+    {
+      headerName: 'Booking Amount',
+      field: 'booking_amount',
+    },
+    {
+      headerName: 'Capacity',
+      field: 'capacity',
+    },
+    {
+      headerName: 'Mass Compatible',
+      field: 'mass_compatible',
+    },
+  ];
+  serviceColDefs: ColDef<Services>[] = [
+    {
+      headerName: 'Service Name',
+      field: 'name',
+    },
+    {
+      headerName: 'Service Type',
+      field: 'type',
+    },
+    {
+      headerName: 'Date',
+      field: 'date',
+    },
+    {
+      headerName: 'Start Time',
+      field: 'start_time',
+    },
+    {
+      headerName: 'End Time',
+      field: 'end_time',
+    },
+  ];
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
     private resourceService: ResourceService,
     private liturgyService: LiturgyService,
     private accountService: AccountService,
+    private bookingService: BookingService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
     this.accountService.getAccountsList().subscribe({
       next: (accounts) => {
         this.accounts = accounts;
-        this.setPaymentFormValues();
+        // fetch booking information if provdided
+        this.route.paramMap.subscribe((params) => {
+          this.bookingCode = params.get('sectionId') || '';
+          if (this.bookingCode !== 'create' && this.bookingCode !== '') {
+            this.bookingsForm.disable();
+            this.paymentForm.disable();
+            this.isEditMode = false;
+            this.bookingService.getBookingByCode(this.bookingCode).subscribe({
+              next: (booking) => {
+                this.booking = booking;
+                this.setBookingFormValues();
+                this.bookingsForm.disable();
+                this.paymentForm.disable();
+                if (booking.booking_type === 'resource') {
+                  this.columnDefs = this.resourceColDefs;
+                  this.rowData = booking.items;
+                } else {
+                  this.columnDefs = this.serviceColDefs;
+                  this.rowData = booking.items;
+                }
+              },
+              error: (error) => {
+                this.toast.error('Could not fetch booking information!');
+              },
+            });
+          } else {
+            this.setBookingFormValues();
+            this.setPaymentFormValues();
+            this.loadResourcesTable(this.currentDate, this.nextDate);
+          }
+        });
       },
       error: () => {
-        console.log('could not fetch accounts');
-      }
+        this.toast.error('could not fetch accounts');
+      },
     });
     this.setBookingFormValues();
     this.setPaymentFormValues();
-    this.loadResourcesTable(this.currentDate, this.nextDate);
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -109,13 +193,12 @@ export class BookingsViewComponent {
 
   setBookingFormValues() {
     this.bookingsForm = this.fb.group({
-      id: [this.booking?.id || 'create'],
       booking_code: [this.booking?.booking_code || ''],
       booked_by: [this.booking?.booked_by || ''],
       contact: [this.booking?.contact || ''],
       family_code: [this.booking?.family_code || ''],
       event: [this.booking?.event || ''],
-      note: [this.booking?.note || ''],
+      description: [this.booking?.description || ''],
       booking_type: [this.booking?.booking_type || 'resource'],
       booked_from: [this.booking?.booked_from || this.currentDate],
       booked_to: [this.booking?.booked_to || this.nextDate],
@@ -125,14 +208,15 @@ export class BookingsViewComponent {
 
   setPaymentFormValues() {
     this.paymentForm = this.fb.group({
-      id: [this.payment?.id || 'create'],
       type: [this.payment?.type || 'BOOKINGS'],
-      received_by: [this.payment?.received_by || ''],
-      account: [
-        this.payment?.account || this.accounts?.length > 0
+      paid_to: [this.payment?.paid_to || ''],
+      account_id: [
+        this.payment?.account_id || this.accounts?.length > 0
           ? this.accounts[0].id
           : '',
       ],
+      payment_mode: [this.payment?.payment_mode || 'cash'],
+      booking_code: [this.payment?.booking_code || ''],
       description: [this.payment?.description || ''],
       amount: [this.payment?.amount || 0],
       currency: [this.payment?.currency || 'INR'],
@@ -142,29 +226,7 @@ export class BookingsViewComponent {
   loadResourcesTable(from_date: string, to_date: string) {
     this.resourceService.getResourcesList().subscribe({
       next: (resources) => {
-        this.columnDefs = [
-          {
-            headerName: 'Resource Name',
-            field: 'name',
-          },
-          {
-            headerName: 'Description',
-            field: 'description',
-            flex: 1,
-          },
-          {
-            headerName: 'Booking Amount',
-            field: 'booking_amount',
-          },
-          {
-            headerName: 'Capacity',
-            field: 'capacity',
-          },
-          {
-            headerName: 'Mass Compatible',
-            field: 'mass_compatible',
-          },
-        ];
+        this.columnDefs = this.resourceColDefs;
         this.rowData = resources;
       },
       error: () => {
@@ -176,28 +238,7 @@ export class BookingsViewComponent {
   loadServiceIntentionsTable(from_date: string, to_date: string) {
     this.liturgyService.getServices().subscribe({
       next: (services) => {
-        this.columnDefs = [
-          {
-            headerName: 'Service Name',
-            field: 'name',
-          },
-          {
-            headerName: 'Service Type',
-            field: 'type',
-          },
-          {
-            headerName: 'Date',
-            field: 'date',
-          },
-          {
-            headerName: 'Start Time',
-            field: 'start_time',
-          },
-          {
-            headerName: 'End Time',
-            field: 'end_time',
-          },
-        ];
+        this.columnDefs = this.serviceColDefs;
         this.rowData = services;
       },
       error: () => {
@@ -217,6 +258,16 @@ export class BookingsViewComponent {
     const payment: Payment = this.paymentForm?.value;
     bookingRequest.items = items;
     bookingRequest.payment = payment;
-    console.log(bookingRequest);
+    bookingRequest.payment.payee = bookingRequest.booked_by;
+    bookingRequest.payment.type = 'BOOKING';
+    this.bookingService.createBookings(bookingRequest).subscribe({
+      next: (booking) => {
+        this.toast.success('Booking created successfully!');
+        this.router.navigate(['/bookings']);
+      },
+      error: (error) => {
+        this.toast.error(error);
+      },
+    });
   }
 }

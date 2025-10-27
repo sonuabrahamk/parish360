@@ -82,7 +82,7 @@ export class PaymentsViewComponent {
     this.paymentForm = this.fb.group({
       type: [this.payment?.type || ''],
       payment_on: [this.payment?.created_at || new Date()],
-      received_by: [this.payment?.received_by || ''],
+      paid_to: [this.payment?.paid_to || ''],
       payee: [this.payment?.payee || ''],
       amount: [this.payment?.amount || ''],
       currency: [this.payment?.currency || ''],

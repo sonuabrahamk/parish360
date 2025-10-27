@@ -2,13 +2,15 @@ export interface Payment {
   id: string;
   created_at: Date;
   type: string;
-  received_by: string;
+  paid_to: string;
   payee: string;
   description: string;
-  account: string;
+  account_id: string;
   amount: number;
   currency: string;
+  payment_mode: string;
   conversion_rate: string;
+  booking_code: string;
   reference_id: string;
 }
 

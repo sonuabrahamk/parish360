@@ -60,8 +60,8 @@ export class PaymentsListComponent {
       field: 'payee',
     },
     {
-      headerName: 'Received By',
-      field: 'received_by',
+      headerName: 'Paid To',
+      field: 'paid_to',
     },
     {
       headerName: 'Amount',

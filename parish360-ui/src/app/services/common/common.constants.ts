@@ -36,3 +36,10 @@ export const PAYMENT_TYPES = {
   MASS_COLLECTION: 'MASS_COLLECTION',
   OFFERRINGS: 'OFFERRINGS',
 };
+
+export const BOOKINGS = 'bookings';
+export const BOOKINGS_URL = '/bookings';
+export const RESOURCES_TAB = 'Resources';
+export const SERVICE_INTENTION_TAB = 'Service Intentions';
+export const SERVICE_TYPE_BOOKING = 'service-intention';
+export const RESOURCE_TYPE_BOOKING = 'resource';

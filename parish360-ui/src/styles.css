@@ -88,6 +88,17 @@
     background-color: #f8f9fa;
     color: #6c757d;
   }
+
+  /* AG Grid styles */
+  .ag-theme-alpine {
+    border-radius: 0 !important;
+  }
+
+  /* Optional: also flatten inner panels or scroll containers */
+  .ag-theme-alpine .ag-root-wrapper,
+  .ag-theme-alpine .ag-root-wrapper-body {
+    border-radius: 0 !important;
+  }
 }
 
 ::-webkit-scrollbar {
