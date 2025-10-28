@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { ExpenseService } from '../../../services/api/expenses.service';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CanDeleteDirective } from '../../../directives/can-delete.directive';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-expenses-list',
@@ -50,30 +51,36 @@ export class ExpensesListComponent {
     {
       headerName: 'Expense On',
       field: 'date',
-    },
-    {
-      headerName: 'Category',
-      field: 'category',
-    },
-    {
-      headerName: 'Amount',
-      field: 'amount',
+      cellRenderer: (params: any) =>
+        params.value ? new Date(params.value).toISOString().split('T')[0] : '',
     },
     {
       headerName: 'Paid to',
       field: 'paid_to',
     },
     {
-      headerName: 'Payment method',
-      field: 'payment_method',
+      headerName: 'Paid By',
+      field: 'paid_by',
     },
     {
-      headerName: 'Remarks',
-      field: 'remarks',
+      headerName: 'Description',
+      field: 'description',
+    },
+    {
+      headerName: 'Amount',
+      field: 'amount',
+    },
+    {
+      headerName: 'Curency',
+      field: 'currency',
     },
   ];
 
-  constructor(private router: Router, private expenseService: ExpenseService) {}
+  constructor(
+    private router: Router,
+    private expenseService: ExpenseService,
+    private toast: ToastService
+  ) {}
 
   ngOnInit() {
     this.expenseService.getExpenses().subscribe((expense) => {
@@ -86,10 +93,45 @@ export class ExpensesListComponent {
   }
 
   onDelete() {
-    console.log('Delete function');
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length === 0) {
+      this.toast.warn('Please select atleast one expense to delete.');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toast.warn('Please select only one expense to delete at a time.');
+      return;
+    }
+    this.toast
+      .confirm(
+        'Are you sure you want to delete the selected expense? This action is irreversible.'
+      )
+      .then((confirmed) => {
+        if (confirmed) {
+          const expenseId = selectedRows[0].id;
+          this.expenseService.deleteExpense(expenseId).subscribe({
+            next: () => {
+              this.toast.success('Expense deleted successfully.');
+              this.gridApi.applyTransaction({ remove: selectedRows });
+            },
+            error: (error) => {
+              this.toast.error('Error deleting expense: ', error);
+            },
+          });
+        }
+      });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+
+    const columnIds = this.gridApi
+      .getAllGridColumns()
+      .filter((col) => col.getColDef().field !== 'description');
+    setInterval(() => {
+      if (this.gridApi && !this.gridApi.isDestroyed()) {
+        this.gridApi.autoSizeColumns(columnIds);
+      }
+    });
   }
 }

@@ -15,4 +15,19 @@ export class ExpenseService {
   getExpense(expenseId: string): Observable<Expense> {
     return this.apiService.get<Expense>(EXPENSE_BY_ID(expenseId));
   }
+
+  createExpense(expenseData: Expense): Observable<Expense> {
+    return this.apiService.post<Expense>(EXPENSES, expenseData);
+  }
+
+  updateExpense(expenseId: string, expenseData: Expense): Observable<Expense> {
+    return this.apiService.patch<Expense>(
+      EXPENSE_BY_ID(expenseId),
+      expenseData
+    );
+  }
+
+  deleteExpense(expenseId: string): Observable<void> {
+    return this.apiService.delete<void>(EXPENSE_BY_ID(expenseId));
+  }
 }

@@ -8,68 +8,137 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { FooterComponent } from "../../../components/family-records/footer/footer.component";
+import { FooterComponent } from '../../../components/family-records/footer/footer.component';
+import { Account } from '../../../services/interfaces/accounts.interface';
+import { AccountService } from '../../../services/api/accounts.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-expense-view',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, FooterComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    FooterComponent,
+  ],
   templateUrl: './expense-view.component.html',
-  styleUrl: './expense-view.component.css'
+  styleUrl: './expense-view.component.css',
 })
 export class ExpenseViewComponent {
   screen: string = SCREENS.EXPENSES;
-  isEditMode: boolean = false;
+  isEditMode: boolean = true;
   faArrowLeft = faArrowLeft;
 
+  accounts!: Account[];
   expenseId: string | null = null;
   expense!: Expense;
   expenseForm!: FormGroup;
 
-  constructor(private router: Router, private route: ActivatedRoute, private expenseService:ExpenseService, private fb: FormBuilder){}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private expenseService: ExpenseService,
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private toast: ToastService
+  ) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.expenseId = this.route.snapshot.paramMap.get('expenseId');
-    if(this.expenseId){
-      this.expenseService.getExpense(this.expenseId).subscribe((expense) => {
-        this.expense = expense;
+    this.accountService.getAccountsList().subscribe({
+      next: (accounts) => {
+        this.accounts = accounts;
+        if (this.expenseId) {
+          this.expenseService
+            .getExpense(this.expenseId)
+            .subscribe((expense) => {
+              this.expense = expense;
+              this.loadExpenseForm();
+              this.expenseForm.disable();
+              this.isEditMode = false;
+            });
+        }
         this.loadExpenseForm();
-        this.expenseForm.disable();
-      });
-    }
+      },
+      error: (error) => {
+        this.toast.error('Error fetching accounts: ', error);
+      },
+    });
     this.loadExpenseForm();
-    this.expenseForm.get('id')?.disable();
   }
 
-  loadExpenseForm(){
+  loadExpenseForm() {
     this.expenseForm = this.fb.group({
-      id: [this.expense?.id || ''],
-      date: [this.expense?.date || new Date()],
-      category: [this.expense?.category || ''],
-      amount: [this.expense?.amount || ''],
-      currency: [this.expense?.currency || ''],
+      id: [this.expense?.id || 'create'],
+      date: [
+        this.expense?.date
+          ? new Date(this.expense.date).toISOString().split('T')[0]
+          : new Date().toISOString().split('T')[0],
+      ],
       paid_to: [this.expense?.paid_to || ''],
-      payment_method: [this.expense?.payment_method || ''],
-      remarks: [this.expense?.remarks || ''],
-    })
+      paid_by: [this.expense?.paid_by || ''],
+      amount: [this.expense?.amount || ''],
+      currency: [this.expense?.currency || 'INR'],
+      payment_method: [this.expense?.payment_method || 'cash'],
+      description: [this.expense?.description || ''],
+      account_id: [
+        this.expense?.account_id || this.accounts?.length > 0
+          ? this.accounts[0].id
+          : '',
+      ],
+    });
   }
 
-  onModeUpdate(event: FooterEvent){
+  onModeUpdate(event: FooterEvent) {
     this.isEditMode = event.isEditMode;
+    event.isSaveTriggered ? this.onSave() : null;
+    event.isDeleteTriggered ? this.onDelete() : null;
     this.isEditMode ? this.expenseForm.enable() : this.expenseForm.disable();
-    this.expenseForm.get('id')?.disable();
   }
 
-  onSave(){
-    console.log('Trigger Save Action!!')
+  onDelete() {
+    this.expenseService.deleteExpense(this.expenseId!).subscribe({
+      next: () => {
+        this.toast.success('Expense deleted successfully');
+        this.router.navigate(['/expenses']);
+      },
+      error: (error) => {
+        this.toast.error('Error deleting expense: ', error);
+      },
+    });
   }
 
-  onCancel() {
-    console.log('Trigger Cancel Action!!');
+  onSave() {
+    if (this.expenseForm.get('id')?.value === 'create') {
+      this.expenseForm.removeControl('id');
+      this.expenseService.createExpense(this.expenseForm.value).subscribe({
+        next: (expense) => {
+          this.toast.success('Expense created successfully');
+          this.router.navigate(['/expenses/view', expense.id]);
+        },
+        error: (error) => {
+          this.toast.error('Error creating expense: ', error);
+        },
+      });
+    } else {
+      this.expenseService
+        .updateExpense(this.expenseId!, this.expenseForm.value)
+        .subscribe({
+          next: (expense) => {
+            this.toast.success('Expense updated successfully');
+            this.expense = expense;
+            this.expenseForm.disable();
+            this.isEditMode = false;
+          },
+          error: (error) => {
+            this.toast.error('Error updating expense: ', error);
+          },
+        });
+    }
   }
 
-  onBackClick(){
+  onBackClick() {
     this.router.navigate(['/expenses']);
   }
-
 }

@@ -20,4 +20,5 @@ export interface FooterEvent {
   isEditMode: boolean;
   isSaveTriggered: boolean;
   isCancelTriggered: boolean;
+  isDeleteTriggered?: boolean;
 }

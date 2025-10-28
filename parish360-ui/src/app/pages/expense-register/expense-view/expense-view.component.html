@@ -10,18 +10,6 @@
 </div>
 
 <div [formGroup]="expenseForm" class="form-section-3 p-4">
-  <!-- Id -->
-  <div class="form-group">
-    <label>Expense Id</label>
-    <input type="text" formControlName="id" class="col-span-2" />
-  </div>
-
-  <!-- Expense Category -->
-  <div class="form-group">
-    <label>Expense Category</label>
-    <input type="text" formControlName="category" class="col-span-2" />
-  </div>
-
   <!-- Expense Date -->
   <div class="form-group">
     <label>Expense Date</label>
@@ -34,23 +22,55 @@
     <input type="text" formControlName="paid_to" class="col-span-2" />
   </div>
 
+  <!-- Paid By -->
+  <div class="form-group">
+    <label>Paid By</label>
+    <input type="text" formControlName="paid_by" class="col-span-2" />
+  </div>
+
+  <!-- Account -->
+  <div class="form-group">
+    <label>Account</label>
+    <select formControlName="account_id" class="lg:col-span-2">
+      <option
+        *ngFor="let account of accounts; let i = index"
+        [value]="account.id"
+      >
+        {{ account.name }}
+      </option>
+    </select>
+  </div>
+
   <!-- Amount -->
   <div class="form-group">
     <label>Amount</label>
     <input type="number" formControlName="amount" class="col-span-2" />
   </div>
 
+  <!-- Currency -->
+  <div class="form-group">
+    <label>Currency</label>
+    <input type="text" formControlName="currency" class="col-span-2" />
+  </div>
+
   <!-- Payment Method -->
   <div class="form-group">
     <label>Payment Method</label>
-    <input type="text" formControlName="payment_method" class="col-span-2" />
+    <select formControlName="payment_method" class="lg:col-span-2" value="cash">
+      <option value="cash">CASH</option>
+      <option value="upi">UPI</option>
+      <option value="online_payment">Online Payment</option>
+    </select>
   </div>
 
   <!-- Remarks -->
-  <div class="form-group col-span-3 grid grid-cols-1 md:grid-cols-10">
-    <label>Remarks</label>
-    <input type="text" formControlName="remarks" class="col-span-9" />
+  <div class="form-group col-span-2 grid grid-cols-1 md:grid-cols-10">
+    <label>Description</label>
+    <input type="text" formControlName="description" class="col-span-9" />
   </div>
 </div>
 
-<app-footer (modeUpdated)="onModeUpdate($event)"></app-footer>
+<app-footer
+  (modeUpdated)="onModeUpdate($event)"
+  [isEditMode]="isEditMode"
+></app-footer>
