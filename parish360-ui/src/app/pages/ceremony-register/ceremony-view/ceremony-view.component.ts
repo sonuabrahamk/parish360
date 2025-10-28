@@ -19,6 +19,7 @@ import { FooterComponent } from '../../../components/family-records/footer/foote
 import { SectionFormComponent } from '../../../components/common/section-form/section-form.component';
 import { CeremonyFormBuilder } from './ceremony-form.builder';
 import { Ceremony } from '../../../services/interfaces/ceremonys.interface';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-ceremony-view',
@@ -57,7 +58,8 @@ export class CeremonyViewComponent {
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private ceremonyService: CeremoniesService
+    private ceremonyService: CeremoniesService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -92,35 +94,41 @@ export class CeremonyViewComponent {
 
   onModeUpdated(event: any) {
     this.isEditMode = event.isEditMode;
-    if(this.isEditMode){
+    if (this.isEditMode) {
       this.ceremonyForm.enable();
-      this.ceremonyId !== 'create'? this.ceremonyForm?.get('type')?.disable() : null;
+      this.ceremonyId !== 'create'
+        ? this.ceremonyForm?.get('type')?.disable()
+        : null;
     } else this.ceremonyForm.disable();
     event.isSaveTriggered ? this.onSave() : null;
   }
 
   onSave() {
-    console.log(this.ceremonyForm.value);
     if (this.ceremonyId && this.ceremonyId !== 'create') {
       this.ceremonyService
         .updateCeremony(this.ceremonyId, this.ceremonyForm.value)
         .subscribe({
           next: (ceremony) => {
             this.ceremony = ceremony;
-            console.log('ceremony record updated successfully!');
+            this.toast.success('Ceremony record updated successfully!');
           },
-          error: () => {
-            console.log('error creating a ceremony register');
+          error: (error) => {
+            this.toast.error(
+              'Error updating ceremony register: ' + error.message
+            );
           },
         });
     } else {
       this.ceremonyService.createCeremony(this.ceremonyForm.value).subscribe({
         next: (ceremony) => {
           this.ceremony = ceremony;
-            console.log('ceremony record created successfully!');
+          this.toast.success('Ceremony record created successfully!');
+          this.router.navigate(['/ceremonies']);
         },
-        error: () => {
-          console.log('error creating a ceremony register');
+        error: (error) => {
+          this.toast.error(
+            'Error creating a ceremony register: ' + error.message
+          );
         },
       });
     }

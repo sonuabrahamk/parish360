@@ -55,8 +55,24 @@ export class CeremonyListComponent {
       field: 'date',
     },
     {
+      headerName: 'Priest Name',
+      field: 'minister.priest',
+    },
+    {
       headerName: 'Name',
       field: 'name',
+    },
+    {
+      headerName: 'Baptism Name',
+      field: 'baptism_name',
+    },
+    {
+      headerName: `Father's Name`,
+      field: 'father',
+    },
+    {
+      headerName: `Mother's Name`,
+      field: 'mother',
     },
     {
       headerName: 'Parishioner',
@@ -79,6 +95,17 @@ export class CeremonyListComponent {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+    setTimeout(() => {
+      this.gridAutoSizeColumns();
+    });
+  }
+
+  gridAutoSizeColumns() {
+    const columns = this.gridApi
+      .getAllGridColumns()
+      .filter((column) => column?.getColDef()?.field !== 'name');
+    const colIds = columns.map((col) => col.getColId());
+    this.gridApi.autoSizeColumns(colIds);
   }
 
   onCreate() {

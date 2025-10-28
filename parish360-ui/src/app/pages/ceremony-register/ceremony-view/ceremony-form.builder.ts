@@ -6,14 +6,15 @@ import {
   Place,
   Witness,
 } from '../../../services/interfaces/ceremonys.interface';
+import { CEREMONY_TYPE } from '../../../services/common/common.constants';
 
 export class CeremonyFormBuilder {
   constructor(private fb: FormBuilder) {}
 
   buildForm(ceremony?: Ceremony): FormGroup {
     return this.fb.group({
-      type: [ceremony?.type || ''],
-      date: [ceremony?.date || ''],
+      type: [ceremony?.type || CEREMONY_TYPE.BAPTISM],
+      date: [ceremony?.date || new Date().toISOString().substring(0, 10)],
       is_parishioner: [ceremony?.is_parishioner || false],
       name: [ceremony?.name || ''],
       baptism_name: [ceremony?.baptism_name || ''],
@@ -102,9 +103,7 @@ export class CeremonyFormBuilder {
   private setAfterlifeDetails(ceremony?: Ceremony) {
     return this.fb.group({
       dod: [ceremony?.afterlife?.dod || ''],
-      place_of_death: this.setPlace(
-        ceremony?.afterlife?.place_of_death
-      ),
+      place_of_death: this.setPlace(ceremony?.afterlife?.place_of_death),
       cemetry: [ceremony?.afterlife?.cemetry || ''],
       cemetry_place: this.setPlace(ceremony?.afterlife?.cemetry_place),
     });
