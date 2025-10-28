@@ -1,21 +1,23 @@
-<div class="p-4">
-  <div *appCanCreate="screen" class="flex mb-4 justify-between items-center">
+<div class="">
+  <div *appCanCreate="screen" class="flex my-2 justify-between items-center">
     <h4 class="pt-2 font-semibold"></h4>
-    <button (click)="addRow()" class="text-xs">
+    <button (click)="addRow()" class="text-sm">
       <fa-icon [icon]="faAdd"></fa-icon>Add Committee Member
     </button>
   </div>
 
-  <ag-grid-angular
-    class="ag-theme-alpine w-full"
-    [columnDefs]="columnDefs"
-    [rowData]="rowData"
-    [defaultColDef]="{ sortable: false, filter: false, resizable: true }"
-    (gridReady)="onGridReady($event)"
-    [domLayout]="'autoHeight'"
-    [rowHeight]="50"
-    [getRowId]="getRowId"
-    [animateRows]="true"
-  >
-  </ag-grid-angular>
+  <div class="ag-theme-alpine">
+    <ag-grid-angular
+      class="ag-theme-alpine w-full"
+      [columnDefs]="columnDefs"
+      [rowData]="rowData"
+      [defaultColDef]="{ sortable: false, filter: false, resizable: true }"
+      (gridReady)="onGridReady($event)"
+      [domLayout]="'autoHeight'"
+      [rowHeight]="50"
+      [getRowId]="getRowId"
+      [animateRows]="true"
+    >
+    </ag-grid-angular>
+  </div>
 </div>

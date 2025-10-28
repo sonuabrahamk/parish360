@@ -7,9 +7,9 @@
 
 <div class="p-2 ag-theme-alpine w-full overflow-x-auto">
   <!-- Parish Year selection -->
-  <div class="grid grid-cols-1 md:grid-cols-3 mb-8">
+  <div class="grid grid-cols-1 md:grid-cols-3">
     <div class="form-group">
-      <label>Parish Year</label>
+      <label class="text-sm font-bold">Selected Parish Year</label>
       <input
         class="col-span-2"
         list="parishYearList"
@@ -37,6 +37,5 @@
     [paginationPageSizeSelector]="paginationPageSizeSelector"
     [domLayout]="'autoHeight'"
     (gridReady)="onGridReady($event)"
-    [rowSelection]="rowSelection"
   />
 </div>

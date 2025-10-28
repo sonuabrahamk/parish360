@@ -9,6 +9,7 @@ import {
 } from 'ag-grid-community';
 import { AssociationService } from '../../../services/api/associations.service';
 import { FamilyRecords } from '../../../services/api/family-records.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-associates-mapping',
@@ -27,7 +28,7 @@ export class AssociatesMappingComponent {
   associates: string[] = [];
 
   selectAssociates!: any;
-  selectedAssociates!: any;
+  selectedAssociates: any = [];
   columnDefs: ColDef<any>[] = [];
 
   paginationPageSize = 10;
@@ -49,7 +50,8 @@ export class AssociatesMappingComponent {
 
   constructor(
     private associationService: AssociationService,
-    private familyRecords: FamilyRecords
+    private familyRecords: FamilyRecords,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -98,8 +100,10 @@ export class AssociatesMappingComponent {
         ];
         this.selectAssociates = response;
       },
-      error: () => {
-        console.log('error in fetching members of associations!');
+      error: (error) => {
+        this.toast.error(
+          'Error in fetching members of associations: ' + error.message
+        );
       },
     });
   }
@@ -123,8 +127,10 @@ export class AssociatesMappingComponent {
         ];
         this.selectAssociates = response;
       },
-      error: () => {
-        console.log('error in fetching members of associations!');
+      error: (error) => {
+        this.toast.error(
+          'Error in fetching members of associations: ' + error.message
+        );
       },
     });
   }
@@ -154,8 +160,10 @@ export class AssociatesMappingComponent {
           ];
           this.selectAssociates = response;
         },
-        error: () => {
-          console.log('error in fetching members of associations!');
+        error: (error) => {
+          this.toast.error(
+            'error in fetching members of associations: ' + error.message
+          );
         },
       });
   }

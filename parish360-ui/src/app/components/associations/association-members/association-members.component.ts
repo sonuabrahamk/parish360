@@ -18,6 +18,7 @@ import { ParishYearService } from '../../../services/api/parish-year.service';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { SCREENS } from '../../../services/common/common.constants';
 import { AssociatesMappingComponent } from '../associates-mapping/associates-mapping.component';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-association-members',
@@ -64,7 +65,8 @@ export class AssociationMembersComponent {
 
   constructor(
     private associationService: AssociationService,
-    private parishYearService: ParishYearService
+    private parishYearService: ParishYearService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -86,8 +88,11 @@ export class AssociationMembersComponent {
               break;
           }
         },
-        error: () => {
-          console.log('could not fetch parish year association information!');
+        error: (error) => {
+          this.toast.error(
+            'Could not fetch parish year association information: ' +
+              error.message
+          );
         },
       });
   }
@@ -129,8 +134,10 @@ export class AssociationMembersComponent {
           ];
           this.rowData = response;
         },
-        error: () => {
-          console.log('error in fetching members of associations!');
+        error: (error) => {
+          this.toast.error(
+            'Error in fetching members of associations: ' + error.message
+          );
         },
       });
   }
@@ -156,8 +163,10 @@ export class AssociationMembersComponent {
           ];
           this.rowData = response;
         },
-        error: () => {
-          console.log('error in fetching members of associations!');
+        error: (error) => {
+          this.toast.error(
+            'Error in fetching members of associations: ' + error.message
+          );
         },
       });
   }
@@ -187,8 +196,10 @@ export class AssociationMembersComponent {
           ];
           this.rowData = response;
         },
-        error: () => {
-          console.log('error in fetching members of associations!');
+        error: (error) => {
+          this.toast.error(
+            'Error in fetching members of associations: ' + error.message
+          );
         },
       });
   }
@@ -197,13 +208,13 @@ export class AssociationMembersComponent {
     this.isMappingEnabled = true;
   }
 
-  onUnMapAssociationClick() {
+  async onUnMapAssociationClick() {
     const associatesToRemove = this.gridApi.getSelectedRows();
     if (associatesToRemove.length <= 0) {
-      console.log('no associations selected to remove!');
+      this.toast.warn('No associations selected to remove!');
     }
     if (
-      confirm(
+      await this.toast.confirm(
         'Are you sure you want to un-map ' +
           associatesToRemove.length +
           ' associations from this parish year ?'
@@ -216,8 +227,10 @@ export class AssociationMembersComponent {
           next: () => {
             this.ngOnInit();
           },
-          error: () => {
-            console.log('error in remvoing association mapping');
+          error: (error) => {
+            this.toast.error(
+              'Error in remvoing association mapping: ' + error.message
+            );
           },
         });
     }
@@ -238,8 +251,8 @@ export class AssociationMembersComponent {
         next: () => {
           this.ngOnInit();
         },
-        error: () => {
-          console.log('error is mapping associates!');
+        error: (error) => {
+          this.toast.error('Error is mapping associates: ' + error.message);
         },
       });
   }

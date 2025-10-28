@@ -1,31 +1,31 @@
-<div class="p-2 ag-theme-alpine">
-  <div class="mb-2 flex justify-end">
+<div class="ag-theme-alpine">
+  <div class="flex justify-end">
     <div *ngIf="!isMappingEnabled">
       <button
-        class="button text-xs"
+        class="button text-sm my-2 ml-2"
         *appCanEdit="screen"
         (click)="onMapAssociationClick()"
       >
         Map New Associates
       </button>
       <button
-        class="button btn-danger text-xs mx-4"
+        class="button btn-danger text-sm my-2 ml-2"
         *appCanEdit="screen"
         (click)="onUnMapAssociationClick()"
       >
-        Remove Assocites
+        Remove Associates
       </button>
     </div>
     <div *ngIf="isMappingEnabled">
       <button
-        class="button btn-warning text-xs mx-4"
+        class="button btn-warning text-sm my-2 ml-2"
         *appCanEdit="screen"
         (click)="onCancel()"
       >
         Cancel
       </button>
       <button
-        class="button text-xs"
+        class="button text-sm my-2 ml-2"
         *appCanEdit="screen"
         (click)="onMapAssociates()"
       >

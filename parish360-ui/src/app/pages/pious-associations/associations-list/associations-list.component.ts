@@ -6,13 +6,13 @@ import { AgGridModule } from 'ag-grid-angular';
 import {
   GridApi,
   ColDef,
-  RowSelectionOptions,
   GridReadyEvent,
 } from 'ag-grid-community';
 import { ParishYearService } from '../../../services/api/parish-year.service';
 import { ParishYear } from '../../../services/interfaces/parish-year.interface';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-associations-list',
@@ -38,12 +38,6 @@ export class AssociationsListComponent {
     filter: true,
     floatingFilter: true,
   };
-  rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
-    mode: 'multiRow',
-    checkboxes: true,
-    headerCheckbox: true,
-    enableClickSelection: true,
-  };
 
   columnDefs: ColDef<Association>[] = [
     {
@@ -56,12 +50,33 @@ export class AssociationsListComponent {
       headerName: 'Description',
       field: 'description',
     },
+    {
+      headerName: 'Type',
+      field: 'type',
+    },
+    {
+      headerName: 'Scope',
+      field: 'scope',
+    },
+    {
+      headerName: 'Founded Date',
+      field: 'founded_date',
+    },
+    {
+      headerName: 'Patron',
+      field: 'patron',
+    },
+    {
+      headerName: 'Active',
+      field: 'active',
+    },
   ];
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private parishYearService: ParishYearService
+    private parishYearService: ParishYearService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -77,8 +92,8 @@ export class AssociationsListComponent {
 
         this.loadAssociationList(this.activeParishYear.id);
       },
-      error: () => {
-        console.log('could not fetch parish year list');
+      error: (error) => {
+        this.toast.error('Could not fetch parish year list: ' + error.message);
       },
     });
   }
@@ -94,8 +109,8 @@ export class AssociationsListComponent {
         });
         this.rowData = associations;
       },
-      error: () => {
-        console.log('could not find association for active parish year');
+      error: (error) => {
+        this.toast.error('Could not find association for active parish year: ' + error.message);
       },
     });
   }
