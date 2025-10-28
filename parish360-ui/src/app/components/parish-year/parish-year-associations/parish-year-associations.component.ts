@@ -14,6 +14,7 @@ import {
 import { ParishYearService } from '../../../services/api/parish-year.service';
 import { ParishYearAssociationRequest } from '../../../services/interfaces/parish-year.interface';
 import { AssociationService } from '../../../services/api/associations.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-parish-year-associations',
@@ -95,7 +96,8 @@ export class ParishYearAssociationsComponent {
 
   constructor(
     private parishYearService: ParishYearService,
-    private associationService: AssociationService
+    private associationService: AssociationService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -110,8 +112,10 @@ export class ParishYearAssociationsComponent {
           });
           this.rowData = associations;
         },
-        error: () => {
-          console.log('error in fetching mapped associations!');
+        error: (error) => {
+          this.toast.error(
+            'Error in fetching mapped associations: ' + error.message
+          );
         },
       });
   }
@@ -125,7 +129,6 @@ export class ParishYearAssociationsComponent {
   }
 
   onCancel() {
-    console.log('Cancel triggered!');
     this.isMapAssociationsMode = false;
   }
 
@@ -135,8 +138,8 @@ export class ParishYearAssociationsComponent {
         this.selectionRowData = associations;
         this.isMapAssociationsMode = true;
       },
-      error: () => {
-        console.log('Error loading associations to map');
+      error: (error) => {
+        this.toast.error('Error loading associations to map: ' + error.message);
       },
     });
   }
@@ -154,21 +157,26 @@ export class ParishYearAssociationsComponent {
       .subscribe({
         next: (ParishYearAssociations) => {
           this.isMapAssociationsMode = false;
+          this.toast.success(
+            'Associations mapped successfully to parish year!'
+          );
           this.ngOnInit();
         },
-        error: () => {
-          console.log('error in mapping associations to parish year');
+        error: (error) => {
+          this.toast.error(
+            'Error in mapping associations to parish year: ' + error.message
+          );
         },
       });
   }
 
-  onDelete() {
+  async onDelete() {
     const associationsToRemove = this.gridApi.getSelectedRows();
     if (associationsToRemove.length <= 0) {
-      console.log('no associations selected to remove!');
+      this.toast.warn('No associations selected to remove!');
     }
     if (
-      confirm(
+      await this.toast.confirm(
         'Are you sure you want to un-map ' +
           associationsToRemove.length +
           ' associations from this parish year ?'
@@ -181,10 +189,13 @@ export class ParishYearAssociationsComponent {
         } as ParishYearAssociationRequest)
         .subscribe({
           next: () => {
+            this.toast.success('Selected associations un-mapped successfully!');
             this.ngOnInit();
           },
-          error: () => {
-            console.log('error in remvoing association mapping');
+          error: (error) => {
+            this.toast.error(
+              'Error in remvoing association mapping: ' + error.message
+            );
           },
         });
     }
