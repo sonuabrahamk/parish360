@@ -66,7 +66,7 @@ export class BookingsListComponent {
   paginationPageSize = 10;
   paginationPageSizeSelector: number[] | boolean = [5, 10, 20];
   defaultColDef: ColDef = {
-    flex: 1,
+    resizable: true,
     filter: true,
     floatingFilter: true,
   };
@@ -109,6 +109,15 @@ export class BookingsListComponent {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+    setTimeout(() => {
+      this.gridAutoSizeColumns();
+    });
+  }
+
+  gridAutoSizeColumns() {
+    const columns = this.gridApi.getAllGridColumns().filter(column => column?.getColDef()?.field !== 'description');
+    const colIds = columns.map((col) => col.getColId());
+    this.gridApi.autoSizeColumns(colIds);
   }
 
   onCreate() {
@@ -203,12 +212,13 @@ export class BookingsListComponent {
             field: 'contact',
           },
           {
-            headerName: 'Event',
-            field: 'event',
+            headerName: 'Resource',
+            field: 'resource.name',
           },
           {
             headerName: 'Note',
             field: 'description',
+            flex: 1,
           },
           {
             headerName: 'Payment Status',
@@ -224,6 +234,7 @@ export class BookingsListComponent {
           },
         ];
         this.rowData = bookings;
+        this.gridAutoSizeColumns();
       },
       error: (error) => {
         this.toastService.error(error.error.message);
@@ -256,6 +267,7 @@ export class BookingsListComponent {
           {
             headerName: 'Intention',
             field: 'description',
+            flex: 1,
           },
           {
             headerName: 'Status',
@@ -271,6 +283,7 @@ export class BookingsListComponent {
           },
         ];
         this.rowData = bookings;
+        this.gridAutoSizeColumns();
       },
       error: () => {
         console.log('error loading service intention bookings');

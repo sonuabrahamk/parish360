@@ -83,6 +83,8 @@ export const USER_BY_ID = (userId: string) => `/users/${userId}`;
 export const SERVICES = '/configurations/services';
 export const SERVICES_BY_ID = (serviceId: string) =>
   `/configurations/services/${serviceId}`;
+export const SERVICES_BY_DATE = (startDate: string, endDate: string) =>
+  `/configurations/services?startDate=${startDate}&endDate=${endDate}`;
 
 // Resources API paths
 export const RESOURCES = '/configurations/resources';

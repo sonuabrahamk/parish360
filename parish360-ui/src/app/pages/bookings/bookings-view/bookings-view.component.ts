@@ -54,9 +54,11 @@ export class BookingsViewComponent {
   bookingsForm!: FormGroup;
   isEditMode: boolean = true;
 
+  totalBookingAmount: number = 0;
   accounts!: Account[];
   payment!: Payment;
   paymentForm!: FormGroup;
+  payments!: Payment[];
 
   private gridApi!: GridApi;
   rowData: any[] = [];
@@ -87,7 +89,7 @@ export class BookingsViewComponent {
     },
     {
       headerName: 'Booking Amount',
-      field: 'booking_amount',
+      field: 'amount',
     },
     {
       headerName: 'Capacity',
@@ -118,6 +120,28 @@ export class BookingsViewComponent {
     {
       headerName: 'End Time',
       field: 'end_time',
+    },
+  ];
+  paymentColDefs: ColDef<Payment>[] = [
+    {
+      headerName: 'Paid To',
+      field: 'paid_to',
+    },
+    {
+      headerName: 'Account',
+      field: 'account_id',
+    },
+    {
+      headerName: 'amount',
+      field: 'amount',
+    },
+    {
+      headerName: 'Currency',
+      field: 'currency',
+    },
+    {
+      headerName: 'Payment Mode',
+      field: 'payment_mode',
     },
   ];
 
@@ -152,9 +176,11 @@ export class BookingsViewComponent {
                 if (booking.booking_type === 'resource') {
                   this.columnDefs = this.resourceColDefs;
                   this.rowData = booking.items;
+                  this.payments = booking?.payment??[];
                 } else {
                   this.columnDefs = this.serviceColDefs;
                   this.rowData = booking.items;
+                  this.payments =  booking?.payment??[];
                 }
               },
               error: (error) => {
@@ -180,14 +206,22 @@ export class BookingsViewComponent {
     this.gridApi = params.api;
   }
 
+  onSelectionChanged(event: any) {
+    const selectedRows = this.gridApi.getSelectedRows();
+    let totalAmount = 0;
+    selectedRows.forEach((row) => {
+      totalAmount += row.amount;
+    });
+    this.totalBookingAmount = totalAmount;
+  }
+
   onBookingInfoUpdate() {
     const from_date = this.bookingsForm.get('booked_from')?.value;
     const to_date = this.bookingsForm.get('booked_to')?.value;
-    alert(from_date + '' + to_date);
     if (this.bookingsForm.get('booking_type')?.value === 'resource') {
       this.loadResourcesTable(from_date, to_date);
     } else {
-      this.loadServiceIntentionsTable(from_date, to_date);
+      this.loadServiceIntentionsTable(from_date.split('T')[0], to_date.split('T')[0]);
     }
   }
 
@@ -230,19 +264,19 @@ export class BookingsViewComponent {
         this.rowData = resources;
       },
       error: () => {
-        console.log('error in loading resources');
+        this.toast.error('error in loading resources');
       },
     });
   }
 
   loadServiceIntentionsTable(from_date: string, to_date: string) {
-    this.liturgyService.getServices().subscribe({
+    this.liturgyService.getServicesOnDateRange(from_date, to_date).subscribe({
       next: (services) => {
         this.columnDefs = this.serviceColDefs;
         this.rowData = services;
       },
       error: () => {
-        console.log('error in loading resources');
+        this.toast.error('error in loading resources');
       },
     });
   }

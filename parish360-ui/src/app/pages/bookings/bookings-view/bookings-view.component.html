@@ -82,7 +82,7 @@
       Select Resource / Service Intentions to book
     </p>
     <p class="my-4 text-sm" *ngIf="!isEditMode">
-      Resource / Service Intentions to booked
+      Resource / Service Intentions booked
     </p>
     <ag-grid-angular
       class="ag-theme-alpine"
@@ -95,6 +95,7 @@
       [domLayout]="'autoHeight'"
       (gridReady)="onGridReady($event)"
       [rowSelection]="isEditMode ? rowSelection : undefined"
+      (selectionChanged)="onSelectionChanged($event)"
     />
   </app-section-form>
 
@@ -103,6 +104,20 @@
     [formGroup]="paymentForm"
     class="md:col-span-3"
   >
+
+    <ag-grid-angular
+      *ngIf="!isEditMode"
+      class="ag-theme-alpine"
+      [rowData]="payments"
+      [columnDefs]="paymentColDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="paginationPageSize"
+      [paginationPageSizeSelector]="paginationPageSizeSelector"
+      [domLayout]="'autoHeight'"
+      (gridReady)="onGridReady($event)"
+      [rowSelection]="isEditMode ? rowSelection : undefined"
+    />
     <div class="form-section-3" *ngIf="isEditMode">
       <!-- Payment To -->
       <div class="form-group">
@@ -136,7 +151,7 @@
       <!-- Total Amount -->
       <div class="form-group">
         <label>Total Amount</label>
-        <input type="number" id="total_amount" class="lg:col-span-2" disabled />
+        <input type="number" id="total_amount" [value]="totalBookingAmount" class="lg:col-span-2" readonly />
       </div>
 
       <!-- Payment Amount -->

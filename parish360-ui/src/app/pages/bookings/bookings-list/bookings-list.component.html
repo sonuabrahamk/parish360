@@ -1,37 +1,38 @@
 <div class="header">
   <h1>Bookings List</h1>
-</div>
-<div class="p-2 ag-theme-alpine">
-  <div class="flex justify-end">
+  <div class="header-right-section">
     <button
-      class="button text-sm mx-2"
+      class="button text-sm ml-2"
       *appCanCreate="screen"
       (click)="onCreate()"
     >
       Create
     </button>
     <button
-      class="button text-sm mx-2"
+      class="button text-sm ml-2"
       *appCanCreate="screen"
       (click)="onRowAction('payment')"
     >
       Make Payment
     </button>
     <button
-      class="button btn-warning text-sm mx-2"
+      class="button btn-warning text-sm ml-2"
       *appCanDelete="screen"
       (click)="onRowAction('cancel')"
     >
       Cancel
     </button>
     <button
-      class="button btn-danger text-sm mx-2"
+      class="button btn-danger text-sm ml-2"
       *appCanDelete="screen"
       (click)="onRowAction('delete')"
     >
       Delete
     </button>
   </div>
+</div>
+<div class="p-2 ag-theme-alpine">
+  
   <app-tabs [tabs]="bookingTab" [activeTabIndex]="activeTabIndex"></app-tabs>
   <ag-grid-angular
     class="ag-theme-alpine rounded-none"

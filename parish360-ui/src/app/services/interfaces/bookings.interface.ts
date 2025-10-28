@@ -1,4 +1,5 @@
 import { Payment } from './payments.interface';
+import { Resource } from './resources.interface';
 
 export interface Bookings {
   id: string;
@@ -12,6 +13,7 @@ export interface Bookings {
   booked_from: Date;
   booked_to: Date;
   status: string;
+  resource: Resource;
 }
 
 export interface BookingRequest {
