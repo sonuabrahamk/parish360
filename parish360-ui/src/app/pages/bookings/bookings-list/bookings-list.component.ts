@@ -115,7 +115,9 @@ export class BookingsListComponent {
   }
 
   gridAutoSizeColumns() {
-    const columns = this.gridApi.getAllGridColumns().filter(column => column?.getColDef()?.field !== 'description');
+    const columns = this.gridApi
+      .getAllGridColumns()
+      .filter((column) => column?.getColDef()?.field !== 'description');
     const colIds = columns.map((col) => col.getColId());
     this.gridApi.autoSizeColumns(colIds);
   }
@@ -181,7 +183,9 @@ export class BookingsListComponent {
         }
         break;
       case 'payment':
-        this.router.navigateByUrl('/payments/create?booking_code=' + id);
+        this.router.navigateByUrl(
+          '/payments/create?booking_code=' + selectedRows[0]?.booking_code
+        );
         break;
       default:
         this.toastService.warn('No action selected!');

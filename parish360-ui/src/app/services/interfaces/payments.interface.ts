@@ -2,6 +2,7 @@ export interface Payment {
   id: string;
   created_at: Date;
   type: string;
+  date: Date;
   paid_to: string;
   payee: string;
   description: string;
@@ -12,6 +13,9 @@ export interface Payment {
   conversion_rate: string;
   booking_code: string;
   reference_id: string;
+  subscription_from: Date;
+  subscription_to: Date;
+  family_code: string;
 }
 
 export interface Subscription {

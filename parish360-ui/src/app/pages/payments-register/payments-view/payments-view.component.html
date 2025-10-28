@@ -13,8 +13,8 @@
   <!-- Payment Type -->
   <div class="form-group">
     <label>Payment Type</label>
-    <select formControlName="type" class="lg:col-span-2">
-      <option *ngFor="let type of this.paymentTypeList" [value]="type">
+    <select formControlName="type" class="lg:col-span-2" [value]="type">
+      <option *ngFor="let type of this.paymentTypeList">
         {{ type }}
       </option>
     </select>
@@ -23,13 +23,19 @@
   <!-- Payment Date -->
   <div class="form-group">
     <label>Payment Date</label>
-    <input type="date" formControlName="payment_on" class="lg:col-span-2" />
+    <input type="date" formControlName="date" class="lg:col-span-2" />
+  </div>
+
+  <!-- Booking Code -->
+  <div class="form-group">
+    <label>Booking Code</label>
+    <input type="text" formControlName="booking_code" class="lg:col-span-2" />
   </div>
 
   <!-- Payment received By -->
   <div class="form-group">
     <label>Received By</label>
-    <input type="text" formControlName="received_by" class="lg:col-span-2" />
+    <input type="text" formControlName="paid_to" class="lg:col-span-2" />
   </div>
 
   <!-- Payment By -->
@@ -38,16 +44,41 @@
     <input type="text" formControlName="payee" class="lg:col-span-2" />
   </div>
 
+  <!-- Family Code -->
+  <div class="form-group">
+    <label>Family Code</label>
+    <input type="text" formControlName="family_code" class="lg:col-span-2" />
+  </div>
+
+  <!-- Account -->
+  <div class="form-group">
+    <label>Account</label>
+    <select formControlName="account_id" class="lg:col-span-2">
+      <option
+        *ngFor="let account of accounts; let i = index"
+        [value]="account.id"
+      >
+        {{ account.name }}
+      </option>
+    </select>
+  </div>
+
   <!-- Amount -->
   <div class="form-group">
     <label>Amount</label>
     <input type="number" formControlName="amount" class="lg:col-span-2" />
   </div>
 
-  <!-- Remarks -->
+  <!-- Currency -->
+  <div class="form-group">
+    <label>Currency</label>
+    <input type="text" formControlName="currency" class="lg:col-span-2" />
+  </div>
+
+  <!-- Description -->
   <div class="form-group col-span-3 grid grid-cols-1 md:grid-cols-10">
-    <label>Remarks</label>
-    <input type="text" formControlName="remarks" class="lg:col-span-9" />
+    <label>Description</label>
+    <input type="text" formControlName="description" class="lg:col-span-9" />
   </div>
 
   <!-- Subscription details section -->
@@ -55,117 +86,33 @@
     [title]="'Subscriptions Details'"
     *ngIf="type === paymentTypes.SUBSCRIPTIONS"
     class="col-span-3 grid grid-cols-1"
-    formArrayName="subscriptions"
   >
-    <ng-container
-      *ngFor="
-        let subscription of this.formArray('subscriptions').controls;
-        let i = index
-      "
-    >
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" [formGroupName]="i">
-        <!-- Book No -->
-        <div class="form-group">
-          <label>Book No</label>
-          <input type="text" formControlName="book_no" class="lg:col-span-2" />
-        </div>
-
-        <!-- From Date -->
-        <div class="form-group">
-          <label>From</label>
-          <input type="date" formControlName="from" class="lg:col-span-2" />
-        </div>
-
-        <!-- To Date -->
-        <div class="form-group">
-          <label>To</label>
-          <input type="date" formControlName="to" class="lg:col-span-2" />
-        </div>
-
-        <!-- Note -->
-        <div class="form-group col-span-3 grid grid-col-1 md:grid-cols-10">
-          <label>Note</label>
-          <input type="date" formControlName="to" class="lg:col-span-9" />
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- From Date -->
+      <div class="form-group">
+        <label>Subscription From</label>
+        <input
+          type="date"
+          formControlName="subscription_from"
+          class="lg:col-span-2"
+        />
       </div>
-    </ng-container>
-  </app-section-form>
 
-  <!-- Bookings details section -->
-  <app-section-form
-    [title]="'Booking Details'"
-    *ngIf="type === paymentTypes.BOOKINGS"
-    class="col-span-3 grid grid-cols-1"
-    formArrayName="bookings"
-  >
-    <ng-container
-      *ngFor="
-        let subscription of this.formArray('bookings').controls;
-        let i = index
-      "
-    >
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" [formGroupName]="i">
-        <!-- Booking Id -->
-        <div class="form-group">
-          <label>Booking ID</label>
-          <input
-            type="text"
-            formControlName="booking_id"
-            class="lg:col-span-2"
-          />
-        </div>
-
-        <!-- From Date -->
-        <div class="form-group">
-          <label>Booking Type</label>
-          <input type="text" formControlName="type" class="lg:col-span-2" />
-        </div>
-
-        <!-- Note -->
-        <div class="form-group col-span-3 grid grid-col-1 md:grid-cols-10">
-          <label>Note</label>
-          <input type="text" formControlName="note" class="lg:col-span-9" />
-        </div>
+      <!-- To Date -->
+      <div class="form-group">
+        <label>Subscription To</label>
+        <input
+          type="date"
+          formControlName="subscription_to"
+          class="lg:col-span-2"
+        />
       </div>
-    </ng-container>
-  </app-section-form>
-
-  <!-- Donation details section -->
-  <app-section-form
-    [title]="'Donation Details'"
-    *ngIf="type === paymentTypes.DONATIONS"
-    class="col-span-3 grid grid-cols-1"
-    formArrayName="donations"
-  >
-    <ng-container
-      *ngFor="
-        let subscription of this.formArray('donations').controls;
-        let i = index
-      "
-    >
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4" [formGroupName]="i">
-        <!-- Booking Id -->
-        <div class="form-group">
-          <label>Association</label>
-          <input
-            type="text"
-            formControlName="association"
-            class="lg:col-span-2"
-          />
-        </div>
-
-        <!-- Note -->
-        <div class="form-group col-span-2 grid grid-col-1 md:grid-cols-10">
-          <label>Note</label>
-          <input type="text" formControlName="note" class="lg:col-span-9" />
-        </div>
-      </div>
-    </ng-container>
+    </div>
   </app-section-form>
 </div>
 
 <app-footer
-  *ngIf="isEditMode"
+  *appCanEdit="screen"
   [isEditMode]="this.isEditMode"
   (modeUpdated)="onModeUpdated($event)"
 ></app-footer>
