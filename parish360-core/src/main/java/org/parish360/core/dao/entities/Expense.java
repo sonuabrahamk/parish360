@@ -10,6 +10,7 @@ import org.parish360.core.dao.entities.configurations.Account;
 import org.parish360.core.dao.entities.dataowner.Parish;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -24,6 +25,7 @@ public class Expense extends BaseEntity {
     @Column(name = "paid_to")
     private String paidTo;
 
+    private LocalDate date;
     private String description;
     private BigDecimal amount;
     private String currency;

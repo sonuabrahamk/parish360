@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -23,6 +24,7 @@ public class ExpenseInfo {
     @NotNull(message = "payment to field cannot be null")
     private String paidTo;
     private String paidBy;
+    private LocalDate date;
     private String description;
     @NotNull(message = "payment amount field cannot be null")
     private BigDecimal amount;

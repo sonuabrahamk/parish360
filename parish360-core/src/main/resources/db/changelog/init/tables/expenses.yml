@@ -26,6 +26,11 @@ databaseChangeLog:
                   name: updated_by
                   type: VARCHAR(100)
               - column:
+                  name: date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
                   name: paid_to
                   type: VARCHAR(100)
                   constraints:

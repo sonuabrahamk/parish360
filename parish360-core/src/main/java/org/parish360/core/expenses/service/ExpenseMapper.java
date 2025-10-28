@@ -12,6 +12,7 @@ import org.parish360.core.expenses.dto.ExpenseInfo;
 public interface ExpenseMapper {
     // payments mapper
     @Mapping(source = "id", target = "id", qualifiedByName = "uuidToBase64")
+    @Mapping(source = "account.id", target = "accountId", qualifiedByName = "uuidToBase64")
     ExpenseInfo daoToExpenseInfo(Expense expense);
 
     @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
