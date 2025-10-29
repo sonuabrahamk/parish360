@@ -13,6 +13,7 @@ import { PaymentService } from '../../../services/api/payments.service';
 import { Router } from '@angular/router';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { CanDeleteDirective } from '../../../directives/can-delete.directive';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-payments-list',
@@ -73,7 +74,11 @@ export class PaymentsListComponent {
     },
   ];
 
-  constructor(private paymentService: PaymentService, private router: Router) {}
+  constructor(
+    private paymentService: PaymentService,
+    private router: Router,
+    private toast: ToastService
+  ) {}
 
   ngOnInit() {
     this.paymentService.getPayments().subscribe((payments) => {
@@ -90,6 +95,34 @@ export class PaymentsListComponent {
   }
 
   onDelete() {
-    console.log(this.gridApi.getSelectedRows());
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length === 0) {
+      this.toast.warn('No payment selected for deletion.');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toast.warn('Please select only one payment to delete at a time.');
+      return;
+    }
+    this.toast
+      .confirm('Are you sure you want to delete the selected payment?')
+      .then((confirmed) => {
+        if (confirmed) {
+          const paymentId = selectedRows[0].id;
+          this.paymentService.deletePayment(paymentId).subscribe({
+            next: () => {
+              this.toast.success('Payment deleted successfully.');
+              this.rowData = this.rowData.filter(
+                (payment) => payment.id !== paymentId
+              );
+            },
+            error: (error) => {
+              this.toast.error(
+                'Failed to delete the payment: ' + error.message
+              );
+            },
+          });
+        }
+      });
   }
 }

@@ -92,7 +92,7 @@ export class PersonalSectionComponent {
   }
 
   createMember() {
-    this.memberService.createMember(this.recordId, this.memberForm.value).subscribe({
+    this.memberService.createMember(this.recordId, this.memberForm.getRawValue()).subscribe({
       next: (response) => {
         console.log('Member created successfully', response);
         this.router.navigate(['/family-records', this.recordId, 'members']);
@@ -102,11 +102,11 @@ export class PersonalSectionComponent {
       }
     });
 
-    console.log('Create member', this.memberForm.value);
+    console.log('Create member', this.memberForm.getRawValue());
   }
 
   updateMember() {
-    this.memberService.updateMember(this.recordId, this.memberId, this.memberForm.value).subscribe({
+    this.memberService.updateMember(this.recordId, this.memberId, this.memberForm.getRawValue()).subscribe({
       next: (response) => {
         console.log('Member updated successfully', response);
         this.router.navigate(['/family-records', this.recordId, 'members']);

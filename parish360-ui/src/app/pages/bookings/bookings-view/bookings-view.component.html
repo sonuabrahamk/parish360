@@ -104,7 +104,6 @@
     [formGroup]="paymentForm"
     class="md:col-span-3"
   >
-
     <ag-grid-angular
       *ngIf="!isEditMode"
       class="ag-theme-alpine"
@@ -151,7 +150,13 @@
       <!-- Total Amount -->
       <div class="form-group">
         <label>Total Amount</label>
-        <input type="number" id="total_amount" [value]="totalBookingAmount" class="lg:col-span-2" readonly />
+        <input
+          type="number"
+          id="total_amount"
+          [value]="totalBookingAmount"
+          class="lg:col-span-2"
+          readonly
+        />
       </div>
 
       <!-- Payment Amount -->
@@ -174,7 +179,7 @@
         <select
           formControlName="payment_mode"
           class="lg:col-span-2"
-          value="INR"
+          value="cash"
         >
           <option value="cash">Pay at Office</option>
           <option value="upi">UPI</option>

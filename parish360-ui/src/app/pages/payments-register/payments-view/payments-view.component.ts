@@ -1,20 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import {
-  BookingsPayment,
-  Donation,
-  Payment,
-  Subscription,
-} from '../../../services/interfaces/payments.interface';
+import { Payment } from '../../../services/interfaces/payments.interface';
 import { PaymentService } from '../../../services/api/payments.service';
 import {
   PAYMENT_TYPES,
@@ -81,7 +71,6 @@ export class PaymentsViewComponent {
       next: (accounts) => {
         this.accounts = accounts;
         if (this.paymentId) {
-          alert(this.paymentId);
           this.paymentService
             .getPayment(this.paymentId)
             .subscribe((payment) => {
@@ -144,7 +133,7 @@ export class PaymentsViewComponent {
       currency: [this.payment?.currency || 'INR'],
       description: [this.payment?.description || ''],
       booking_code: [this.payment?.booking_code || ''],
-      payment_mode: [this.payment?.payment_mode || ''],
+      payment_mode: [this.payment?.payment_mode || 'cash'],
       account_id: [this.payment?.account_id || this.accounts[0]?.id || ''],
       subscription_from: [this.payment?.subscription_from || ''],
       subscription_to: [this.payment?.subscription_to || ''],
@@ -153,16 +142,87 @@ export class PaymentsViewComponent {
   }
 
   onModeUpdated(event: FooterEvent) {
-    if (event.isCancelTriggered) {
-      this.router.navigate(['/payments']);
-    } else {
-      confirm('Are you sure you want to add this payment ?')
-        ? this.router.navigate(['/payments'])
-        : (this.isEditMode = true);
+    this.isEditMode = event.isEditMode;
+    event.isEditMode ? this.paymentForm.enable() : this.paymentForm.disable();
+    if (this.paymentId && event.isEditMode) {
+      this.paymentForm.disable();
+      this.paymentForm.get('paid_to')?.enable();
+      this.paymentForm.get('payee')?.enable();
+      this.paymentForm.get('description')?.enable();
+      this.paymentForm.get('family_code')?.enable();
+      this.paymentForm.get('payment_mode')?.enable();
     }
+    event.isSaveTriggered
+      ? this.toast
+          .confirm('Are you sure you want to save the payment?')
+          .then((confirmed) => {
+            if (confirmed) {
+              this.onSavePayment();
+            }
+          })
+      : null;
+    event.isDeleteTriggered
+      ? this.toast
+          .confirm(
+            'Are you sure you want to delete the payment? This action is irreversible!'
+          )
+          .then((confirmed) => {
+            if (confirmed) {
+              this.onDeletePayment();
+            }
+          })
+      : null;
   }
 
   get type(): string {
     return this.paymentForm.get('type')?.value as string;
+  }
+
+  onSavePayment() {
+    if (this.paymentForm.invalid) {
+      this.toast.error('Please fill all required fields correctly.');
+      return;
+    }
+    if (!this.paymentId) {
+      this.paymentService
+        .createPayment(this.paymentForm.getRawValue())
+        .subscribe({
+          next: () => {
+            this.toast.success('Payment saved successfully!');
+            this.router.navigate(['/payments']);
+          },
+          error: (error) => {
+            this.toast.error('Error saving payment: ' + error.message);
+          },
+        });
+    } else {
+      this.paymentService
+        .updatePayment(this.paymentId, this.paymentForm.getRawValue())
+        .subscribe({
+          next: () => {
+            this.toast.success('Payment updated successfully!');
+            this.router.navigate(['/payments/view', this.paymentId]);
+          },
+          error: (error) => {
+            this.toast.error('Error updating payment: ' + error.message);
+          },
+        });
+    }
+  }
+
+  onDeletePayment() {
+    if (!this.paymentId) {
+      this.toast.error('No payment selected to delete.');
+      return;
+    }
+    this.paymentService.deletePayment(this.paymentId).subscribe({
+      next: () => {
+        this.toast.success('Payment deleted successfully!');
+        this.router.navigate(['/payments']);
+      },
+      error: (error) => {
+        this.toast.error('Error deleting payment: ' + error.message);
+      },
+    });
   }
 }

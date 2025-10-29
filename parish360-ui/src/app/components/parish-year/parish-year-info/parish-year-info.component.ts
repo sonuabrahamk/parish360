@@ -74,7 +74,7 @@ export class ParishYearInfoComponent {
     (await this.toast.confirm('Are you sure you want to save the changes ?')) &&
     this.parishYearId === 'new'
       ? this.parishYearService
-          .createParishYear(this.parishYearInfoForm.value)
+          .createParishYear(this.parishYearInfoForm.getRawValue())
           .subscribe({
             next: (parishYear) => {
               this.toast.success(
@@ -89,7 +89,7 @@ export class ParishYearInfoComponent {
             },
           })
       : this.parishYearService
-          .updateParishYear(this.parishYearId, this.parishYearInfoForm.value)
+          .updateParishYear(this.parishYearId, this.parishYearInfoForm.getRawValue())
           .subscribe({
             next: (parishYear) => {
               this.parishYearId = parishYear.id;

@@ -106,7 +106,7 @@ export class CeremonyViewComponent {
   onSave() {
     if (this.ceremonyId && this.ceremonyId !== 'create') {
       this.ceremonyService
-        .updateCeremony(this.ceremonyId, this.ceremonyForm.value)
+        .updateCeremony(this.ceremonyId, this.ceremonyForm.getRawValue())
         .subscribe({
           next: (ceremony) => {
             this.ceremony = ceremony;
@@ -119,7 +119,7 @@ export class CeremonyViewComponent {
           },
         });
     } else {
-      this.ceremonyService.createCeremony(this.ceremonyForm.value).subscribe({
+      this.ceremonyService.createCeremony(this.ceremonyForm.getRawValue()).subscribe({
         next: (ceremony) => {
           this.ceremony = ceremony;
           this.toast.success('Ceremony record created successfully!');

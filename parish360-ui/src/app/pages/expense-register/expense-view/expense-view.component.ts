@@ -112,7 +112,7 @@ export class ExpenseViewComponent {
   onSave() {
     if (this.expenseForm.get('id')?.value === 'create') {
       this.expenseForm.removeControl('id');
-      this.expenseService.createExpense(this.expenseForm.value).subscribe({
+      this.expenseService.createExpense(this.expenseForm.getRawValue()).subscribe({
         next: (expense) => {
           this.toast.success('Expense created successfully');
           this.router.navigate(['/expenses/view', expense.id]);
@@ -123,7 +123,7 @@ export class ExpenseViewComponent {
       });
     } else {
       this.expenseService
-        .updateExpense(this.expenseId!, this.expenseForm.value)
+        .updateExpense(this.expenseId!, this.expenseForm.getRawValue())
         .subscribe({
           next: (expense) => {
             this.toast.success('Expense updated successfully');

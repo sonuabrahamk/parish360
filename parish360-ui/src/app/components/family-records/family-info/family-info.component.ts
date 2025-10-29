@@ -90,7 +90,7 @@ export class FamilyInfoComponent {
     if (this.familyInfoForm.valid) {
       confirm('Are you sure you want to save the changes?') &&
         (this.recordId === 'new'
-          ? this.familyRecordsService.createFamilyRecordInfo(this.familyInfoForm.value).subscribe({
+          ? this.familyRecordsService.createFamilyRecordInfo(this.familyInfoForm.getRawValue()).subscribe({
               next: (response) => {
                 window.location.href = `/family-records/${response.id}`;
               },
@@ -98,7 +98,7 @@ export class FamilyInfoComponent {
                 console.error('Error creating new family record', err);
               },
             })
-          : this.familyRecordsService.updateFamilyRecordInfo(this.recordId, this.familyInfoForm.value).subscribe({
+          : this.familyRecordsService.updateFamilyRecordInfo(this.recordId, this.familyInfoForm.getRawValue()).subscribe({
               next: (response) => {
                 console.log('Family record updated successfully', response);
                 this.isEditMode = false;

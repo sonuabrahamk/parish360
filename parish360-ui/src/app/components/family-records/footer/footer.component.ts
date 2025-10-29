@@ -9,7 +9,6 @@ import {
   faFloppyDisk,
 } from '@fortawesome/free-solid-svg-icons';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
-import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-footer',
@@ -31,24 +30,14 @@ export class FooterComponent {
   };
   isLoading: boolean = false;
 
-  constructor(private toast: ToastService) {}
-
   delete() {
-    this.toast
-      .confirm(
-        'Are you sure you want to perform delete operation? This will be irreversible.'
-      )
-      .then((confirmed) => {
-        if (confirmed) {
-          this.isEditMode = false;
-          this.modeUpdated.emit({
-            isEditMode: this.isEditMode,
-            isSaveTriggered: false,
-            isCancelTriggered: false,
-            isDeleteTriggered: true,
-          });
-        }
-      });
+    this.isEditMode = false;
+    this.modeUpdated.emit({
+      isEditMode: this.isEditMode,
+      isSaveTriggered: false,
+      isCancelTriggered: false,
+      isDeleteTriggered: true,
+    });
   }
 
   edit() {
@@ -74,17 +63,11 @@ export class FooterComponent {
   }
 
   cancelEdit() {
-    this.toast
-      .confirm('Are you sure you want to cancel? All changes will be lost.')
-      .then((confirmed) => {
-        if (confirmed) {
-          this.isEditMode = false;
-          this.modeUpdated.emit({
-            isEditMode: this.isEditMode,
-            isSaveTriggered: false,
-            isCancelTriggered: true,
-          });
-        }
-      });
+    this.isEditMode = false;
+    this.modeUpdated.emit({
+      isEditMode: this.isEditMode,
+      isSaveTriggered: false,
+      isCancelTriggered: true,
+    });
   }
 }
