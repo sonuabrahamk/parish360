@@ -8,6 +8,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    font-family: var(--default-font-family);
+  }
+
   h1 {
     @apply text-xl font-bold text-primary-color;
   }
@@ -87,6 +92,22 @@
   .unpaid-cell {
     background-color: #f8f9fa;
     color: #6c757d;
+  }
+
+  .summary-card {
+    @apply bg-gray-100 shadow-md relative text-center;
+  }
+
+  .summary-card fa-icon {
+    @apply text-7xl absolute -top-6 left-3 text-primary-color;
+  }
+
+  .summary-card p {
+    @apply text-6xl font-bold text-right border-b text-secondary-color p-2 border-secondary-color;
+  }
+
+  .summary-card h3 {
+    @apply text-right text-xl text-primary-color p-2;
   }
 
   /* AG Grid styles */
