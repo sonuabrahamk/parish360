@@ -99,7 +99,7 @@
   }
 
   .summary-card fa-icon {
-    @apply text-7xl absolute -top-6 left-5 text-primary-color;
+    @apply text-6xl absolute -top-6 left-5 text-primary-color;
   }
 
   .summary-card p {
