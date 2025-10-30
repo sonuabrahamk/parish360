@@ -95,19 +95,19 @@
   }
 
   .summary-card {
-    @apply bg-gray-100 shadow-md relative text-center;
+    @apply bg-white shadow-md shadow-primary-color rounded-xl relative text-center;
   }
 
   .summary-card fa-icon {
-    @apply text-7xl absolute -top-6 left-3 text-primary-color;
+    @apply text-7xl absolute -top-6 left-5 text-primary-color;
   }
 
   .summary-card p {
-    @apply text-6xl font-bold text-right border-b text-secondary-color p-2 border-secondary-color;
+    @apply text-6xl font-bold text-right border-b text-secondary-color p-2 pl-8 border-primary-color;
   }
 
   .summary-card h3 {
-    @apply text-right text-xl text-primary-color p-2;
+    @apply text-right text-xl text-secondary-color p-2;
   }
 
   /* AG Grid styles */
