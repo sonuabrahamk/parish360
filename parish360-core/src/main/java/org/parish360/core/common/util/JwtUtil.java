@@ -24,6 +24,9 @@ public class JwtUtil {
         return Jwts.builder()
                 .setSubject(user.getEmail())
                 .claim(AuthConstants.TOKEN_PERMISSIONS, permissions)
+                .claim(AuthConstants.TIMEZONE, user.getTimezone())
+                .claim(AuthConstants.CURRENCY, user.getCurrency())
+                .claim(AuthConstants.LOCALE, user.getLocale())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .signWith(SECRET_KEY)
@@ -37,6 +40,33 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String extractTimezone(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(AuthConstants.TIMEZONE).toString();
+    }
+
+    public String extractLocale(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(AuthConstants.LOCALE).toString();
+    }
+
+    public String extractCurrency(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET_KEY)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get(AuthConstants.CURRENCY).toString();
     }
 
     public boolean validateToken(String token, String path, String method) {

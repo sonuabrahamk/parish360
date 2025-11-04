@@ -17,7 +17,7 @@ databaseChangeLog:
                   value: All permissions role
               - column:
                   name: dataowner_id
-                  value: 2597de98-7553-4eb5-9384-82299d0fb31d
+                  valueComputed: "(SELECT id FROM parish)"
         - insert:
             tableName: roles
             columns:
@@ -32,4 +32,4 @@ databaseChangeLog:
                   value: All screens viewer role
               - column:
                   name: dataowner_id
-                  value: 2597de98-7553-4eb5-9384-82299d0fb31d
+                  valueComputed: "(SELECT id FROM parish)"

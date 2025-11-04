@@ -54,18 +54,29 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: address_id
-                  type: UUID
-                  constraints:
-                    nullable: true
-                    foreignKeyName: fk_address_diocese
-                    references: address(id)
+                  name: address
+                  type: TEXT
+              - column:
+                  name: location
+                  type: VARCHAR(100)
+              - column:
+                  name: city
+                  type: VARCHAR(100)
+              - column:
+                  name: state
+                  type: VARCHAR(100)
+              - column:
+                  name: country
+                  type: VARCHAR(100)
               - column:
                   name: website
                   type: VARCHAR(100)
               - column:
                   name: locale
-                  type: VARCHAR(100)
+                  type: VARCHAR(10)
               - column:
                   name: timezone
                   type: VARCHAR(100)
+              - column:
+                  name: currency
+                  type: VARCHAR(10)

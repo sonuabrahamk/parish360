@@ -8,7 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_id
-                  value: 1253ab2c-c275-405f-b53f-2d951d3e349d
+                  valueComputed: "(SELECT id FROM users WHERE username='sonabr')"
               - column:
                   name: diocese_id
                   valueComputed: "(SELECT id FROM diocese)"
@@ -17,7 +17,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_id
-                  value: f58e1098-27d8-48a8-bd68-90ee95fc6094
+                  valueComputed: "(SELECT id FROM users WHERE username='bobsmi')"
               - column:
                   name: diocese_id
                   valueComputed: "(SELECT id FROM diocese)"

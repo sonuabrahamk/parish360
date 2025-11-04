@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-dataowner
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: dataowner
+            columns:
+              - column:
+                  name: type
+                  value: Diocese
+        - insert:
+            tableName: dataowner
+            columns:
+              - column:
+                  name: type
+                  value: Forane
+        - insert:
+            tableName: dataowner
+            columns:
+              - column:
+                  name: type
+                  value: Parish

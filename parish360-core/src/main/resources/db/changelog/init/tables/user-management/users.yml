@@ -50,9 +50,21 @@ databaseChangeLog:
                   name: contact
                   type: VARCHAR(20)
               - column:
+                  name: timezone
+                  type: VARCHAR(100)
+                  defaultValue: 'Asia/Kolkata'
+              - column:
+                  name: currency
+                  type: VARCHAR(10)
+                  defaultValue: 'INR'
+              - column:
+                  name: locale
+                  type: VARCHAR(10)
+                  defaultValue: 'en-IN'
+              - column:
                   name: is_active
                   type: BOOLEAN
-                  defaultValueComputed: true
+                  defaultValue: true
                   constraints:
                     nullable: false
               - column:
@@ -61,13 +73,13 @@ databaseChangeLog:
               - column:
                   name: tou_accepted
                   type: BOOLEAN
-                  defaultValueComputed: false
+                  defaultValue: false
                   constraints:
                     nullable: false
               - column:
                   name: reset_password
                   type: BOOLEAN
-                  defaultValueComputed: false
+                  defaultValue: false
                   constraints:
                     nullable: false
               - column:

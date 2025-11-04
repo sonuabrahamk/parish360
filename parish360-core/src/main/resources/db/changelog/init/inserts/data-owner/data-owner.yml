@@ -1,5 +1,7 @@
 databaseChangeLog:
   - include:
+      file: db/changelog/init/inserts/data-owner/dataowner.yml
+  - include:
       file: db/changelog/init/inserts/data-owner/diocese.yml
   - include:
       file: db/changelog/init/inserts/data-owner/forane.yml

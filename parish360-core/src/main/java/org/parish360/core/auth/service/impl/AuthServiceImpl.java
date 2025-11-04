@@ -4,6 +4,7 @@ import org.parish360.core.auth.dto.AuthenticationRequest;
 import org.parish360.core.auth.dto.AuthenticationResponse;
 import org.parish360.core.auth.dto.Permissions;
 import org.parish360.core.auth.service.AuthService;
+import org.parish360.core.auth.service.AuthServiceMapper;
 import org.parish360.core.common.enums.PermissionType;
 import org.parish360.core.common.util.JwtUtil;
 import org.parish360.core.common.util.UUIDUtil;
@@ -23,6 +24,7 @@ import java.util.Set;
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
+    private final AuthServiceMapper authServiceMapper;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -30,8 +32,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(UserRepository userRepository) {
+    public AuthServiceImpl(UserRepository userRepository, AuthServiceMapper authServiceMapper) {
         this.userRepository = userRepository;
+        this.authServiceMapper = authServiceMapper;
     }
 
     private void applyPermission(Permissions permissions, Permission permission) {
@@ -62,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
         // jwt token
         Permissions permissions = getPermissions(user);
         String jwt = jwtUtil.generateToken(user, permissions);
-        return new AuthenticationResponse(jwt, permissions);
+        return new AuthenticationResponse(jwt, permissions, authServiceMapper.daoToUserInfo(user));
     }
 
     @Override

@@ -43,5 +43,8 @@ public class UserInfo {
     private Boolean isTouAccepted;
     private Boolean isResetPassword;
     private String comment;
+    private String locale;
+    private String currency;
+    private String timezone;
     private String dataownerId;
 }

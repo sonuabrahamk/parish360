@@ -7,11 +7,14 @@ databaseChangeLog:
             tableName: forane
             columns:
               - column:
+                  name: id
+                  valueComputed: "(SELECT id FROM dataowner WHERE type='Forane')"
+              - column:
                   name: created_by
                   value: initial_load
               - column:
-                  name: diocese
-                  valueComputed: "(SELECT id FROM diocese)"
+                  name: diocese_id
+                  valueComputed: "(SELECT id FROM dataowner WHERE type='Diocese')"
               - column:
                   name: name
                   value: Mount Carmel Forane Church
@@ -48,3 +51,6 @@ databaseChangeLog:
               - column:
                   name: timezone
                   value: Asia/Kolkata
+              - column:
+                  name: currency
+                  value: 'INR'

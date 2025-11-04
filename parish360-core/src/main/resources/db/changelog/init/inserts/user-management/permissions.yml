@@ -483,3 +483,18 @@ databaseChangeLog:
               - column:
                   name: permission
                   value: DELETE
+        - insert:
+            tableName: permissions
+            columns:
+              - column:
+                  name: name
+                  value: view-dashboard
+              - column:
+                  name: description
+                  value: Permission to view new dashboard
+              - column:
+                  name: module
+                  value: dashboard
+              - column:
+                  name: permission
+                  value: VIEW

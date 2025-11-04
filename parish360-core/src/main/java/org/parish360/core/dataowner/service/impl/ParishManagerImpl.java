@@ -12,6 +12,7 @@ import org.parish360.core.dataowner.dto.ParishInfo;
 import org.parish360.core.dataowner.service.DataownerMapper;
 import org.parish360.core.dataowner.service.ParishManager;
 import org.parish360.core.error.exception.BadRequestException;
+import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,27 @@ public class ParishManagerImpl implements ParishManager {
         return parishRepository.findAll().stream()
                 .map(dataownerMapper::daoToParishInfo)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public ParishInfo getParishInfo(String parishId) {
+        Parish parish = parishRepository
+                .findById(UUIDUtil.decode(parishId))
+                .orElseThrow(() -> new ResourceNotFoundException("could not fetch parish information"));
+        return dataownerMapper.daoToParishInfo(parish);
+    }
+
+    @Override
+    public ParishInfo updateParishInfo(String parishId, ParishInfo parishInfo) {
+        Parish currentParish = parishRepository
+                .findById(UUIDUtil.decode(parishId))
+                .orElseThrow(() -> new ResourceNotFoundException("could not fetch parish information"));
+
+        Parish updateParish = dataownerMapper.parishInfoToDao(parishInfo);
+
+        dataownerMapper.mergeNotNullParishInfo(updateParish, currentParish);
+
+        return dataownerMapper.daoToParishInfo(parishRepository.save(currentParish));
     }
 
     @Override

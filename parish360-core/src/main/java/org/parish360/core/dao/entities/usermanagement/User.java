@@ -38,6 +38,15 @@ public class User extends BaseEntity {
     @Column
     private String contact;
 
+    @Column
+    private String timezone;
+
+    @Column
+    private String currency;
+
+    @Column
+    private String locale;
+
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
 

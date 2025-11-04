@@ -60,8 +60,11 @@ public class Parish extends Dataowner {
     @Column
     private String timezone;
 
+    @Column
+    private String currency;
+
     @Embedded
-    private Address address;
+    private Address place;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "diocese_id", nullable = false)

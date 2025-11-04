@@ -6,6 +6,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
+import org.parish360.core.auth.dto.UserPrincipal;
 import org.parish360.core.common.util.JwtUtil;
 import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.error.exception.UnAuthorizedException;
@@ -31,7 +32,9 @@ public class AuthFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
-        return path.startsWith("/auth") || path.startsWith("/health");
+        return path.startsWith("/auth")
+                || path.startsWith("/health")
+                || path.startsWith("/dataowner");
     }
 
     @Override
@@ -53,8 +56,15 @@ public class AuthFilter extends OncePerRequestFilter {
                         if (token != null
                                 && SecurityContextHolder.getContext().getAuthentication() == null
                                 && jwtUtil.validateToken(token, path, request.getMethod())) {
+
+                            UserPrincipal userPrincipal = UserPrincipal.builder()
+                                    .username(jwtUtil.extractSubject(token))
+                                    .timeZone(jwtUtil.extractTimezone(token))
+                                    .locale(jwtUtil.extractLocale(token))
+                                    .currency(jwtUtil.extractCurrency(token))
+                                    .build();
                             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                                    jwtUtil.extractSubject(token), null, null);
+                                    userPrincipal, null, null);
 
                             // This is CRUCIAL
                             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

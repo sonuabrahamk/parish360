@@ -1,5 +1,5 @@
 databaseChangeLog:
-  #  - include:
-  #      file: db/changelog/init/inserts/data-owner/data-owner.yml
+  - include:
+      file: db/changelog/init/inserts/data-owner/data-owner.yml
   - include:
       file: db/changelog/init/inserts/user-management/user-role-permission.yml

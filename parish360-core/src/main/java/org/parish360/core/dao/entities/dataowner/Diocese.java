@@ -61,6 +61,12 @@ public class Diocese extends Dataowner {
     @Column
     private String timezone;
 
+    @Column
+    private String currency;
+
+    @Column
+    private String address;
+
     @Embedded
-    private Address address;
+    private Address place;
 }

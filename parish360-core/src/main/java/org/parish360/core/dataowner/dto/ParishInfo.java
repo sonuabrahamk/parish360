@@ -33,5 +33,6 @@ public class ParishInfo {
     private String website;
     private String locale;
     private String timezone;
-    private Address address;
+    private String currency;
+    private Address place;
 }
