@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.parish360.core.common.dto.Address;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,9 +16,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class MigrationInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotNull(message = "migration date is not mentioned")

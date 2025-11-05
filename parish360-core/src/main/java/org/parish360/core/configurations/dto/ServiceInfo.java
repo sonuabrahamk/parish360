@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Getter
@@ -16,9 +16,9 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class ServiceInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
     private String name;
     private String type;

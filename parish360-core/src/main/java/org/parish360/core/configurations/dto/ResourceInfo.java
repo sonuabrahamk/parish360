@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,9 +15,9 @@ import java.time.Instant;
 @AllArgsConstructor
 public class ResourceInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
     @NotNull(message = "resource name cannot be empty")
     private String name;

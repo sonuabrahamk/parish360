@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,9 +16,9 @@ import java.time.Instant;
 @AllArgsConstructor
 public class UserInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotNull(message = "first name not provided")
@@ -39,7 +39,7 @@ public class UserInfo {
     @NotNull(message = "status not set")
     private Boolean isActive;
 
-    private Instant lastLogin;
+    private LocalDateTime lastLogin;
     private Boolean isTouAccepted;
     private Boolean isResetPassword;
     private String comment;

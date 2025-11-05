@@ -1,12 +1,13 @@
 package org.parish360.core.expenses.service;
 
 import org.mapstruct.*;
+import org.parish360.core.common.util.TimezoneUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.Expense;
 import org.parish360.core.expenses.dto.ExpenseInfo;
 
 @Mapper(componentModel = "spring",
-        uses = {UUIDUtil.class},
+        uses = {UUIDUtil.class, TimezoneUtil.class},
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ExpenseMapper {

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.time.Year;
 
@@ -17,9 +17,9 @@ import java.time.Year;
 @AllArgsConstructor
 public class SubscriptionInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotNull(message = "year is not mentioned")

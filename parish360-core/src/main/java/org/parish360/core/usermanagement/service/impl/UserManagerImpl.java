@@ -1,6 +1,5 @@
 package org.parish360.core.usermanagement.service.impl;
 
-import org.parish360.core.common.util.AuthUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.dataowner.Dataowner;
 import org.parish360.core.dao.entities.usermanagement.User;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,10 +60,6 @@ public class UserManagerImpl implements UserManager {
         Dataowner dataowner = dataownerRepository.findById(UUIDUtil.decode(dataownerId))
                 .orElseThrow(() -> new BadRequestException("invalid dataowner"));
 
-        // set default values and entity ID
-        userInfo.setCreatedBy(AuthUtil.getCurrentUserId());
-        userInfo.setCreatedAt(Instant.now());
-
         // password hashing for user creation
         if (userInfo.getPassword() == null) {
             throw new BadRequestException("password is required for user creation");
@@ -91,8 +85,6 @@ public class UserManagerImpl implements UserManager {
         // copy id and entity fields to userInfo
         // create User DAO from userInfo
         userInfo.setId(userId);
-        userInfo.setUpdatedAt(Instant.now());
-        userInfo.setUpdatedBy(AuthUtil.getCurrentUserId());
 
         // hashing password if provided to update
         if (userInfo.getPassword() != null) {

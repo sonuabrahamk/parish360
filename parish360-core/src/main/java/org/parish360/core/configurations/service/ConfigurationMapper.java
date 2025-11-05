@@ -1,13 +1,14 @@
 package org.parish360.core.configurations.service;
 
 import org.mapstruct.*;
+import org.parish360.core.common.util.TimezoneUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.configurations.dto.*;
 import org.parish360.core.dao.entities.associations.ParishYearAssociation;
 import org.parish360.core.dao.entities.configurations.*;
 
 @Mapper(componentModel = "spring",
-        uses = {UUIDUtil.class},
+        uses = {UUIDUtil.class, TimezoneUtil.class},
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ConfigurationMapper {

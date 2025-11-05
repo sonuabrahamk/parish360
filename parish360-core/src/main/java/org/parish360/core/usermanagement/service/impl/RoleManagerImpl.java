@@ -1,6 +1,5 @@
 package org.parish360.core.usermanagement.service.impl;
 
-import org.parish360.core.common.util.AuthUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.dataowner.Dataowner;
 import org.parish360.core.dao.entities.usermanagement.Permission;
@@ -16,7 +15,6 @@ import org.parish360.core.usermanagement.service.UserManagementMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -39,10 +37,6 @@ public class RoleManagerImpl implements RoleManager {
         Dataowner dataowner = dataownerRepository.findById(UUIDUtil.decode(dataownerId))
                 .orElseThrow(() -> new BadRequestException("dataowner not found"));
 
-        // set default values for creation
-        roleInfo.setCreatedAt(Instant.now());
-        roleInfo.setCreatedBy(AuthUtil.getCurrentUserId());
-
         Role role = userManagementMapper.roleInfoToDao(roleInfo);
         role.setDataowner(dataowner);
 
@@ -56,10 +50,6 @@ public class RoleManagerImpl implements RoleManager {
         if (roleInfo.getId() != null && !roleInfo.getId().equals(roleId)) {
             throw new BadRequestException("there is a mismatch in roleId");
         }
-
-        //set default update values
-        roleInfo.setUpdatedAt(Instant.now());
-        roleInfo.setUpdatedBy(AuthUtil.getCurrentUserId());
 
         Role updateRole = userManagementMapper.roleInfoToDao(roleInfo);
 

@@ -2,11 +2,12 @@ package org.parish360.core.ceremonies.service;
 
 import org.mapstruct.*;
 import org.parish360.core.ceremonies.dto.CeremonyInfo;
+import org.parish360.core.common.util.TimezoneUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.ceremonies.Ceremony;
 
 @Mapper(componentModel = "spring",
-        uses = {UUIDUtil.class},
+        uses = {UUIDUtil.class, TimezoneUtil.class},
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface CeremonyMapper {

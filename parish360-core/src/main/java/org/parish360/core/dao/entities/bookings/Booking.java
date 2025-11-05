@@ -12,7 +12,7 @@ import org.parish360.core.dao.entities.dataowner.Parish;
 import org.parish360.core.dao.entities.family.Family;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @Entity
 @Getter
@@ -28,9 +28,9 @@ public class Booking extends BaseEntity {
     @Column(name = "booked_by", nullable = false)
     private String bookedBy;
     @Column(name = "booked_from", nullable = false)
-    private LocalDateTime bookedFrom;
+    private Instant bookedFrom;
     @Column(name = "booked_to", nullable = false)
-    private LocalDateTime bookedTo;
+    private Instant bookedTo;
     private String contact;
     private String description;
     private String event;

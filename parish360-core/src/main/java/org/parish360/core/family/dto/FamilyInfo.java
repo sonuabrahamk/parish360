@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class FamilyInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotNull(message = "family code is empty")
@@ -27,7 +27,7 @@ public class FamilyInfo {
 
     @NotNull(message = "contact is empty")
     private String contact;
-    
+
     private String address;
     private boolean contactVerified;
     private LocalDate joinedDate;

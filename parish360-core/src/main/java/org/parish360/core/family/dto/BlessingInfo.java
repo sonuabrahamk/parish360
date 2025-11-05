@@ -6,8 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class BlessingInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotNull(message = "priest is not mentioned")
@@ -25,7 +25,7 @@ public class BlessingInfo {
 
     @NotNull(message = "date is not mentioned")
     private LocalDate date;
-    
+
     private String reason;
     private String familyId;
 }

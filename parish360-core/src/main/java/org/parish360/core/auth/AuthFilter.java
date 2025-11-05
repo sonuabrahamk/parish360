@@ -8,10 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.NonNull;
 import org.parish360.core.auth.dto.UserPrincipal;
 import org.parish360.core.common.util.JwtUtil;
-import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.error.exception.UnAuthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,9 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class AuthFilter extends OncePerRequestFilter {
@@ -42,61 +46,56 @@ public class AuthFilter extends OncePerRequestFilter {
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
 
-        if (request.getCookies() != null) {
-            boolean isCookiePresent = false;
-            for (Cookie cookie : request.getCookies()) {
-                if (AuthConstants.AUTH_COOKIE_NAME.equals(cookie.getName())) {
-                    isCookiePresent = true;
-                    String token = cookie.getValue();
-                    String path = request.getRequestURI();
-                    if (path == null) {
-                        throw new ResourceNotFoundException("invalid endpoint");
-                    }
-                    try {
-                        if (token != null
-                                && SecurityContextHolder.getContext().getAuthentication() == null
-                                && jwtUtil.validateToken(token, path, request.getMethod())) {
-
-                            UserPrincipal userPrincipal = UserPrincipal.builder()
-                                    .username(jwtUtil.extractSubject(token))
-                                    .timeZone(jwtUtil.extractTimezone(token))
-                                    .locale(jwtUtil.extractLocale(token))
-                                    .currency(jwtUtil.extractCurrency(token))
-                                    .build();
-                            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                                    userPrincipal, null, null);
-
-                            // This is CRUCIAL
-                            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-                            SecurityContextHolder.getContext().setAuthentication(authToken);
-
-                            // refresh cookie and add to response
-                            Cookie refreshCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, token);
-                            refreshCookie.setHttpOnly(true);
-                            refreshCookie.setSecure(true);
-                            refreshCookie.setPath("/");
-                            refreshCookie.setMaxAge(AuthConstants.COOKIE_EXPIRY_SECONDS);
-                            response.addCookie(refreshCookie);
-                        }
-                    } catch (Exception e) {
-                        handlerExceptionResolver
-                                .resolveException(request, response, null, new UnAuthorizedException(e.getMessage()));
-                        return;
-                    }
-                }
+        try {
+            Cookie[] cookies = request.getCookies();
+            if (cookies == null) {
+                throw new UnAuthorizedException("cookie not found");
             }
-            if (!isCookiePresent) {
-                handlerExceptionResolver
-                        .resolveException(request, response, null, new UnAuthorizedException("cookie not found"));
-                return;
+
+            Cookie authCookie = Arrays.stream(cookies)
+                    .filter(c -> AuthConstants.AUTH_COOKIE_NAME.equals(c.getName()))
+                    .findFirst()
+                    .orElseThrow(() -> new UnAuthorizedException("cookie not found"));
+
+            String token = authCookie.getValue();
+            String path = request.getRequestURI();
+
+            if (token != null
+                    && SecurityContextHolder.getContext().getAuthentication() == null
+                    && jwtUtil.validateToken(token, path, request.getMethod())) {
+
+                UserPrincipal userPrincipal = UserPrincipal.builder()
+                        .username(jwtUtil.extractSubject(token))
+                        .timeZone(jwtUtil.extractTimezone(token))
+                        .locale(jwtUtil.extractLocale(token))
+                        .currency(jwtUtil.extractCurrency(token))
+                        .build();
+
+                List<GrantedAuthority> authorities =
+                        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+
+                UsernamePasswordAuthenticationToken authToken =
+                        new UsernamePasswordAuthenticationToken(userPrincipal, null, authorities);
+
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+                // ✅ Set into context
+                SecurityContextHolder.getContext().setAuthentication(authToken);
+
+                // Refresh cookie
+                Cookie refreshCookie = new Cookie(AuthConstants.AUTH_COOKIE_NAME, token);
+                refreshCookie.setHttpOnly(true);
+                refreshCookie.setSecure(true);
+                refreshCookie.setPath("/");
+                refreshCookie.setMaxAge(AuthConstants.COOKIE_EXPIRY_SECONDS);
+                response.addCookie(refreshCookie);
             }
-        } else {
-            handlerExceptionResolver
-                    .resolveException(request, response, null, new UnAuthorizedException("cookie not found"));
-            return;
+
+            filterChain.doFilter(request, response);
+
+        } catch (Exception e) {
+            handlerExceptionResolver.resolveException(request, response, null,
+                    new UnAuthorizedException(e.getMessage()));
         }
-
-        filterChain.doFilter(request, response);
     }
 }

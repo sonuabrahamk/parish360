@@ -9,8 +9,8 @@ import lombok.Setter;
 import org.parish360.core.common.dto.Address;
 import org.parish360.core.common.dto.GodParent;
 
-import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,9 +18,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CeremonyInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     @NotBlank(message = "ceremony type has to be specified")

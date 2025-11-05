@@ -1,12 +1,13 @@
 package org.parish360.core.payments.service;
 
 import org.mapstruct.*;
+import org.parish360.core.common.util.TimezoneUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.Payment;
 import org.parish360.core.payments.dto.PaymentInfo;
 
 @Mapper(componentModel = "spring",
-        uses = {UUIDUtil.class},
+        uses = {UUIDUtil.class, TimezoneUtil.class},
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface PaymentMapper {

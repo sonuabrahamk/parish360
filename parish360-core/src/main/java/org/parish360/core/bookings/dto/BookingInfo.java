@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.parish360.core.configurations.dto.ResourceInfo;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,9 +16,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BookingInfo {
     private String id;
-    private Instant createdAt;
+    private LocalDateTime createdAt;
     private String createdBy;
-    private Instant updatedAt;
+    private LocalDateTime updatedAt;
     private String updatedBy;
 
     private String bookingCode;
