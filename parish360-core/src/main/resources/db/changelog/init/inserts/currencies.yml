@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-currencies
+      author: Sonu Abraham
+      changes:
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: INR
+              - column:
+                  name: rate
+                  value: 1.0
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: EUR
+              - column:
+                  name: rate
+                  value: 0.0098
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: USD
+              - column:
+                  name: rate
+                  value: 0.011
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: GBP
+              - column:
+                  name: rate
+                  value: 0.0086
+        - insert:
+            tableName: currencies
+            columns:
+              - column:
+                  name: code
+                  value: KWD
+              - column:
+                  name: rate
+                  value: 0.0035
