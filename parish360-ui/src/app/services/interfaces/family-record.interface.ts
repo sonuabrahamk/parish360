@@ -10,6 +10,9 @@ export interface FamilyRecord {
   address: string;
   contact_verified: boolean;
   joined_date: Date;
+  head_of_family: string;
+  parish: string;
+  unit: string;
 }
 
 export interface FamilyRecordResponse {

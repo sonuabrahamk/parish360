@@ -1,5 +1,4 @@
 <div class="relative w-full min-h-[200px] overflow-hidden">
-  <app-loader></app-loader>
   <div
     *ngIf="familyInfoForm"
     [formGroup]="familyInfoForm"
@@ -12,13 +11,13 @@
     </div>
 
     <!-- Field 2 -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="this.recordId !== 'new'">
       <label>Parish</label>
       <input type="text" formControlName="parish" class="lg:col-span-2" />
     </div>
 
     <!-- Field 3 -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="this.recordId !== 'new'">
       <label>Unit</label>
       <input type="text" formControlName="unit" class="lg:col-span-2" />
     </div>
@@ -30,7 +29,7 @@
     </div>
 
     <!-- Field 5 -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="this.recordId !== 'new'">
       <label>Head of Family</label>
       <input
         type="text"
