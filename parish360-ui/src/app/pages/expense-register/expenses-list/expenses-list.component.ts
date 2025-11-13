@@ -134,4 +134,25 @@ export class ExpensesListComponent {
       }
     });
   }
+
+  onPrintVoucher() {
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length === 0) {
+      this.toast.warn('Please select atleast one expense to print voucher.');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toast.warn('Please select only one expense to print voucher at a time.');
+      return;
+    }
+    const expenseId = selectedRows[0].id;
+    this.expenseService.getVoucher(expenseId).subscribe({
+      next: (voucherBlob) => {
+        this.expenseService.printVoucher(voucherBlob);
+      },
+      error: (error) => {
+        this.toast.error('Error fetching voucher: ', error);
+      },
+    });
+  }
 }

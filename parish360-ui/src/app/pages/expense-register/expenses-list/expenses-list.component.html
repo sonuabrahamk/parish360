@@ -5,6 +5,12 @@
       Add Expense
     </button>
     <button
+      class="button text-sm ml-2"
+      (click)="onPrintVoucher()"
+    >
+      Print Voucher
+    </button>
+    <button
       class="button btn-danger text-sm ml-2"
       *appCanDelete="screen"
       (click)="onDelete()"

@@ -187,9 +187,10 @@ export class PaymentsViewComponent {
       this.paymentService
         .createPayment(this.paymentForm.getRawValue())
         .subscribe({
-          next: () => {
-            this.toast.success('Payment saved successfully!');
+          next: (receiptBlob) => {
+            this.paymentService.printReceipt(receiptBlob);
             this.router.navigate(['/payments']);
+            // this.toast.success('Payment saved successfully!');
           },
           error: (error) => {
             this.toast.error('Error saving payment: ' + error.message);
@@ -201,7 +202,6 @@ export class PaymentsViewComponent {
         .subscribe({
           next: () => {
             this.toast.success('Payment updated successfully!');
-            this.router.navigate(['/payments/view', this.paymentId]);
           },
           error: (error) => {
             this.toast.error('Error updating payment: ' + error.message);

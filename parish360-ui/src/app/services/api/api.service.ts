@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../../authentication/auth.service';
-import { DIOCESE, FORANE, PARISH } from '../common/common.constants';
+import { PARISH } from '../common/common.constants';
 import { BASE_URL } from './api.constants';
 
 @Injectable({ providedIn: 'root' })
@@ -42,15 +42,30 @@ export class ApiService {
     });
   }
 
-  get<T>(url: string): Observable<T> {
+  get<T>(
+    url: string,
+    options?: { responseType?: 'json' | 'blob' | 'text' }
+  ): Observable<T> {
+    const responseType = options?.responseType || 'json';
     return this.http
-      .get<T>(`${this.loadBaseUrl()}${url}`, { headers: this.headers() })
+      .get<T>(`${this.loadBaseUrl()}${url}`, {
+        headers: this.headers(),
+        responseType: responseType as 'json',
+      })
       .pipe(catchError(this.handleError));
   }
 
-  post<T>(url: string, data: any): Observable<T> {
+  post<T>(
+    url: string,
+    data: any,
+    options?: { responseType?: 'json' | 'blob' | 'text' }
+  ): Observable<T> {
+    const responseType = options?.responseType || 'json';
     return this.http
-      .post<T>(`${this.loadBaseUrl()}${url}`, data, { headers: this.headers() })
+      .post<T>(`${this.loadBaseUrl()}${url}`, data, {
+        headers: this.headers(),
+        responseType: responseType as 'json',
+      })
       .pipe(catchError(this.handleError));
   }
 

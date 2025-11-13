@@ -125,4 +125,25 @@ export class PaymentsListComponent {
         }
       });
   }
+
+  onPrintReceipt() {
+    const selectedRows = this.gridApi.getSelectedRows();
+    if (selectedRows.length === 0) {
+      this.toast.warn('No payment selected for printing receipt.');
+      return;
+    }
+    if (selectedRows.length > 1) {
+      this.toast.warn('Please select only one payment to print receipt at a time.');
+      return;
+    }
+    const paymentId = selectedRows[0].id;
+    this.paymentService.getReceipt(paymentId).subscribe({
+      next: (receiptBlob) => {
+        this.paymentService.printReceipt(receiptBlob);
+      },
+      error: (error) => {
+        this.toast.error('Failed to fetch the receipt: ' + error.message);
+      },
+    });
+  }
 }

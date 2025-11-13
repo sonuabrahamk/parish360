@@ -113,9 +113,9 @@ export class ExpenseViewComponent {
     if (this.expenseForm.get('id')?.value === 'create') {
       this.expenseForm.removeControl('id');
       this.expenseService.createExpense(this.expenseForm.getRawValue()).subscribe({
-        next: (expense) => {
-          this.toast.success('Expense created successfully');
-          this.router.navigate(['/expenses/view', expense.id]);
+        next: (expenseBlob) => {
+          this.expenseService.printVoucher(expenseBlob);
+          this.router.navigate(['/expenses']);
         },
         error: (error) => {
           this.toast.error('Error creating expense: ', error);

@@ -1,12 +1,18 @@
 package org.parish360.core.payments.controller;
 
+import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfWriter;
 import jakarta.validation.Valid;
 import org.parish360.core.payments.dto.PaymentInfo;
 import org.parish360.core.payments.service.PaymentManager;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -19,9 +25,19 @@ public class PaymentHandler {
     }
 
     @PostMapping
-    public ResponseEntity<PaymentInfo> createPayment(@PathVariable("parishId") String parishId,
-                                                     @Valid @RequestBody PaymentInfo paymentInfo) {
-        return ResponseEntity.ok(paymentManager.createPayment(parishId, paymentInfo));
+    public ResponseEntity<byte[]> createPayment(@PathVariable("parishId") String parishId,
+                                                @Valid @RequestBody PaymentInfo paymentInfo) {
+        PaymentInfo payment = paymentManager.createPayment(parishId, paymentInfo);
+        byte[] pdfBytes = createReceiptPdf(payment);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=receipt-" + payment.getId() + ".pdf");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(pdfBytes.length)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
     }
 
     @PatchMapping("/{paymentId}")
@@ -47,5 +63,54 @@ public class PaymentHandler {
                                                 @PathVariable("paymentId") String paymentId) {
         paymentManager.deletePaymentInfo(parishId, paymentId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping("/{paymentId}/receipt")
+    public ResponseEntity<byte[]> getPaymentReceipt(@PathVariable("parishId") String parishId,
+                                                    @PathVariable("paymentId") String paymentId) {
+        PaymentInfo paymentInfo = paymentManager.getPaymentInfo(parishId, paymentId);
+        byte[] pdfBytes = createReceiptPdf(paymentInfo);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION,
+                "inline; filename=receipt-" + paymentInfo.getId() + ".pdf");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/pdf");
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(pdfBytes.length)
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+
+    private byte[] createReceiptPdf(PaymentInfo paymentInfo) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            Document document = new Document(PageSize.A4, 36, 36, 36, 36);
+            PdfWriter.getInstance(document, baos);
+
+            document.open();
+
+            // Title
+            Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);
+            Paragraph title = new Paragraph("Payment Receipt", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE);
+
+            // Customer and details
+            Font textFont = new Font(Font.HELVETICA, 12);
+            document.add(new Paragraph("Receipt ID: " + paymentInfo.getId(), textFont));
+            document.add(new Paragraph("Payment By: " + paymentInfo.getPayee(), textFont));
+            document.add(new Paragraph("Date: " +
+                    paymentInfo.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), textFont));
+            document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+            document.add(new Paragraph("Thank you for your payment!", textFont));
+
+            document.close();
+            return baos.toByteArray();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error creating PDF", e);
+        }
     }
 }

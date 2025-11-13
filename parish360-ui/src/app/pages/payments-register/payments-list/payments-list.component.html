@@ -3,6 +3,11 @@
   <div class="header-right-section">
     <button class="button text-sm ml-2" *appCanCreate="screen" (click)="onCreate()">
       Add Payment
+    </button><button
+      class="button text-sm ml-2"
+      (click)="onPrintReceipt()"
+    >
+      Print Receipt
     </button>
     <button
       class="button btn-danger text-sm ml-2"
