@@ -1,7 +1,10 @@
 package org.parish360.core.expenses.controller;
 
 import com.lowagie.text.*;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.draw.LineSeparator;
 import jakarta.validation.Valid;
 import org.parish360.core.expenses.dto.ExpenseInfo;
 import org.parish360.core.expenses.service.ExpenseManager;
@@ -91,21 +94,44 @@ public class ExpenseHandler {
             document.open();
 
             // Title
-            Font titleFont = new Font(Font.HELVETICA, 18, Font.BOLD);
+            Font titleFont = new Font(Font.HELVETICA, 14, Font.BOLD);
             Paragraph title = new Paragraph("Expense Voucher", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
+
+            // Add a thin line separator below the title
+            LineSeparator ls = new LineSeparator();
+            document.add(new Chunk(ls));
+
+
+            // Table
+            PdfPTable table = new PdfPTable(3);
+            table.setWidthPercentage(100);
+
+            addCell(table, "Voucher No: " + expenseInfo.getId(), 2);
+            addCell(table, "Date: " + expenseInfo
+                    .getDate()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), 1);
+
+            addCell(table, "Paid To: " + expenseInfo.getPaidTo(), 3);
+
+            addCell(table, "Description: " + expenseInfo.getDescription(), 3);
+
+            addCell(table, "Paid By: " + expenseInfo.getPaidBy(), 1);
+            addCell(table, "Amount: " + expenseInfo.getAmount().toString()
+                    + " " + expenseInfo.getCurrency(), 1);
+            addCell(table, "Payment Mode: CASH", 1);
+
+            document.add(table);
+
+            document.add(Chunk.NEWLINE);
+            document.add(Chunk.NEWLINE);
+            document.add(addSignatureSpace());
             document.add(Chunk.NEWLINE);
 
-            // Customer and details
-            Font textFont = new Font(Font.HELVETICA, 12);
-            document.add(new Paragraph("Voucher ID: " + expenseInfo.getId(), textFont));
-            document.add(new Paragraph("Payment To: " + expenseInfo.getPaidTo(), textFont));
-            document.add(new Paragraph("Date: " +
-                    expenseInfo.getDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")), textFont));
-            document.add(Chunk.NEWLINE);
-            document.add(Chunk.NEWLINE);
-            document.add(new Paragraph("Thank you for your service!", textFont));
+            // Note section
+            Font noteFont = new Font(Font.HELVETICA, 8);
+            document.add(new Paragraph("NOTE: This is a system generated voucher", noteFont));
 
             document.close();
             return baos.toByteArray();
@@ -113,5 +139,46 @@ public class ExpenseHandler {
         } catch (Exception e) {
             throw new RuntimeException("Error creating PDF", e);
         }
+    }
+
+    private void addCell(PdfPTable table, String text, int colSpan) {
+        Font tableFont = new Font(Font.TIMES_ROMAN, 11);
+        PdfPCell cell = new PdfPCell(new Phrase(text != null ? text : "", tableFont));
+        cell.setPadding(10);
+        cell.setColspan(colSpan);
+        table.addCell(cell);
+    }
+
+    private PdfPTable addSignatureSpace() {
+        // Create a 2-column table for "Approved By" and "Received By"
+        PdfPTable signTable = new PdfPTable(2);
+        signTable.setWidthPercentage(100);
+        signTable.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+
+        // Left cell (Approved By)
+        PdfPCell leftCell = new PdfPCell();
+        leftCell.setBorder(Rectangle.NO_BORDER);
+        leftCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        // Add signature line (underline effect)
+        Paragraph approved = new Paragraph("__________________________\n Parish Priest");
+        approved.setAlignment(Element.ALIGN_LEFT);
+        leftCell.addElement(approved);
+
+        // Right cell (Received By)
+        PdfPCell rightCell = new PdfPCell();
+        rightCell.setBorder(Rectangle.NO_BORDER);
+        rightCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+        Paragraph received = new Paragraph("__________________________\n Received By");
+        received.setAlignment(Element.ALIGN_RIGHT);
+        rightCell.addElement(received);
+
+        // Add both cells
+        signTable.addCell(leftCell);
+        signTable.addCell(rightCell);
+
+        // Add the signature table to the document
+        return signTable;
     }
 }
