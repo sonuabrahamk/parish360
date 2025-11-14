@@ -3,27 +3,29 @@
 </div>
 <div class="panel m-4 shadow-sm">
   <app-tabs [tabs]="familyTabs" [activeTabIndex]="activeTabIndex"></app-tabs>
-  <ng-template #familyInfoTemplate>
-    <app-family-info [recordId]="recordId"></app-family-info>
-  </ng-template>
 
-  <ng-template #membersTemplate>
-    <app-members [recordId]="recordId"></app-members>
-  </ng-template>
-
-  <ng-template #blessingsTemplate>
-    <app-blessings-section [recordId]="recordId"></app-blessings-section>
-  </ng-template>
-
-  <ng-template #subscriptionsTemplate>
-    <app-subscriptions [recordId]="recordId"></app-subscriptions>
-  </ng-template>
-
-  <ng-template #paymentsTemplate>
-    <app-payments [recordId]="recordId"></app-payments>
-  </ng-template>
-
-  <ng-template #miscellaneousTemplate>
-    <app-miscellenous [recordId]="recordId"></app-miscellenous>
-  </ng-template>
+  <app-family-info
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 0"
+  ></app-family-info>
+  <app-members
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 1"
+  ></app-members>
+  <app-blessings-section
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 2"
+  ></app-blessings-section>
+  <app-subscriptions
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 3"
+  ></app-subscriptions>
+  <app-payments
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 4"
+  ></app-payments>
+  <app-miscellenous
+    [recordId]="recordId"
+    *ngIf="this.activeTabIndex === 5"
+  ></app-miscellenous>
 </div>

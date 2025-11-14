@@ -7,7 +7,13 @@
     <!-- Field 1 -->
     <div class="form-group">
       <label>Book No</label>
-      <input type="text" formControlName="family_code" class="lg:col-span-2" />
+      <input
+        type="text"
+        formControlName="family_code"
+        class="lg:col-span-2"
+        placeholder="Family Code is required"
+        [ngClass]="{ invalid: isInvalid('family_code') }"
+      />
     </div>
 
     <!-- Field 2 -->
@@ -25,7 +31,13 @@
     <!-- Field 4 -->
     <div class="form-group">
       <label>Family Name</label>
-      <input type="text" formControlName="family_name" class="lg:col-span-2" />
+      <input
+        type="text"
+        formControlName="family_name"
+        class="lg:col-span-2"
+        [ngClass]="{ invalid: isInvalid('family_code') }"
+        placeholder="Family Name is required"
+      />
     </div>
 
     <!-- Field 5 -->
@@ -41,7 +53,18 @@
     <!-- Field 6 -->
     <div class="form-group">
       <label>Mobile</label>
-      <input type="text" formControlName="contact" class="lg:col-span-2" />
+      <div class="col-span-2 grid md:grid-cols-7 gap-2">
+        <select class="col-span-2">
+          <option value="+91">+91</option>
+        </select>
+        <input
+          type="text"
+          formControlName="contact"
+          class="lg:col-span-5"
+          placeholder="Contact is required"
+          [ngClass]="{ invalid: isInvalid('contact') }"
+        />
+      </div>
     </div>
 
     <!-- Field 7 -->
@@ -59,5 +82,9 @@
     </div>
   </div>
 
-  <app-footer *appCanEdit="screen" [isEditMode]="isEditMode" (modeUpdated)="onModeUpdated($event)"></app-footer>
+  <app-footer
+    *appCanEdit="screen"
+    [isEditMode]="isEditMode"
+    (modeUpdated)="onModeUpdated($event)"
+  ></app-footer>
 </div>

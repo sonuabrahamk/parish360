@@ -24,8 +24,8 @@ export class ToastComponent {
   }
 
   close() {
-    this.toastService.hide();
     this.toastService.resolve(false);
+    this.toastService.hide();
   }
 
   confirm() {

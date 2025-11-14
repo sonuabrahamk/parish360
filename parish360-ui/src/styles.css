@@ -120,6 +120,10 @@
   .ag-theme-alpine .ag-root-wrapper-body {
     border-radius: 0 !important;
   }
+
+  .invalid {
+    border: 1px solid red;
+  }
 }
 
 ::-webkit-scrollbar {
