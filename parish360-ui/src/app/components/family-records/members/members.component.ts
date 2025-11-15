@@ -15,6 +15,7 @@ import { PermissionsService } from '../../../services/common/permissions.service
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MigrationSectionComponent } from '../migration-section/migration-section.component';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-members',
@@ -44,92 +45,99 @@ export class MembersComponent implements OnInit {
   activeMember: Member | null = null;
   activeMemberTab: number = 0;
 
-  sideTab: string[] = [
-    'Personel Details',
-    'Sacrament Details',
-    'Migration Details',
-  ];
+  activeMemberId: string = '';
+  sideTab: string[] = [];
   activeSideTab: number = 0;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private memberService: MemberService,
     private cdr: ChangeDetectorRef,
-    private permissionsService: PermissionsService
+    private permissionsService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.memberService.getMembers(this.recordId).subscribe((response) => {
-      if (response.length > 0) {
-        this.members = response;
-        this.membersTabs = this.members.map((member: Member): Tab => {
-          return {
-            label: member.first_name + ' ' + member.last_name,
-            data: member,
-            url: '/family-records/' + this.recordId + '/members/' + member.id,
-          };
-        });
+    this.sideTab = [
+      'Personel Details',
+      'Sacrament Details',
+      'Migration Details',
+    ];
 
-        this.membersTabs = this.permissionsService.hasPermission(
-          this.screen,
-          CREATE
-        )
-          ? [
-              ...this.membersTabs,
-              {
+    this.route.paramMap.subscribe({
+      next: (params) => {
+        this.activeMemberId = params.get('sectionId') || '';
+        this.memberService.getMembers(this.recordId).subscribe({
+          next: (response) => {
+            if ((
+              response.length === 0 &&
+              this.permissionsService.hasPermission(this.screen, CREATE)
+            ) || this.activeMemberId === 'add' ){
+              this.activeMember = {} as Member;
+              this.membersTabs = [];
+              this.sideTab = ['Personel Details'];
+              return;
+            }
+
+            // Populate members and tabs
+            this.members = response;
+            this.membersTabs = this.members.map((member: Member): Tab => {
+              return {
+                label: member.first_name + ' ' + member.last_name,
+                data: member,
+                url:
+                  '/family-records/' + this.recordId + '/members/' + member.id,
+              };
+            });
+
+            // Add 'Add Member' tab if user has CREATE permission
+            if (this.permissionsService.hasPermission(this.screen, CREATE)) {
+              this.membersTabs.push({
                 label: 'Add Member',
                 data: null,
                 icon: faPlus,
                 url: '/family-records/' + this.recordId + '/members/add',
-              },
-            ]
-          : [...this.membersTabs];
+              });
+            }
 
-        this.route.params.subscribe((params) => {
-          const memberId = params['sectionId'];
-          if (memberId) {
-            const index = this.members.findIndex(
-              (member) => member.id === memberId
-            );
-            if (index !== -1) {
+            // Set active member based on route parameter
+            if (this.activeMemberId) {
+              // Redirect if trying to access 'add' without permission
+              if (
+                this.activeMemberId === 'add' &&
+                !this.permissionsService.hasPermission(this.screen, CREATE)
+              ) {
+                this.router.navigate(['../'], { relativeTo: this.route });
+                return;
+              }
+
+              // Find index of member with the given memberId
+              const index = this.members.findIndex(
+                (member) => member.id === this.activeMemberId
+              );
+              if (index === -1) {
+                this.router.navigate(['../'], { relativeTo: this.route });
+                return;
+              }
               this.activeMember = this.members[index];
               this.activeMemberTab = index;
-              this.sideTab = [
-                'Personel Details',
-                'Sacrament Details',
-                'Migration Details',
-              ];
             } else {
-              this.activeMember = {} as Member;
-              this.activeMemberTab = this.membersTabs.length - 1; // 'Add Member' tab
-              this.sideTab = ['Personel Details'];
+              this.activeMember = this.members[0];
+              this.activeMemberTab = 0;
+              this.cdr.detectChanges();
             }
-          } else {
-            this.activeMember = this.members[0];
-            this.activeMemberTab = 0;
-          }
+          },
+          error: (error) => {
+            this.toast.error('Error fetching members: ', error.message);
+          },
         });
-      } else {
-        this.membersTabs = this.permissionsService.hasPermission(
-          this.screen,
-          CREATE
-        )
-          ? [
-              {
-                label: 'Add Member',
-                data: null,
-                icon: faPlus,
-                url: '/family-records/' + this.recordId + '/members/add',
-              },
-            ]
-          : [];
-        this.activeMember = {} as Member;
-        this.activeMemberTab = 0; // 'Add Member' tab
-        this.sideTab = ['Personel Details'];
-      }
-
-      this.cdr.detectChanges();
+      },
+      error: (error) => {
+        this.toast.error('Error loading member: ', error.message);
+      },
     });
+    this.cdr.detectChanges();
   }
 
   onTabChange(selectedMember: Member) {

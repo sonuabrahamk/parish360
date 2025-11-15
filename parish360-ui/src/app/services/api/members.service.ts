@@ -30,4 +30,11 @@ export class MemberService {
         member
     );
   }
+
+  deleteMember(recordId: string, memberId: string): Observable<void> {
+    return this.apiService.delete<void>(
+        BASE_URL.FAMILY_RECORDS_BY_ID(recordId) +
+        BASE_URL.MEMBER_BY_ID(memberId)
+    );
+  }
 }

@@ -25,7 +25,7 @@
     <div class="py-4">
       <span class="text-left w-full text-md">{{ message.text }}</span>
     </div>
-    <div class="w-full flex justify-end" *ngIf="message?.type === 'confirm'">
+    <div class="w-full flex justify-end" *ngIf="message.type === 'confirm'">
       <button class="btn-warning" (click)="confirm()">Confirm</button>
     </div>
   </div>

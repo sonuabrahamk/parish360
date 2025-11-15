@@ -1,90 +1,132 @@
-<div
-  [formGroup]="memberForm"
-  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4 p-4"
->
+<div [formGroup]="memberForm" class="grid gap-5">
   <!-- Field 1 -->
   <div class="form-group">
     <label>First Name</label>
-    <input type="text" formControlName="first_name" class="lg:col-span-2" />
+    <input
+      type="text"
+      formControlName="first_name"
+      placeholder="First Name is required"
+      [ngClass]="{ invalid: isInvalid('first_name') }"
+    />
   </div>
 
   <!-- Field 3 -->
   <div class="form-group">
     <label>Last Name</label>
-    <input type="text" formControlName="last_name" class="lg:col-span-2" />
+    <input
+      type="text"
+      formControlName="last_name"
+      placeholder="Last Name is required"
+      [ngClass]="{ invalid: isInvalid('last_name') }"
+    />
   </div>
 
   <!-- Field 4 -->
   <div class="form-group">
     <label>Contact</label>
-    <input type="text" formControlName="contact" class="lg:col-span-2" />
+    <div class="grid md:grid-cols-7 gap-1">
+      <select class="col-span-2">
+        <option value="+91">+91</option>
+      </select>
+      <input
+        type="text"
+        formControlName="contact"
+        class="col-span-5"
+        [ngClass]="{ invalid: isInvalid('contact') }"
+      />
+    </div>
   </div>
 
   <!-- Field 5 -->
   <div class="form-group">
     <label>Relationship</label>
-    <input type="text" formControlName="relationship" class="lg:col-span-2" />
+    <select formControlName="relationship">
+      <option value="head-of-family">Head Of Family</option>
+      <option value="spouse">Spouse</option>
+      <option value="father">Father</option>
+      <option value="mother">Mother</option>
+      <option value="son">Son</option>
+      <option value="daughter">Daughter</option>
+      <option value="brother">Brother</option>
+      <option value="sister">Sister</option>
+      <option value="daughter-in-law">Daughter-in-Law</option>
+      <option value="son-in-law">Son-in-Law</option>
+      <option value="grand-father">Grand Father</option>
+      <option value="grand-mother">Grand Mother</option>
+      <option value="grand-son">Grand Son</option>
+      <option value="grand-daughter">Grand Daughter</option>
+      <option value="relative">Relative</option>
+      <option value="other">Other</option>
+    </select>
   </div>
 
   <!-- Field 6 -->
   <div class="form-group">
     <label>Father's Name</label>
-    <input type="text" formControlName="father" class="lg:col-span-2" />
+    <input type="text" formControlName="father" />
   </div>
 
   <!-- Field 7 -->
   <div class="form-group">
     <label>Mother's Name</label>
-    <input type="text" formControlName="mother" class="lg:col-span-2" />
+    <input type="text" formControlName="mother" />
   </div>
 
   <!-- Field 8 -->
   <div class="form-group">
     <label>Date of Birth</label>
-    <input type="text" formControlName="dob" class="lg:col-span-2" />
+    <input type="date" formControlName="dob" />
   </div>
 
   <!-- Field 9 -->
   <div class="form-group">
     <label>Gender</label>
-    <input type="text" formControlName="gender" class="lg:col-span-2" />
+    <select formControlName="gender" class="md:col-span-2">
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
   </div>
 
   <!-- Field 10 -->
   <div class="form-group">
     <label>Email</label>
-    <input type="text" formControlName="email" class="lg:col-span-2" />
+    <input
+      type="text"
+      formControlName="email"
+      [ngClass]="{ invalid: isInvalid('email') }"
+    />
   </div>
 
   <!-- Field 11 -->
   <div class="form-group">
     <label>Qualification</label>
-    <input type="text" formControlName="qualification" class="lg:col-span-2" />
+    <input type="text" formControlName="qualification" />
   </div>
 
   <!-- Field 12 -->
   <div class="form-group">
     <label>Occupation</label>
-    <input type="text" formControlName="occupation" class="lg:col-span-2" />
+    <input type="text" formControlName="occupation" />
   </div>
 
   <!-- Birth Place section -->
-  <app-section-form [title]="'Birth Place'" class="md:col-span-3">
+  <app-section-form [title]="'Birth Place'" class="md:col-span-3 mb-5">
     <div class="form-section-3" formGroupName="birth_place">
       <!-- City -->
       <div class="form-group">
         <label>City</label>
-        <input type="text" formControlName="city" class="lg:col-span-2" />
+        <input type="text" formControlName="city" />
       </div>
       <!-- State -->
       <div class="form-group">
         <label>State</label>
-        <input type="text" formControlName="state" class="lg:col-span-2" />
+        <input type="text" formControlName="state" />
       </div>
       <!-- Country -->
       <div class="form-group">
         <label>Country</label>
-        <input type="text" formControlName="country" class="lg:col-span-2" />
+        <input type="text" formControlName="country" />
       </div>
     </div>
   </app-section-form>
