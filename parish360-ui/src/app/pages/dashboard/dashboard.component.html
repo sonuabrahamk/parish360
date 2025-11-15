@@ -1,1 +1,14 @@
 <app-summary [summary]="summary" *ngIf="summary"></app-summary>
+<div class="panel m-4 mt-10 shadow-sm">
+  <app-tabs [tabs]="summaryTabs" [activeTabIndex]="activeTabIndex"></app-tabs>
+  <app-members-list *ngIf="summarySection === 'members'"></app-members-list>
+  <app-service-intentions
+    *ngIf="summarySection === 'service-intentions'"
+  ></app-service-intentions>
+  <app-bookings-summary
+    *ngIf="summarySection === 'bookings'"
+  ></app-bookings-summary>
+  <app-account-statement
+    *ngIf="summarySection === 'accounts'"
+  ></app-account-statement>
+</div>

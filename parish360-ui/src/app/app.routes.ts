@@ -41,6 +41,11 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: 'dashboard/:section',
+    component: DashboardComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'family-records',
     component: RecordsListComponent,
     canActivate: [AuthGuard],

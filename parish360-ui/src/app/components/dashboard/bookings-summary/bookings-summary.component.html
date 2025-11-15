@@ -1,0 +1,21 @@
+<div class="header">
+  <h3>Bookings Summary</h3>
+  <div class="header-right-section">
+    <select class="text-xs">
+      <option>This Week</option>
+    </select>
+  </div>
+</div>
+<div class="ag-theme-alpine">
+  <ag-grid-angular
+    class="ag-theme-alpine rounded-none"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [pagination]="true"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="paginationPageSizeSelector"
+    [domLayout]="'autoHeight'"
+    (gridReady)="onGridReady($event)"
+  />
+</div>
