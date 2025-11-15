@@ -34,18 +34,14 @@
 
     <!-- Field 5 -->
     <div class="form-group">
-      <label>Locked</label>
-      <input
-        type="checkbox"
-        formControlName="locked"
-        class="lg:col-span-2 text-left"
-      />
+      <label>Comment</label>
+      <input type="text" formControlName="comment" class="lg:col-span-2" />
     </div>
 
     <!-- Field 6 -->
-    <div class="form-group">
-      <label>Comment</label>
-      <input type="text" formControlName="comment" class="lg:col-span-2" />
+    <div class="form-group flex items-baseline-last">
+      <label>Locked</label>
+      <input type="checkbox" formControlName="locked" class="mx-4 text-left" />
     </div>
   </div>
 

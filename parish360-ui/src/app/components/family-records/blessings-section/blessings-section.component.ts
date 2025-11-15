@@ -9,6 +9,7 @@ import { SCREENS } from '../../../services/common/common.constants';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { BlessingService } from '../../../services/api/blessings.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-blessings-section',
@@ -92,16 +93,34 @@ export class BlessingsSectionComponent {
 
       if (event.event.target.classList.contains('btn-delete')) {
         if (!this.permissionService.canDelete(this.screen)) {
-          alert('You do not have permission to delete an entry!!');
+          this.toast.warn('You do not have permission to delete an entry!!');
         } else {
-          confirm('Are you sure you want to delete this entry?')
-            ? this.blessingsService
-                .deleteBlessingsRecord(this.recordId, id)
-                .subscribe(() => {
-                  this.rowData = this.rowData.filter((row) => row.id !== id);
-                  this.gridApi.applyTransaction({ update: [...this.rowData] });
-                })
-            : null;
+          this.toast
+            .confirm('Are you sure you want to delete this entry?')
+            .then((confirmed) => {
+              if (confirmed) {
+                this.blessingsService
+                  .deleteBlessingsRecord(this.recordId, id)
+                  .subscribe({
+                    next: () => {
+                      this.rowData = this.rowData.filter(
+                        (row) => row.id !== id
+                      );
+                      this.gridApi.applyTransaction({
+                        update: [...this.rowData],
+                      });
+                      this.toast.success(
+                        "Blessing's record deleted successfully."
+                      );
+                    },
+                    error: (error) => {
+                      this.toast.error(
+                        'Failed to delete the entry: ' + error.message
+                      );
+                    },
+                  });
+              }
+            });
         }
       }
 
@@ -171,7 +190,8 @@ export class BlessingsSectionComponent {
 
   constructor(
     private blessingsService: BlessingService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -209,10 +229,6 @@ export class BlessingsSectionComponent {
     this.gridApi.refreshCells();
   }
 
-  onEdit() {
-    alert();
-  }
-
   isEditing(row: any): boolean {
     return row.id === this.editingRowId;
   }
@@ -222,28 +238,48 @@ export class BlessingsSectionComponent {
   };
 
   onSave(row: any) {
-    confirm('Are you sure you want to save the changes?') &&
-      (row.id === 'add'
-        ? this.blessingsService
-            .createBlessingsRecord(this.recordId, {
-              priest: row.priest,
-              date: row.date.toISOString().split('T')[0],
-              reason: row.reason,
-            } as BlessingRecord)
-            .subscribe((newRecord) => {
-              this.rowData = [newRecord, ...this.rowData];
-            })
-        : this.blessingsService
-            .updateBlessingsRecord(this.recordId, row.id, {
-              priest: row.priest,
-              date: row.date.toISOString().split('T')[0],
-              reason: row.reason,
-            } as BlessingRecord)
-            .subscribe((updatedRecord) => {
-              updatedRecord.date = new Date(updatedRecord.date);
-              this.rowData = this.rowData.map((r) =>
-                r.id === row.id ? updatedRecord : r
-              );
-            }));
+    this.toast
+      .confirm('Are you sure you want to save the changes?')
+      .then((confirmed) => {
+        if (confirmed) {
+          row.id === 'add'
+            ? this.blessingsService
+                .createBlessingsRecord(this.recordId, {
+                  priest: row.priest,
+                  date: row.date,
+                  reason: row.reason,
+                } as BlessingRecord)
+                .subscribe({
+                  next: (newRecord) => {
+                    newRecord.date = new Date(newRecord.date);
+                    this.rowData = [newRecord, ...this.rowData];
+                  },
+                  error: (error) => {
+                    this.toast.error(
+                      'Error creating blessing record: ' + error.message
+                    );
+                  },
+                })
+            : this.blessingsService
+                .updateBlessingsRecord(this.recordId, row.id, {
+                  priest: row.priest,
+                  date: row.date,
+                  reason: row.reason,
+                } as BlessingRecord)
+                .subscribe({
+                  next: (updatedRecord) => {
+                    updatedRecord.date = new Date(updatedRecord.date);
+                    this.rowData = this.rowData.map((r) =>
+                      r.id === row.id ? updatedRecord : r
+                    );
+                  },
+                  error: (error) => {
+                    this.toast.error(
+                      'Error updating blessing record: ' + error.message
+                    );
+                  },
+                });
+        }
+      });
   }
 }

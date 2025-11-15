@@ -1,11 +1,12 @@
-<div class="p-4">
-  <div *appCanCreate="screen" class="flex mb-4 justify-between items-center">
-    <h4 class="pt-2 font-semibold">Miscellanous Records List</h4>
-    <button (click)="addRow()">
+<div class="header">
+  <h3>Miscellanous Records List</h3>
+  <div *appCanCreate="screen" class="header-right-section">
+    <button class="text-sm mx-2" (click)="addRow()">
       <fa-icon [icon]="faAdd"></fa-icon>Add Record
     </button>
   </div>
-
+</div>
+<div class="ag-theme-alpine">
   <ag-grid-angular
     class="ag-theme-alpine w-full"
     [columnDefs]="columnDefs"

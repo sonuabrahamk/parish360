@@ -5,6 +5,7 @@ import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { MigrationDetails } from '../../../services/interfaces/member.interface';
 import {
@@ -20,6 +21,7 @@ import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { AccordionComponent } from '../../common/accordion/accordion.component';
 import { SectionFormComponent } from '../../common/section-form/section-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-migration-section',
@@ -52,7 +54,8 @@ export class MigrationSectionComponent {
   constructor(
     private fb: FormBuilder,
     private migrationService: MigrationService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -66,8 +69,11 @@ export class MigrationSectionComponent {
             migrations.forEach((migration) => {
               this.migrationFormArray.push(
                 this.fb.group({
-                  migrated_on: [migration.migrated_on || ''],
-                  comment: [migration.comment || ''],
+                  migrated_on: [
+                    migration.migrated_on || '',
+                    Validators.required,
+                  ],
+                  comment: [migration.comment || '', Validators.required],
                   parish: [migration.parish || ''],
                   address: [migration.address || ''],
                   place: this.fb.group({
@@ -88,7 +94,7 @@ export class MigrationSectionComponent {
           }
         },
         error: (err) => {
-          console.error('Error fetching migrations:', err);
+          this.toast.error('Error fetching migrations: ' + err.message);
         },
       });
   }
@@ -98,18 +104,23 @@ export class MigrationSectionComponent {
       this.migrationFormArray.removeAt(index);
       return;
     }
-    this.migrationService
-      .deleteMigration(this.recordId, this.memberId, id)
-      .subscribe({
-        next: () => {
-          alert('Migration deleted successfully!');
-          this.migrations = this.migrations.filter((_, i) => i !== index);
-          this.migrationFormArray.removeAt(index);
-        },
-        error: (err) => {
-          console.error('Error deleting migration:', err);
-          alert('Failed to delete migration. Please try again.');
-        },
+    this.toast
+      .confirm('Are you sure you want to delete this migration record?')
+      .then((confirmed) => {
+        if (confirmed) {
+          this.migrationService
+            .deleteMigration(this.recordId, this.memberId, id)
+            .subscribe({
+              next: () => {
+                this.migrations = this.migrations.filter((_, i) => i !== index);
+                this.migrationFormArray.removeAt(index);
+                this.toast.success('Migration record deleted successfully!');
+              },
+              error: (err) => {
+                this.toast.error('Failed to delete migration: ' + err.message);
+              },
+            });
+        }
       });
   }
 
@@ -131,14 +142,14 @@ export class MigrationSectionComponent {
   addMigration() {
     if (this.migrations) {
       if (this.migrations?.length < this.migrationFormArray?.length) {
-        alert(
+        this.toast.warn(
           'There is an unsaved migration entry already. Please save it before adding a new one.'
         );
         return;
       }
     } else {
       if (this.migrationFormArray?.length === 1) {
-        alert(
+        this.toast.warn(
           'There is an unsaved migration entry already. Please save it before adding a new one.'
         );
         return;
@@ -146,8 +157,8 @@ export class MigrationSectionComponent {
     }
     this.migrationFormArray.push(
       this.fb.group({
-        migrated_on: [''],
-        comment: [''],
+        migrated_on: ['', Validators.required],
+        comment: ['', Validators.required],
         parish: [''],
         address: [''],
         place: this.fb.group({
@@ -164,41 +175,63 @@ export class MigrationSectionComponent {
   }
 
   save(id: string, index: number) {
-    if (confirm('Are you sure you want to save the changes?')) {
-      if (id === 'new') {
-        const newMigration: MigrationDetails =
-          this.migrationFormArray.at(index)?.value;
-        this.migrationService
-          .createMigration(this.recordId, this.memberId, newMigration)
-          .subscribe({
-            next: (createdMigration) => {
-              alert('Migration created successfully!');
-              // Update the local migration array and form array with the new ID
-              this.migrations.push(createdMigration);
-              this.migrationFormArray.at(index)?.patchValue(createdMigration);
-            },
-            error: (err) => {
-              console.error('Error creating migration:', err);
-              alert('Failed to create migration. Please try again.');
-            },
-          });
-      } else {
-        const updatedMigration: MigrationDetails =
-          this.migrationFormArray.at(index)?.value;
-        this.migrationService
-          .updateMigration(this.recordId, this.memberId, id, updatedMigration)
-          .subscribe({
-            next: (migration) => {
-              alert('Migration updated successfully!');
-              // Update the local migration array
-              this.migrations[index] = migration;
-            },
-            error: (err) => {
-              console.error('Error updating migrations:', err);
-              alert('Failed to update migration. Please try again.');
-            },
-          });
-      }
+    if (this.migrationFormArray.at(index)?.invalid) {
+      this.migrationFormArray.at(index)?.markAllAsTouched();
+      return;
     }
+    this.toast
+      .confirm('Are you sure you want to save the changes?')
+      .then((confirmed) => {
+        if (confirmed) {
+          if (id === 'new') {
+            const newMigration: MigrationDetails = this.migrationFormArray
+              .at(index)
+              ?.getRawValue();
+            this.migrationService
+              .createMigration(this.recordId, this.memberId, newMigration)
+              .subscribe({
+                next: (createdMigration) => {
+                  // Update the local migration array and form array with the new ID
+                  this.ngOnInit();
+                  this.toast.success('Migration created successfully!');
+                },
+                error: (err) => {
+                  this.toast.error(
+                    'Failed to create migration: ' + err.message
+                  );
+                },
+              });
+          } else {
+            const updatedMigration: MigrationDetails = this.migrationFormArray
+              .at(index)
+              ?.getRawValue();
+            this.migrationService
+              .updateMigration(
+                this.recordId,
+                this.memberId,
+                id,
+                updatedMigration
+              )
+              .subscribe({
+                next: (migration) => {
+                  // Update the local migration array
+                  this.migrations[index] = migration;
+                  this.toast.success('Migration updated successfully!');
+                },
+                error: (err) => {
+                  this.toast.error(
+                    'Failed to update migration: ' + err.message
+                  );
+                },
+              });
+          }
+        }
+      });
+  }
+
+  // Utility getter for template
+  isInvalid(controlName: string, index: number): boolean {
+    const control = this.migrationFormArray.at(index)?.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }

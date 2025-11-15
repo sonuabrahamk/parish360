@@ -13,25 +13,25 @@
   <!-- Expense Date -->
   <div class="form-group">
     <label>Expense Date</label>
-    <input type="date" formControlName="date" class="col-span-2" />
+    <input type="date" formControlName="date" />
   </div>
 
   <!-- Paid To -->
   <div class="form-group">
     <label>Paid To</label>
-    <input type="text" formControlName="paid_to" class="col-span-2" />
+    <input type="text" formControlName="paid_to" />
   </div>
 
   <!-- Paid By -->
   <div class="form-group">
     <label>Paid By</label>
-    <input type="text" formControlName="paid_by" class="col-span-2" />
+    <input type="text" formControlName="paid_by" />
   </div>
 
   <!-- Account -->
   <div class="form-group">
     <label>Account</label>
-    <select formControlName="account_id" class="lg:col-span-2">
+    <select formControlName="account_id">
       <option
         *ngFor="let account of accounts; let i = index"
         [value]="account.id"
@@ -44,19 +44,19 @@
   <!-- Amount -->
   <div class="form-group">
     <label>Amount</label>
-    <input type="number" formControlName="amount" class="col-span-2" />
+    <input type="number" formControlName="amount" />
   </div>
 
   <!-- Currency -->
   <div class="form-group">
     <label>Currency</label>
-    <input type="text" formControlName="currency" class="col-span-2" />
+    <input type="text" formControlName="currency" />
   </div>
 
   <!-- Payment Method -->
   <div class="form-group">
     <label>Payment Method</label>
-    <select formControlName="payment_method" class="lg:col-span-2" value="cash">
+    <select formControlName="payment_method" value="cash">
       <option value="cash">CASH</option>
       <option value="upi">UPI</option>
       <option value="online_payment">Online Payment</option>
@@ -64,9 +64,9 @@
   </div>
 
   <!-- Remarks -->
-  <div class="form-group col-span-2 grid grid-cols-1 md:grid-cols-10">
+  <div class="form-group col-span-2">
     <label>Description</label>
-    <input type="text" formControlName="description" class="col-span-9" />
+    <input type="text" formControlName="description" />
   </div>
 </div>
 

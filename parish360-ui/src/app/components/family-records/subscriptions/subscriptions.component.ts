@@ -48,7 +48,12 @@ export class SubscriptionsComponent {
 
         // Column Defs
         this.columnDefs = [
-          { field: 'month', headerName: 'Month', pinned: 'left' },
+          {
+            field: 'month',
+            headerName: 'Months',
+            headerClass: 'font-bold',
+            pinned: 'left',
+          },
           ...years.map((year) => ({
             field: String(year),
             headerName: String(year),

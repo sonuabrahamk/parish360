@@ -80,6 +80,18 @@ export class PersonalSectionComponent {
           state: [this.member.birth_place?.state || ''],
           country: [this.member.birth_place?.country || ''],
         }),
+        god_father: this.fb.group({
+          name: [this.member.god_father?.name || ''],
+          parish: [this.member.god_father?.parish || ''],
+          baptism_name: [this.member.god_father?.baptism_name || ''],
+          contact: [this.member.god_father?.contact || ''],
+        }),
+        god_mother: this.fb.group({
+          name: [this.member.god_mother?.name || ''],
+          parish: [this.member.god_mother?.parish || ''],
+          baptism_name: [this.member.god_mother?.baptism_name || ''],
+          contact: [this.member.god_mother?.contact || ''],
+        }),
       });
       this.memberForm.disable();
       this.isEditMode = false;

@@ -13,7 +13,7 @@
   <!-- Payment Type -->
   <div class="form-group">
     <label>Payment Type</label>
-    <select formControlName="type" class="lg:col-span-2" [value]="type">
+    <select formControlName="type" [value]="type">
       <option *ngFor="let type of this.paymentTypeList">
         {{ type }}
       </option>
@@ -23,37 +23,37 @@
   <!-- Payment Date -->
   <div class="form-group">
     <label>Payment Date</label>
-    <input type="date" formControlName="date" class="lg:col-span-2" />
+    <input type="date" formControlName="date" />
   </div>
 
   <!-- Booking Code -->
   <div class="form-group">
     <label>Booking Code</label>
-    <input type="text" formControlName="booking_code" class="lg:col-span-2" />
+    <input type="text" formControlName="booking_code" />
   </div>
 
   <!-- Payment received By -->
   <div class="form-group">
     <label>Received By</label>
-    <input type="text" formControlName="paid_to" class="lg:col-span-2" />
+    <input type="text" formControlName="paid_to" />
   </div>
 
   <!-- Payment By -->
   <div class="form-group">
     <label>Payee</label>
-    <input type="text" formControlName="payee" class="lg:col-span-2" />
+    <input type="text" formControlName="payee" />
   </div>
 
   <!-- Family Code -->
   <div class="form-group">
     <label>Family Code</label>
-    <input type="text" formControlName="family_code" class="lg:col-span-2" />
+    <input type="text" formControlName="family_code" />
   </div>
 
   <!-- Account -->
   <div class="form-group">
     <label>Account</label>
-    <select formControlName="account_id" class="lg:col-span-2">
+    <select formControlName="account_id">
       <option
         *ngFor="let account of accounts; let i = index"
         [value]="account.id"
@@ -66,13 +66,13 @@
   <!-- Amount -->
   <div class="form-group">
     <label>Amount</label>
-    <input type="number" formControlName="amount" class="lg:col-span-2" />
+    <input type="number" formControlName="amount" />
   </div>
 
   <!-- Currency -->
   <div class="form-group">
     <label>Currency</label>
-    <select formControlName="currency" class="lg:col-span-2" value="INR">
+    <select formControlName="currency" value="INR">
       <option value="INR">INR</option>
     </select>
   </div>
@@ -80,7 +80,7 @@
   <!-- Payment Mode -->
   <div class="form-group">
     <label>Payment Mode</label>
-    <select formControlName="payment_mode" class="lg:col-span-2" value="cash">
+    <select formControlName="payment_mode" value="cash">
       <option value="cash">Pay at Office</option>
       <option value="upi">UPI</option>
       <option value="online_payment">Online Payment</option>
@@ -88,9 +88,9 @@
   </div>
 
   <!-- Description -->
-  <div class="form-group col-span-2 grid grid-cols-1 md:grid-cols-10">
+  <div class="form-group col-span-2">
     <label>Description</label>
-    <input type="text" formControlName="description" class="lg:col-span-9" />
+    <input type="text" formControlName="description" />
   </div>
 
   <!-- Subscription details section -->
@@ -103,21 +103,13 @@
       <!-- From Date -->
       <div class="form-group">
         <label>Subscription From</label>
-        <input
-          type="date"
-          formControlName="subscription_from"
-          class="lg:col-span-2"
-        />
+        <input type="date" formControlName="subscription_from" />
       </div>
 
       <!-- To Date -->
       <div class="form-group">
         <label>Subscription To</label>
-        <input
-          type="date"
-          formControlName="subscription_to"
-          class="lg:col-span-2"
-        />
+        <input type="date" formControlName="subscription_to" />
       </div>
     </div>
   </app-section-form>

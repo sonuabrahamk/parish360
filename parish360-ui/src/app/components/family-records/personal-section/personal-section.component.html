@@ -111,7 +111,7 @@
   </div>
 
   <!-- Birth Place section -->
-  <app-section-form [title]="'Birth Place'" class="md:col-span-3 mb-5">
+  <app-section-form [title]="'Birth Place'" class="md:col-span-3">
     <div class="form-section-3" formGroupName="birth_place">
       <!-- City -->
       <div class="form-group">
@@ -130,6 +130,63 @@
       </div>
     </div>
   </app-section-form>
+
+  <!-- God Parents Details  -->
+  <div class="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+    <!-- God Father Details  -->
+    <app-section-form [title]="'God Father Details'" formGroupName="god_father">
+      <!-- God Father name -->
+      <div class="form-group">
+        <label>God Father</label>
+        <input type="text" formControlName="name" />
+      </div>
+
+      <!-- God Father Baptism Name -->
+      <div class="form-group">
+        <label>Baptism Name</label>
+        <input type="text" formControlName="baptism_name" />
+      </div>
+
+      <!-- God Father Parish -->
+      <div class="form-group">
+        <label>Parish</label>
+        <input type="text" formControlName="parish" />
+      </div>
+
+      <!-- God Father Contact -->
+      <div class="form-group">
+        <label>Contact</label>
+        <input type="text" formControlName="contact" />
+      </div>
+    </app-section-form>
+
+    <!-- God Mother details  -->
+    <app-section-form [title]="'God Mother Details'" formGroupName="god_mother">
+      <!-- God Mother name -->
+      <div class="form-group">
+        <label>God Mother</label>
+        <input type="text" formControlName="name" />
+      </div>
+
+      <!-- God Mother Baptism Name -->
+      <div class="form-group">
+        <label>Baptism Name</label>
+        <input type="text" formControlName="baptism_name" />
+      </div>
+
+      <!-- God Mother Parish -->
+      <div class="form-group">
+        <label>Parish</label>
+        <input type="text" formControlName="parish" />
+      </div>
+
+      <!-- God Mother Contact -->
+      <div class="form-group">
+        <label>Contact</label>
+        <input type="text" formControlName="contact" />
+      </div>
+    </app-section-form>
+  </div>
 </div>
 
 <app-footer

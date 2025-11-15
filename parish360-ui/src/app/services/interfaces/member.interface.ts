@@ -1,4 +1,4 @@
-import { Place } from "./ceremonys.interface";
+import { GodParent, Place } from './ceremonys.interface';
 
 export interface Member {
   id: string;
@@ -15,6 +15,8 @@ export interface Member {
   birth_place: Place;
   relationship: string;
   gender: string;
+  god_father: GodParent;
+  god_mother: GodParent;
   sacraments_details: Sacrament[];
   documents: Document[];
   migration_details: MigrationDetails[];

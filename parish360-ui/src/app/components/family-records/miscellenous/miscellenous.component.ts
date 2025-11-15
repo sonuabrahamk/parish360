@@ -9,6 +9,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CanCreateDirective } from '../../../directives/can-create.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MiscellenousService } from '../../../services/api/miscellenous.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-miscellenous',
@@ -90,13 +91,30 @@ export class MiscellenousComponent {
 
       if (event.event.target.classList.contains('btn-delete')) {
         if (!this.permissionService.canDelete(this.screen)) {
-          alert('You do not have permission to delete an entry!!');
+          this.toast.warn('You do not have permission to delete an entry!');
         } else {
-          this.miscellenousService
-            .deleteMiscellaneousRecord(this.recordId, id)
-            .subscribe(() => {
-              this.rowData = this.rowData.filter((row) => row.id !== id);
-              this.gridApi.applyTransaction({ update: [...this.rowData] });
+          this.toast
+            .confirm('Are you sure you want to delete this record?')
+            .then((confirmed) => {
+              if (confirmed) {
+                this.miscellenousService
+                  .deleteMiscellaneousRecord(this.recordId, id)
+                  .subscribe({
+                    next: () => {
+                      this.rowData = this.rowData.filter(
+                        (row) => row.id !== id
+                      );
+                      this.gridApi.applyTransaction({
+                        update: [...this.rowData],
+                      });
+                    },
+                    error: (error) => {
+                      this.toast.error(
+                        'Error deleteing record: ' + error.message
+                      );
+                    },
+                  });
+              }
             });
         }
       }
@@ -167,15 +185,22 @@ export class MiscellenousComponent {
 
   constructor(
     private miscellenousService: MiscellenousService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
-    this.miscellenousService
-      .getMiscellaneousList(this.recordId)
-      .subscribe((miscellaneousList) => {
+    this.miscellenousService.getMiscellaneousList(this.recordId).subscribe({
+      next: (miscellaneousList) => {
+        miscellaneousList.map(
+          (record) => (record.created_at = new Date(record.created_at))
+        );
         this.rowData = miscellaneousList;
-      });
+      },
+      error: (error) => {
+        this.toast.error('Error fetching records: ' + error.message);
+      },
+    });
 
     this.permissionService.canEdit(this.screen)
       ? (this.columnDefs = [...this.columnDefs, this.editorColumnDef])
@@ -204,10 +229,6 @@ export class MiscellenousComponent {
     });
   }
 
-  onEdit() {
-    alert();
-  }
-
   isEditing(row: any): boolean {
     return row.id === this.editingRowId;
   }
@@ -217,25 +238,44 @@ export class MiscellenousComponent {
   };
 
   onSave(row: any) {
-    confirm('Are you sure you want to save the changes?') &&
-      (row.id === 'new'
-        ? this.miscellenousService
-            .createMiscellaneousRecord(this.recordId, {
-              commented_by: row.commented_by,
-              comment: row.comment,
-            } as MiscellaneousRecord)
-            .subscribe((newRecord) => {
-              this.rowData = [newRecord, ...this.rowData];
-            })
-        : this.miscellenousService
-            .updateMiscellaneousRecord(this.recordId, row.id, {
-              commented_by: row.commented_by,
-              comment: row.comment,
-            } as MiscellaneousRecord)
-            .subscribe((updatedRecord) => {
-              this.rowData = this.rowData.map((r) =>
-                r.id === row.id ? updatedRecord : r
-              );
-            }));
+    this.toast
+      .confirm('Are you sure you want to save the changes?')
+      .then((confirmed) => {
+        if (confirmed) {
+          row.id === 'new'
+            ? this.miscellenousService
+                .createMiscellaneousRecord(this.recordId, {
+                  commented_by: row.commented_by,
+                  comment: row.comment,
+                } as MiscellaneousRecord)
+                .subscribe({
+                  next: (newRecord) => {
+                    newRecord.created_at = new Date(newRecord.created_at);
+                    this.rowData = [newRecord, ...this.rowData];
+                  },
+                  error: (error) => {
+                    this.toast.error('Error creating record: ' + error.message);
+                  },
+                })
+            : this.miscellenousService
+                .updateMiscellaneousRecord(this.recordId, row.id, {
+                  commented_by: row.commented_by,
+                  comment: row.comment,
+                } as MiscellaneousRecord)
+                .subscribe({
+                  next: (updatedRecord) => {
+                    updatedRecord.created_at = new Date(
+                      updatedRecord.created_at
+                    );
+                    this.rowData = this.rowData.map((r) =>
+                      r.id === row.id ? updatedRecord : r
+                    );
+                  },
+                  error: (error) => {
+                    this.toast.error('Error updating record: ' + error.message);
+                  },
+                });
+        }
+      });
   }
 }
