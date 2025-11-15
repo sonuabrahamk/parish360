@@ -42,7 +42,6 @@ export class RecordsListComponent {
 
   ngOnInit() {
     this.familyRecordService.getFamilyRecords().subscribe((records) => {
-      console.log(records);
       this.rowData = records;
     });
   }

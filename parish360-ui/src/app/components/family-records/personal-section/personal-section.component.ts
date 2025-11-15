@@ -123,9 +123,7 @@ export class PersonalSectionComponent {
       .subscribe({
         next: (response) => {
           this.toast.success('Member created successfully!');
-          this.router.navigateByUrl(
-            `/family-records/${this.recordId}/members/${response.id}`
-          );
+          this.router.navigateByUrl(`/family-records/${this.recordId}/members`);
         },
         error: (error) => {
           this.toast.error('Error creating member: ', error.message);

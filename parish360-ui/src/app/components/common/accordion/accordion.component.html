@@ -3,7 +3,7 @@
     class="accordion-btn"
     (click)="toggle()"
   >
-    <span>{{ title }}</span>
+    <span class="text-sm">{{ title }}</span>
     <div>
       <span><fa-icon [icon]="faDelete" *appCanDelete="screen" class="mr-4 text-red-700" (click)="onDelete($event)"></fa-icon></span>
       <svg

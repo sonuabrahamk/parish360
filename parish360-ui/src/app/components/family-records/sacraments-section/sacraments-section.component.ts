@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, signal, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { AccordionComponent } from '../../common/accordion/accordion.component';
-import { IconService } from '../../../services/common/icon.service';
 import {
   faFloppyDisk,
   faPlus,
@@ -21,6 +21,7 @@ import { SectionFormComponent } from '../../common/section-form/section-form.com
 import { Sacrament } from '../../../services/interfaces/member.interface';
 import { PermissionsService } from '../../../services/common/permissions.service';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-sacraments-section',
@@ -62,7 +63,8 @@ export class SacramentsSectionComponent {
   constructor(
     private fb: FormBuilder,
     private sacramentService: SacramentService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -85,9 +87,6 @@ export class SacramentsSectionComponent {
                     state: [sacrament.place?.state || ''],
                     country: [sacrament.place?.country || ''],
                   }),
-                  god_father: [sacrament.god_father || ''],
-                  god_mother: [sacrament.god_mother || ''],
-                  spouse: [sacrament.spouse || ''],
                 })
               );
             });
@@ -100,7 +99,7 @@ export class SacramentsSectionComponent {
           }
         },
         error: (err) => {
-          console.error('Error fetching sacraments:', err);
+          this.toast.error('Error fetching sacraments:', err.message);
         },
       });
   }
@@ -110,17 +109,18 @@ export class SacramentsSectionComponent {
       this.sacramentFormArray.removeAt(index);
       return;
     }
-    this.sacramentService.deleteSacrament(this.recordId, this.memberId, id).subscribe({
-      next: () => {
-        alert('Sacrament deleted successfully!');
-        this.sacraments = this.sacraments.filter((_, i) => i !== index);
-        this.sacramentFormArray.removeAt(index);
-      },
-      error: (err) => {
-        console.error('Error deleting sacrament:', err);
-        alert('Failed to delete sacrament. Please try again.');
-      },
-    });
+    this.sacramentService
+      .deleteSacrament(this.recordId, this.memberId, id)
+      .subscribe({
+        next: () => {
+          this.sacraments = this.sacraments.filter((_, i) => i !== index);
+          this.sacramentFormArray.removeAt(index);
+          this.toast.success('Sacrament deleted successfully!');
+        },
+        error: (err) => {
+          this.toast.error('Failed to delete sacrament: ' + err.message);
+        },
+      });
   }
 
   getSacramentTypeName(index: number): string {
@@ -133,81 +133,102 @@ export class SacramentsSectionComponent {
   }
 
   getSacramentId(index: number): string {
-    if(this.sacraments){
+    if (this.sacraments) {
       return this.sacraments[index]?.id || 'new';
     }
     return 'new';
   }
 
   addSacrament() {
-    if(this.sacraments){
-      if(this.sacraments?.length < this.sacramentFormArray?.length){
-        alert('There is an unsaved sacrament entry already. Please save it before adding a new one.');
+    if (this.sacraments) {
+      if (this.sacraments?.length < this.sacramentFormArray?.length) {
+        this.toast.warn(
+          'There is an unsaved sacrament entry already. Please save it before adding a new one.'
+        );
         return;
       }
     } else {
-      if(this.sacramentFormArray?.length === 1){
-        alert('There is an unsaved sacrament entry already. Please save it before adding a new one.');
+      if (this.sacramentFormArray?.length === 1) {
+        this.toast.warn(
+          'There is an unsaved sacrament entry already. Please save it before adding a new one.'
+        );
         return;
       }
     }
     this.sacramentFormArray.push(
       this.fb.group({
-        type: [''],
-        date: [''],
-        parish: [''],
+        type: ['', Validators.required],
+        date: ['', Validators.required],
+        parish: ['', Validators.required],
         priest: [''],
         place: this.fb.group({
           city: [''],
           state: [''],
           country: [''],
         }),
-        god_father: [''],
-        god_mother: [''],
-        spouse: [''],
       })
     );
     this.sacramentForm = this.fb.group({
-              sacrament_details: this.sacramentFormArray as FormArray,
+      sacrament_details: this.sacramentFormArray as FormArray,
     });
   }
 
   save(id: string, index: number) {
-    if (confirm('Are you sure you want to save the changes?')) {
-      if (id === 'new') {
-        const newSacrament: Sacrament =
-          this.sacramentFormArray.at(index)?.value;
-        this.sacramentService
-          .createSacrament(this.recordId, this.memberId, newSacrament)
-          .subscribe({
-            next: (createdSacrament) => {
-              alert('Sacrament created successfully!');
-              // Update the local sacraments array and form array with the new ID
-              this.sacraments.push(createdSacrament);
-              this.sacramentFormArray.at(index)?.patchValue(createdSacrament);
-            },
-            error: (err) => {
-              console.error('Error creating sacrament:', err);
-              alert('Failed to create sacrament. Please try again.');
-            },
-          });
-      } else {
-        const updatedSacrament: Sacrament =
-          this.sacramentFormArray.at(index)?.value;
-        this.sacramentService
-          .updateSacrament(this.recordId, this.memberId, id, updatedSacrament)
-          .subscribe({
-            next: (sacrament) => {
-              alert('Sacrament updated successfully!');
-              // Update the local sacraments array
-              this.sacraments[index] = sacrament;
-            },
-            error: (err) => {
-              console.error('Error updating sacrament:', err);
-              alert('Failed to update sacrament. Please try again.');
-            },
-          });
-      }
+    if (this.sacramentFormArray.at(index)?.invalid) {
+      this.sacramentFormArray.at(index)?.markAllAsTouched();
+      return;
     }
+    this.toast
+      .confirm('Are you sure you want to save the changes?')
+      .then((confirmed) => {
+        if (confirmed) {
+          if (id === 'new') {
+            const newSacrament: Sacrament =
+              this.sacramentFormArray.at(index)?.value;
+            this.sacramentService
+              .createSacrament(this.recordId, this.memberId, newSacrament)
+              .subscribe({
+                next: (createdSacrament) => {
+                  // Update the local sacraments array and form array with the new ID
+                  this.ngOnInit();
+                  this.toast.success('Sacrament created successfully!');
+                },
+                error: (err) => {
+                  this.toast.error(
+                    'Failed to create sacrament: ' + err.message
+                  );
+                },
+              });
+          } else {
+            const updatedSacrament: Sacrament =
+              this.sacramentFormArray.at(index)?.value;
+            this.sacramentService
+              .updateSacrament(
+                this.recordId,
+                this.memberId,
+                id,
+                updatedSacrament
+              )
+              .subscribe({
+                next: (sacrament) => {
+                  // Update the local sacraments array
+                  this.sacraments[index] = sacrament;
+                  this.toast.success('Sacrament updated successfully!');
+                },
+                error: (err) => {
+                  this.toast.error(
+                    'Failed to update sacrament: ' + err.message
+                  );
+                },
+              });
+          }
+        }
+      });
+  }
+
+  // Utility getter for template
+  isInvalid(controlName: string, index: number): boolean {
+    const control = this.sacramentFormArray.at(index)?.get(controlName);
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 }
