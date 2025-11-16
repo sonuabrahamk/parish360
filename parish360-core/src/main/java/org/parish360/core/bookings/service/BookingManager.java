@@ -4,6 +4,7 @@ import org.parish360.core.bookings.dto.BookingInfo;
 import org.parish360.core.bookings.dto.BookingRequest;
 import org.parish360.core.bookings.dto.BookingResponse;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface BookingManager {
@@ -15,7 +16,7 @@ public interface BookingManager {
 
     BookingResponse getBookingByCode(String parishId, String bookingCode);
 
-    List<BookingInfo> getListOfBooking(String parishId, String type);
+    List<BookingInfo> getListOfBooking(String parishId, String type, LocalDate startDate, LocalDate endDate);
 
     void deleteBookingInfo(String parishId, String bookingId);
 

@@ -41,6 +41,11 @@ export const MISCELLANOUS_BY_ID = (miscellenousId: string) =>
 // Bookings API paths
 export const BOOKINGS = '/bookings';
 export const BOOKINGS_BY_TYPE = (type: string) => `/bookings?type=${type}`;
+export const BOOKINGS_BY_TYPE_AND_RANGE = (
+  type: string,
+  startDate: string,
+  endDate: string
+) => `/bookings?type=${type}&startDate=${startDate}&endDate=${endDate}`;
 export const BOOKING_BY_CODE = (code: string) => `/bookings/view/${code}`;
 export const BOOKING_BY_ID = (id: string) => `/bookings/${id}`;
 export const CANCEL_BOOKING_BY_ID = (id: string) => `/bookings/${id}/cancel`;

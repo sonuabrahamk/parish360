@@ -6,15 +6,17 @@ import { Bookings } from '../../../services/interfaces/bookings.interface';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { StatusComponent } from '../../../pages/bookings/bookings-list/status.component';
 import { SERVICE_TYPE_BOOKING } from '../../../services/common/common.constants';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-service-intentions',
   standalone: true,
-  imports: [AgGridModule, CommonModule],
+  imports: [AgGridModule, CommonModule, FormsModule],
   templateUrl: './service-intentions.component.html',
   styleUrl: './service-intentions.component.css',
 })
 export class ServiceIntentionsComponent {
+  selectedDuration: string = 'week';
   rowData: Bookings[] = [];
   private gridApi!: GridApi;
   paginationPageSize = 10;
@@ -65,15 +67,10 @@ export class ServiceIntentionsComponent {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit() {
-    this.bookingService.getBookingsByType(SERVICE_TYPE_BOOKING).subscribe({
-      next: (bookings) => {
-        this.rowData = bookings;
-        this.gridAutoSizeColumns();
-      },
-      error: () => {
-        console.log('error loading service intention bookings');
-      },
-    });
+    const { from, to } = this.bookingService.findFromAndToDate(
+      this.selectedDuration
+    );
+    this.updateServiceIntentions(from, to);
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -89,5 +86,26 @@ export class ServiceIntentionsComponent {
       .filter((column) => column?.getColDef()?.field !== 'description');
     const colIds = columns.map((col) => col.getColId());
     this.gridApi.autoSizeColumns(colIds);
+  }
+
+  onDurationUpdate() {
+    const { from, to } = this.bookingService.findFromAndToDate(
+      this.selectedDuration
+    );
+    this.updateServiceIntentions(from, to);
+  }
+
+  updateServiceIntentions(from: string, to: string) {
+    this.bookingService
+      .getBookingsByTypeAndRange(SERVICE_TYPE_BOOKING, from, to)
+      .subscribe({
+        next: (bookings) => {
+          this.rowData = bookings;
+          this.gridAutoSizeColumns();
+        },
+        error: () => {
+          console.log('error loading service intention bookings');
+        },
+      });
   }
 }

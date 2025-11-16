@@ -6,10 +6,12 @@ import org.parish360.core.bookings.dto.BookingRequest;
 import org.parish360.core.bookings.dto.BookingResponse;
 import org.parish360.core.bookings.service.BookingManager;
 import org.parish360.core.error.exception.BadRequestException;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -57,8 +59,14 @@ public class BookingHandler {
     @GetMapping
     public ResponseEntity<List<BookingInfo>> getListOfBookings(@PathVariable("parishId") String parishId,
                                                                @RequestParam(value = "type", required = false)
-                                                               String type) {
-        return ResponseEntity.ok(bookingManager.getListOfBooking(parishId, type));
+                                                               String type,
+                                                               @RequestParam(value = "startDate", required = false)
+                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                               LocalDate startDate,
+                                                               @RequestParam(value = "endDate", required = false)
+                                                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+                                                               LocalDate endDate) {
+        return ResponseEntity.ok(bookingManager.getListOfBooking(parishId, type, startDate, endDate));
     }
 
     @DeleteMapping("/{bookingId}")

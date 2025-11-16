@@ -8,7 +8,7 @@ import java.time.ZoneId;
 
 @Component
 public class TimezoneUtil {
-    public Instant asInstant(LocalDateTime dateTime) {
+    public static Instant asInstant(LocalDateTime dateTime) {
         String timezone = "UTC";
         if (AuthUtil.getCurrentUserTimezone() != null) {
             timezone = AuthUtil.getCurrentUserTimezone();
@@ -17,7 +17,7 @@ public class TimezoneUtil {
         return dateTime.atZone(zoneId).toInstant();
     }
 
-    public LocalDateTime asLocalDateTime(Instant dateTime) {
+    public static LocalDateTime asLocalDateTime(Instant dateTime) {
         String timezone = "UTC";
         if (AuthUtil.getCurrentUserTimezone() != null) {
             timezone = AuthUtil.getCurrentUserTimezone();

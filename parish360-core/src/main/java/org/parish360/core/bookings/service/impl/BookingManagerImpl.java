@@ -6,6 +6,7 @@ import org.parish360.core.bookings.dto.BookingResponse;
 import org.parish360.core.bookings.service.BookingManager;
 import org.parish360.core.bookings.service.BookingMapper;
 import org.parish360.core.common.enums.PaymentType;
+import org.parish360.core.common.util.TimezoneUtil;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.Payment;
 import org.parish360.core.dao.entities.bookings.Booking;
@@ -27,8 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -234,12 +234,24 @@ public class BookingManagerImpl implements BookingManager {
 
     @Override
     @Transactional(readOnly = true)
-    public List<BookingInfo> getListOfBooking(String parishId, String type) {
+    public List<BookingInfo> getListOfBooking(String parishId, String type, LocalDate startDate, LocalDate endDate) {
         List<Booking> bookings;
         if (type != null) {
-            bookings = bookingRepository
-                    .findByParishIdAndBookingType(UUIDUtil.decode(parishId), type)
-                    .orElseThrow(() -> new ResourceNotFoundException("could not find bookings information"));
+            if (startDate != null) {
+                if (endDate == null) {
+                    endDate = startDate.plusDays(1);
+                }
+                Instant startTime = TimezoneUtil.asInstant(startDate.atStartOfDay());
+                Instant endTime = TimezoneUtil.asInstant(endDate.atTime(LocalTime.MAX));
+                bookings = bookingRepository
+                        .findByParishIdAndBookingTypeAndBookedFromBetween(
+                                UUIDUtil.decode(parishId), type, startTime, endTime)
+                        .orElseThrow(() -> new ResourceNotFoundException("could not find bookings for specified dates"));
+            } else {
+                bookings = bookingRepository
+                        .findByParishIdAndBookingType(UUIDUtil.decode(parishId), type)
+                        .orElseThrow(() -> new ResourceNotFoundException("could not find bookings information"));
+            }
         } else {
             bookings = bookingRepository
                     .findByParishId(UUIDUtil.decode(parishId))
