@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../authentication/auth.service';
 import { PermissionsService } from '../../services/common/permissions.service';
@@ -29,17 +29,19 @@ export class LoginComponent {
 
   loginInternal(u: string, p: string, e: Event) {
     e.preventDefault();
-    if(u === ''){
+    if (u === '') {
       this.errorMessage = 'Please enter a username';
       return;
     }
-    if(p === ''){
+    if (p === '') {
       this.errorMessage = 'Please enter password';
       return;
     }
     this.auth.loginInternal(u, p).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        const redirectUrl = localStorage.getItem('redirect-url') || '/';
+        localStorage.removeItem('redirect-url');
+        this.router.navigateByUrl(redirectUrl);
       },
       error: (error) => {
         switch (error.status) {
@@ -58,7 +60,7 @@ export class LoginComponent {
     });
   }
 
-  onChange(){
+  onChange() {
     this.errorMessage = '';
   }
 }

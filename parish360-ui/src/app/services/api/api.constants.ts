@@ -91,6 +91,9 @@ export const SERVICES_BY_ID = (serviceId: string) =>
 export const SERVICES_BY_DATE = (startDate: string, endDate: string) =>
   `/configurations/services?startDate=${startDate}&endDate=${endDate}`;
 
+// Parish Info API paths
+export const PARISH_INFO = '/configurations/parish';
+
 // Resources API paths
 export const RESOURCES = '/configurations/resources';
 export const RESOURCE_BY_ID = (resourceId: string) =>

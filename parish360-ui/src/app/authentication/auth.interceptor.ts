@@ -1,9 +1,11 @@
-import {
-  HttpErrorResponse,
-  HttpInterceptorFn,
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { DIOCESE, FORANE, PARISH, PERMISSIONS_KEY } from '../services/common/common.constants';
+import {
+  DIOCESE,
+  FORANE,
+  PARISH,
+  PERMISSIONS_KEY,
+} from '../services/common/common.constants';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -20,8 +22,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         localStorage.removeItem(PARISH);
         localStorage.removeItem(FORANE);
         localStorage.removeItem(DIOCESE);
-    
+
         localStorage.removeItem('auth-token');
+        const redirectUrl =
+          router.getCurrentNavigation()?.finalUrl?.toString() ?? router.url;
+        localStorage.setItem('redirect-url', redirectUrl);
         router.navigate(['/login']);
       }
       return throwError(() => error);

@@ -6,8 +6,12 @@ import {
   FORANE,
   PARISH,
   PERMISSIONS_KEY,
+  USER_INFO_KEY,
 } from '../services/common/common.constants';
-import { Permissions } from '../services/interfaces/permissions.interface';
+import {
+  Permissions,
+  User,
+} from '../services/interfaces/permissions.interface';
 
 @Injectable({ providedIn: 'root' })
 export class JwtAuthService {
@@ -17,13 +21,14 @@ export class JwtAuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<{ accessToken: string; permissions: Permissions }>(
-        'http://localhost:8080/auth/login',
-        { username, password }
-      )
+      .post<{
+        access_token: string;
+        permissions: Permissions;
+        user_info: User;
+      }>('http://localhost:8080/auth/login', { username, password })
       .pipe(
         tap((response) => {
-          localStorage.setItem(this.TOKEN_KEY, response.accessToken);
+          localStorage.setItem(this.TOKEN_KEY, response.access_token);
           localStorage.setItem(
             PERMISSIONS_KEY,
             JSON.stringify(response.permissions)
@@ -39,6 +44,10 @@ export class JwtAuthService {
           localStorage.setItem(
             PARISH,
             JSON.stringify(response.permissions?.data_owner?.[PARISH][0])
+          );
+          localStorage.setItem(
+            USER_INFO_KEY,
+            JSON.stringify(response.user_info)
           );
         })
       );
