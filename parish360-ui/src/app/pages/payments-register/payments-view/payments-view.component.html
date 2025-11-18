@@ -72,8 +72,10 @@
   <!-- Currency -->
   <div class="form-group">
     <label>Currency</label>
-    <select formControlName="currency" value="INR">
-      <option value="INR">INR</option>
+    <select formControlName="currency">
+      <option *ngFor="let currency of currencies" [value]="currency.code">
+        {{ currency.code }}
+      </option>
     </select>
   </div>
 

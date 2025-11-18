@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { SCREENS } from '../../../services/common/common.constants';
+import { CURRENCIES, SCREENS } from '../../../services/common/common.constants';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { ExpenseService } from '../../../services/api/expenses.service';
 import { Expense } from '../../../services/interfaces/expenses.interface';
@@ -29,6 +29,8 @@ export class ExpenseViewComponent {
   screen: string = SCREENS.EXPENSES;
   isEditMode: boolean = true;
   faArrowLeft = faArrowLeft;
+
+  currencies = CURRENCIES;
 
   accounts!: Account[];
   expenseId: string | null = null;
@@ -112,15 +114,17 @@ export class ExpenseViewComponent {
   onSave() {
     if (this.expenseForm.get('id')?.value === 'create') {
       this.expenseForm.removeControl('id');
-      this.expenseService.createExpense(this.expenseForm.getRawValue()).subscribe({
-        next: (expenseBlob) => {
-          this.expenseService.printVoucher(expenseBlob);
-          this.router.navigate(['/expenses']);
-        },
-        error: (error) => {
-          this.toast.error('Error creating expense: ', error);
-        },
-      });
+      this.expenseService
+        .createExpense(this.expenseForm.getRawValue())
+        .subscribe({
+          next: (expenseBlob) => {
+            this.expenseService.printVoucher(expenseBlob);
+            this.router.navigate(['/expenses']);
+          },
+          error: (error) => {
+            this.toast.error('Error creating expense: ', error);
+          },
+        });
     } else {
       this.expenseService
         .updateExpense(this.expenseId!, this.expenseForm.getRawValue())

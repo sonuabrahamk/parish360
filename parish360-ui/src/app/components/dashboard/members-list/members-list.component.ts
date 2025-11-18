@@ -46,7 +46,7 @@ export class MembersListComponent {
     },
     {
       headerName: 'Contact',
-      field: 'contact',
+      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data.contact}`,
     },
     {
       headerName: 'Email',

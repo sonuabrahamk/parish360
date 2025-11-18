@@ -8,6 +8,7 @@ export interface FamilyRecord {
   family_name: string;
   contact: string;
   address: string;
+  dial_code: string;
   contact_verified: boolean;
   joined_date: Date;
   head_of_family: string;

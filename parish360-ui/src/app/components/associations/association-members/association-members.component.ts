@@ -125,7 +125,7 @@ export class AssociationMembersComponent {
             },
             {
               headerName: 'Contact',
-              field: 'contact',
+              valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
             },
             {
               headerName: 'Email',
@@ -158,7 +158,7 @@ export class AssociationMembersComponent {
             },
             {
               headerName: 'Contact',
-              field: 'contact',
+              valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
             },
           ];
           this.rowData = response;

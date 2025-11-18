@@ -1,4 +1,4 @@
-<div [formGroup]="memberForm" class="grid gap-5">
+<div [formGroup]="memberForm" class="grid grid-cols-1 md:grid-cols-3 gap-5">
   <!-- Field 1 -->
   <div class="form-group">
     <label>First Name</label>
@@ -25,8 +25,10 @@
   <div class="form-group">
     <label>Contact</label>
     <div class="grid md:grid-cols-7 gap-1">
-      <select class="col-span-2">
-        <option value="+91">+91</option>
+      <select class="col-span-2" formControlName="dial_code">
+        <option *ngFor="let country of countryCodes" [value]="country.dialCode">
+          {{ country.flag + " " + country.name }}
+        </option>
       </select>
       <input
         type="text"

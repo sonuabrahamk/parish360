@@ -10,7 +10,10 @@ import { SectionFormComponent } from '../../common/section-form/section-form.com
 import { Member } from '../../../services/interfaces/member.interface';
 import { FooterComponent } from '../footer/footer.component';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
-import { SCREENS } from '../../../services/common/common.constants';
+import {
+  COUNTRY_DIAL_CODES,
+  SCREENS,
+} from '../../../services/common/common.constants';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberService } from '../../../services/api/members.service';
@@ -32,6 +35,8 @@ import { ToastService } from '../../../services/common/toast.service';
 export class PersonalSectionComponent {
   @Input() member: Member | null = null;
   @ViewChild(FooterComponent) footerComponent!: FooterComponent;
+
+  countryCodes = COUNTRY_DIAL_CODES;
 
   memberForm!: FormGroup;
   screen: string = SCREENS.FAMILY_RECORD;
@@ -69,6 +74,7 @@ export class PersonalSectionComponent {
         dob: [this.member.dob || ''],
         father: [this.member.father || ''],
         mother: [this.member.mother || ''],
+        dial_code: [this.member.dial_code || '+91'],
         contact: [this.member.contact || '', Validators.pattern('^[0-9]{10}$')],
         email: [this.member.email || '', Validators.email],
         gender: [this.member.gender || ''],

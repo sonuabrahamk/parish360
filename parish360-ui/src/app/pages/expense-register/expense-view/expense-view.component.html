@@ -4,7 +4,7 @@
     <span
       class="text-primary-color cursor-pointer font-bold hover:text-secondary-color hover:underline"
       (click)="onBackClick()"
-      ><fa-icon [icon]="faArrowLeft"></fa-icon>Payments List</span
+      ><fa-icon [icon]="faArrowLeft"></fa-icon>Expense List</span
     >
   </div>
 </div>
@@ -50,7 +50,11 @@
   <!-- Currency -->
   <div class="form-group">
     <label>Currency</label>
-    <input type="text" formControlName="currency" />
+    <select formControlName="currency">
+      <option *ngFor="let currency of currencies" [value]="currency.code">
+        {{ currency.code }}
+      </option>
+    </select>
   </div>
 
   <!-- Payment Method -->

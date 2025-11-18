@@ -222,11 +222,21 @@
           <!-- God Father Contact -->
           <div class="form-group">
             <label>Contact</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </app-section-form>
 
@@ -260,11 +270,21 @@
           <!-- God Mother Contact -->
           <div class="form-group">
             <label>Contact</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </app-section-form>
       </div>
@@ -458,11 +478,21 @@
           <!-- God Father Contact -->
           <div class="form-group">
             <label>Contact</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </app-section-form>
 
@@ -496,11 +526,21 @@
           <!-- God Mother Contact -->
           <div class="form-group">
             <label>Contact</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </app-section-form>
       </div>
@@ -532,17 +572,27 @@
           </div>
           <!-- Witness Parish -->
           <div class="form-group">
-            <label>Name</label>
+            <label>Parish</label>
             <input type="text" formControlName="parish" class="lg:col-span-2" />
           </div>
           <!-- Witness Contact -->
           <div class="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <label>Contact</label>
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </div>
       </app-section-form>
@@ -564,17 +614,27 @@
           </div>
           <!-- Witness Parish -->
           <div class="form-group">
-            <label>Name</label>
+            <label>Parish</label>
             <input type="text" formControlName="parish" class="lg:col-span-2" />
           </div>
           <!-- Witness Contact -->
           <div class="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              formControlName="contact"
-              class="lg:col-span-2"
-            />
+            <label>Contact</label>
+            <div class="col-span-2 grid md:grid-cols-7 gap-2">
+              <select class="col-span-2" formControlName="dial_code">
+                <option
+                  *ngFor="let country of countryCodes"
+                  [value]="country.dialCode"
+                >
+                  {{ country.flag + " " + country.name }}
+                </option>
+              </select>
+              <input
+                type="text"
+                formControlName="contact"
+                class="lg:col-span-5"
+              />
+            </div>
           </div>
         </div>
       </app-section-form>

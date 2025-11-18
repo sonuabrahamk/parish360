@@ -4,7 +4,7 @@ import { CanCreateDirective } from '../../../directives/can-create.directive';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { ColDef, GridApi } from 'ag-grid-community';
-import { SCREENS } from '../../../services/common/common.constants';
+import { CURRENCIES, SCREENS } from '../../../services/common/common.constants';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { Resource } from '../../../services/interfaces/resources.interface';
@@ -23,6 +23,8 @@ export class ResourcesComponent {
   screen: string = SCREENS.CONFIGURATIONS;
 
   faAdd = faAdd;
+
+  currencyCodes: string[] = CURRENCIES.map((c) => c.code);
 
   rowData!: Resource[];
   editingRowId: string | null = null;
@@ -55,10 +57,13 @@ export class ResourcesComponent {
       cellEditor: 'agNumberCellEditor',
     },
     {
-      headerName: 'Booking Amount',
+      headerName: 'Currency',
       field: 'currency',
       editable: (params) => this.isEditing(params.data),
-      cellEditor: 'agTextCellEditor',
+      cellEditor: 'agSelectCellEditor',
+      cellEditorParams: {
+        values: this.currencyCodes,
+      },
     },
     {
       headerName: 'Mass Compatible',

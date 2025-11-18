@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import {
   SCREENS,
   CEREMONY_TYPE,
+  COUNTRY_DIAL_CODES,
 } from '../../../services/common/common.constants';
 import { CeremoniesService } from '../../../services/api/ceremonies.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -36,7 +37,10 @@ import { ToastService } from '../../../services/common/toast.service';
 })
 export class CeremonyViewComponent {
   screen: string = SCREENS.CEREMONIES;
+
   ceremonyType = CEREMONY_TYPE;
+  countryCodes = COUNTRY_DIAL_CODES;
+
   isEditMode: boolean = true;
   ceremonyId!: string;
   ceremony!: Ceremony;
@@ -119,18 +123,20 @@ export class CeremonyViewComponent {
           },
         });
     } else {
-      this.ceremonyService.createCeremony(this.ceremonyForm.getRawValue()).subscribe({
-        next: (ceremony) => {
-          this.ceremony = ceremony;
-          this.toast.success('Ceremony record created successfully!');
-          this.router.navigate(['/ceremonies']);
-        },
-        error: (error) => {
-          this.toast.error(
-            'Error creating a ceremony register: ' + error.message
-          );
-        },
-      });
+      this.ceremonyService
+        .createCeremony(this.ceremonyForm.getRawValue())
+        .subscribe({
+          next: (ceremony) => {
+            this.ceremony = ceremony;
+            this.toast.success('Ceremony record created successfully!');
+            this.router.navigate(['/ceremonies']);
+          },
+          error: (error) => {
+            this.toast.error(
+              'Error creating a ceremony register: ' + error.message
+            );
+          },
+        });
     }
   }
 

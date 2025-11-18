@@ -7,6 +7,7 @@ export interface Member {
   father: string;
   mother: string;
   email: string;
+  dial_code: string;
   contact: string;
   address: string;
   dob: string;

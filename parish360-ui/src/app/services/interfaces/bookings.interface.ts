@@ -5,6 +5,7 @@ export interface Bookings {
   id: string;
   booking_code: string;
   booked_by: string;
+  dial_code: string;
   contact: string;
   family_code: string;
   event: string;
@@ -20,6 +21,7 @@ export interface BookingRequest {
   id: string;
   booking_code: string;
   booked_by: string;
+  dial_code: string;
   contact: number;
   family_code: string;
   event: string;
@@ -35,6 +37,7 @@ export interface BookingResponse {
   id: string;
   booking_code: string;
   booked_by: string;
+  dial_code: string;
   contact: number;
   family_code: string;
   event: string;

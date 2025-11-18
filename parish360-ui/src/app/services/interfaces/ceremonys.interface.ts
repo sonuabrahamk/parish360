@@ -58,6 +58,7 @@ export interface GodParent {
   name: string;
   parish: string;
   baptism_name: string;
+  dial_code: string;
   contact: string;
 }
 
@@ -72,5 +73,6 @@ export interface Witness {
   name: string;
   relation: string;
   parish: string;
+  dial_code: string;
   contact: number;
 }

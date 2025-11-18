@@ -95,7 +95,7 @@ export class AssociatesMappingComponent {
           },
           {
             headerName: 'Contact',
-            field: 'contact',
+            valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data.contact}`,
           },
         ];
         this.selectAssociates = response;
@@ -122,7 +122,7 @@ export class AssociatesMappingComponent {
           },
           {
             headerName: 'Contact',
-            field: 'contact',
+            valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data.contact}`,
           },
         ];
         this.selectAssociates = response;

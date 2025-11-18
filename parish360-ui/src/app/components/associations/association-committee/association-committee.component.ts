@@ -51,7 +51,7 @@ export class AssociationCommitteeComponent {
     },
     {
       headerName: 'Contact',
-      field: 'contact',
+      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
       editable: (params) => this.isEditing(params.data),
       cellEditor: 'agTextCellEditor',
     },

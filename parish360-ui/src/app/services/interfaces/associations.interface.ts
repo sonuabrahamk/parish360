@@ -15,6 +15,7 @@ export interface Member {
   book_no: string;
   name: string;
   role: string;
+  dial_code: string;
   contact: string;
   email: string;
   joined: Date;
@@ -25,6 +26,7 @@ export interface Committee {
   designation: string;
   position: string;
   name: string;
+  dial_code: string;
   contact: string;
   email: string;
 }

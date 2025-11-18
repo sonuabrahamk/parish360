@@ -79,6 +79,7 @@ export class CeremonyFormBuilder {
       name: [godParent?.name || ''],
       parish: [godParent?.parish || ''],
       baptism_name: [godParent?.baptism_name || ''],
+      dial_code: [godParent?.dial_code || '+91'],
       contact: [godParent?.contact || ''],
     });
   }
@@ -114,6 +115,7 @@ export class CeremonyFormBuilder {
       name: [witness?.name || ''],
       relation: [witness?.relation || ''],
       parish: [witness?.parish || ''],
+      dial_code: [witness?.dial_code || '+91'],
       contact: [witness?.contact || ''],
     });
   }

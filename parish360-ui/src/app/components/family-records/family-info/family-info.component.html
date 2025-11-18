@@ -48,8 +48,13 @@
     <div class="form-group">
       <label>Mobile</label>
       <div class="col-span-2 grid md:grid-cols-7 gap-2">
-        <select class="col-span-2">
-          <option value="+91">+91</option>
+        <select class="col-span-2" formControlName="dial_code">
+          <option
+            *ngFor="let country of countryCodes"
+            [value]="country.dialCode"
+          >
+            {{ country.flag + " " + country.name }}
+          </option>
         </select>
         <input
           type="text"

@@ -26,6 +26,10 @@ import { ToastService } from '../../../services/common/toast.service';
 import { BookingService } from '../../../services/api/bookings.service';
 import { Resource } from '../../../services/interfaces/resources.interface';
 import { Services } from '../../../services/interfaces/services.interface';
+import {
+  COUNTRY_DIAL_CODES,
+  CURRENCIES,
+} from '../../../services/common/common.constants';
 
 @Component({
   selector: 'app-bookings-view',
@@ -41,6 +45,9 @@ import { Services } from '../../../services/interfaces/services.interface';
   styleUrl: './bookings-view.component.css',
 })
 export class BookingsViewComponent {
+  countryCodes = COUNTRY_DIAL_CODES;
+  currencies = CURRENCIES;
+
   currentDate: string = new Date().toISOString().slice(0, 16);
   nextDate: string = new Date(
     new Date(this.currentDate).setDate(new Date().getDate() + 1)
@@ -176,11 +183,11 @@ export class BookingsViewComponent {
                 if (booking.booking_type === 'resource') {
                   this.columnDefs = this.resourceColDefs;
                   this.rowData = booking.items;
-                  this.payments = booking?.payment??[];
+                  this.payments = booking?.payment ?? [];
                 } else {
                   this.columnDefs = this.serviceColDefs;
                   this.rowData = booking.items;
-                  this.payments =  booking?.payment??[];
+                  this.payments = booking?.payment ?? [];
                 }
               },
               error: (error) => {
@@ -221,7 +228,10 @@ export class BookingsViewComponent {
     if (this.bookingsForm.get('booking_type')?.value === 'resource') {
       this.loadResourcesTable(from_date, to_date);
     } else {
-      this.loadServiceIntentionsTable(from_date.split('T')[0], to_date.split('T')[0]);
+      this.loadServiceIntentionsTable(
+        from_date.split('T')[0],
+        to_date.split('T')[0]
+      );
     }
   }
 
@@ -229,6 +239,7 @@ export class BookingsViewComponent {
     this.bookingsForm = this.fb.group({
       booking_code: [this.booking?.booking_code || ''],
       booked_by: [this.booking?.booked_by || ''],
+      dial_code: [this.booking?.dial_code || '+91'],
       contact: [this.booking?.contact || ''],
       family_code: [this.booking?.family_code || ''],
       event: [this.booking?.event || ''],

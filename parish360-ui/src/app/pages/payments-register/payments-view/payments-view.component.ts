@@ -7,6 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Payment } from '../../../services/interfaces/payments.interface';
 import { PaymentService } from '../../../services/api/payments.service';
 import {
+  CURRENCIES,
   PAYMENT_TYPES,
   SCREENS,
 } from '../../../services/common/common.constants';
@@ -36,6 +37,8 @@ import { CanEditDirective } from '../../../directives/can-edit.directive';
 export class PaymentsViewComponent {
   screen: string = SCREENS.PAYMENTS;
   isEditMode: boolean = true;
+
+  currencies = CURRENCIES;
 
   faArrowLeft = faArrowLeft;
   accounts: Account[] = [];

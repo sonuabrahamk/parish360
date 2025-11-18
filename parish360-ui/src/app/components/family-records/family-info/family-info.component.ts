@@ -9,7 +9,10 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CanEditDirective } from '../../../directives/can-edit.directive';
-import { SCREENS } from '../../../services/common/common.constants';
+import {
+  COUNTRY_DIAL_CODES,
+  SCREENS,
+} from '../../../services/common/common.constants';
 import { FooterEvent } from '../../../services/interfaces/permissions.interface';
 import { Router } from '@angular/router';
 import { ToastService } from '../../../services/common/toast.service';
@@ -29,6 +32,8 @@ import { FamilyRecord } from '../../../services/interfaces/family-record.interfa
 export class FamilyInfoComponent {
   @Input() recordId!: string;
   @ViewChild(FooterComponent) footerComponent!: FooterComponent;
+
+  countryCodes = COUNTRY_DIAL_CODES;
 
   screen: string = SCREENS.FAMILY_RECORD;
   isEditMode: boolean = false;
@@ -143,6 +148,7 @@ export class FamilyInfoComponent {
       family_name: [this.familyInfo?.family_name || '', Validators.required],
       parish: [this.familyInfo?.parish || ''],
       unit: [this.familyInfo?.unit || ''],
+      dial_code: [this.familyInfo?.dial_code || '+91'],
       contact: [
         this.familyInfo?.contact || '',
         [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
