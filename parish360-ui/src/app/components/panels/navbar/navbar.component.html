@@ -10,16 +10,43 @@
       <img src="img/parish360.png" class="h-14 mx-2.5" />
     </div>
     <div class="flex items-center">
-      <fa-icon
+      <!-- <fa-icon
         [icon]="faBell"
         class="text-white mx-3.5 text-2xl hover:cursor-pointer hover:text-secondary-color"
-      ></fa-icon>
+      ></fa-icon> -->
       <div>
         <img
           src="img/profile.png"
           class="h-10 mx-3.5 rounded-full hover:cursor-pointer"
-          (click)="logout()"
+          (click)="userClick()"
         />
+        <div
+          class="drop-down fixed z-11 right-0 top-16 w-60 bg-primary-color border-b-2 border-secondary-color"
+          *ngIf="isOpen"
+        >
+          <ul class="flex-1 overflow-auto">
+            <li>
+              <a
+                (click)="profileClick()"
+                class="flex items-center gap-1 p-2 m-2 rounded-lg text-[1rem] font-bold text-white active:text-primary-color hover:bg-white hover:text-primary-color transition-colors"
+              >
+                <fa-icon [icon]="faUserCircle"></fa-icon>
+                <span>Profile</span>
+              </a>
+            </li>
+            <li>
+              <a
+                (click)="logout()"
+                routerLinkActive="!text-primary-color bg-white"
+                [routerLinkActiveOptions]="{ exact: false }"
+                class="flex items-center gap-1 p-2 m-2 rounded-lg text-[1rem] font-bold text-white active:text-primary-color hover:bg-white hover:text-primary-color transition-colors"
+              >
+                <fa-icon [icon]="faRightFromBracket"></fa-icon>
+                <span>Logout</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

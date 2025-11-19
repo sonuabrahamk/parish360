@@ -1,3 +1,14 @@
+import {
+  FaIconComponent,
+  IconDefinition,
+} from '@fortawesome/angular-fontawesome';
+
+export interface NavItems {
+  label: string;
+  icon: IconDefinition;
+  route: string;
+  order: number;
+}
 export interface Place {
   location: string;
   city: string;

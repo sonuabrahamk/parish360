@@ -1,26 +1,43 @@
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBars, faBell } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBars,
+  faBell,
+  faRightFromBracket,
+  faUserPen,
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../../authentication/auth.service';
-import { PermissionsService } from '../../../services/common/permissions.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { User } from '../../../services/interfaces/permissions.interface';
+import { USER_INFO_KEY } from '../../../services/common/common.constants';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterModule, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   faBars = faBars;
   faBell = faBell;
+  faRightFromBracket = faRightFromBracket;
+  faUserCircle = faUserPen;
 
-  constructor(
-    private auth: AuthService,
-    private permissions: PermissionsService,
-    private router: Router
-  ) {}
+  isOpen: boolean = false;
+  user!: User;
+
+  constructor(private auth: AuthService, private router: Router) {}
+
+  userClick() {
+    this.isOpen = !this.isOpen;
+  }
+
+  profileClick() {
+    this.user = JSON.parse(localStorage.getItem(USER_INFO_KEY) || '');
+    this.router.navigate(['/users', this.user?.id]);
+  }
 
   logout() {
     this.auth.logout();
