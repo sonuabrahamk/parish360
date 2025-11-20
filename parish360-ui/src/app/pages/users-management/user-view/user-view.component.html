@@ -9,7 +9,7 @@
   >
     <div
       class="flex flex-col items-center relative p-4 h-58"
-      (mouseenter)="hover = true"
+      (mouseenter)="onMouseEnterEvent()"
       (mouseleave)="hover = false"
     >
       <img [src]="profileImageUrl" class="profile-image w-auto h-full" />
@@ -104,8 +104,8 @@
       <div class="form-group">
         <label>Is Active</label>
         <select formControlName="is_active">
-          <option value="true">True</option>
-          <option value="false">False</option>
+          <option value="true">true</option>
+          <option value="false">false</option>
         </select>
       </div>
 

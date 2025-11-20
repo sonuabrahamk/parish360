@@ -182,6 +182,12 @@ export class UserViewComponent {
     this.isEditMode = event.isEditMode;
   }
 
+  onMouseEnterEvent() {
+    this.permissionService.canEdit(this.screen)
+      ? (this.hover = true)
+      : (this.hover = false);
+  }
+
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
@@ -212,7 +218,7 @@ export class UserViewComponent {
       password: [''],
       dial_code: [this.user?.dial_code || '+91'],
       contact: [this.user?.contact || '', Validators.pattern(/^[0-9]{10}$/)],
-      is_active: [this.user?.is_active || 'true'],
+      is_active: [String(this.user?.is_active) || ''],
       timezone: [this.user?.timezone || 'Asia/Kolkata'],
       currency: [this.user?.currency || 'INR'],
       locale: ['en-IN'],
