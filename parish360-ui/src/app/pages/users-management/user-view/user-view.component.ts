@@ -63,6 +63,7 @@ export class UserViewComponent {
   profileImageUrl: string = 'img/profile.png';
   selectRoles: Role[] = [];
   selectedRoles: Role[] = [];
+  initialRoles: Role[] = [];
   columnDefs: ColDef<Role>[] = [
     {
       headerName: 'Role Name',
@@ -125,6 +126,7 @@ export class UserViewComponent {
           next: (user) => {
             this.user = user;
             this.selectedRoles = user.roles;
+            this.initialRoles = user.roles;
             this.loadUserForm();
             this.userForm.get('username')?.disable();
           },
@@ -142,6 +144,8 @@ export class UserViewComponent {
       this.userService.getAllRoles().subscribe({
         next: (roles) => {
           this.selectRoles = roles;
+          const allowedRoleIds = roles.map((role) => role.id);
+          this.initialRoles.filter((role) => !allowedRoleIds.includes(role.id));
         },
         error: (error) => {
           this.toast.error('Error loading roles: ' + error.message);
@@ -151,7 +155,8 @@ export class UserViewComponent {
   }
 
   onRoleSelected() {
-    this.selectedRoles = this.gridApi.getSelectedRows();
+    const rows = this.gridApi.getSelectedRows() as Role[];
+    this.selectedRoles = [...this.initialRoles, ...rows];
   }
 
   onFirstDataRendered(event: FirstDataRenderedEvent) {
