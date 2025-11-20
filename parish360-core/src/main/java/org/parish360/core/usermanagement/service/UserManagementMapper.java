@@ -10,6 +10,9 @@ import org.parish360.core.usermanagement.dto.PermissionInfo;
 import org.parish360.core.usermanagement.dto.RoleInfo;
 import org.parish360.core.usermanagement.dto.UserInfo;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Mapper(componentModel = "spring",
         uses = {UUIDUtil.class, TimezoneUtil.class},
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
@@ -41,4 +44,12 @@ public interface UserManagementMapper {
 
     @Mapping(source = "id", target = "id", qualifiedByName = "base64ToUuid")
     Permission permissionInfoToDao(PermissionInfo permissionInfo);
+
+    default Set<String> getAllowedRoleNames(Set<Role> roles) {
+        return roles
+                .stream()
+                .map(this::daoToRoleInfo)
+                .map(RoleInfo::getName)
+                .collect(Collectors.toSet());
+    }
 }

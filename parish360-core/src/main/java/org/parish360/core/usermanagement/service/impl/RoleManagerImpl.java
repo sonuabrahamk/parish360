@@ -1,17 +1,21 @@
 package org.parish360.core.usermanagement.service.impl;
 
+import org.parish360.core.auth.dto.UserPrincipal;
 import org.parish360.core.common.util.UUIDUtil;
 import org.parish360.core.dao.entities.dataowner.Dataowner;
 import org.parish360.core.dao.entities.usermanagement.Permission;
 import org.parish360.core.dao.entities.usermanagement.Role;
+import org.parish360.core.dao.entities.usermanagement.User;
 import org.parish360.core.dao.repository.dataowner.DataownerRepository;
 import org.parish360.core.dao.repository.usermanagement.RoleRepository;
+import org.parish360.core.dao.repository.usermanagement.UserRepository;
 import org.parish360.core.error.exception.BadRequestException;
 import org.parish360.core.error.exception.ResourceNotFoundException;
 import org.parish360.core.usermanagement.dto.PermissionInfo;
 import org.parish360.core.usermanagement.dto.RoleInfo;
 import org.parish360.core.usermanagement.service.RoleManager;
 import org.parish360.core.usermanagement.service.UserManagementMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +28,13 @@ public class RoleManagerImpl implements RoleManager {
     private final RoleRepository roleRepository;
     private final DataownerRepository dataownerRepository;
     private final UserManagementMapper userManagementMapper;
+    private final UserRepository userRepository;
 
-    public RoleManagerImpl(RoleRepository roleRepository, DataownerRepository dataownerRepository, UserManagementMapper userManagementMapper) {
+    public RoleManagerImpl(RoleRepository roleRepository, DataownerRepository dataownerRepository, UserManagementMapper userManagementMapper, UserRepository userRepository) {
         this.roleRepository = roleRepository;
         this.dataownerRepository = dataownerRepository;
         this.userManagementMapper = userManagementMapper;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -79,9 +85,32 @@ public class RoleManagerImpl implements RoleManager {
     @Override
     @Transactional(readOnly = true)
     public List<RoleInfo> getRoleList(String dataownerId) {
+        // Get current user context
+        UserPrincipal currentUser = (UserPrincipal) SecurityContextHolder
+                .getContext().getAuthentication().getPrincipal();
+
+        // Find user information with roles
+        User user = userRepository
+                .findByIsActiveTrueAndUsernameOrEmail(currentUser.getUsername(), currentUser.getUsername())
+                .orElseThrow(() -> new ResourceNotFoundException("could not find current user context"));
+
+        // Identify the assigned roles to user
+        Set<String> allowedRoleNames = userManagementMapper.getAllowedRoleNames(user.getRoles());
+
+        // check if super-admin roles exist to return all roles
+        if (allowedRoleNames.contains("super-admin")) {
+            // return all roles
+            return roleRepository.findAllByDataownerId(UUIDUtil.decode(dataownerId))
+                    .stream()
+                    .map(userManagementMapper::daoToRoleInfo)
+                    .collect(Collectors.toList());
+        }
+
+        // return only the roles assigned to current user
         return roleRepository.findAllByDataownerId(UUIDUtil.decode(dataownerId))
                 .stream()
                 .map(userManagementMapper::daoToRoleInfo)
+                .filter(role -> allowedRoleNames.contains(role.getName()))
                 .collect(Collectors.toList());
     }
 

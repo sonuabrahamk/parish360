@@ -3,6 +3,11 @@ databaseChangeLog:
       id: insert-roles
       author: Sonu Abraham
       changes:
+        - sql: >
+            INSERT INTO roles (created_by,name,description,dataowner_id)
+            SELECT 'initial_load', p.name, p.description, (SELECT id FROM parish)
+            FROM permissions p
+            WHERE 1=1;
         - insert:
             tableName: roles
             columns:
