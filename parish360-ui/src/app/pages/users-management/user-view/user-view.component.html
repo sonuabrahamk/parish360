@@ -1,1 +1,177 @@
-<p>user-view works!</p>
+<div class="header">
+  <h1>User Profile</h1>
+</div>
+<div class="relative w-full min-h-[200px] overflow-hidden">
+  <div
+    *ngIf="userForm"
+    [formGroup]="userForm"
+    class="grid grid-cols-1 md:grid-cols-5 items-start gap-4 p-4"
+  >
+    <div
+      class="flex flex-col items-center relative p-4 h-58"
+      (mouseenter)="hover = true"
+      (mouseleave)="hover = false"
+    >
+      <img [src]="profileImageUrl" class="profile-image w-auto h-full" />
+
+      <!-- Hover overlay -->
+      <div class="overlay" *ngIf="hover" (click)="fileInput.click()">
+        <span>Update Logo</span>
+      </div>
+
+      <input
+        type="file"
+        #fileInput
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+    </div>
+
+    <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- UserName -->
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          formControlName="username"
+          placeholder="Username is required"
+          [ngClass]="{ invalid: isInvalid('username') }"
+        />
+      </div>
+
+      <!-- First Name -->
+      <div class="form-group">
+        <label>First Name</label>
+        <input
+          type="text"
+          formControlName="first_name"
+          placeholder="First Name is required"
+          [ngClass]="{ invalid: isInvalid('first_name') }"
+        />
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-group">
+        <label>Last Name</label>
+        <input
+          type="text"
+          formControlName="last_name"
+          placeholder="Last Name is required"
+          [ngClass]="{ invalid: isInvalid('last_name') }"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="text"
+          formControlName="email"
+          [ngClass]="{ invalid: isInvalid('email') }"
+        />
+      </div>
+
+      <!-- Contact -->
+      <div class="form-group">
+        <label>Contact</label>
+        <div class="col-span-2 grid md:grid-cols-7 gap-2">
+          <select class="col-span-2" formControlName="dial_code">
+            <option
+              *ngFor="let country of countryCodes"
+              [value]="country.dialCode"
+            >
+              {{ country.flag + " " + country.name }}
+            </option>
+          </select>
+          <input
+            type="text"
+            formControlName="contact"
+            class="lg:col-span-5"
+            placeholder="Contact is required"
+            [ngClass]="{ invalid: isInvalid('contact') }"
+          />
+        </div>
+      </div>
+
+      <!-- Reset Temporary Password -->
+      <div class="form-group">
+        <label>Reset Temporary Password</label>
+        <input type="text" formControlName="password" />
+      </div>
+
+      <!-- Is Active -->
+      <div class="form-group">
+        <label>Is Active</label>
+        <select formControlName="is_active">
+          <option value="true">True</option>
+          <option value="false">False</option>
+        </select>
+      </div>
+
+      <!-- Default Timezone -->
+      <div class="form-group">
+        <label>Default Timezone</label>
+        <select formControlName="timezone">
+          <option *ngFor="let timezone of timezones" [value]="timezone">
+            {{ timezone }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Currency -->
+      <div class="form-group">
+        <label>Default Currency</label>
+        <select formControlName="currency">
+          <option *ngFor="let currency of currencies" [value]="currency.code">
+            {{ currency.code }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-4">
+    <app-tabs
+      [tabs]="[{ label: 'Roles Assignment' }]"
+      [activeTabIndex]="0"
+    ></app-tabs>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-2">
+      <div class="col-span-6 ag-theme-alpine" *ngIf="isEditMode">
+        <p class="text-sm m-2 font-bold">Roles To Assign</p>
+        <ag-grid-angular
+          class="ag-theme-alpine"
+          [rowData]="selectRoles"
+          [columnDefs]="columnDefs"
+          [defaultColDef]="defaultColDef"
+          [pagination]="true"
+          [paginationPageSize]="paginationPageSize"
+          [paginationPageSizeSelector]="paginationPageSizeSelector"
+          [domLayout]="'autoHeight'"
+          (gridReady)="onGridReady($event)"
+          [rowSelection]="rowSelection"
+          (rowSelected)="onRoleSelected()"
+          (firstDataRendered)="onFirstDataRendered($event)"
+        />
+      </div>
+      <div class="col-span-6 ag-theme-alpine">
+        <p class="text-sm font-bold m-2">Assigned Roles</p>
+        <ag-grid-angular
+          class="ag-theme-alpine"
+          [rowData]="selectedRoles"
+          [columnDefs]="columnDefs"
+          [pagination]="true"
+          [paginationPageSize]="paginationPageSize"
+          [paginationPageSizeSelector]="paginationPageSizeSelector"
+          [domLayout]="'autoHeight'"
+        />
+      </div>
+    </div>
+  </div>
+
+  <app-footer
+    *appCanEdit="screen"
+    [isEditMode]="isEditMode"
+    (modeUpdated)="onModeUpdated($event)"
+  ></app-footer>
+</div>

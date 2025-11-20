@@ -45,7 +45,7 @@ export class UsersListComponent {
       headerName: 'User ID',
       field: 'id',
       cellRenderer: (params: any) =>
-        `<a href="/users/view/${params.value}">${params.value}</a>`,
+        `<a href="/users/${params.value}">${params.value}</a>`,
     },
     {
       headerName: 'First Name',
@@ -61,11 +61,12 @@ export class UsersListComponent {
     },
     {
       headerName: 'Contact',
-      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
+      valueGetter: (params) =>
+        `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
     },
     {
       headerName: 'Status',
-      field: 'status',
+      field: 'is_active',
     },
   ];
 

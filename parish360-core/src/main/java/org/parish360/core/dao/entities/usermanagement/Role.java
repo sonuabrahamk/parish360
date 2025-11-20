@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.parish360.core.dao.entities.common.BaseEntity;
 import org.parish360.core.dao.entities.dataowner.Dataowner;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,11 +28,11 @@ public class Role extends BaseEntity {
     @JoinColumn(name = "dataowner_id", nullable = false)
     private Dataowner dataowner;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             name = "role_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id")
     )
-    private Set<Permission> permissions = new HashSet<>();
+    private Set<Permission> permissions;
 }

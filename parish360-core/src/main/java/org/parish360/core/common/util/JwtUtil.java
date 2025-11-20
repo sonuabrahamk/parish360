@@ -91,7 +91,7 @@ public class JwtUtil {
 
         validateParishPermission(permissions, pathArray[2]);
 
-        String context = pathArray[3];
+        String context = pathArray[3].equalsIgnoreCase("roles") ? "users" : pathArray[3];
         validateModulePermission(permissions, context, method);
 
         return true;

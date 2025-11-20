@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { User } from '../interfaces/permissions.interface';
-import { EXTENSION, USER_BY_ID, USERS } from './api.constants';
+import { Role, User } from '../interfaces/permissions.interface';
+import { EXTENSION, ROLES, USER_BY_ID, USERS } from './api.constants';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -21,10 +21,14 @@ export class UserService {
   }
 
   updateUser(id: string, data: Partial<User>): Observable<User> {
-    return this.api.put<User>(USER_BY_ID(id), data);
+    return this.api.patch<User>(USER_BY_ID(id), data);
   }
 
   deleteUser(id: string): Observable<void> {
     return this.api.delete<void>(USER_BY_ID(id));
+  }
+
+  getAllRoles(): Observable<Role[]> {
+    return this.api.get<Role[]>(ROLES);
   }
 }

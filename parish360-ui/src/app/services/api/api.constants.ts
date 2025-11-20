@@ -83,6 +83,7 @@ export const ASSOCIATES_MEMBER_BY_ID = (associateId: string) =>
 // User Management API's
 export const USERS = '/users';
 export const USER_BY_ID = (userId: string) => `/users/${userId}`;
+export const ROLES = '/roles';
 
 // Liturgy Service API paths
 export const SERVICES = '/configurations/services';

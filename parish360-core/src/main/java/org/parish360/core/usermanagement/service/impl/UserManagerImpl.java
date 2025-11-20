@@ -35,6 +35,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserInfo> getUsersList(String entityId) {
         UUID decodedEntityId = UUIDUtil.decode(entityId);
         List<User> userList = userRepository.findByDataownerId(decodedEntityId);
@@ -46,6 +47,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserInfo getUser(String entityId, String userId) {
         UUID decodedUserId = UUIDUtil.decode(userId);
         UUID decodedEntityId = UUIDUtil.decode(entityId);
@@ -55,6 +57,7 @@ public class UserManagerImpl implements UserManager {
     }
 
     @Override
+    @Transactional
     public UserInfo createUser(String dataownerId, UserInfo userInfo) {
 
         Dataowner dataowner = dataownerRepository.findById(UUIDUtil.decode(dataownerId))
@@ -87,7 +90,7 @@ public class UserManagerImpl implements UserManager {
         userInfo.setId(userId);
 
         // hashing password if provided to update
-        if (userInfo.getPassword() != null) {
+        if (userInfo.getPassword() != null && !userInfo.getPassword().isBlank()) {
             userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         }
 
@@ -98,6 +101,11 @@ public class UserManagerImpl implements UserManager {
         User currentUserToUpdate = userRepository.findByIdAndDataownerId(updateUser.getId(),
                         UUIDUtil.decode(dataownerId))
                 .orElseThrow(() -> new ResourceNotFoundException("could not find user to update"));
+
+        // assigning old password value in-case it is sent as empty
+        if (updateUser.getPassword().isEmpty() || updateUser.getPassword().isBlank()) {
+            updateUser.setPassword(currentUserToUpdate.getPassword());
+        }
 
         // validate if immutable fields are updated
         if (isImmutableFieldModified(currentUserToUpdate, updateUser)) {

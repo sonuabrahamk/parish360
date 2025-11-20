@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -47,4 +48,5 @@ public class UserInfo {
     private String currency;
     private String timezone;
     private String dataownerId;
+    private Set<RoleInfo> roles;
 }

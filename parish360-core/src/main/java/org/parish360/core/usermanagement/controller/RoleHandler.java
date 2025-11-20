@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/dataowner/parish/{parishId}/roles")
+@RequestMapping("/parish/{parishId}/roles")
 public class RoleHandler {
     private final RoleManager roleManager;
 
@@ -24,8 +24,8 @@ public class RoleHandler {
     }
 
     @GetMapping("/{roleId}")
-    public ResponseEntity<RoleInfo> getRoleList(@PathVariable("parishId") String parishId,
-                                                @PathVariable("roleId") String roleId) {
+    public ResponseEntity<RoleInfo> getRole(@PathVariable("parishId") String parishId,
+                                            @PathVariable("roleId") String roleId) {
         return ResponseEntity.ok(roleManager.getRole(parishId, roleId));
     }
 

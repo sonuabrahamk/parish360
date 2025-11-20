@@ -1,12 +1,23 @@
 export interface User {
   id: string;
+  username: string;
   first_name: string;
   last_name: string;
   email: string;
   dial_code: string;
   contact: string;
-  status: string;
-  roles: string[];
+  password: string;
+  is_active: boolean;
+  currency: string;
+  timezone: string;
+  locale: string;
+  roles: Role[];
+}
+
+export interface Role {
+  id: string;
+  name: string;
+  description: string;
 }
 
 export interface Permissions {

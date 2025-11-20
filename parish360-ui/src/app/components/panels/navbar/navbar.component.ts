@@ -35,6 +35,7 @@ export class NavbarComponent {
   }
 
   profileClick() {
+    this.isOpen = !this.isOpen;
     this.user = JSON.parse(localStorage.getItem(USER_INFO_KEY) || '');
     this.router.navigate(['/users', this.user?.id]);
   }
