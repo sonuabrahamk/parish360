@@ -68,7 +68,7 @@ export class AssociationsComponent {
       editable: (params) => this.isEditing(params.data),
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        values: ['', 'UNIT', 'ASSOCIATION'],
+        values: ['UNIT', 'ASSOCIATION'],
       },
     },
     {
@@ -236,6 +236,7 @@ export class AssociationsComponent {
         founded_date: new Date(),
         patron: '',
         type: 'MEMBER',
+        scope: 'UNIT',
         active: true,
       } as Association,
     ];
@@ -271,6 +272,7 @@ export class AssociationsComponent {
             founded_date: row.founded_date.toISOString().split('T')[0],
             patron: row.patron,
             type: row.type,
+            scope: row.scope,
             active: row.active,
           } as Association)
           .subscribe({

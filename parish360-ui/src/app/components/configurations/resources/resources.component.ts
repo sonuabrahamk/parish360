@@ -104,6 +104,7 @@ export class ResourcesComponent {
     this.resourceService.getResourcesList().subscribe({
       next: (response) => {
         this.rowData = response;
+        console.log(response);
       },
       error: () => {
         console.log('Error in fetching resources list');
@@ -236,6 +237,7 @@ export class ResourcesComponent {
         description: '',
         amount: 0,
         currency: 'INR',
+        mass_compatible: false,
         active: true,
       } as Resource,
     ];

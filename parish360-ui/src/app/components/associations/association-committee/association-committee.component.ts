@@ -9,6 +9,7 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { GridApi, ColDef } from 'ag-grid-community';
 import { PermissionsService } from '../../../services/common/permissions.service';
+import { ToastService } from '../../../services/common/toast.service';
 
 @Component({
   selector: 'app-association-committee',
@@ -51,7 +52,16 @@ export class AssociationCommitteeComponent {
     },
     {
       headerName: 'Contact',
-      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
+      valueGetter: (params) =>
+        `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
+      valueSetter: (params) => {
+        let newContact: string = params.newValue;
+        if (newContact.length > 10) {
+          newContact = newContact.slice(-10);
+        }
+        params.data.contact = newContact;
+        return true; // IMPORTANT
+      },
       editable: (params) => this.isEditing(params.data),
       cellEditor: 'agTextCellEditor',
     },
@@ -186,7 +196,8 @@ export class AssociationCommitteeComponent {
 
   constructor(
     private associationService: AssociationService,
-    private permissionService: PermissionsService
+    private permissionService: PermissionsService,
+    private toast: ToastService
   ) {}
 
   ngOnInit() {
@@ -237,31 +248,36 @@ export class AssociationCommitteeComponent {
   };
 
   onSave(row: any) {
-    confirm('Are you sure you want to save the changes?') &&
-      (row.id === 'add'
-        ? this.associationService
-            .createCommitteeMember(this.pyAssociationId, {
-              position: row.position,
-              designation: row.designation,
-              name: row.name,
-              contact: row.contact,
-              email: row.email,
-            } as Committee)
-            .subscribe((newRecord) => {
-              this.rowData = [newRecord, ...this.rowData];
-            })
-        : this.associationService
-            .updateCommitteeMember(this.pyAssociationId, row.id, {
-              position: row.position,
-              designation: row.designation,
-              name: row.name,
-              contact: row.contact,
-              email: row.email,
-            } as Committee)
-            .subscribe((updatedRecord) => {
-              this.rowData = this.rowData.map((r) =>
-                r.id === row.id ? updatedRecord : r
-              );
-            }));
+    this.toast
+      .confirm('Are you sure want to save the changes?')
+      .then((confirmed) => {
+        if (confirmed) {
+          row.id === 'add'
+            ? this.associationService
+                .createCommitteeMember(this.pyAssociationId, {
+                  position: row.position,
+                  designation: row.designation,
+                  name: row.name,
+                  contact: row.contact,
+                  email: row.email,
+                } as Committee)
+                .subscribe((newRecord) => {
+                  this.rowData = [newRecord, ...this.rowData];
+                })
+            : this.associationService
+                .updateCommitteeMember(this.pyAssociationId, row.id, {
+                  position: row.position,
+                  designation: row.designation,
+                  name: row.name,
+                  contact: row.contact,
+                  email: row.email,
+                } as Committee)
+                .subscribe((updatedRecord) => {
+                  this.rowData = this.rowData.map((r) =>
+                    r.id === row.id ? updatedRecord : r
+                  );
+                });
+        }
+      });
   }
 }

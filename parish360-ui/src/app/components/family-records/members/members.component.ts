@@ -70,10 +70,11 @@ export class MembersComponent implements OnInit {
         this.activeMemberId = params.get('sectionId') || '';
         this.memberService.getMembers(this.recordId).subscribe({
           next: (response) => {
-            if ((
-              response.length === 0 &&
-              this.permissionsService.hasPermission(this.screen, CREATE)
-            ) || this.activeMemberId === 'add' ){
+            if (
+              (response.length === 0 &&
+                this.permissionsService.hasPermission(this.screen, CREATE)) ||
+              this.activeMemberId === 'add'
+            ) {
               this.activeMember = {} as Member;
               this.membersTabs = [];
               this.sideTab = ['Personel Details'];
@@ -84,7 +85,7 @@ export class MembersComponent implements OnInit {
             this.members = response;
             this.membersTabs = this.members.map((member: Member): Tab => {
               return {
-                label: member.first_name + ' ' + member.last_name,
+                label: `${member?.first_name ?? ''} ${member?.last_name ?? ''}`,
                 data: member,
                 url:
                   '/family-records/' + this.recordId + '/members/' + member.id,
