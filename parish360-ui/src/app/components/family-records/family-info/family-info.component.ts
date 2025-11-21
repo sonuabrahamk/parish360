@@ -85,7 +85,6 @@ export class FamilyInfoComponent {
       if (this.recordId !== 'new') {
         this.familyInfoForm?.get('family_code')?.disable();
       }
-      this.familyInfoForm?.get('parish')?.disable();
       this.familyInfoForm?.get('unit')?.disable();
       this.familyInfoForm?.get('head_of_family')?.disable();
     }
@@ -146,7 +145,6 @@ export class FamilyInfoComponent {
       family_code: [this.familyInfo?.family_code || '', Validators.required],
       head_of_family: [this.familyInfo?.head_of_family || ''],
       family_name: [this.familyInfo?.family_name || '', Validators.required],
-      parish: [this.familyInfo?.parish || ''],
       unit: [this.familyInfo?.unit || ''],
       dial_code: [this.familyInfo?.dial_code || '+91'],
       contact: [
@@ -154,16 +152,11 @@ export class FamilyInfoComponent {
         [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
       ],
       address: [this.familyInfo?.address || ''],
-      joined_date: [
-        this.familyInfo?.joined_date ||
-          new Date().toISOString().split('T')[0] ||
-          '',
-      ],
+      joined_date: [this.familyInfo?.joined_date || ''],
     });
     if (this.recordId !== 'new') {
       this.familyInfoForm?.get('family_code')?.disable();
     }
-    this.familyInfoForm?.get('parish')?.disable();
     this.familyInfoForm?.get('unit')?.disable();
     this.familyInfoForm?.get('head_of_family')?.disable();
   }

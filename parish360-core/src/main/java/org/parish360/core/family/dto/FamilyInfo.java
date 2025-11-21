@@ -31,5 +31,7 @@ public class FamilyInfo {
     private String address;
     private boolean contactVerified;
     private LocalDate joinedDate;
+    private String unit;
+    private String headOfFamily;
     private String parishId;
 }
