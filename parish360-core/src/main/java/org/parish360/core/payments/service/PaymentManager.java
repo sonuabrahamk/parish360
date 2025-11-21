@@ -11,7 +11,7 @@ public interface PaymentManager {
 
     PaymentInfo getPaymentInfo(String parishId, String paymentId);
 
-    List<PaymentInfo> getListOfPayments(String parishId);
+    List<PaymentInfo> getListOfPayments(String parishId, String bookingCode);
 
     void deletePaymentInfo(String parishId, String paymentId);
 }

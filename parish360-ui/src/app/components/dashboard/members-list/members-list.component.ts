@@ -2,7 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AgGridModule } from 'ag-grid-angular';
 import { Member } from '../../../services/interfaces/member.interface';
-import { GridApi, ColDef, GridReadyEvent } from 'ag-grid-community';
+import {
+  GridApi,
+  ColDef,
+  GridReadyEvent,
+  FirstDataRenderedEvent,
+} from 'ag-grid-community';
 import { DashboardService } from '../../../services/api/dashboard.service';
 
 @Component({
@@ -10,7 +15,7 @@ import { DashboardService } from '../../../services/api/dashboard.service';
   standalone: true,
   imports: [AgGridModule, CommonModule],
   templateUrl: './members-list.component.html',
-  styleUrl: './members-list.component.css'
+  styleUrl: './members-list.component.css',
 })
 export class MembersListComponent {
   rowData: Member[] = [];
@@ -25,7 +30,8 @@ export class MembersListComponent {
   columnDefs: ColDef[] = [
     {
       headerName: 'Name',
-      valueGetter: params => `${params.data.first_name} ${params.data.last_name}`,
+      valueGetter: (params) =>
+        `${params.data.first_name ?? ''} ${params.data.last_name ?? ''}`,
     },
     {
       headerName: 'Father',
@@ -38,7 +44,7 @@ export class MembersListComponent {
     {
       headerName: 'Date of Birth',
       field: 'dob',
-      flex: 1
+      flex: 1,
     },
     {
       headerName: 'Relationship',
@@ -46,7 +52,8 @@ export class MembersListComponent {
     },
     {
       headerName: 'Contact',
-      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data.contact}`,
+      valueGetter: (params) =>
+        `${params.data?.dial_code || '+91'} ${params.data.contact}`,
     },
     {
       headerName: 'Email',
@@ -82,16 +89,22 @@ export class MembersListComponent {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    setTimeout(() => {
-      this.gridAutoSizeColumns();
-    });
+  }
+
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    this.gridAutoSizeColumns();
   }
 
   gridAutoSizeColumns() {
-    const columns = this.gridApi
-      .getAllGridColumns()
-      .filter((column) => column?.getColDef()?.field !== 'dob');
-    const colIds = columns.map((col) => col.getColId());
-    this.gridApi.autoSizeColumns(colIds);
+    if (!this.gridApi) return;
+
+    const allColumns = this.gridApi.getAllGridColumns();
+    const columnsToSize = allColumns
+      ?.filter((col) => col.getColDef()?.field !== 'dob')
+      .map((col) => col.getColId());
+
+    if (columnsToSize?.length) {
+      this.gridApi.autoSizeColumns(columnsToSize, false);
+    }
   }
 }

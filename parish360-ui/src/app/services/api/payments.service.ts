@@ -1,5 +1,9 @@
 import { Observable } from 'rxjs';
-import { PAYMENT_BY_ID, PAYMENTS } from './api.constants';
+import {
+  PAYMENT_BY_BOOKING_CODE,
+  PAYMENT_BY_ID,
+  PAYMENTS,
+} from './api.constants';
 import { ApiService } from './api.service';
 import { Injectable } from '@angular/core';
 import { Payment } from '../interfaces/payments.interface';
@@ -11,6 +15,10 @@ export class PaymentService {
 
   getPayments(): Observable<Payment[]> {
     return this.apiService.get<Payment[]>(PAYMENTS);
+  }
+
+  getPaymentByBookingCode(bookingCode: string): Observable<Payment[]> {
+    return this.apiService.get<Payment[]>(PAYMENT_BY_BOOKING_CODE(bookingCode));
   }
 
   getPayment(paymentId: string): Observable<Payment> {

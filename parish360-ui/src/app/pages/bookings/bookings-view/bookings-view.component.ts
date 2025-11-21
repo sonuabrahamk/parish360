@@ -30,6 +30,7 @@ import {
   COUNTRY_DIAL_CODES,
   CURRENCIES,
 } from '../../../services/common/common.constants';
+import { PaymentService } from '../../../services/api/payments.service';
 
 @Component({
   selector: 'app-bookings-view',
@@ -135,8 +136,8 @@ export class BookingsViewComponent {
       field: 'paid_to',
     },
     {
-      headerName: 'Account',
-      field: 'account_id',
+      headerName: 'Date',
+      field: 'created_at',
     },
     {
       headerName: 'amount',
@@ -160,6 +161,7 @@ export class BookingsViewComponent {
     private liturgyService: LiturgyService,
     private accountService: AccountService,
     private bookingService: BookingService,
+    private paymentService: PaymentService,
     private toast: ToastService
   ) {}
 
@@ -183,12 +185,17 @@ export class BookingsViewComponent {
                 if (booking.booking_type === 'resource') {
                   this.columnDefs = this.resourceColDefs;
                   this.rowData = booking.items;
-                  this.payments = booking?.payment ?? [];
                 } else {
                   this.columnDefs = this.serviceColDefs;
                   this.rowData = booking.items;
-                  this.payments = booking?.payment ?? [];
                 }
+                this.paymentService
+                  .getPaymentByBookingCode(booking.booking_code)
+                  .subscribe({
+                    next: (payments) => {
+                      this.payments = payments;
+                    },
+                  });
               },
               error: (error) => {
                 this.toast.error('Could not fetch booking information!');

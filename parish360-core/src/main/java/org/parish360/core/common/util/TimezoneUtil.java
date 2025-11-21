@@ -3,6 +3,7 @@ package org.parish360.core.common.util;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 
@@ -24,5 +25,14 @@ public class TimezoneUtil {
         }
         ZoneId zoneId = ZoneId.of(timezone);
         return dateTime.atZone(zoneId).toLocalDateTime();
+    }
+
+    public static LocalDate asLocalDate(Instant dateTime) {
+        String timezone = "UTC";
+        if (AuthUtil.getCurrentUserTimezone() != null) {
+            timezone = AuthUtil.getCurrentUserTimezone();
+        }
+        ZoneId zoneId = ZoneId.of(timezone);
+        return dateTime.atZone(zoneId).toLocalDate();
     }
 }

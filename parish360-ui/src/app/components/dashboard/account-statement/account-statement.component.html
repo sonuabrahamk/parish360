@@ -1,8 +1,15 @@
 <div class="header">
   <h3>Account Statement</h3>
   <div class="header-right-section">
-    <select class="text-xs">
-      <option>This Week</option>
+    <select
+      class="text-xs"
+      [(ngModel)]="selectedDuration"
+      (change)="onDurationUpdate()"
+    >
+      <option value="week">This Week</option>
+      <option value="today">Today</option>
+      <option value="month">This Month</option>
+      <option value="year">This Year</option>
     </select>
   </div>
 </div>
@@ -17,5 +24,6 @@
     [paginationPageSizeSelector]="paginationPageSizeSelector"
     [domLayout]="'autoHeight'"
     (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onFirstDataRendered($event)"
   />
 </div>

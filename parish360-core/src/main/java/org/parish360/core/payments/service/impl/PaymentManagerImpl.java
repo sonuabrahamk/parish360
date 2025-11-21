@@ -166,10 +166,17 @@ public class PaymentManagerImpl implements PaymentManager {
 
     @Override
     @Transactional(readOnly = true)
-    public List<PaymentInfo> getListOfPayments(String parishId) {
-        List<Payment> payments = paymentRepository
-                .findByParishId(UUIDUtil.decode(parishId))
-                .orElseThrow(() -> new ResourceNotFoundException("could not find payment information"));
+    public List<PaymentInfo> getListOfPayments(String parishId, String bookingCode) {
+        List<Payment> payments = new ArrayList<>();
+        if (bookingCode != null) {
+            payments = paymentRepository
+                    .findByParishIdAndBookingCode(UUIDUtil.decode(parishId), bookingCode)
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find payment information"));
+        } else {
+            payments = paymentRepository
+                    .findByParishId(UUIDUtil.decode(parishId))
+                    .orElseThrow(() -> new ResourceNotFoundException("could not find payment information"));
+        }
 
         return payments.stream()
                 .map(paymentMapper::daoToPaymentInfo)

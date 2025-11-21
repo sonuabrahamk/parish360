@@ -58,6 +58,8 @@ export const CEREMONY_BY_ID = (ceremonyId: string) =>
 // Payments API paths
 export const PAYMENTS = '/payments';
 export const PAYMENT_BY_ID = (paymentId: string) => `/payments/${paymentId}`;
+export const PAYMENT_BY_BOOKING_CODE = (bookingCode: string) =>
+  `/payments?bookingCode=${bookingCode}`;
 
 // Expenses API paths
 export const EXPENSES = '/expenses';
@@ -112,3 +114,5 @@ export const PARISH_YEAR_BY_ID = (parishYearId: string) =>
 
 // Dashboard API paths
 export const DASHBOARD = '/dashboard';
+export const ACCOUNT_STATEMENT = (startDate: string, endDate: string) =>
+  `/dashboard/account-statement?startDate=${startDate}&endDate=${endDate}`;

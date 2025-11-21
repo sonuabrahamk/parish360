@@ -42,14 +42,15 @@ export class BookingsSummaryComponent {
     },
     {
       headerName: 'Contact',
-      valueGetter: params => `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
+      valueGetter: (params) =>
+        `${params.data?.dial_code || '+91'} ${params.data?.contact}`,
     },
     {
       headerName: 'Booking On',
       field: 'booked_from',
     },
     {
-      headerName: 'Intention',
+      headerName: 'Description',
       field: 'description',
       flex: 1,
     },

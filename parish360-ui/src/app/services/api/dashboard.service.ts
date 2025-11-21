@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { BASE_URL, DASHBOARD } from "./api.constants";
-import { ApiService } from "./api.service";
-import { Summary } from "../interfaces/dashboard.interface";
-import { Member } from "../interfaces/member.interface";
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ACCOUNT_STATEMENT, BASE_URL, DASHBOARD } from './api.constants';
+import { ApiService } from './api.service';
+import { AccountStatement, Summary } from '../interfaces/dashboard.interface';
+import { Member } from '../interfaces/member.interface';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
@@ -15,5 +15,14 @@ export class DashboardService {
 
   getAllMembers(): Observable<Member[]> {
     return this.apiService.get<Member[]>(DASHBOARD + BASE_URL.MEMBERS_LIST);
+  }
+
+  getAccountStatement(
+    startDate: string,
+    endDate: string
+  ): Observable<AccountStatement[]> {
+    return this.apiService.get<AccountStatement[]>(
+      ACCOUNT_STATEMENT(startDate, endDate)
+    );
   }
 }

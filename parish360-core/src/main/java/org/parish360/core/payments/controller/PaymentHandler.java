@@ -57,8 +57,9 @@ public class PaymentHandler {
     }
 
     @GetMapping
-    public ResponseEntity<List<PaymentInfo>> getPaymentListByParish(@PathVariable("parishId") String parishId) {
-        return ResponseEntity.ok(paymentManager.getListOfPayments(parishId));
+    public ResponseEntity<List<PaymentInfo>> getPaymentListByParish(@PathVariable("parishId") String parishId,
+                                                                    @RequestParam(value = "bookingCode", required = false) String bookingCode) {
+        return ResponseEntity.ok(paymentManager.getListOfPayments(parishId, bookingCode));
     }
 
     @DeleteMapping("/{paymentId}")
