@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/features/families/domain/entities/member_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_info_controller.dart';
+import 'package:parish360_mobile/features/families/presentation/pages/member_info_screen.dart';
 
 class MemberRecordScreen extends ConsumerStatefulWidget {
   final String familyId;
@@ -21,6 +23,32 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
   bool isEditing = false;
   bool initialized = false;
   String currentTab = 'info';
+  MemberInfo? editedInfo;
+
+  Future<void> _saveMemberInfo(BuildContext context) async {
+    if (editedInfo == null) return;
+
+    final messenger = ScaffoldMessenger.of(context);
+
+    try {
+      await ref
+          .read(memberInfoControllerProvider(widget.familyId, widget.memberId)
+              .notifier)
+          .updateMember(widget.familyId, widget.memberId, editedInfo!);
+      if (!mounted) return;
+      setState(() {
+        isEditing = false;
+      });
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Member info saved successfully')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('Failed to save member info: $e')),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +62,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
           // Initialize any controllers or state here using the member info
           initialized = true;
           currentTab = 'info';
+          editedInfo = info;
         }
         return Scaffold(
           appBar: AppBar(
@@ -69,21 +98,23 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
             actions: [
               PopupMenuButton<String>(
                 icon: Icon(
-                  Icons.more_vert, 
-                  color: Theme.of(context).primaryColor
+                  Icons.more_vert,
+                  color: Theme.of(context).primaryColor,
                 ),
-                onSelected: (value) {
+                onSelected: (value) async {
                   switch (value) {
                     case 'edit':
                       setState(() {
-                        isEditing = !isEditing;
+                        isEditing = true;
                       });
                       break;
                     case 'save':
+                      await _saveMemberInfo(context);
                       break;
                     case 'cancel':
                       setState(() {
-                        isEditing = !isEditing;
+                        isEditing = false;
+                        editedInfo = info;
                       });
                       break;
                   }
@@ -146,7 +177,14 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
             }),
           ),
           body: switch (currentTab) {
-            'info' => Center(child: Text('Personal Info for ${info.firstName}')),
+            'info' => MemberInfoScreen(
+                familyId: widget.familyId,
+                memberId: widget.memberId,
+                isEditing: isEditing,
+                memberInfo: editedInfo ?? info,
+                onInfoChanged: (newInfo) {
+                  editedInfo = newInfo;
+                }),
             'sacrament' => Center(child: Text('Sacrament Info for ${info.firstName}')),
             'migration' => Center(child: Text('Migration Info for ${info.firstName}')),
             _ => Center(child: Text('Personal Info for ${info.firstName}')),

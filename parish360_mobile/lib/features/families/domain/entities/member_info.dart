@@ -61,5 +61,33 @@ class MemberInfo {
       'mother': mother,
       'relationship': relationship,
     };
-  } 
+  }
+
+  MemberInfo copyWith({
+    String? id,
+    DateTime? createdAt,
+    String? createdBy,
+    DateTime? updatedAt,
+    String? firstName,
+    String? contact,
+    bool? contactVerified,
+    DateTime? dob,
+    String? father,
+    String? mother,
+    String? relationship,
+  }) {
+    return MemberInfo(
+      id: id ?? this.id,
+      createdAt: createdAt ?? this.createdAt,
+      createdBy: createdBy ?? this.createdBy,
+      updatedAt: updatedAt ?? this.updatedAt,
+      firstName: firstName ?? this.firstName,
+      contact: contact ?? this.contact,
+      contactVerified: contactVerified ?? this.contactVerified,
+      dob: dob ?? this.dob,
+      father: father ?? this.father,
+      mother: mother ?? this.mother,
+      relationship: relationship ?? this.relationship,
+    );
+  }
 }
