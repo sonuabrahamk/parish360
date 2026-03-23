@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/domain/entities/member_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/member_info_screen.dart';
+import 'package:parish360_mobile/features/families/presentation/pages/sacraments_screen.dart';
 
 class MemberRecordScreen extends ConsumerStatefulWidget {
   final String familyId;
@@ -182,7 +183,9 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
                 onInfoChanged: (newInfo) {
                   editedInfo = newInfo;
                 }),
-            'sacrament' => Center(child: Text('Sacrament Info for ${info.firstName}')),
+            'sacrament' => SacramentsScreen(
+                familyId: widget.familyId, 
+                memberId: widget.memberId),
             'migration' => Center(child: Text('Migration Info for ${info.firstName}')),
             _ => Center(child: Text('Personal Info for ${info.firstName}')),
           },
