@@ -120,10 +120,10 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
                   : '${_familyNameController.text} - Details',
             ),
             centerTitle: false,
-            backgroundColor: AppTheme.primaryColor,
+            backgroundColor: Colors.transparent,
             titleTextStyle: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
+              color: AppTheme.primaryColor,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
             bottom: const PreferredSize(
@@ -132,7 +132,10 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
             ),
             actions: [
               PopupMenuButton<String>(
-                icon: Icon(Icons.more_vert),
+                icon: Icon(
+                  Icons.more_vert,
+                  color: AppTheme.primaryColor,
+                ),
                 onSelected: (value) {
                   switch (value) {
                     case 'edit':

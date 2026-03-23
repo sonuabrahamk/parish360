@@ -68,12 +68,9 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
           appBar: AppBar(
             centerTitle: false,
             backgroundColor: Colors.transparent,
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(1.0),
-              child: Container(
-                color: Theme.of(context).primaryColor,
-                height: 1.0,
-              ),
+            bottom: const PreferredSize(
+              preferredSize: Size.fromHeight(1),
+              child: Divider(height: 1, thickness: 1),
             ),
             title: Text(
               switch (currentTab) {
