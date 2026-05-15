@@ -20,6 +20,11 @@ class SacramentInfoController extends _$SacramentInfoController {
 
   Future<SacramentInfo> updateSacrament(String familyId, String memberId, String sacramentId, SacramentInfo sacramentInfo) async {
     final updatedSacrament = await ref.read(sacramentRepositoryProvider).updateSacrament(familyId, memberId, sacramentId, sacramentInfo);
+    
+    if (!ref.mounted) {
+      return updatedSacrament;
+    }
+    
     state = AsyncValue.data(updatedSacrament);
     return updatedSacrament;
   }

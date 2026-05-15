@@ -93,7 +93,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             ),
-            actions: [
+            actions: currentTab != 'info' ? null : [
               PopupMenuButton<String>(
                 icon: Icon(
                   Icons.more_vert,

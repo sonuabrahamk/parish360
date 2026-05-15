@@ -52,7 +52,7 @@ final class SacramentInfoControllerProvider
 }
 
 String _$sacramentInfoControllerHash() =>
-    r'9c00dc241257b1cec0440b09c570e7c864102c2d';
+    r'fda807bd3cb467bcd990e3567f20cb4973ad17c9';
 
 final class SacramentInfoControllerFamily extends $Family
     with

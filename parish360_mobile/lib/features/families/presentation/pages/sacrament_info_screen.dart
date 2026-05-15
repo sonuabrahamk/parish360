@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/common/entities/place.dart';
 import 'package:parish360_mobile/features/families/domain/entities/sacrament_info.dart';
+import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_info_controller.dart';
 
 class SacramentInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
@@ -20,23 +22,45 @@ class SacramentInfoScreen extends ConsumerStatefulWidget {
 }
 
 class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
+  bool _isExpanded = false;
 
-  late final _type = TextEditingController(text: widget.sacrament.type ?? '');
-  late final _priest = TextEditingController(text: widget.sacrament.priest ?? '');
-  late final _parish = TextEditingController(text: widget.sacrament.parish ?? '');
+  String? _selectedType;
+  late final _priest = TextEditingController(
+    text: widget.sacrament.priest ?? '',
+  );
+  late final _parish = TextEditingController(
+    text: widget.sacrament.parish ?? '',
+  );
   late final _date = TextEditingController(
     text: widget.sacrament.date != null
         ? '${widget.sacrament.date!.day}/${widget.sacrament.date!.month}/${widget.sacrament.date!.year}'
         : '',
   );
-  late final _placeLocation = TextEditingController(text: widget.sacrament.place?.location ?? '');
-  late final _placeCity = TextEditingController(text: widget.sacrament.place?.city ?? '');
-  late final _placeState = TextEditingController(text: widget.sacrament.place?.state ?? '');
-  late final _placeCountry = TextEditingController(text: widget.sacrament.place?.country ?? '');
+  late final _placeLocation = TextEditingController(
+    text: widget.sacrament.place?.location ?? '',
+  );
+  late final _placeCity = TextEditingController(
+    text: widget.sacrament.place?.city ?? '',
+  );
+  late final _placeState = TextEditingController(
+    text: widget.sacrament.place?.state ?? '',
+  );
+  late final _placeCountry = TextEditingController(
+    text: widget.sacrament.place?.country ?? '',
+  );
+
+  final List<String> _sacramentTypes = [
+    'baptism',
+    'confirmation',
+    'eucharist',
+    'marriage',
+    'ordination',
+    'anointing_the_sick',
+    'holy_communion',
+  ];
 
   @override
   void dispose() {
-    _type.dispose();
     _priest.dispose();
     _parish.dispose();
     _date.dispose();
@@ -61,66 +85,274 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(widget.sacrament.type ?? 'Unknown Sacrament'),
-      subtitle: Text(_date.text.isNotEmpty ? 'Date: ${_date.text}' : 'Date: Unknown'),
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                controller: _type,
-                decoration: const InputDecoration(labelText: 'Type'),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _date,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Date',
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: () => _selectDate(context),
+    return Card(
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      elevation: 4.0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1.0)),
+      child: Column(
+        children: [
+          // Card Header
+          InkWell(
+            onTap: () {
+              setState(() {
+                _isExpanded = !_isExpanded;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  // Sacrament Info
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          _getSacramentTitle(widget.sacrament.type),
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  // Expand/Collapse Icon
+                  IconButton(
+                    onPressed: () => {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Delete tapped for ${_getSacramentTitle(widget.sacrament.type)}'),
+                        ),
+                      )
+                    }, 
+                    icon: Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                    ),
+                  ),
+                  SizedBox(width: 10.0),
+                  // Expand/Collapse Icon
+                  Icon(
+                    _isExpanded ? Icons.expand_less : Icons.expand_more,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Expandable Content
+          if (_isExpanded)
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12.0),
+                  bottomRight: Radius.circular(12.0),
                 ),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _priest,
-                decoration: const InputDecoration(labelText: 'Priest'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Basic Information
+                  const Text(
+                    'Basic Information',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  DropdownButtonFormField<String>(
+                    initialValue: _selectedType ?? widget.sacrament.type,
+                    decoration: const InputDecoration(
+                      labelText: 'Sacrament Type',
+                    ),
+                    items: _sacramentTypes.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(_getSacramentTitle(value)),
+                      );
+                    }).toList(),
+                    onChanged:
+                        _getSacramentTitle(widget.sacrament.type) ==
+                            'Sacrament Type'
+                        ? (String? newValue) {
+                            setState(() {
+                              _selectedType = newValue;
+                            });
+                          }
+                        : null,
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _date,
+                    readOnly: true,
+                    decoration: InputDecoration(
+                      labelText: 'Date',
+                      border: const OutlineInputBorder(),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.calendar_today),
+                        onPressed: () => _selectDate(context),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _priest,
+                    decoration: const InputDecoration(
+                      labelText: 'Priest',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _parish,
+                    decoration: const InputDecoration(
+                      labelText: 'Parish',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  // Place Information
+                  const Text(
+                    'Place Information',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _placeLocation,
+                    decoration: const InputDecoration(
+                      labelText: 'Location',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _placeCity,
+                    decoration: const InputDecoration(
+                      labelText: 'City',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _placeState,
+                    decoration: const InputDecoration(
+                      labelText: 'State',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  TextField(
+                    controller: _placeCountry,
+                    decoration: const InputDecoration(
+                      labelText: 'Country',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  const SizedBox(height: 12.0),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () => _saveSacramentInfo(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).primaryColor,
+                        textStyle: const TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: Text('Save'),
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _parish,
-                decoration: const InputDecoration(labelText: 'Parish'),
-              ),
-              const SizedBox(height: 16),
-              const Text('Place Information:', style: TextStyle(fontWeight: FontWeight.bold)),
-              TextField(
-                controller: _placeLocation,
-                decoration: const InputDecoration(labelText: 'Location'),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _placeCity,
-                decoration: const InputDecoration(labelText: 'City'),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _placeState,
-                decoration: const InputDecoration(labelText: 'State'),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                controller: _placeCountry,
-                decoration: const InputDecoration(labelText: 'Country'),
-              ),
-            ],
-          ),
-        ),
-      ],
+            ),
+        ],
+      ),
     );
+  }
+
+  Future<void> _saveSacramentInfo(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+
+    // Parse date of sacrament from the text field
+    DateTime? dateOfSacrament;
+    if (_date.text.isNotEmpty) {
+      try {
+        final parts = _date.text.split('/');
+        if (parts.length == 3) {
+          dateOfSacrament = DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
+        }
+      } catch (e) {
+        // Invalid date format, keep as null
+      }
+    }
+    // Implement save logic here, e.g., call a provider to update the sacrament info in the backend
+    SacramentInfo updatedInfo = SacramentInfo(
+      id: widget.sacrament.id,
+      type: widget.sacrament.type,
+      date: dateOfSacrament,
+      priest: _priest.text,
+      parish: _parish.text,
+      place: Place(
+        location: _placeLocation.text,
+        city: _placeCity.text,
+        state: _placeState.text,
+        country: _placeCountry.text,
+      ),
+    );
+
+    try {
+      await ref
+          .read(
+            sacramentInfoControllerProvider(
+              widget.familyId,
+              widget.memberId,
+              widget.sacrament.id ?? '',
+            ).notifier,
+          )
+          .updateSacrament(
+            widget.familyId,
+            widget.memberId,
+            widget.sacrament.id ?? '',
+            updatedInfo,
+          );
+      if (!mounted) return;
+      messenger.showSnackBar(
+        const SnackBar(content: Text('Sacrament info updated successfully')),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('Failed to update sacrament info: $e')),
+      );
+    }
+  }
+
+  String _getSacramentTitle(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'baptism':
+        return 'Baptism';
+      case 'confirmation':
+        return 'Holy Confirmation';
+      case 'eucharist':
+        return 'Holy Eucharist';
+      case 'marriage':
+        return 'Holy Matrimony';
+      case 'ordination':
+        return 'Holy Ordination';
+      case 'anointing_the_sick':
+        return 'Annointing of the Sick';
+      case 'holy_communion':
+        return 'Holy Communion';
+      default:
+        return 'Sacrament Type';
+    }
   }
 }
