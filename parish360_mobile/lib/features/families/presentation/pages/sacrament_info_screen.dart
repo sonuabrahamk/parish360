@@ -3,17 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/entities/place.dart';
 import 'package:parish360_mobile/features/families/domain/entities/sacrament_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_info_controller.dart';
+import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_list_controller.dart';
 
 class SacramentInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
   final String memberId;
   final SacramentInfo sacrament;
+  final VoidCallback? onSaved;
 
   const SacramentInfoScreen({
     super.key,
     required this.familyId,
     required this.memberId,
     required this.sacrament,
+    this.onSaved,
   });
 
   @override
@@ -86,7 +89,7 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
       elevation: 4.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1.0)),
       child: Column(
@@ -119,19 +122,12 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
                   ),
                   // Expand/Collapse Icon
                   IconButton(
-                    onPressed: () => {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Delete tapped for ${_getSacramentTitle(widget.sacrament.type)}'),
-                        ),
-                      )
-                    }, 
-                    icon: Icon(
-                      Icons.delete,
-                      color: Colors.red,
+                    visualDensity: VisualDensity(
+                      vertical: VisualDensity.minimumDensity,
                     ),
+                    onPressed: () => _deleteSacramentInfo(context),
+                    icon: Icon(Icons.delete, color: Colors.red),
                   ),
-                  SizedBox(width: 10.0),
                   // Expand/Collapse Icon
                   Icon(
                     _isExpanded ? Icons.expand_less : Icons.expand_more,
@@ -287,7 +283,11 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
       try {
         final parts = _date.text.split('/');
         if (parts.length == 3) {
-          dateOfSacrament = DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
+          dateOfSacrament = DateTime(
+            int.parse(parts[2]),
+            int.parse(parts[1]),
+            int.parse(parts[0]),
+          );
         }
       } catch (e) {
         // Invalid date format, keep as null
@@ -296,7 +296,7 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
     // Implement save logic here, e.g., call a provider to update the sacrament info in the backend
     SacramentInfo updatedInfo = SacramentInfo(
       id: widget.sacrament.id,
-      type: widget.sacrament.type,
+      type: _selectedType ?? widget.sacrament.type,
       date: dateOfSacrament,
       priest: _priest.text,
       parish: _parish.text,
@@ -308,7 +308,65 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
       ),
     );
 
+    final isNewSacrament = widget.sacrament.id == null;
     try {
+      if (isNewSacrament) {
+        await ref
+            .read(
+              sacramentInfoControllerProvider(
+                widget.familyId,
+                widget.memberId,
+                widget.sacrament.id ?? '',
+              ).notifier,
+            )
+            .createSacrament(widget.familyId, widget.memberId, updatedInfo);
+        ref.invalidate(
+          sacramentListControllerProvider(widget.familyId, widget.memberId),
+        );
+      } else {
+        await ref
+            .read(
+              sacramentInfoControllerProvider(
+                widget.familyId,
+                widget.memberId,
+                widget.sacrament.id ?? '',
+              ).notifier,
+            )
+            .updateSacrament(
+              widget.familyId,
+              widget.memberId,
+              widget.sacrament.id ?? '',
+              updatedInfo,
+            );
+      }
+
+      if (!mounted) return;
+      widget.onSaved?.call();
+      messenger.showSnackBar(
+        SnackBar(
+          content: Text(
+            isNewSacrament
+                ? 'Sacrament created successfully'
+                : 'Sacrament info updated successfully',
+          ),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+      messenger.showSnackBar(
+        SnackBar(content: Text('Failed to save sacrament info: $e')),
+      );
+    }
+  }
+
+  Future<void> _deleteSacramentInfo(BuildContext context) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final isNewSacrament = widget.sacrament.id == null;
+    try {
+      if (isNewSacrament) {
+        widget.onSaved?.call();
+        return;
+      }
       await ref
           .read(
             sacramentInfoControllerProvider(
@@ -317,20 +375,22 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
               widget.sacrament.id ?? '',
             ).notifier,
           )
-          .updateSacrament(
+          .deleteSacrament(
             widget.familyId,
             widget.memberId,
             widget.sacrament.id ?? '',
-            updatedInfo,
           );
+      ref.invalidate(
+        sacramentListControllerProvider(widget.familyId, widget.memberId),
+      );
       if (!mounted) return;
       messenger.showSnackBar(
-        const SnackBar(content: Text('Sacrament info updated successfully')),
+        const SnackBar(content: Text('Sacrament deleted successfully')),
       );
     } catch (e) {
       if (!mounted) return;
       messenger.showSnackBar(
-        SnackBar(content: Text('Failed to update sacrament info: $e')),
+        SnackBar(content: Text('Failed to delete sacrament: $e')),
       );
     }
   }
