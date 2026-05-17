@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/blessings_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/member_list_screen.dart';
+import 'package:parish360_mobile/features/families/presentation/pages/subscriptions_screen.dart';
 
 class FamilyRecordScreen extends ConsumerWidget {
   final String familyId;
@@ -33,7 +34,7 @@ class FamilyRecordScreen extends ConsumerWidget {
             Center(child: FamilyInfoScreen(familyId: familyId)),
             Center(child: MemberListScreen(familyId: familyId)),
             BlessingsListScreen(familyId: familyId),
-            Center(child: Text('Home Page')),
+            SubscriptionsScreen(familyId: familyId),
             Center(child: Text('Favorites Page')),
             Center(child: Text('Settings Page')),
           ],
