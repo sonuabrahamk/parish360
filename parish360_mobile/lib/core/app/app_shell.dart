@@ -31,10 +31,16 @@ class AppShell extends ConsumerWidget {
       ),
 
       drawer: ParishDrawer(parishes: []),
-      
+
       body: child,
 
-      bottomNavigationBar: moduleInfoList.isEmpty ? null : ModulesNavBar(),
+      bottomNavigationBar: moduleInfoList.isEmpty
+          ? null
+          : MediaQuery.removePadding(
+              context: context,
+              removeBottom: true,
+              child: SafeArea(child: ModulesNavBar()),
+            ),
     );
   }
 }

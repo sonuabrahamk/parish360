@@ -77,7 +77,10 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
     super.dispose();
   }
 
-  Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
+  Future<void> _selectDate(
+    BuildContext context,
+    TextEditingController controller,
+  ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: widget.migration.migratedOn ?? DateTime.now(),
@@ -115,7 +118,7 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
                       children: [
                         Text(
                           widget.migration.migratedOn != null
-                              ? 'Migrated on: ${widget.migration.migratedOn!.day}/${widget.migration.migratedOn!.month}/${widget.migration.migratedOn!.year}'
+                              ? 'Migration on: ${widget.migration.migratedOn!.day}/${widget.migration.migratedOn!.month}/${widget.migration.migratedOn!.year}'
                               : 'New Migration Information',
                           style: const TextStyle(
                             fontSize: 18.0,
