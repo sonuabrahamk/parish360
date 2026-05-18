@@ -41,7 +41,17 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/dashboard',
             name: 'dashboard',
-            builder: (context, state) => const Center(child: Text('Dashboard')),
+            builder: (context, state) => SizedBox.expand(
+              child: Container(
+                color: Colors.red,
+                child: Center(
+                  child: Text(
+                    'Dashboard',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ),
           ),
           GoRoute(
             path: '/families',

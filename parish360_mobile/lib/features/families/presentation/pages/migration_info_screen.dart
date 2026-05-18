@@ -95,9 +95,13 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      elevation: 4.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(1.0)),
+      margin: EdgeInsets.zero,
+      elevation: 0,
+      color: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+        side: BorderSide(color: Colors.grey.shade200),
+      ),
       child: Column(
         children: [
           // Card Header

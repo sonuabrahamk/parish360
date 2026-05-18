@@ -32,14 +32,13 @@ class AppShell extends ConsumerWidget {
 
       drawer: ParishDrawer(parishes: []),
 
-      body: child,
+      body: SizedBox.expand(child: child),
 
       bottomNavigationBar: moduleInfoList.isEmpty
           ? null
-          : MediaQuery.removePadding(
-              context: context,
-              removeBottom: true,
-              child: SafeArea(child: ModulesNavBar()),
+          : Container(
+              color: Theme.of(context).colorScheme.primary,
+              child: SafeArea(top: false, child: ModulesNavBar()),
             ),
     );
   }

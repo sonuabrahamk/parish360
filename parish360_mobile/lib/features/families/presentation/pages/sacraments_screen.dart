@@ -41,49 +41,84 @@ class _SacramentsScreenState extends ConsumerState<SacramentsScreen> {
     );
 
     return sacraments.when(
-      data: (data) => SingleChildScrollView(
-        child: Column(
-          children: [
-            ...data.map(
-              (sacrament) => SacramentInfoScreen(
-                familyId: widget.familyId,
-                memberId: widget.memberId,
-                sacrament: sacrament,
-              ),
-            ),
-            ?_draftSacramentExists
-                ? SacramentInfoScreen(
-                    familyId: widget.familyId,
-                    memberId: widget.memberId,
-                    sacrament: _draftSacrament,
-                    onSaved: () => _removeDraftSacrament(_draftSacrament),
-                  )
-                : null,
-            Container(
-              margin: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-                vertical: 5.0,
-              ),
-              child: SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  onPressed: _addDraftSacrament,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    textStyle: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+      data: (data) => SizedBox.expand(
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 16,
+            bottom: 16,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Sacraments',
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          '${data.length} sacrament(s)',
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: Colors.white70),
+                        ),
+                      ],
                     ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(1.0),
+                    IconButton(
+                      onPressed: _addDraftSacrament,
+                      icon: const Icon(Icons.add, color: Colors.white),
                     ),
-                  ),
-                  child: const Text('Add Sacrament'),
+                  ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 18),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  itemCount: data.length + (_draftSacramentExists ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index < data.length) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: SacramentInfoScreen(
+                          familyId: widget.familyId,
+                          memberId: widget.memberId,
+                          sacrament: data[index],
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 12),
+                        child: SacramentInfoScreen(
+                          familyId: widget.familyId,
+                          memberId: widget.memberId,
+                          sacrament: _draftSacrament,
+                          onSaved: () => _removeDraftSacrament(_draftSacrament),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       error: (error, stack) =>

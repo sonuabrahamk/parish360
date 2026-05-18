@@ -32,30 +32,39 @@ class _MemberInfoScreenState extends ConsumerState<MemberInfoScreen> {
   String? _selectedRelationship;
 
   final List<String> _relationshipOptions = [
+    'head-of-family',
+    'spouse',
     'father',
     'mother',
     'son',
     'daughter',
-    'head-of-family',
-    'spouse',
     'brother',
     'sister',
-    'grandfather',
-    'grandmother',
-    'uncle',
-    'aunt',
-    'nephew',
-    'niece',
+    'daughter-in-law',
+    'son-in-law',
+    'grand-father',
+    'grand-mother',
+    'grand-son',
+    'grand-daughter',
+    'relative',
     'other',
   ];
 
   @override
   void initState() {
     super.initState();
-    _firstNameController = TextEditingController(text: widget.memberInfo.firstName ?? '');
-    _contactController = TextEditingController(text: widget.memberInfo.contact ?? '');
-    _fatherController = TextEditingController(text: widget.memberInfo.father ?? '');
-    _motherController = TextEditingController(text: widget.memberInfo.mother ?? '');
+    _firstNameController = TextEditingController(
+      text: widget.memberInfo.firstName ?? '',
+    );
+    _contactController = TextEditingController(
+      text: widget.memberInfo.contact ?? '',
+    );
+    _fatherController = TextEditingController(
+      text: widget.memberInfo.father ?? '',
+    );
+    _motherController = TextEditingController(
+      text: widget.memberInfo.mother ?? '',
+    );
     _dobController = TextEditingController(
       text: widget.memberInfo.dob != null
           ? '${widget.memberInfo.dob!.day}/${widget.memberInfo.dob!.month}/${widget.memberInfo.dob!.year}'
@@ -108,7 +117,11 @@ class _MemberInfoScreenState extends ConsumerState<MemberInfoScreen> {
       try {
         final parts = _dobController.text.split('/');
         if (parts.length == 3) {
-          dob = DateTime(int.parse(parts[2]), int.parse(parts[1]), int.parse(parts[0]));
+          dob = DateTime(
+            int.parse(parts[2]),
+            int.parse(parts[1]),
+            int.parse(parts[0]),
+          );
         }
       } catch (e) {
         // Invalid date format, keep as null
@@ -182,10 +195,7 @@ class _MemberInfoScreenState extends ConsumerState<MemberInfoScreen> {
             initialValue: _selectedRelationship,
             decoration: const InputDecoration(labelText: 'Relationship'),
             items: _relationshipOptions.map((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
+              return DropdownMenuItem<String>(value: value, child: Text(value));
             }).toList(),
             onChanged: allowEdit
                 ? (String? newValue) {
