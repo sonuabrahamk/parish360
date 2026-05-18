@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/blessings_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/member_list_screen.dart';
+import 'package:parish360_mobile/features/families/presentation/pages/miscellaneous_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/subscriptions_screen.dart';
 
 class FamilyRecordScreen extends ConsumerWidget {
@@ -12,7 +13,7 @@ class FamilyRecordScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      length: 6, // number of tabs
+      length: 5, // number of tabs
       child: Scaffold(
         appBar: TabBar(
           isScrollable: true,
@@ -25,7 +26,7 @@ class FamilyRecordScreen extends ConsumerWidget {
             Tab(icon: Icon(Icons.self_improvement), text: 'Blessings'),
             Tab(icon: Icon(Icons.calendar_month), text: 'Subscriptions'),
             Tab(icon: Icon(Icons.widgets), text: 'Miscellaneous'),
-            Tab(icon: Icon(Icons.payments), text: 'Payments'),
+            // Tab(icon: Icon(Icons.payments), text: 'Payments'),
           ],
         ),
 
@@ -35,8 +36,8 @@ class FamilyRecordScreen extends ConsumerWidget {
             Center(child: MemberListScreen(familyId: familyId)),
             BlessingsListScreen(familyId: familyId),
             SubscriptionsScreen(familyId: familyId),
-            Center(child: Text('Favorites Page')),
-            Center(child: Text('Settings Page')),
+            MiscellaneousListScreen(familyId: familyId),
+            // Center(child: Text('Payments Page')),
           ],
         ),
       ),
