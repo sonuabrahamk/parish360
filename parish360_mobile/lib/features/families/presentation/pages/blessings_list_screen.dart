@@ -15,10 +15,62 @@ class BlessingsListScreen extends ConsumerWidget {
     return blessingsList.when(
       data: (blessings) {
         if (blessings.isEmpty) {
-          return const Center(
-            child: Text(
-              'No blessings found.',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primary,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Blessings Directory',
+                            style: Theme.of(context).textTheme.titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            '${blessings.length} blessing(s) recorded',
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(color: Colors.white70),
+                          ),
+                        ],
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          final newBlessing = BlessingInfo(
+                            date: DateTime.now(),
+                            priest: '',
+                            reason: '',
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => BlessingsInfoScreen(
+                                familyId: familyId,
+                                blessingInfo: newBlessing,
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.add, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           );
         }

@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_list_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/member_record_screen.dart';
 
-class MemberListScreen extends ConsumerWidget{
+class MemberListScreen extends ConsumerWidget {
   final String familyId;
   const MemberListScreen({super.key, required this.familyId});
 
@@ -14,17 +14,30 @@ class MemberListScreen extends ConsumerWidget{
     return memberList.when(
       data: (members) {
         return DefaultTabController(
-          length: members.length, 
+          length: members.length + 1, // for new member tab
           child: Scaffold(
             appBar: TabBar(
               isScrollable: true,
               tabAlignment: TabAlignment.start,
               padding: const EdgeInsets.symmetric(horizontal: 8),
               labelPadding: const EdgeInsets.symmetric(horizontal: 12),
-              tabs: members.map((member) => Tab(text: member.firstName ?? 'No Name')).toList(),
+              tabs: [
+                ...members.map(
+                  (member) => Tab(text: member.firstName ?? 'No Name'),
+                ),
+                const Tab(text: 'Add Member'),
+              ],
             ),
             body: TabBarView(
-              children: members.map((member) => MemberRecordScreen(familyId: familyId, memberId: member.id ?? '')).toList(),
+              children: [
+                ...members.map(
+                  (member) => MemberRecordScreen(
+                    familyId: familyId,
+                    memberId: member.id ?? '',
+                  ),
+                ),
+                MemberRecordScreen(familyId: familyId, memberId: 'new'),
+              ],
             ),
           ),
         );

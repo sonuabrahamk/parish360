@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
+import 'package:parish360_mobile/features/families/data/providers/families_providers.dart';
 import 'package:parish360_mobile/features/families/domain/entities/family_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/family/family_info_controller.dart';
+import 'package:parish360_mobile/features/families/presentation/controllers/family/family_info_list_controller.dart';
 
 class FamilyInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
+  final bool isEditing;
 
-  const FamilyInfoScreen({super.key, required this.familyId});
+  const FamilyInfoScreen({super.key, required this.familyId, this.isEditing = false});
 
   @override
   ConsumerState<FamilyInfoScreen> createState() => _FamilyInfoScreenState();
@@ -28,6 +32,8 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
   late final TextEditingController _joinedDateController;
   late final TextEditingController _contactVerifiedController;
 
+  bool get _isNewFamily => widget.familyId == 'new';
+
   @override
   void initState() {
     super.initState();
@@ -39,6 +45,10 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
     _headOfFamilyController = TextEditingController();
     _joinedDateController = TextEditingController();
     _contactVerifiedController = TextEditingController();
+    _isEditing = widget.isEditing;
+    if (_isNewFamily) {
+      _initialized = true;
+    }
   }
 
   @override
@@ -76,8 +86,8 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
   Future<void> _saveFamilyInfo() async {
     if (!_formKey.currentState!.validate()) return;
 
-    final updatedFamilyInfo = FamilyInfo(
-      id: widget.familyId,
+    final familyInfo = FamilyInfo(
+      id: _isNewFamily ? null : widget.familyId,
       familyName: _familyNameController.text.trim(),
       familyCode: _familyCodeController.text.trim(),
       contact: _contactController.text.trim(),
@@ -87,29 +97,39 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
       joinedDate: DateTime.tryParse(_joinedDateController.text.trim()),
       contactVerified:
           _contactVerifiedController.text.trim().toLowerCase() == 'yes',
-      createdAt: _currentFamilyInfo?.createdAt,
+      createdAt: _currentFamilyInfo?.createdAt ?? DateTime.now(),
       createdBy: _currentFamilyInfo?.createdBy,
-      updatedAt: DateTime.now(),
+      updatedAt: _isNewFamily ? null : DateTime.now(),
       updatedBy: _currentFamilyInfo?.updatedBy,
       parishId: _currentFamilyInfo?.parishId,
     );
 
     try {
-      await ref
-          .read(familyInfoControllerProvider(widget.familyId).notifier)
-          .updateFamily(widget.familyId, updatedFamilyInfo);
+      if (_isNewFamily) {
+        await ref.read(familyInfoRepositoryProvider).createFamily(familyInfo);
+      } else {
+        await ref
+            .read(familyInfoControllerProvider(widget.familyId).notifier)
+            .updateFamily(widget.familyId, familyInfo);
+      }
+
       setState(() {
         _isEditing = false;
       });
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Family info saved successfully')),
+          SnackBar(content: Text(_isNewFamily ? 'Family info created successfully' : 'Family info saved successfully')),
         );
+        if (_isNewFamily) {
+          ref.invalidate(familyInfoListControllerProvider);
+          context.pop();
+        }
       }
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save family info: $error')),
+          SnackBar(content: Text(_isNewFamily ? 'Failed to create family info: $error' : 'Failed to save family info: $error')),
         );
       }
     }
@@ -123,6 +143,16 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isNewFamily) {
+      return _buildScaffold(
+        context,
+        title: 'New Family Info',
+        showEditAction: false,
+        showSaveAction: true,
+        showCancelAction: true,
+      );
+    }
+
     final familyAsync = ref.watch(
       familyInfoControllerProvider(widget.familyId),
     );
@@ -140,66 +170,88 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
           _initializeFromFamilyInfo(familyInfo);
         }
 
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              familyInfo.familyName?.isNotEmpty == true
-                  ? '${familyInfo.familyName} Details'
-                  : 'Family Info',
-            ),
-            centerTitle: false,
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-            titleTextStyle: TextStyle(
-              color: AppTheme.primaryColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-            bottom: const PreferredSize(
-              preferredSize: Size.fromHeight(1),
-              child: Divider(height: 1, thickness: 1),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(
-                  _isEditing ? Icons.check : Icons.edit,
-                  color: AppTheme.primaryColor,
-                ),
-                onPressed: _isEditing ? _saveFamilyInfo : _toggleEditing,
-                tooltip: _isEditing ? 'Save' : 'Edit',
-              ),
-              if (_isEditing)
-                IconButton(
-                  icon: Icon(Icons.close, color: AppTheme.primaryColor),
-                  onPressed: _toggleEditing,
-                  tooltip: 'Cancel',
-                ),
-            ],
-          ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // FamilyInfoSummaryCard(familyInfo: familyInfo),
-                // const SizedBox(height: 20),
-                FamilyInfoForm(
-                  formKey: _formKey,
-                  isEditing: _isEditing,
-                  familyNameController: _familyNameController,
-                  familyCodeController: _familyCodeController,
-                  contactController: _contactController,
-                  addressController: _addressController,
-                  unitController: _unitController,
-                  headOfFamilyController: _headOfFamilyController,
-                  joinedDateController: _joinedDateController,
-                  contactVerifiedController: _contactVerifiedController,
-                ),
-              ],
-            ),
-          ),
+        return _buildScaffold(
+          context,
+          title: familyInfo.familyName?.isNotEmpty == true
+              ? '${familyInfo.familyName} Details'
+              : 'Family Info',
+          showEditAction: !_isEditing,
+          showSaveAction: _isEditing,
+          showCancelAction: _isEditing,
         );
       },
+    );
+  }
+
+  Widget _buildScaffold(
+    BuildContext context, {
+    required String title,
+    required bool showEditAction,
+    required bool showSaveAction,
+    required bool showCancelAction,
+  }) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+        centerTitle: false,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        titleTextStyle: TextStyle(
+          color: AppTheme.primaryColor,
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(height: 1, thickness: 1),
+        ),
+        actions: [
+          if (showEditAction)
+            IconButton(
+              icon: Icon(Icons.edit, color: AppTheme.primaryColor),
+              onPressed: _toggleEditing,
+              tooltip: 'Edit',
+            ),
+          if (showSaveAction)
+            IconButton(
+              icon: Icon(Icons.check, color: AppTheme.primaryColor),
+              onPressed: _saveFamilyInfo,
+              tooltip: 'Save',
+            ),
+          if (showCancelAction)
+            IconButton(
+              icon: Icon(Icons.close, color: AppTheme.primaryColor),
+              onPressed: () {
+                if (_isNewFamily) {
+                  context.pop();
+                } else {
+                  _toggleEditing();
+                }
+              },
+              tooltip: 'Cancel',
+            ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            FamilyInfoForm(
+              formKey: _formKey,
+              isEditing: _isEditing,
+              familyNameController: _familyNameController,
+              familyCodeController: _familyCodeController,
+              contactController: _contactController,
+              addressController: _addressController,
+              unitController: _unitController,
+              headOfFamilyController: _headOfFamilyController,
+              joinedDateController: _joinedDateController,
+              contactVerifiedController: _contactVerifiedController,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

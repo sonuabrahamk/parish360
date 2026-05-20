@@ -32,8 +32,8 @@ class FamilyRecordScreen extends ConsumerWidget {
 
         body: TabBarView(
           children: [
-            Center(child: FamilyInfoScreen(familyId: familyId)),
-            Center(child: MemberListScreen(familyId: familyId)),
+            FamilyInfoScreen(familyId: familyId, isEditing: false),
+            MemberListScreen(familyId: familyId),
             BlessingsListScreen(familyId: familyId),
             SubscriptionsScreen(familyId: familyId),
             MiscellaneousListScreen(familyId: familyId),

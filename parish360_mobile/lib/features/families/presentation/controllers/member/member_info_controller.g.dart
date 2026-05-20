@@ -51,7 +51,7 @@ final class MemberInfoControllerProvider
 }
 
 String _$memberInfoControllerHash() =>
-    r'27ab85033056ef55cf288cfdf45d882a66e20dd5';
+    r'c4074fbd2421c60b63f10d1b8447ec6a850476ca';
 
 final class MemberInfoControllerFamily extends $Family
     with

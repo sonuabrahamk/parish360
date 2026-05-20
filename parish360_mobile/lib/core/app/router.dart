@@ -6,6 +6,7 @@ import 'package:parish360_mobile/core/app/app_shell.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
+import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -63,6 +64,9 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: 'Family Record',
             builder: (context, state) {
               final familyId = state.pathParameters['familyId']!;
+              if (familyId == 'new') {
+                return FamilyInfoScreen(familyId: familyId, isEditing: true);
+              }
               return FamilyRecordScreen(familyId: familyId);
             },
           ),
