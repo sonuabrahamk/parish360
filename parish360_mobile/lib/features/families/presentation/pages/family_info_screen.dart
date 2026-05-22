@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:parish360_mobile/core/common/widgets/contact_widget.dart';
+import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/families/data/providers/families_providers.dart';
 import 'package:parish360_mobile/features/families/domain/entities/family_info.dart';
@@ -11,7 +13,11 @@ class FamilyInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
   final bool isEditing;
 
-  const FamilyInfoScreen({super.key, required this.familyId, this.isEditing = false});
+  const FamilyInfoScreen({
+    super.key,
+    required this.familyId,
+    this.isEditing = false,
+  });
 
   @override
   ConsumerState<FamilyInfoScreen> createState() => _FamilyInfoScreenState();
@@ -119,7 +125,13 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(_isNewFamily ? 'Family info created successfully' : 'Family info saved successfully')),
+          SnackBar(
+            content: Text(
+              _isNewFamily
+                  ? 'Family info created successfully'
+                  : 'Family info saved successfully',
+            ),
+          ),
         );
         if (_isNewFamily) {
           ref.invalidate(familyInfoListControllerProvider);
@@ -129,7 +141,13 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
     } catch (error) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(_isNewFamily ? 'Failed to create family info: $error' : 'Failed to save family info: $error')),
+          SnackBar(
+            content: Text(
+              _isNewFamily
+                  ? 'Failed to create family info: $error'
+                  : 'Failed to save family info: $error',
+            ),
+          ),
         );
       }
     }
@@ -240,6 +258,7 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
             FamilyInfoForm(
               formKey: _formKey,
               isEditing: _isEditing,
+              familyId: widget.familyId,
               familyNameController: _familyNameController,
               familyCodeController: _familyCodeController,
               contactController: _contactController,
@@ -256,98 +275,10 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
   }
 }
 
-class FamilyInfoSummaryCard extends StatelessWidget {
-  final FamilyInfo familyInfo;
-
-  const FamilyInfoSummaryCard({super.key, required this.familyInfo});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.primary,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            familyInfo.familyName?.isNotEmpty == true
-                ? familyInfo.familyName!
-                : 'Family Details',
-            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            familyInfo.familyCode ?? 'No family code available',
-            style: Theme.of(
-              context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.white70),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _summaryChip(
-                context,
-                label: 'Joined',
-                value: familyInfo.joinedDate != null
-                    ? familyInfo.joinedDate!.toLocal().toString().split(' ')[0]
-                    : 'Unknown',
-              ),
-              _summaryChip(
-                context,
-                label: 'Verified',
-                value: familyInfo.contactVerified == true ? 'Yes' : 'No',
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _summaryChip(
-    BuildContext context, {
-    required String label,
-    required String value,
-  }) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white.withAlpha(40),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: Theme.of(
-              context,
-            ).textTheme.bodySmall?.copyWith(color: Colors.white70),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class FamilyInfoForm extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final bool isEditing;
+  final String familyId;
   final TextEditingController familyNameController;
   final TextEditingController familyCodeController;
   final TextEditingController contactController;
@@ -369,6 +300,7 @@ class FamilyInfoForm extends StatelessWidget {
     required this.headOfFamilyController,
     required this.joinedDateController,
     required this.contactVerifiedController,
+    required this.familyId,
   });
 
   @override
@@ -377,20 +309,54 @@ class FamilyInfoForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          _field('Family Name', familyNameController, isEditing),
-          _field('Family Code', familyCodeController, isEditing),
-          _field('Contact', contactController, isEditing),
-          _field('Address', addressController, isEditing),
-          _field('Unit', unitController, isEditing),
-          _field('Head of Family', headOfFamilyController, isEditing),
-          _field('Joined Date', joinedDateController, isEditing),
-          _field('Contact Verified', contactVerifiedController, isEditing),
+          _textField('Family Name', familyNameController, isEditing),
+          _textField(
+            'Family Code',
+            familyCodeController,
+            familyId == 'new',
+          ), // Family code is only editable when creating a new family
+          ContactWidget(
+            controller: contactController,
+            isEditing: isEditing,
+          ),
+          _textField('Address', addressController, isEditing),
+          familyId != 'new' && !isEditing
+              ? _textField('Unit', unitController, false)
+              : const SizedBox.shrink(), // Unit is not editable
+          familyId != 'new' && !isEditing
+              ? _textField('Head of Family', headOfFamilyController, false)
+              : const SizedBox.shrink(), // Head of family is not editable
+          DateWidget(
+            controller: joinedDateController,
+            label: 'Joined Date',
+            isEditing: isEditing,
+          ),
+          DropdownButtonFormField<String>(
+            initialValue:
+                contactVerifiedController.text.trim().toLowerCase() == 'yes'
+                ? 'yes'
+                : 'no',
+            decoration: const InputDecoration(labelText: 'Contact Verified'),
+            items: [
+              DropdownMenuItem(value: 'yes', child: Text('Yes')),
+              DropdownMenuItem(value: 'no', child: Text('No')),
+            ],
+            onChanged: isEditing
+                ? (String? newValue) {
+                    contactVerifiedController.text = newValue ?? 'no';
+                  }
+                : null,
+          ),
         ],
       ),
     );
   }
 
-  Widget _field(String label, TextEditingController controller, bool enabled) {
+  Widget _textField(
+    String label,
+    TextEditingController controller,
+    bool enabled,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
