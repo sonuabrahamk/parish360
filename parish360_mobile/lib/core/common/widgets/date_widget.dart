@@ -7,6 +7,7 @@ class DateWidget extends ConsumerWidget {
   final bool isEditing;
   final DateTime? firstDate;
   final DateTime? lastDate;
+  final bool? isRequired;
 
   const DateWidget({
     super.key,
@@ -15,6 +16,7 @@ class DateWidget extends ConsumerWidget {
     required this.isEditing,
     this.firstDate,
     this.lastDate,
+    this.isRequired = false,
   });
 
   @override
@@ -34,7 +36,7 @@ class DateWidget extends ConsumerWidget {
                   onPressed: () => _selectDate(context),
                 ),
         ),
-        readOnly: !isEditing,
+        readOnly: true, // Always read-only to prevent manual input
         validator: (value) {
           // Additional validation for date format can be added here
           return null;

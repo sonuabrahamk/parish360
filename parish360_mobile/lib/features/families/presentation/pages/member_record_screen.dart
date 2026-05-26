@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/common/entities/god_parent.dart';
+import 'package:parish360_mobile/core/common/entities/place.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/families/domain/entities/member_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_info_controller.dart';
@@ -27,32 +29,64 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
   bool isEditing = false;
   bool initialized = false;
   String currentTab = 'info';
-  MemberInfo? editedInfo;
+
+  final formKey = GlobalKey<FormState>();
+  final memberFormControllers = MemberFormControllers();
+
+  @override
+  void dispose() {
+    memberFormControllers.dispose();
+    super.dispose();
+  }
 
   Future<void> _saveMemberInfo(BuildContext context) async {
-    if (editedInfo == null) return;
+    if (!formKey.currentState!.validate()) {
+      return;
+    }
 
     final messenger = ScaffoldMessenger.of(context);
 
+    // create MemberInfo
+    MemberInfo memberInfo = MemberInfo(
+      firstName: memberFormControllers.firstNameController.text.trim(),
+      lastName: memberFormControllers.lastNameController.text.trim(),
+      baptismName: memberFormControllers.baptismNameController.text.trim(),
+      email: memberFormControllers.emailController.text.trim(),
+      contact: memberFormControllers.contactController.text.trim(),
+      father: memberFormControllers.fatherController.text.trim(),
+      mother: memberFormControllers.motherController.text.trim(),
+      dob: DateTime.parse(memberFormControllers.dobController.text.trim()),
+      relationship: memberFormControllers.relationshipController.text.trim(),
+      gender: memberFormControllers.genderController.text.trim(),
+      maritalStatus: memberFormControllers.maritalStatusController.text.trim(),
+      qualification: memberFormControllers.qualificationController.text.trim(),
+      occupation: memberFormControllers.occupationController.text.trim(),
+      birthPlace: Place(
+        city: memberFormControllers.birthPlaceCityController.text.trim(),
+        state: memberFormControllers.birthPlaceStateController.text.trim(),
+        country: memberFormControllers.birthPlaceCountryController.text.trim(),
+      ),
+      godFather: GodParent(
+        name: memberFormControllers.godFatherNameController.text.trim(),
+        baptismName: memberFormControllers.godFatherBaptismNameController.text
+            .trim(),
+        parish: memberFormControllers.godFatherParishController.text.trim(),
+        contact: memberFormControllers.godFatherContactController.text.trim(),
+      ),
+      godMother: GodParent(
+        name: memberFormControllers.godMotherNameController.text.trim(),
+        baptismName: memberFormControllers.godMotherBaptismNameController.text
+            .trim(),
+        parish: memberFormControllers.godMotherParishController.text.trim(),
+        contact: memberFormControllers.godMotherContactController.text.trim(),
+      ),
+    );
+
     try {
-      if (editedInfo?.id == 'new') {
-        // Strip out the 'new' id when creating
-        final memberToCreate = MemberInfo(
-          id: null,
-          firstName: editedInfo?.firstName,
-          contact: editedInfo?.contact,
-          contactVerified: editedInfo?.contactVerified,
-          dob: editedInfo?.dob,
-          father: editedInfo?.father,
-          mother: editedInfo?.mother,
-          relationship: editedInfo?.relationship,
-          createdAt: editedInfo?.createdAt,
-          createdBy: editedInfo?.createdBy,
-          updatedAt: editedInfo?.updatedAt,
-        );
+      if (widget.memberId == 'new') {
         await ref
             .read(memberInfoControllerProvider(widget.familyId, '').notifier)
-            .createMember(widget.familyId, memberToCreate);
+            .createMember(widget.familyId, memberInfo);
       } else {
         await ref
             .read(
@@ -61,18 +95,20 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
                 widget.memberId,
               ).notifier,
             )
-            .updateMember(widget.familyId, widget.memberId, editedInfo!);
+            .updateMember(widget.familyId, widget.memberId, memberInfo);
       }
       if (!mounted) return;
+
       setState(() {
         isEditing = false;
       });
+
       messenger.showSnackBar(
-        editedInfo?.id == 'new'
+        widget.memberId == 'new'
             ? SnackBar(content: Text('Member info created successfully'))
             : SnackBar(content: Text('Member info updated successfully')),
       );
-      if (editedInfo?.id == 'new') {
+      if (widget.memberId == 'new') {
         // Invalidate the member list to show the new member
         ref.invalidate(memberListControllerProvider(widget.familyId));
       } else {
@@ -92,10 +128,88 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
   void _toggleEditing() {
     setState(() {
       isEditing = !isEditing;
-      if (!isEditing) {
-        editedInfo = null; // Discard changes when exiting edit mode
-      }
     });
+  }
+
+  void initializeMemberFormControllers(MemberInfo initialMemberInfo) {
+    memberFormControllers.firstNameController.value = TextEditingValue(
+      text: initialMemberInfo.firstName ?? '',
+    );
+    memberFormControllers.lastNameController.value = TextEditingValue(
+      text: initialMemberInfo.lastName ?? '',
+    );
+    memberFormControllers.baptismNameController.value = TextEditingValue(
+      text: initialMemberInfo.baptismName ?? '',
+    );
+    memberFormControllers.contactController.value = TextEditingValue(
+      text: initialMemberInfo.contact ?? '',
+    );
+    memberFormControllers.dobController.value = TextEditingValue(
+      text: initialMemberInfo.dob != null
+          ? '${initialMemberInfo.dob?.year}-${initialMemberInfo.dob?.month.toString().padLeft(2, '0')}-${initialMemberInfo.dob?.day.toString().padLeft(2, '0')}'
+          : '',
+    );
+    memberFormControllers.emailController.value = TextEditingValue(
+      text: initialMemberInfo.email ?? '',
+    );
+    memberFormControllers.fatherController.value = TextEditingValue(
+      text: initialMemberInfo.father ?? '',
+    );
+    memberFormControllers.motherController.value = TextEditingValue(
+      text: initialMemberInfo.mother ?? '',
+    );
+    memberFormControllers.relationshipController.value = TextEditingValue(
+      text: initialMemberInfo.relationship ?? '',
+    );
+    memberFormControllers.genderController.value = TextEditingValue(
+      text: initialMemberInfo.gender ?? '',
+    );
+    memberFormControllers.maritalStatusController.value = TextEditingValue(
+      text: initialMemberInfo.maritalStatus ?? '',
+    );
+    memberFormControllers.qualificationController.value = TextEditingValue(
+      text: initialMemberInfo.qualification ?? '',
+    );
+    memberFormControllers.occupationController.value = TextEditingValue(
+      text: initialMemberInfo.occupation ?? '',
+    );
+
+    // birth place initialisation
+    memberFormControllers.birthPlaceCityController.value = TextEditingValue(
+      text: initialMemberInfo.birthPlace?.city ?? '',
+    );
+    memberFormControllers.birthPlaceStateController.value = TextEditingValue(
+      text: initialMemberInfo.birthPlace?.state ?? '',
+    );
+    memberFormControllers.birthPlaceCountryController.value = TextEditingValue(
+      text: initialMemberInfo.birthPlace?.country ?? '',
+    );
+
+    // God father details initialisation
+    memberFormControllers.godFatherNameController.value = TextEditingValue(
+      text: initialMemberInfo.godFather?.name ?? '',
+    );
+    memberFormControllers.godFatherBaptismNameController.value =
+        TextEditingValue(text: initialMemberInfo.godFather?.baptismName ?? '');
+    memberFormControllers.godFatherContactController.value = TextEditingValue(
+      text: initialMemberInfo.godFather?.contact ?? '',
+    );
+    memberFormControllers.godFatherParishController.value = TextEditingValue(
+      text: initialMemberInfo.godFather?.parish ?? '',
+    );
+
+    // God Mother details initialisation
+    memberFormControllers.godMotherNameController.value = TextEditingValue(
+      text: initialMemberInfo.godMother?.name ?? '',
+    );
+    memberFormControllers.godMotherBaptismNameController.value =
+        TextEditingValue(text: initialMemberInfo.godMother?.baptismName ?? '');
+    memberFormControllers.godMotherContactController.value = TextEditingValue(
+      text: initialMemberInfo.godMother?.contact ?? '',
+    );
+    memberFormControllers.godMotherParishController.value = TextEditingValue(
+      text: initialMemberInfo.godMother?.parish ?? '',
+    );
   }
 
   @override
@@ -108,6 +222,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
     if (widget.memberId == 'new') {
       currentTab = 'info';
       _toggleEditing(); // Start in editing mode for new member
+      initializeMemberFormControllers(MemberInfo());
       return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -134,14 +249,12 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
                   ),
                 ],
         ),
-        body: MemberInfoScreen(
-          familyId: widget.familyId,
-          memberId: widget.memberId,
-          isEditing: isEditing,
-          memberInfo: MemberInfo(id: 'new', firstName: ''),
-          onInfoChanged: (newInfo) {
-            editedInfo = newInfo;
-          },
+        body: Form(
+          key: formKey,
+          child: MemberInfoScreen(
+            isEditing: isEditing,
+            controllers: memberFormControllers,
+          ),
         ),
       );
     }
@@ -157,7 +270,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
           // Initialize any controllers or state here using the member info
           initialized = true;
           currentTab = 'info';
-          editedInfo = info;
+          initializeMemberFormControllers(info);
         }
         return Scaffold(
           appBar: AppBar(
@@ -270,14 +383,12 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
             ),
           ),
           body: switch (currentTab) {
-            'info' => MemberInfoScreen(
-              familyId: widget.familyId,
-              memberId: widget.memberId,
-              isEditing: isEditing,
-              memberInfo: editedInfo ?? info,
-              onInfoChanged: (newInfo) {
-                editedInfo = newInfo;
-              },
+            'info' => Form(
+              key: formKey,
+              child: MemberInfoScreen(
+                isEditing: isEditing,
+                controllers: memberFormControllers,
+              ),
             ),
             'sacrament' => SacramentsScreen(
               familyId: widget.familyId,

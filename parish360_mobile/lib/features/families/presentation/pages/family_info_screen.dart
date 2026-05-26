@@ -309,27 +309,34 @@ class FamilyInfoForm extends StatelessWidget {
       key: formKey,
       child: Column(
         children: [
-          _textField('Family Name', familyNameController, isEditing),
+          _textField('Family Name', familyNameController, isEditing, true),
           _textField(
             'Family Code',
             familyCodeController,
             familyId == 'new',
+            true,
           ), // Family code is only editable when creating a new family
-          ContactWidget(
-            controller: contactController,
-            isEditing: isEditing,
-          ),
-          _textField('Address', addressController, isEditing),
+          _textField('Address', addressController, isEditing, false),
           familyId != 'new' && !isEditing
-              ? _textField('Unit', unitController, false)
+              ? _textField('Unit', unitController, false, false)
               : const SizedBox.shrink(), // Unit is not editable
           familyId != 'new' && !isEditing
-              ? _textField('Head of Family', headOfFamilyController, false)
+              ? _textField(
+                  'Head of Family',
+                  headOfFamilyController,
+                  false,
+                  false,
+                )
               : const SizedBox.shrink(), // Head of family is not editable
           DateWidget(
             controller: joinedDateController,
             label: 'Joined Date',
             isEditing: isEditing,
+          ),
+          ContactWidget(
+            controller: contactController,
+            isEditing: isEditing,
+            isRequired: true,
           ),
           DropdownButtonFormField<String>(
             initialValue:
@@ -356,6 +363,7 @@ class FamilyInfoForm extends StatelessWidget {
     String label,
     TextEditingController controller,
     bool enabled,
+    bool isRequired,
   ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
@@ -367,7 +375,7 @@ class FamilyInfoForm extends StatelessWidget {
         ),
         readOnly: !enabled,
         validator: (value) {
-          if (value == null || value.trim().isEmpty) {
+          if (isRequired && (value == null || value.trim().isEmpty)) {
             return 'Please enter $label';
           }
           return null;

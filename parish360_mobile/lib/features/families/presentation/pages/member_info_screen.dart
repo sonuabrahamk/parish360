@@ -1,213 +1,365 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:parish360_mobile/features/families/domain/entities/member_info.dart';
+import 'package:parish360_mobile/core/common/widgets/contact_widget.dart';
+import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/common/widgets/section_form_group.dart';
+import 'package:parish360_mobile/core/utils/member_option_constants.dart';
 
-class MemberInfoScreen extends ConsumerStatefulWidget {
-  final String familyId;
-  final String memberId;
+class MemberInfoScreen extends ConsumerWidget {
   final bool isEditing;
-  final MemberInfo memberInfo;
-  final ValueChanged<MemberInfo> onInfoChanged;
+  final MemberFormControllers controllers;
+
+  final Map<String, String> _genderOptions = kMemberGenderOptions;
+  final Map<String, String> _relationshipOptions = kMemberRelationshipOptions;
+  final Map<String, String> _maritalStatusOptions = kMemberMaritalStatusOptions;
 
   const MemberInfoScreen({
     super.key,
-    required this.familyId,
-    required this.memberId,
     required this.isEditing,
-    required this.memberInfo,
-    required this.onInfoChanged,
+    required this.controllers,
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _MemberInfoScreenState();
-}
-
-class _MemberInfoScreenState extends ConsumerState<MemberInfoScreen> {
-  late TextEditingController _firstNameController;
-  late TextEditingController _contactController;
-  late TextEditingController _fatherController;
-  late TextEditingController _motherController;
-  late TextEditingController _dobController;
-  String? _selectedRelationship;
-
-  final List<String> _relationshipOptions = [
-    'head-of-family',
-    'spouse',
-    'father',
-    'mother',
-    'son',
-    'daughter',
-    'brother',
-    'sister',
-    'daughter-in-law',
-    'son-in-law',
-    'grand-father',
-    'grand-mother',
-    'grand-son',
-    'grand-daughter',
-    'relative',
-    'other',
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    _firstNameController = TextEditingController(
-      text: widget.memberInfo.firstName ?? '',
-    );
-    _contactController = TextEditingController(
-      text: widget.memberInfo.contact ?? '',
-    );
-    _fatherController = TextEditingController(
-      text: widget.memberInfo.father ?? '',
-    );
-    _motherController = TextEditingController(
-      text: widget.memberInfo.mother ?? '',
-    );
-    _dobController = TextEditingController(
-      text: widget.memberInfo.dob != null
-          ? '${widget.memberInfo.dob!.day}/${widget.memberInfo.dob!.month}/${widget.memberInfo.dob!.year}'
-          : '',
-    );
-    _selectedRelationship = widget.memberInfo.relationship;
-  }
-
-  @override
-  void didUpdateWidget(covariant MemberInfoScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (oldWidget.memberInfo != widget.memberInfo) {
-      _firstNameController.text = widget.memberInfo.firstName ?? '';
-      _contactController.text = widget.memberInfo.contact ?? '';
-      _fatherController.text = widget.memberInfo.father ?? '';
-      _motherController.text = widget.memberInfo.mother ?? '';
-      _dobController.text = widget.memberInfo.dob != null
-          ? '${widget.memberInfo.dob!.day}/${widget.memberInfo.dob!.month}/${widget.memberInfo.dob!.year}'
-          : '';
-      _selectedRelationship = widget.memberInfo.relationship;
-    }
-  }
-
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _contactController.dispose();
-    _fatherController.dispose();
-    _motherController.dispose();
-    _dobController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.memberInfo.dob ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null) {
-      _dobController.text = '${picked.day}/${picked.month}/${picked.year}';
-      _notifyChanged();
-    }
-  }
-
-  void _notifyChanged() {
-    DateTime? dob;
-    if (_dobController.text.isNotEmpty) {
-      try {
-        final parts = _dobController.text.split('/');
-        if (parts.length == 3) {
-          dob = DateTime(
-            int.parse(parts[2]),
-            int.parse(parts[1]),
-            int.parse(parts[0]),
-          );
-        }
-      } catch (e) {
-        // Invalid date format, keep as null
-      }
-    }
-
-    widget.onInfoChanged(
-      widget.memberInfo.copyWith(
-        firstName: _firstNameController.text.trim(),
-        contact: _contactController.text.trim(),
-        father: _fatherController.text.trim(),
-        mother: _motherController.text.trim(),
-        dob: dob,
-        relationship: _selectedRelationship,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final allowEdit = widget.isEditing;
-
-    return Padding(
+  Widget build(BuildContext context, WidgetRef ref) {
+    return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextField(
-            controller: _firstNameController,
-            readOnly: !allowEdit,
-            decoration: const InputDecoration(labelText: 'First Name'),
-            onChanged: (_) => _notifyChanged(),
+          TextFormField(
+            controller: controllers.firstNameController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'First Name',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return 'First name is required';
+              }
+              return null;
+            },
+            autovalidateMode: AutovalidateMode.onUnfocus,
           ),
           const SizedBox(height: 12),
-          TextField(
-            controller: _contactController,
-            readOnly: !allowEdit,
-            decoration: const InputDecoration(labelText: 'Contact'),
-            onChanged: (_) => _notifyChanged(),
-          ),
-          const SizedBox(height: 12),
-          TextField(
-            controller: _dobController,
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: 'Date of Birth',
-              suffixIcon: allowEdit
-                  ? IconButton(
-                      icon: const Icon(Icons.calendar_today),
-                      onPressed: () => _selectDate(context),
-                    )
-                  : null,
+          TextFormField(
+            controller: controllers.lastNameController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Last Name',
+              border: OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 12),
-          TextField(
-            controller: _fatherController,
-            readOnly: !allowEdit,
-            decoration: const InputDecoration(labelText: 'Father'),
-            onChanged: (_) => _notifyChanged(),
+          TextFormField(
+            controller: controllers.emailController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+            ),
+            validator: (value) {
+              if (value == null || value.trim().isEmpty) {
+                return null; // email is not required
+              } else if (!RegExp(
+                r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+              ).hasMatch(value)) {
+                return 'Please enter valid email';
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 12),
-          TextField(
-            controller: _motherController,
-            readOnly: !allowEdit,
-            decoration: const InputDecoration(labelText: 'Mother'),
-            onChanged: (_) => _notifyChanged(),
+          ContactWidget(
+            controller: controllers.contactController,
+            isEditing: isEditing,
+            isRequired: false,
+          ),
+          DropdownButtonFormField<String>(
+            initialValue: controllers.relationshipController.text == ''
+                ? null
+                : controllers.relationshipController.text,
+            decoration: const InputDecoration(
+              labelText: 'Relationship',
+              border: OutlineInputBorder(),
+            ),
+            items: _relationshipOptions.entries
+                .map(
+                  (entry) => DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(entry.value),
+                  ),
+                )
+                .toList(),
+            onChanged: isEditing
+                ? (String? newValue) {
+                    controllers.relationshipController.value = TextEditingValue(
+                      text: newValue ?? '',
+                    );
+                  }
+                : null,
+            validator: (value) {
+              if (value == null) {
+                return 'Please select a relationship';
+              }
+              return null;
+            },
+            autovalidateMode: AutovalidateMode.onUnfocus,
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            controller: controllers.fatherController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Father',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            controller: controllers.motherController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Mother',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          DateWidget(
+            controller: controllers.dobController,
+            label: 'Date Of Birth',
+            isEditing: isEditing,
+          ),
+          DropdownButtonFormField<String>(
+            initialValue: controllers.genderController.text == ''
+                ? null
+                : controllers.genderController.text,
+            decoration: const InputDecoration(
+              labelText: 'Gender',
+              border: OutlineInputBorder(),
+            ),
+            items: _genderOptions.entries
+                .map(
+                  (entry) => DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(entry.value),
+                  ),
+                )
+                .toList(),
+            onChanged: isEditing
+                ? (String? newValue) {
+                    controllers.genderController.value = TextEditingValue(
+                      text: newValue ?? '',
+                    );
+                  }
+                : null,
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<String>(
-            initialValue: _selectedRelationship,
-            decoration: const InputDecoration(labelText: 'Relationship'),
-            items: _relationshipOptions.map((String value) {
-              return DropdownMenuItem<String>(value: value, child: Text(value));
-            }).toList(),
-            onChanged: allowEdit
+            initialValue: controllers.maritalStatusController.text == ''
+                ? null
+                : controllers.maritalStatusController.text,
+            decoration: const InputDecoration(
+              labelText: 'Marital Status',
+              border: OutlineInputBorder(),
+            ),
+            items: _maritalStatusOptions.entries
+                .map(
+                  (entry) => DropdownMenuItem<String>(
+                    value: entry.key,
+                    child: Text(entry.value),
+                  ),
+                )
+                .toList(),
+            onChanged: isEditing
                 ? (String? newValue) {
-                    setState(() {
-                      _selectedRelationship = newValue;
-                    });
-                    _notifyChanged();
+                    controllers.maritalStatusController.value =
+                        TextEditingValue(text: newValue ?? '');
                   }
                 : null,
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            controller: controllers.qualificationController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Qualification',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 12),
+          TextFormField(
+            controller: controllers.occupationController,
+            readOnly: !isEditing,
+            decoration: const InputDecoration(
+              labelText: 'Occupation',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 5),
+          SectionFormGroup(
+            title: 'Birth Place',
+            children: [
+              TextFormField(
+                controller: controllers.birthPlaceCityController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'City',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.birthPlaceStateController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'State',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.birthPlaceCountryController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Country',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ],
+          ),
+          SectionFormGroup(
+            title: 'God Father Details',
+            children: [
+              TextFormField(
+                controller: controllers.godFatherNameController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.godFatherBaptismNameController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Baptism Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.godFatherParishController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Parish',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ContactWidget(
+                controller: controllers.godFatherContactController,
+                isEditing: isEditing,
+                isRequired: false,
+              ),
+            ],
+          ),
+          SectionFormGroup(
+            title: 'God Mother Details',
+            children: [
+              TextFormField(
+                controller: controllers.godMotherNameController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.godMotherBaptismNameController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Baptism Name',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              TextFormField(
+                controller: controllers.godMotherParishController,
+                readOnly: !isEditing,
+                decoration: const InputDecoration(
+                  labelText: 'Parish',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 12),
+              ContactWidget(
+                controller: controllers.godMotherContactController,
+                isEditing: isEditing,
+                isRequired: false,
+              ),
+            ],
           ),
         ],
       ),
     );
+  }
+}
+
+class MemberFormControllers {
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final baptismNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final contactController = TextEditingController();
+  final fatherController = TextEditingController();
+  final motherController = TextEditingController();
+  final dobController = TextEditingController();
+
+  final relationshipController = TextEditingController();
+  final genderController = TextEditingController();
+  final maritalStatusController = TextEditingController();
+
+  final qualificationController = TextEditingController();
+  final occupationController = TextEditingController();
+  final birthPlaceCityController = TextEditingController();
+  final birthPlaceStateController = TextEditingController();
+  final birthPlaceCountryController = TextEditingController();
+  final godFatherNameController = TextEditingController();
+  final godMotherNameController = TextEditingController();
+  final godFatherBaptismNameController = TextEditingController();
+  final godMotherBaptismNameController = TextEditingController();
+  final godFatherParishController = TextEditingController();
+  final godMotherParishController = TextEditingController();
+  final godFatherContactController = TextEditingController();
+  final godMotherContactController = TextEditingController();
+
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    baptismNameController.dispose();
+    emailController.dispose();
+    contactController.dispose();
+    fatherController.dispose();
+    motherController.dispose();
+    dobController.dispose();
+    relationshipController.dispose();
+    genderController.dispose();
+    maritalStatusController.dispose();
+    qualificationController.dispose();
+    occupationController.dispose();
+    birthPlaceCityController.dispose();
+    birthPlaceStateController.dispose();
+    birthPlaceCountryController.dispose();
+    godFatherNameController.dispose();
+    godMotherNameController.dispose();
+    godFatherBaptismNameController.dispose();
+    godMotherBaptismNameController.dispose();
+    godFatherParishController.dispose();
+    godMotherParishController.dispose();
+    godFatherContactController.dispose();
+    godMotherContactController.dispose();
   }
 }
