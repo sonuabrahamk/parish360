@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/auth/domain/entities/login_request.dart';
@@ -25,29 +26,31 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    await ref
-        .read(authControllerProvider.notifier)
-        .login(
-          LoginRequest(
-            username: _usernameController.text.trim(),
-            password: _passwordController.text,
-          ),
+    try {
+      await ref
+          .read(authControllerProvider.notifier)
+          .login(
+            LoginRequest(
+              username: _usernameController.text.trim(),
+              password: _passwordController.text,
+            ),
+          );
+    } catch (e) {
+      if (mounted) {
+        String errorMessage = "could not perform login action";
+        if(e is DioException && e.response?.data != null) {
+          errorMessage = e.response!.data.toString();
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(errorMessage)),
         );
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final authState = ref.watch(authControllerProvider);
-
-    ref.listen(authControllerProvider, (prev, next) {
-      next.whenOrNull(
-        error: (err, _) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(err.toString())));
-        },
-      );
-    });
 
     return Scaffold(
       body: Center(

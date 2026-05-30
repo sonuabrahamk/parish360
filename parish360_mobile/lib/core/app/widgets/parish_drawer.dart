@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parish360_mobile/features/auth/data/providers/auth_providers.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class ParishDrawer extends ConsumerWidget {
@@ -11,7 +10,6 @@ class ParishDrawer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(parishProvider);
     final colors = Theme.of(context).colorScheme;
 
     return Drawer(
@@ -35,7 +33,7 @@ class ParishDrawer extends ConsumerWidget {
                 ),
                 SizedBox(height: 12),
                 Text(
-                  selected,
+                  parishes.isEmpty ? "No Parish Assigned" : parishes.first,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,
@@ -46,19 +44,11 @@ class ParishDrawer extends ConsumerWidget {
                 Divider(color: colors.secondary, thickness: 2),
 
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: parishes.length,
-                    itemBuilder: (context, index) {
-                      final parish = parishes[index];
-                      final isSelected = parish == selected;
-
-                      return ListTile(
-                        title: Text(parish),
-                        selected: isSelected,
-                        onTap: () {
-                          Navigator.pop(context); // Close the drawer
-                        },
-                      );
+                  child: ListTile(
+                    title: Text(parishes.isEmpty ? "No Parish Assigned" : parishes.first),
+                    selected: true,
+                    onTap: () {
+                      Navigator.pop(context); // Close the drawer
                     },
                   ),
                 ),

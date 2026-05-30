@@ -10,14 +10,17 @@ import 'package:parish360_mobile/features/families/presentation/pages/family_inf
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-  final auth = ref.watch(authControllerProvider);
 
   return GoRouter(
     navigatorKey: AppNavigator.navigatorKey,
     initialLocation: '/login',
     redirect: (context, state) {
       final isLoggingIn = state.matchedLocation == '/login';
-      final isLoggedIn = auth.value?.accessToken.isNotEmpty == true;
+      final authState = ref.watch(authControllerProvider);
+      final isLoggedIn = authState.maybeWhen(
+        data: (loginResponse) => loginResponse.accessToken.isNotEmpty,
+        orElse: () => false,
+      );
 
       if (!isLoggedIn && !isLoggingIn) {
         return '/login';

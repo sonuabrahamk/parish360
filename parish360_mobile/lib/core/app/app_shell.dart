@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/app/widgets/modules_navbar.dart';
 import 'package:parish360_mobile/core/app/widgets/parish_drawer.dart';
-import 'package:parish360_mobile/features/auth/data/providers/auth_providers.dart';
 import 'package:parish360_mobile/features/auth/data/providers/module_index_providers.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class AppShell extends ConsumerWidget {
   final Widget child;
@@ -12,7 +12,8 @@ class AppShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final moduleInfoList = ref.watch(modulesProvider);
+    final moduleInfoList = ref.read(authControllerProvider.notifier).getAllowedModules();
+    final parishId = ref.read(authControllerProvider.notifier).getDefaultParish();
     final selectedIndex = ref.watch(moduleIndexProvider);
 
     return Scaffold(
@@ -30,7 +31,7 @@ class AppShell extends ConsumerWidget {
         ),
       ),
 
-      drawer: ParishDrawer(parishes: []),
+      drawer: ParishDrawer(parishes: [parishId]),
 
       body: SizedBox.expand(child: child),
 

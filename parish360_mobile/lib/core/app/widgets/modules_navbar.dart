@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:parish360_mobile/features/auth/data/providers/auth_providers.dart';
 import 'package:parish360_mobile/features/auth/data/providers/module_index_providers.dart';
 import 'package:parish360_mobile/features/auth/domain/entities/module_info.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class ModulesNavBar extends ConsumerWidget {
   const ModulesNavBar({super.key});
@@ -100,7 +100,7 @@ class ModulesNavBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedIndex = ref.watch(moduleIndexProvider);
-    final navItems = ref.watch(modulesProvider);
+    final navItems = ref.read(authControllerProvider.notifier).getAllowedModules();
 
     return Container(
       color: Theme.of(context).colorScheme.primary,
@@ -118,6 +118,7 @@ class ModulesNavBar extends ConsumerWidget {
                 // More tab
                 _showBottomDrawer(context, navItems.sublist(3), ref);
               } else {
+                print('Tapped on ${item.route}');
                 ref.read(moduleIndexProvider.notifier).setIndex(index);
                 context.go(item.route);
               }

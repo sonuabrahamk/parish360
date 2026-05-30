@@ -9,8 +9,8 @@ class EnvironmentConfiguration {
       case AppEnvironment.dev:
         instance = const Environment(
           environment: AppEnvironment.dev,
-          baseUrl: 'http://192.168.1.3:8080',
-          // 'http://localhost:8080',
+          baseUrl: //'http://192.168.1.3:8080',
+           'http://localhost:8080',
           enableLogs: true,
         );
         break;

@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:parish360_mobile/core/app/app_navigator.dart';
 import 'package:parish360_mobile/core/config/environment_configuration.dart';
-import 'package:parish360_mobile/features/auth/data/providers/auth_providers.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,10 +12,17 @@ part 'dio_provider.g.dart';
 @riverpod
 Dio dio(Ref ref) {
   final env = EnvironmentConfiguration.instance;
-  final parishId = ref.watch(parishProvider);
+  final authState = ref.watch(authControllerProvider);
+  final parishId = authState.maybeWhen(
+    data: (loginResponse) => loginResponse.permissions.dataOwner.parish.isNotEmpty
+        ? loginResponse.permissions.dataOwner.parish.first
+        : '',
+    orElse: () => '',
+  );
+  final baseUrl = parishId.isNotEmpty ? '${env.baseUrl}/parish/$parishId' : env.baseUrl;
   final dio = Dio(
     BaseOptions(
-      baseUrl: '${env.baseUrl}/parish/$parishId',
+      baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 30),
       receiveTimeout: const Duration(seconds: 30),
     ),

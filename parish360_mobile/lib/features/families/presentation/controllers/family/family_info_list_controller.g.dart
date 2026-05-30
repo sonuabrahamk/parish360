@@ -34,7 +34,7 @@ final class FamilyInfoListControllerProvider
 }
 
 String _$familyInfoListControllerHash() =>
-    r'adb2e30c766b4b912e896979492a83d4d5acff61';
+    r'2901e006748763c37bdeae60ae31427bc278de70';
 
 abstract class _$FamilyInfoListController
     extends $AsyncNotifier<List<FamilyInfo>> {
