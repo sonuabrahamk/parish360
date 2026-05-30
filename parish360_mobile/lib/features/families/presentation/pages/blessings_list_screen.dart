@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/domain/entities/blessing_info.dart';
+import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_list_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/blessings_info_screen.dart';
 
@@ -83,7 +84,7 @@ class BlessingsListScreen extends ConsumerWidget {
   }
 }
 
-class MonthlyBlessingsWidget extends StatelessWidget {
+class MonthlyBlessingsWidget extends ConsumerWidget {
   final List<BlessingInfo> blessings;
   final String familyId;
 
@@ -112,7 +113,7 @@ class MonthlyBlessingsWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.expand(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -205,6 +206,53 @@ class MonthlyBlessingsWidget extends StatelessWidget {
                               familyId: familyId,
                               blessingInfo: blessing,
                             ),
+                          ),
+                        );
+                      },
+                      onLongPress: () {
+                        showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Delete Blessing'),
+                            content: const Text(
+                              'Are you sure you want to delete this blessing record?',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  await ref
+                                      .read(
+                                        blessingInfoControllerProvider(
+                                          familyId,
+                                          blessing.id ?? '',
+                                        ).notifier,
+                                      )
+                                      .deleteBlessingInfo(
+                                        familyId,
+                                        blessing.id ?? '',
+                                      );
+                                  ref.invalidate(
+                                    blessingListControllerProvider(familyId),
+                                  );
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Blessing record deleted'),
+                                    ),
+                                  );
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: const Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       },

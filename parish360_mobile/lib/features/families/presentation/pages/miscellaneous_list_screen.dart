@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/families/domain/entities/miscellaneous_info.dart';
+import 'package:parish360_mobile/features/families/presentation/controllers/miscellaneous/miscellaneous_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/miscellaneous/miscellaneous_list_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/miscellaneous_info_screen.dart';
 
@@ -96,7 +97,7 @@ class MiscellaneousListScreen extends ConsumerWidget {
   }
 }
 
-class _MiscellaneousListView extends StatelessWidget {
+class _MiscellaneousListView extends ConsumerWidget {
   final List<MiscellaneousInfo> miscellaneousItems;
   final String familyId;
 
@@ -124,7 +125,7 @@ class _MiscellaneousListView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox.expand(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -220,6 +221,56 @@ class _MiscellaneousListView extends StatelessWidget {
                               familyId: familyId,
                               miscellaneousInfo: item,
                             ),
+                          ),
+                        );
+                      },
+                      onLongPress: () {
+                        showDialog<bool>(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Delete Record'),
+                            content: const Text(
+                              'Are you sure you want to delete this record? This action cannot be undone.',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.of(context).pop(false),
+                                child: const Text('Cancel'),
+                              ),
+                              TextButton(
+                                onPressed: () async {
+                                  await ref
+                                      .read(
+                                        miscellaneousInfoControllerProvider(
+                                          familyId,
+                                          item.id ?? '',
+                                        ).notifier,
+                                      )
+                                      .deleteMiscellaneousInfo(
+                                        familyId,
+                                        item.id ?? '',
+                                      );
+
+                                  ref.invalidate(
+                                    miscellaneousListControllerProvider(
+                                      familyId,
+                                    ),
+                                  );
+                                  if (!context.mounted) return;
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Record deleted'),
+                                    ),
+                                  );
+                                  Navigator.of(context).pop(true);
+                                },
+                                child: const Text(
+                                  'Delete',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ],
                           ),
                         );
                       },

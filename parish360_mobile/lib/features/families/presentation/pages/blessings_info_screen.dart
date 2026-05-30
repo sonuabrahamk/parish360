@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/families/domain/entities/blessing_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_info_controller.dart';
@@ -33,7 +34,8 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
     if (widget.blessingInfo.date != null) {
       final date = widget.blessingInfo.date!;
       _date = TextEditingController(
-        text: '${date.day}/${date.month}/${date.year}',
+        text:
+            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}',
       );
     } else {
       _date = TextEditingController();
@@ -82,21 +84,16 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              TextField(
+              DateWidget(
                 controller: _date,
-                readOnly: true,
-                decoration: InputDecoration(
-                  labelText: 'Date',
-                  border: const OutlineInputBorder(),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
-                    onPressed: () => _selectDate(context),
-                  ),
-                ),
+                label: 'Date',
+                isEditing: true,
+                isRequired: true,
+                lastDate: DateTime.now(),
               ),
               const SizedBox(height: 12.0),
-              _field('Priest', _priest),
-              _field('Reason', _reason),
+              _field('Priest', _priest, true),
+              _field('Reason', _reason, false),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -122,31 +119,11 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
     if (_formKey.currentState?.validate() ?? false) {
       final messenger = ScaffoldMessenger.of(context);
 
-      // Parse date of blessing from the text field
-      DateTime? dateOfBlessing;
-      if (_date.text.isNotEmpty) {
-        try {
-          final parts = _date.text.split('/');
-          if (parts.length == 3) {
-            dateOfBlessing = DateTime(
-              int.parse(parts[2]),
-              int.parse(parts[1]),
-              int.parse(parts[0]),
-            );
-          }
-        } catch (e) {
-          messenger.showSnackBar(
-            const SnackBar(
-              content: Text('Invalid date format. Use DD/MM/YYYY'),
-            ),
-          );
-          return;
-        }
-      }
-
       BlessingInfo newBlessingInfo = BlessingInfo(
         id: widget.blessingInfo.id,
-        date: dateOfBlessing,
+        date: _date.text.trim().isEmpty
+            ? null
+            : DateTime.parse(_date.text.trim()),
         priest: _priest.text.trim(),
         reason: _reason.text.trim(),
       );
@@ -184,7 +161,7 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
         }
       } catch (e) {
         messenger.showSnackBar(
-          SnackBar(content: Text('Error saving blessing info: $e')),
+          SnackBar(content: Text('Error saving blessing info')),
         );
       } finally {
         // ignore: use_build_context_synchronously
@@ -197,25 +174,29 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
     }
   }
 
-  Widget _field(String label, TextEditingController controller) {
+  Widget _field(
+    String label,
+    TextEditingController controller,
+    bool isRequired,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(labelText: label),
+        decoration: InputDecoration(
+          labelText: label,
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+        validator: (value) {
+          if (isRequired && (value == null || value.trim().isEmpty)) {
+            return 'This field is required';
+          }
+          return null;
+        },
+        autovalidateMode: AutovalidateMode.onUnfocus,
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.blessingInfo.date ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null) {
-      _date.text = '${picked.day}/${picked.month}/${picked.year}';
-    }
   }
 }

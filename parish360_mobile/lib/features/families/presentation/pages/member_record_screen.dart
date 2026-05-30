@@ -55,7 +55,9 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
       contact: memberFormControllers.contactController.text.trim(),
       father: memberFormControllers.fatherController.text.trim(),
       mother: memberFormControllers.motherController.text.trim(),
-      dob: DateTime.parse(memberFormControllers.dobController.text.trim()),
+      dob: memberFormControllers.dobController.text.trim().isNotEmpty
+          ? DateTime.parse(memberFormControllers.dobController.text.trim())
+          : null,
       relationship: memberFormControllers.relationshipController.text.trim(),
       gender: memberFormControllers.genderController.text.trim(),
       maritalStatus: memberFormControllers.maritalStatusController.text.trim(),
