@@ -51,6 +51,29 @@ class AuthController extends _$AuthController {
     ref.invalidate(moduleIndexProvider);
 
     ref.invalidateSelf();
-      
+  }
+
+  bool canCreate(String module) {
+    final permissions = state.value?.permissions;
+    if (permissions == null) return false;
+    return permissions.modules.create.contains(module);
+  }
+
+  bool canView(String module) {
+    final permissions = state.value?.permissions;
+    if (permissions == null) return false;
+    return permissions.modules.view.contains(module);
+  }
+
+  bool canEdit(String module) {
+    final permissions = state.value?.permissions;
+    if (permissions == null) return false;
+    return permissions.modules.edit.contains(module);
+  }
+
+  bool canDelete(String module) {
+    final permissions = state.value?.permissions;
+    if (permissions == null) return false;
+    return permissions.modules.delete.contains(module);
   }
 }

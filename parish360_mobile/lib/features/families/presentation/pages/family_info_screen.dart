@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/common/widgets/contact_widget.dart';
 import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/data/providers/families_providers.dart';
 import 'package:parish360_mobile/features/families/domain/entities/family_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/family/family_info_controller.dart';
@@ -39,6 +40,9 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
   late final TextEditingController _contactVerifiedController;
 
   bool get _isNewFamily => widget.familyId == 'new';
+
+  bool get _canEdit =>
+      ref.read(authControllerProvider.notifier).canEdit('family-records');
 
   @override
   void initState() {
@@ -223,32 +227,34 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
           preferredSize: Size.fromHeight(1),
           child: Divider(height: 1, thickness: 1),
         ),
-        actions: [
-          if (showEditAction)
-            IconButton(
-              icon: Icon(Icons.edit, color: AppTheme.primaryColor),
-              onPressed: _toggleEditing,
-              tooltip: 'Edit',
-            ),
-          if (showSaveAction)
-            IconButton(
-              icon: Icon(Icons.check, color: AppTheme.primaryColor),
-              onPressed: _saveFamilyInfo,
-              tooltip: 'Save',
-            ),
-          if (showCancelAction)
-            IconButton(
-              icon: Icon(Icons.close, color: AppTheme.primaryColor),
-              onPressed: () {
-                if (_isNewFamily) {
-                  context.pop();
-                } else {
-                  _toggleEditing();
-                }
-              },
-              tooltip: 'Cancel',
-            ),
-        ],
+        actions: _canEdit
+            ? [
+                if (showEditAction)
+                  IconButton(
+                    icon: Icon(Icons.edit, color: AppTheme.primaryColor),
+                    onPressed: _toggleEditing,
+                    tooltip: 'Edit',
+                  ),
+                if (showSaveAction)
+                  IconButton(
+                    icon: Icon(Icons.check, color: AppTheme.primaryColor),
+                    onPressed: _saveFamilyInfo,
+                    tooltip: 'Save',
+                  ),
+                if (showCancelAction)
+                  IconButton(
+                    icon: Icon(Icons.close, color: AppTheme.primaryColor),
+                    onPressed: () {
+                      if (_isNewFamily) {
+                        context.pop();
+                      } else {
+                        _toggleEditing();
+                      }
+                    },
+                    tooltip: 'Cancel',
+                  ),
+              ]
+            : null,
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),

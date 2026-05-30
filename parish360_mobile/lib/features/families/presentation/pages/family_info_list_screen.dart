@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/data/providers/families_providers.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/family/family_info_list_controller.dart';
 
@@ -17,6 +18,10 @@ class FamilyInfoListScreen extends ConsumerWidget {
     );
 
     final familyInfoList = ref.watch(familyInfoListControllerProvider);
+
+    final canCreate = ref
+        .read(authControllerProvider.notifier)
+        .canCreate('family-records');
 
     return familyInfoList.when(
       data: (_) {
@@ -62,10 +67,16 @@ class FamilyInfoListScreen extends ConsumerWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          IconButton(
-                            onPressed: () => context.push('/families/new'),
-                            icon: const Icon(Icons.add, color: Colors.white),
-                          ),
+                          canCreate
+                              ? IconButton(
+                                  onPressed: () =>
+                                      context.push('/families/new'),
+                                  icon: const Icon(
+                                    Icons.add,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
                         ],
                       ),
                     ],
