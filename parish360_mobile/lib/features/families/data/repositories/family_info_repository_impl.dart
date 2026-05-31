@@ -24,9 +24,12 @@ class FamilyInfoRepositoryImpl implements FamilyInfoRepository {
     final dtoList = await api.getAllFamilies();
     return dtoList;
   }
-  
+
   @override
-  Future<FamilyInfo> updateFamily(String familyId, FamilyInfo familyInfo) async {
+  Future<FamilyInfo> updateFamily(
+    String familyId,
+    FamilyInfo familyInfo,
+  ) async {
     final dto = await api.updateFamily(familyId, familyInfo);
     return dto;
   }

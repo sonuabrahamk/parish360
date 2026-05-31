@@ -214,7 +214,7 @@ final class FilteredFamilyInfoListProvider
 }
 
 String _$filteredFamilyInfoListHash() =>
-    r'8ae650ac564fdd09c3ed771c4cad061d753f9a8b';
+    r'28597734777438201a2fdb40bcab2723fede227b';
 
 final class FilteredFamilyInfoListFamily extends $Family
     with $FunctionalFamilyOverride<List<FamilyInfo>, String> {

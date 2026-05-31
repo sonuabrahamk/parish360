@@ -51,7 +51,7 @@ final class FamilyInfoControllerProvider
 }
 
 String _$familyInfoControllerHash() =>
-    r'dff3d4738cb4f6e03bf7b6111ea7ec5fbcee4121';
+    r'58d1a941784b416f82d95f741a336290a02d107e';
 
 final class FamilyInfoControllerFamily extends $Family
     with

@@ -144,7 +144,7 @@ class AuthController extends _$AuthController {
             ModuleInfo(
               label: "Configurations",
               icon: Icons.settings,
-              route: '/dashboard',
+              route: '/configurations',
               badgeCount: 8,
             ),
           );
