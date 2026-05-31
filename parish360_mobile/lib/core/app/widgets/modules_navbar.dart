@@ -23,74 +23,77 @@ class ModulesNavBar extends ConsumerWidget {
       builder: (context) {
         return SizedBox(
           width: MediaQuery.of(context).size.width,
-          child: DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: 0.2,
-            minChildSize: 0.2,
-            maxChildSize: 0.8,
-            builder: (context, scrollController) {
-              if (remainingItems.isEmpty) {
-                return Center(
-                  child: Text(
-                    'No additional modules available',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                  ),
-                );
-              }
-              return Wrap(
-                spacing: MediaQuery.of(context).size.width * 0.05,
-                runSpacing: MediaQuery.of(context).size.width * 0.05,
-                children: List.generate(remainingItems.length, (index) {
-                  final selectedIndex = ref.watch(moduleIndexProvider);
-                  final item = remainingItems[index];
-                  final isSelected = (selectedIndex - 3) == index;
-                  return GestureDetector(
-                    onTap: () {
-                      context.pop();
-                      ref.read(moduleIndexProvider.notifier).setIndex(index + 3);
-                      context.go(item.route);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? Colors.white
-                            : Theme.of(context).colorScheme.primary,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            item.icon,
-                            color: isSelected
-                                ? Theme.of(context).colorScheme.primary
-                                : Colors.white,
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            item.label,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(5, 10, 0, 10),
+            child: DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 0.2,
+              minChildSize: 0.2,
+              maxChildSize: 0.8,
+              builder: (context, scrollController) {
+                if (remainingItems.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No additional modules available',
+                      style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                    ),
+                  );
+                }
+                return Wrap(
+                  spacing: MediaQuery.of(context).size.width * 0.04,
+                  runSpacing: MediaQuery.of(context).size.width * 0.05,
+                  children: List.generate(remainingItems.length, (index) {
+                    final selectedIndex = ref.watch(moduleIndexProvider);
+                    final item = remainingItems[index];
+                    final isSelected = (selectedIndex - 3) == index;
+                    return GestureDetector(
+                      onTap: () {
+                        context.pop();
+                        ref.read(moduleIndexProvider.notifier).setIndex(index + 3);
+                        context.go(item.route);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 8,
+                          horizontal: 8,
+                        ),
+                        decoration: BoxDecoration(
+                          color: isSelected
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.primary,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              item.icon,
                               color: isSelected
                                   ? Theme.of(context).colorScheme.primary
                                   : Colors.white,
                             ),
-                          ),
-                        ],
+                            const SizedBox(height: 4),
+                            Text(
+                              item.label,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: isSelected
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }),
-              );
-            },
+                    );
+                  }),
+                );
+              },
+            ),
           ),
         );
       },
@@ -118,7 +121,6 @@ class ModulesNavBar extends ConsumerWidget {
                 // More tab
                 _showBottomDrawer(context, navItems.sublist(3), ref);
               } else {
-                print('Tapped on ${item.route}');
                 ref.read(moduleIndexProvider.notifier).setIndex(index);
                 context.go(item.route);
               }

@@ -143,7 +143,7 @@ class AuthController extends _$AuthController {
           modulesInfoList.add(
             ModuleInfo(
               label: "Configurations",
-              icon: Icons.person,
+              icon: Icons.settings,
               route: '/dashboard',
               badgeCount: 8,
             ),
@@ -153,7 +153,7 @@ class AuthController extends _$AuthController {
           modulesInfoList.add(
             ModuleInfo(
               label: "Payments",
-              icon: Icons.person,
+              icon: Icons.payment,
               route: '/dashboard',
               badgeCount: 4,
             ),
