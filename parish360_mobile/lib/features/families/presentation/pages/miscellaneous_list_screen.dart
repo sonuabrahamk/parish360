@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/miscellaneous_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/miscellaneous/miscellaneous_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/miscellaneous/miscellaneous_list_controller.dart';
@@ -15,6 +17,10 @@ class MiscellaneousListScreen extends ConsumerWidget {
     final miscellaneousList = ref.watch(
       miscellaneousListControllerProvider(familyId),
     );
+
+    final bool canCreate = ref
+        .read(authControllerProvider.notifier)
+        .canCreate('family-records');
 
     return miscellaneousList.when(
       data: (items) {
@@ -58,25 +64,32 @@ class MiscellaneousListScreen extends ConsumerWidget {
                             ),
                           ],
                         ),
-                        IconButton(
-                          onPressed: () {
-                            final newEntry = MiscellaneousInfo(
-                              createdAt: DateTime.now(),
-                              commentedBy: '',
-                              comment: '',
-                            );
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MiscellaneousInfoScreen(
-                                  familyId: familyId,
-                                  miscellaneousInfo: newEntry,
+                        canCreate
+                            ? IconButton(
+                                onPressed: () {
+                                  final newEntry = MiscellaneousInfo(
+                                    createdAt: DateTime.now(),
+                                    commentedBy: '',
+                                    comment: '',
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MiscellaneousInfoScreen(
+                                            familyId: familyId,
+                                            miscellaneousInfo: newEntry,
+                                            canEdit: canCreate,
+                                          ),
+                                    ),
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
                                 ),
-                              ),
-                            );
-                          },
-                          icon: const Icon(Icons.add, color: Colors.white),
-                        ),
+                              )
+                            : const SizedBox.shrink(),
                       ],
                     ),
                   ),
@@ -89,6 +102,7 @@ class MiscellaneousListScreen extends ConsumerWidget {
         return _MiscellaneousListView(
           miscellaneousItems: items,
           familyId: familyId,
+          canCreate: canCreate,
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -100,10 +114,12 @@ class MiscellaneousListScreen extends ConsumerWidget {
 class _MiscellaneousListView extends ConsumerWidget {
   final List<MiscellaneousInfo> miscellaneousItems;
   final String familyId;
+  final bool canCreate;
 
   const _MiscellaneousListView({
     required this.miscellaneousItems,
     required this.familyId,
+    required this.canCreate,
   });
 
   String _monthName(int month) {
@@ -126,6 +142,13 @@ class _MiscellaneousListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final bool canDelete = ref
+        .read(authControllerProvider.notifier)
+        .canDelete('family-records');
+    final bool canEdit = ref
+        .read(authControllerProvider.notifier)
+        .canEdit('family-records');
+
     return SizedBox.expand(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -166,25 +189,28 @@ class _MiscellaneousListView extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      final newEntry = MiscellaneousInfo(
-                        createdAt: DateTime.now(),
-                        commentedBy: '',
-                        comment: '',
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MiscellaneousInfoScreen(
-                            familyId: familyId,
-                            miscellaneousInfo: newEntry,
-                          ),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.add, color: Colors.white),
-                  ),
+                  canCreate
+                      ? IconButton(
+                          onPressed: () {
+                            final newEntry = MiscellaneousInfo(
+                              createdAt: DateTime.now(),
+                              commentedBy: '',
+                              comment: '',
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MiscellaneousInfoScreen(
+                                  familyId: familyId,
+                                  miscellaneousInfo: newEntry,
+                                  canEdit: canEdit,
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.add, color: Colors.white),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -220,60 +246,63 @@ class _MiscellaneousListView extends ConsumerWidget {
                             builder: (context) => MiscellaneousInfoScreen(
                               familyId: familyId,
                               miscellaneousInfo: item,
+                              canEdit: canEdit,
                             ),
                           ),
                         );
                       },
-                      onLongPress: () {
-                        showDialog<bool>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Delete Record'),
-                            content: const Text(
-                              'Are you sure you want to delete this record? This action cannot be undone.',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  await ref
-                                      .read(
-                                        miscellaneousInfoControllerProvider(
-                                          familyId,
-                                          item.id ?? '',
-                                        ).notifier,
-                                      )
-                                      .deleteMiscellaneousInfo(
-                                        familyId,
-                                        item.id ?? '',
-                                      );
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Delete Record'),
+                                  content: const Text(
+                                    'Are you sure you want to delete this record? This action cannot be undone.',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(
+                                              miscellaneousInfoControllerProvider(
+                                                familyId,
+                                                item.id ?? '',
+                                              ).notifier,
+                                            )
+                                            .deleteMiscellaneousInfo(
+                                              familyId,
+                                              item.id ?? '',
+                                            );
 
-                                  ref.invalidate(
-                                    miscellaneousListControllerProvider(
-                                      familyId,
+                                        ref.invalidate(
+                                          miscellaneousListControllerProvider(
+                                            familyId,
+                                          ),
+                                        );
+                                        if (!context.mounted) return;
+                                        showAppSnackBar(
+                                          context,
+                                          'Miscellaneous record deleted',
+                                          SnackBarType.success,
+                                        );
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
                                     ),
-                                  );
-                                  if (!context.mounted) return;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Record deleted'),
-                                    ),
-                                  );
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(color: Colors.red),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                              );
+                            },
                       borderRadius: BorderRadius.circular(16),
                       splashColor: Theme.of(
                         context,

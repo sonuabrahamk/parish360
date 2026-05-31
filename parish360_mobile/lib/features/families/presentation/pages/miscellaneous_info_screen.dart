@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/families/domain/entities/miscellaneous_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/miscellaneous/miscellaneous_info_controller.dart';
@@ -8,11 +9,13 @@ import 'package:parish360_mobile/features/families/presentation/controllers/misc
 class MiscellaneousInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
   final MiscellaneousInfo miscellaneousInfo;
+  final bool canEdit;
 
   const MiscellaneousInfoScreen({
     super.key,
     required this.familyId,
     required this.miscellaneousInfo,
+    required this.canEdit,
   });
 
   @override
@@ -77,20 +80,22 @@ class _MiscellaneousInfoScreenState
             children: [
               _field('Commented By', _commentedBy),
               _field('Comment', _comment),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _saveMiscellaneousInfo(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  child: const Text('Save Miscellaneous'),
-                ),
-              ),
+              widget.canEdit
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => _saveMiscellaneousInfo(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text('Save Miscellaneous'),
+                      ),
+                    )
+                  : SizedBox.shrink(),
             ],
           ),
         ),
@@ -100,40 +105,68 @@ class _MiscellaneousInfoScreenState
 
   Future<void> _saveMiscellaneousInfo() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final messenger = ScaffoldMessenger.of(context);
-
       MiscellaneousInfo newMiscellaneousInfo = MiscellaneousInfo(
         commentedBy: _commentedBy.text.trim(),
         comment: _comment.text.trim(),
       );
 
       try {
-        await ref
-            .read(
-              miscellaneousInfoControllerProvider(
+        if (widget.miscellaneousInfo.id != null) {
+          await ref
+              .read(
+                miscellaneousInfoControllerProvider(
+                  widget.familyId,
+                  widget.miscellaneousInfo.id ?? '',
+                ).notifier,
+              )
+              .updateMiscellaneousInfo(
                 widget.familyId,
                 widget.miscellaneousInfo.id ?? '',
-              ).notifier,
-            )
-            .createMiscellaneousInfo(widget.familyId, newMiscellaneousInfo);
+                newMiscellaneousInfo,
+              );
+        } else {
+          await ref
+              .read(
+                miscellaneousInfoControllerProvider(
+                  widget.familyId,
+                  widget.miscellaneousInfo.id ?? '',
+                ).notifier,
+              )
+              .createMiscellaneousInfo(widget.familyId, newMiscellaneousInfo);
+        }
         ref.invalidate(miscellaneousListControllerProvider(widget.familyId));
-
-        messenger.showSnackBar(
-          const SnackBar(
-            content: Text('Miscellaneous info created successfully'),
-          ),
-        );
+        if (mounted) {
+          if (widget.miscellaneousInfo.id != null) {
+            showAppSnackBar(
+              context,
+              'Miscellaneous info updated successfully.',
+              SnackBarType.success,
+            );
+          } else {
+            showAppSnackBar(
+              context,
+              'Miscellaneous info created successfully.',
+              SnackBarType.success,
+            );
+          }
+        }
       } catch (e) {
-        messenger.showSnackBar(
-          SnackBar(content: Text('Error saving miscellaneous info: $e')),
-        );
+        if (mounted) {
+          showAppSnackBar(
+            context,
+            'Failed to save miscellaneous info. Please try again.',
+            SnackBarType.error,
+          );
+        }
       } finally {
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all required fields')),
+      showAppSnackBar(
+        context,
+        'Please fill in all required fields.',
+        SnackBarType.warning,
       );
     }
   }
@@ -143,6 +176,7 @@ class _MiscellaneousInfoScreenState
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
         controller: controller,
+        readOnly: !widget.canEdit,
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(

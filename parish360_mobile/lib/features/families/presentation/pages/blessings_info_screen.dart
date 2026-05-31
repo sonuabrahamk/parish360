@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/families/domain/entities/blessing_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_info_controller.dart';
@@ -9,11 +10,13 @@ import 'package:parish360_mobile/features/families/presentation/controllers/bles
 class BlessingsInfoScreen extends ConsumerStatefulWidget {
   final String familyId;
   final BlessingInfo blessingInfo;
+  final bool canEdit;
 
   const BlessingsInfoScreen({
     super.key,
     required this.familyId,
     required this.blessingInfo,
+    required this.canEdit,
   });
 
   @override
@@ -87,27 +90,29 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
               DateWidget(
                 controller: _date,
                 label: 'Date',
-                isEditing: true,
+                isEditing: widget.canEdit,
                 isRequired: true,
                 lastDate: DateTime.now(),
               ),
               const SizedBox(height: 12.0),
               _field('Priest', _priest, true),
               _field('Reason', _reason, false),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () => _saveBlessingInfo(),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    textStyle: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  child: const Text('Save Blessing'),
-                ),
-              ),
+              widget.canEdit
+                  ? SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () => _saveBlessingInfo(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor,
+                          textStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        child: const Text('Save Blessing'),
+                      ),
+                    )
+                  : SizedBox.shrink(),
             ],
           ),
         ),
@@ -117,8 +122,6 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
 
   Future<void> _saveBlessingInfo() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final messenger = ScaffoldMessenger.of(context);
-
       BlessingInfo newBlessingInfo = BlessingInfo(
         id: widget.blessingInfo.id,
         date: _date.text.trim().isEmpty
@@ -140,9 +143,13 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
               .createBlessingInfo(widget.familyId, newBlessingInfo);
           ref.invalidate(blessingListControllerProvider(widget.familyId));
 
-          messenger.showSnackBar(
-            const SnackBar(content: Text('Blessing info created successfully')),
-          );
+          if (mounted) {
+            showAppSnackBar(
+              context,
+              'Blessing info created successfully',
+              SnackBarType.success,
+            );
+          }
         } else {
           await ref
               .read(
@@ -155,21 +162,31 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
 
           ref.invalidate(blessingListControllerProvider(widget.familyId));
 
-          messenger.showSnackBar(
-            const SnackBar(content: Text('Blessing info updated successfully')),
-          );
+          if (mounted) {
+            showAppSnackBar(
+              context,
+              'Blessing info updated successfully',
+              SnackBarType.success,
+            );
+          }
         }
       } catch (e) {
-        messenger.showSnackBar(
-          SnackBar(content: Text('Error saving blessing info')),
-        );
+        if (mounted) {
+          showAppSnackBar(
+            context,
+            'Error saving blessing info',
+            SnackBarType.error,
+          );
+        }
       } finally {
         // ignore: use_build_context_synchronously
         Navigator.pop(context);
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill in all required fields')),
+      showAppSnackBar(
+        context,
+        'Please fill in all required fields',
+        SnackBarType.warning,
       );
     }
   }
@@ -183,6 +200,7 @@ class _BlessingsInfoScreenState extends ConsumerState<BlessingsInfoScreen> {
       padding: const EdgeInsets.only(bottom: 12),
       child: TextFormField(
         controller: controller,
+        readOnly: !widget.canEdit,
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(

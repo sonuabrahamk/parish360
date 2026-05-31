@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/entities/place.dart';
+import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/common/widgets/section_form_group.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/sacrament_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_list_controller.dart';
@@ -36,7 +39,7 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
   );
   late final _date = TextEditingController(
     text: widget.sacrament.date != null
-        ? '${widget.sacrament.date!.day}/${widget.sacrament.date!.month}/${widget.sacrament.date!.year}'
+        ? '${widget.sacrament.date!.year}-${widget.sacrament.date!.month.toString().trim().padLeft(2, '0')}-${widget.sacrament.date!.day.toString().trim().padLeft(2, '0')}'
         : '',
   );
   late final _placeLocation = TextEditingController(
@@ -51,6 +54,11 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
   late final _placeCountry = TextEditingController(
     text: widget.sacrament.place?.country ?? '',
   );
+
+  bool get _canEdit =>
+      ref.read(authControllerProvider.notifier).canEdit('family-records');
+  bool get _canDelete =>
+      ref.read(authControllerProvider.notifier).canDelete('family-records');
 
   final List<String> _sacramentTypes = [
     'baptism',
@@ -72,18 +80,6 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
     _placeState.dispose();
     _placeCountry.dispose();
     super.dispose();
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.sacrament.date ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null) {
-      _date.text = '${picked.day}/${picked.month}/${picked.year}';
-    }
   }
 
   @override
@@ -117,6 +113,7 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
                         Text(
                           _getSacramentTitle(widget.sacrament.type),
                           style: const TextStyle(
+                            height: 1.5,
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
                           ),
@@ -125,13 +122,15 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
                     ),
                   ),
                   // Expand/Collapse Icon
-                  IconButton(
-                    visualDensity: VisualDensity(
-                      vertical: VisualDensity.minimumDensity,
-                    ),
-                    onPressed: () => _deleteSacramentInfo(context),
-                    icon: Icon(Icons.delete, color: Colors.red),
-                  ),
+                  _canDelete
+                      ? IconButton(
+                          visualDensity: VisualDensity(
+                            vertical: VisualDensity.minimumDensity,
+                          ),
+                          onPressed: () => _deleteSacramentInfo(context),
+                          icon: Icon(Icons.delete, color: Colors.red),
+                        )
+                      : const SizedBox.shrink(),
                   // Expand/Collapse Icon
                   Icon(
                     _isExpanded ? Icons.expand_less : Icons.expand_more,
@@ -155,15 +154,6 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Basic Information
-                  const Text(
-                    'Basic Information',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
                   DropdownButtonFormField<String>(
                     initialValue: _selectedType ?? widget.sacrament.type,
                     decoration: const InputDecoration(
@@ -186,21 +176,15 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
                         : null,
                   ),
                   const SizedBox(height: 12.0),
-                  TextField(
+                  DateWidget(
                     controller: _date,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      labelText: 'Date',
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.calendar_today),
-                        onPressed: () => _selectDate(context),
-                      ),
-                    ),
+                    label: 'Date',
+                    isEditing: _canEdit,
                   ),
                   const SizedBox(height: 12.0),
                   TextField(
                     controller: _priest,
+                    readOnly: !_canEdit,
                     decoration: const InputDecoration(
                       labelText: 'Priest',
                       border: OutlineInputBorder(),
@@ -209,67 +193,70 @@ class _SacramentInfoScreenState extends ConsumerState<SacramentInfoScreen> {
                   const SizedBox(height: 12.0),
                   TextField(
                     controller: _parish,
+                    readOnly: !_canEdit,
                     decoration: const InputDecoration(
                       labelText: 'Parish',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  // Place Information
-                  const Text(
-                    'Place Information',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeLocation,
-                    decoration: const InputDecoration(
-                      labelText: 'Location',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeCity,
-                    decoration: const InputDecoration(
-                      labelText: 'City',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeState,
-                    decoration: const InputDecoration(
-                      labelText: 'State',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeCountry,
-                    decoration: const InputDecoration(
-                      labelText: 'Country',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => _saveSacramentInfo(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        textStyle: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(height: 5.0),
+                  SectionFormGroup(
+                    title: 'Place',
+                    children: [
+                      TextField(
+                        controller: _placeLocation,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'Location',
+                          border: OutlineInputBorder(),
                         ),
                       ),
-                      child: Text('Save'),
-                    ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeCity,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'City',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeState,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'State',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeCountry,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'Country',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                    ],
                   ),
+                  _canEdit
+                      ? SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => _saveSacramentInfo(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              textStyle: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text('Save'),
+                          ),
+                        )
+                      : SizedBox.shrink(),
                 ],
               ),
             ),

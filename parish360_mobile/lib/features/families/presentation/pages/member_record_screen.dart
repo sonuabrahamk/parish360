@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/entities/god_parent.dart';
 import 'package:parish360_mobile/core/common/entities/place.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/member_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/member_list_controller.dart';
@@ -32,6 +33,11 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
 
   final formKey = GlobalKey<FormState>();
   final memberFormControllers = MemberFormControllers();
+
+  bool get _canCreate =>
+      ref.read(authControllerProvider.notifier).canCreate('family-records');
+  bool get _canEdit =>
+      ref.read(authControllerProvider.notifier).canEdit('family-records');
 
   @override
   void dispose() {
@@ -221,7 +227,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
     bool showCancelAction = isEditing;
 
     // Handle the case for new member creation
-    if (widget.memberId == 'new') {
+    if (widget.memberId == 'new' && _canCreate) {
       currentTab = 'info';
       _toggleEditing(); // Start in editing mode for new member
       initializeMemberFormControllers(MemberInfo());
@@ -302,7 +308,7 @@ class _MemberRecordScreenState extends ConsumerState<MemberRecordScreen> {
                 onPressed: () => Scaffold.of(context).openDrawer(),
               ),
             ),
-            actions: currentTab != 'info'
+            actions: currentTab != 'info' || !_canEdit
                 ? null
                 : [
                     if (showEditAction)

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/entities/place.dart';
+import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/common/widgets/section_form_group.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/migration_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/migration_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/migration_list_controller.dart';
@@ -27,9 +30,14 @@ class MigrationInfoScreen extends ConsumerStatefulWidget {
 class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
   bool _isExpanded = false;
 
+  bool get _canEdit =>
+      ref.read(authControllerProvider.notifier).canEdit('family-records');
+  bool get _canDelete =>
+      ref.read(authControllerProvider.notifier).canDelete('family-records');
+
   late final _migratedOn = TextEditingController(
     text: widget.migration.migratedOn != null
-        ? '${widget.migration.migratedOn!.day}/${widget.migration.migratedOn!.month}/${widget.migration.migratedOn!.year}'
+        ? '${widget.migration.migratedOn!.year}-${widget.migration.migratedOn!.month.toString().trim().padLeft(2, '0')}-${widget.migration.migratedOn!.day.toString().trim().padLeft(2, '0')}'
         : '',
   );
   late final _comment = TextEditingController(
@@ -46,7 +54,7 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
   );
   late final _returnDate = TextEditingController(
     text: widget.migration.returnDate != null
-        ? '${widget.migration.returnDate!.day}/${widget.migration.returnDate!.month}/${widget.migration.returnDate!.year}'
+        ? '${widget.migration.returnDate!.year}-${widget.migration.returnDate!.month.toString().trim().padLeft(2, '0')}-${widget.migration.returnDate!.day.toString().trim().padLeft(2, '0')}'
         : '',
   );
   late final _placeLocation = TextEditingController(
@@ -75,21 +83,6 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
     _placeState.dispose();
     _placeCountry.dispose();
     super.dispose();
-  }
-
-  Future<void> _selectDate(
-    BuildContext context,
-    TextEditingController controller,
-  ) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: widget.migration.migratedOn ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2100),
-    );
-    if (picked != null) {
-      controller.text = '${picked.day}/${picked.month}/${picked.year}';
-    }
   }
 
   @override
@@ -133,13 +126,15 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
                     ),
                   ),
                   // Expand/Collapse Icon
-                  IconButton(
-                    visualDensity: VisualDensity(
-                      vertical: VisualDensity.minimumDensity,
-                    ),
-                    onPressed: () => _deleteMigrationInfo(context),
-                    icon: Icon(Icons.delete, color: Colors.red),
-                  ),
+                  _canDelete
+                      ? IconButton(
+                          visualDensity: VisualDensity(
+                            vertical: VisualDensity.minimumDensity,
+                          ),
+                          onPressed: () => _deleteMigrationInfo(context),
+                          icon: Icon(Icons.delete, color: Colors.red),
+                        )
+                      : const SizedBox.shrink(),
                   // Expand/Collapse Icon
                   Icon(
                     _isExpanded ? Icons.expand_less : Icons.expand_more,
@@ -163,21 +158,15 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextField(
+                  DateWidget(
                     controller: _migratedOn,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      labelText: 'Migrated On',
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.calendar_today),
-                        onPressed: () => _selectDate(context, _migratedOn),
-                      ),
-                    ),
+                    label: 'Migrated On',
+                    isEditing: _canEdit,
                   ),
-                  const SizedBox(height: 12.0),
+                  const SizedBox(height: 5.0),
                   TextField(
                     controller: _comment,
+                    readOnly: !_canEdit,
                     decoration: const InputDecoration(
                       labelText: 'Comment',
                       border: OutlineInputBorder(),
@@ -186,88 +175,85 @@ class _MigrationInfoScreenState extends ConsumerState<MigrationInfoScreen> {
                   const SizedBox(height: 12.0),
                   TextField(
                     controller: _parish,
+                    readOnly: !_canEdit,
                     decoration: const InputDecoration(
                       labelText: 'Parish',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 12.0),
                   TextField(
                     controller: _address,
+                    readOnly: !_canEdit,
                     decoration: const InputDecoration(
                       labelText: 'Address',
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(height: 20.0),
-                  TextField(
+                  const SizedBox(height: 12.0),
+                  DateWidget(
                     controller: _returnDate,
-                    readOnly: true,
-                    decoration: InputDecoration(
-                      labelText: 'Return Date',
-                      border: const OutlineInputBorder(),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.calendar_today),
-                        onPressed: () => _selectDate(context, _returnDate),
-                      ),
-                    ),
+                    label: 'Return Date',
+                    isEditing: _canEdit,
                   ),
-                  const SizedBox(height: 12.0),
                   // Place Information
-                  const Text(
-                    'Place Information',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeLocation,
-                    decoration: const InputDecoration(
-                      labelText: 'Location',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeCity,
-                    decoration: const InputDecoration(
-                      labelText: 'City',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeState,
-                    decoration: const InputDecoration(
-                      labelText: 'State',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  TextField(
-                    controller: _placeCountry,
-                    decoration: const InputDecoration(
-                      labelText: 'Country',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => _saveMigrationInfo(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
-                        textStyle: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                  SectionFormGroup(
+                    title: 'Place Information',
+                    children: [
+                      TextField(
+                        controller: _placeLocation,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'Location',
+                          border: OutlineInputBorder(),
                         ),
                       ),
-                      child: Text('Save'),
-                    ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeCity,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'City',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeState,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'State',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                      TextField(
+                        controller: _placeCountry,
+                        readOnly: !_canEdit,
+                        decoration: const InputDecoration(
+                          labelText: 'Country',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 12.0),
+                    ],
                   ),
+                  _canEdit
+                      ? SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => _saveMigrationInfo(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                              textStyle: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            child: Text('Save'),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                 ],
               ),
             ),

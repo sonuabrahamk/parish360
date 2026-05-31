@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
-import 'package:parish360_mobile/core/app/app_navigator.dart';
 import 'package:parish360_mobile/core/config/environment_configuration.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,12 +13,15 @@ Dio dio(Ref ref) {
   final env = EnvironmentConfiguration.instance;
   final authState = ref.watch(authControllerProvider);
   final parishId = authState.maybeWhen(
-    data: (loginResponse) => loginResponse.permissions.dataOwner.parish.isNotEmpty
+    data: (loginResponse) =>
+        loginResponse.permissions.dataOwner.parish.isNotEmpty
         ? loginResponse.permissions.dataOwner.parish.first
         : '',
     orElse: () => '',
   );
-  final baseUrl = parishId.isNotEmpty ? '${env.baseUrl}/parish/$parishId' : env.baseUrl;
+  final baseUrl = parishId.isNotEmpty
+      ? '${env.baseUrl}/parish/$parishId'
+      : env.baseUrl;
   final dio = Dio(
     BaseOptions(
       baseUrl: baseUrl,
@@ -28,25 +30,17 @@ Dio dio(Ref ref) {
     ),
   );
 
-  dio.interceptors.addAll([
-    CookieManager(ref.watch(cookieJarProvider)),
-  ]);
+  dio.interceptors.addAll([CookieManager(ref.watch(cookieJarProvider))]);
 
   if (env.enableLogs) {
-    dio.interceptors.add(
-      LogInterceptor(requestBody: true, responseBody: true),
-    );
+    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
-  dio.interceptors.add(InterceptorsWrapper(
-    onError: (error, handler) {
-      if (error.response?.statusCode == 401) {
-        ref.read(authControllerProvider.notifier).logout();
-        AppNavigator.popAllAndPush('/login');
-      }
-      handler.next(error);
-    },
-  ));
+  // dio.interceptors.add(InterceptorsWrapper(
+  //   onError: (error, handler) {
+  //     handler.next(error);
+  //   },
+  // ));
 
   return dio;
 }

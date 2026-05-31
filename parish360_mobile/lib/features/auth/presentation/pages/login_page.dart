@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/features/auth/domain/entities/login_request.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
@@ -37,13 +38,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           );
     } catch (e) {
       if (mounted) {
-        String errorMessage = "could not perform login action";
-        if(e is DioException && e.response?.data != null) {
-          errorMessage = e.response!.data.toString();
+        String errorMessage = 'Login failed. Please try again.';
+        if (e is DioException && e.response?.data != null) {
+          errorMessage = e.response!.data['message'] ?? errorMessage;
         }
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(errorMessage)),
-        );
+        showAppSnackBar(context, errorMessage, SnackBarType.error);
       }
     }
   }

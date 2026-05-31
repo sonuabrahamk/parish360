@@ -39,11 +39,13 @@ List<FamilyInfo> filteredFamilyInfoList(Ref ref, String filter) {
         final familyName = family.familyName?.toLowerCase() ?? '';
         final contact = family.contact?.toLowerCase() ?? '';
         final address = family.address?.toLowerCase() ?? '';
+        final headOfFamily = family.headOfFamily?.toLowerCase() ?? '';
 
         return familyCode.contains(lowerFilter) ||
             familyName.contains(lowerFilter) ||
             contact.contains(lowerFilter) ||
-            address.contains(lowerFilter);
+            address.contains(lowerFilter) ||
+            headOfFamily.contains(lowerFilter);
       }).toList();
     },
     loading: () => [],

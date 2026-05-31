@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/sacrament_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/sacrament_list_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/sacrament_info_screen.dart';
@@ -21,6 +22,9 @@ class SacramentsScreen extends ConsumerStatefulWidget {
 class _SacramentsScreenState extends ConsumerState<SacramentsScreen> {
   bool _draftSacramentExists = false;
   final SacramentInfo _draftSacrament = SacramentInfo();
+
+  bool get _canCreate =>
+      ref.read(authControllerProvider.notifier).canCreate('family-records');
 
   void _addDraftSacrament() {
     setState(() {
@@ -80,10 +84,12 @@ class _SacramentsScreenState extends ConsumerState<SacramentsScreen> {
                         ),
                       ],
                     ),
-                    IconButton(
-                      onPressed: _addDraftSacrament,
-                      icon: const Icon(Icons.add, color: Colors.white),
-                    ),
+                    _canCreate
+                        ? IconButton(
+                            onPressed: _addDraftSacrament,
+                            icon: const Icon(Icons.add, color: Colors.white),
+                          )
+                        : const SizedBox.shrink(),
                   ],
                 ),
               ),

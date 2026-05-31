@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/common/widgets/contact_widget.dart';
 import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/data/providers/families_providers.dart';
@@ -128,14 +129,12 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
       });
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              _isNewFamily
+        showAppSnackBar(
+          context,
+          _isNewFamily
                   ? 'Family info created successfully'
                   : 'Family info saved successfully',
-            ),
-          ),
+          SnackBarType.success,
         );
         if (_isNewFamily) {
           ref.invalidate(familyInfoListControllerProvider);
@@ -144,14 +143,12 @@ class _FamilyInfoScreenState extends ConsumerState<FamilyInfoScreen> {
       }
     } catch (error) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              _isNewFamily
+        showAppSnackBar(
+          context,
+          _isNewFamily
                   ? 'Failed to create family info: $error'
                   : 'Failed to save family info: $error',
-            ),
-          ),
+          SnackBarType.error,
         );
       }
     }

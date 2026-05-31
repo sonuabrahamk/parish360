@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/migration_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/member/migration_list_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/migration_info_screen.dart';
@@ -21,6 +22,9 @@ class MigrationsScreen extends ConsumerStatefulWidget {
 class _MigrationsScreenState extends ConsumerState<MigrationsScreen> {
   bool _draftMigrationExists = false;
   final MigrationInfo _draftMigration = MigrationInfo();
+
+  bool get _canCreate =>
+      ref.read(authControllerProvider.notifier).canCreate('family-records');
 
   void _addDraftMigration() {
     setState(() {
@@ -80,10 +84,12 @@ class _MigrationsScreenState extends ConsumerState<MigrationsScreen> {
                         ),
                       ],
                     ),
-                    IconButton(
-                      onPressed: _addDraftMigration,
-                      icon: const Icon(Icons.add, color: Colors.white),
-                    ),
+                    _canCreate
+                        ? IconButton(
+                            onPressed: _addDraftMigration,
+                            icon: const Icon(Icons.add, color: Colors.white),
+                          )
+                        : const SizedBox.shrink(),
                   ],
                 ),
               ),

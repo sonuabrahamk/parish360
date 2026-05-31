@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/families/domain/entities/blessing_info.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_info_controller.dart';
 import 'package:parish360_mobile/features/families/presentation/controllers/blessings/blessing_list_controller.dart';
@@ -62,6 +64,7 @@ class BlessingsListScreen extends ConsumerWidget {
                               builder: (context) => BlessingsInfoScreen(
                                 familyId: familyId,
                                 blessingInfo: newBlessing,
+                                canEdit: true,
                               ),
                             ),
                           );
@@ -114,6 +117,16 @@ class MonthlyBlessingsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool canCreate = ref
+        .read(authControllerProvider.notifier)
+        .canCreate('family-records');
+    bool canDelete = ref
+        .read(authControllerProvider.notifier)
+        .canDelete('family-records');
+    bool canEdit = ref
+        .read(authControllerProvider.notifier)
+        .canEdit('family-records');
+
     return SizedBox.expand(
       child: Padding(
         padding: const EdgeInsets.only(
@@ -154,25 +167,28 @@ class MonthlyBlessingsWidget extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {
-                      final newBlessing = BlessingInfo(
-                        date: DateTime.now(),
-                        priest: '',
-                        reason: '',
-                      );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BlessingsInfoScreen(
-                            familyId: familyId,
-                            blessingInfo: newBlessing,
-                          ),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.add, color: Colors.white),
-                  ),
+                  canCreate
+                      ? IconButton(
+                          onPressed: () {
+                            final newBlessing = BlessingInfo(
+                              date: DateTime.now(),
+                              priest: '',
+                              reason: '',
+                            );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => BlessingsInfoScreen(
+                                  familyId: familyId,
+                                  blessingInfo: newBlessing,
+                                  canEdit: canEdit,
+                                ),
+                              ),
+                            );
+                          },
+                          icon: const Icon(Icons.add, color: Colors.white),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),
@@ -205,57 +221,62 @@ class MonthlyBlessingsWidget extends ConsumerWidget {
                             builder: (context) => BlessingsInfoScreen(
                               familyId: familyId,
                               blessingInfo: blessing,
+                              canEdit: canEdit,
                             ),
                           ),
                         );
                       },
-                      onLongPress: () {
-                        showDialog<bool>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Delete Blessing'),
-                            content: const Text(
-                              'Are you sure you want to delete this blessing record?',
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                                child: const Text('Cancel'),
-                              ),
-                              TextButton(
-                                onPressed: () async {
-                                  await ref
-                                      .read(
-                                        blessingInfoControllerProvider(
-                                          familyId,
-                                          blessing.id ?? '',
-                                        ).notifier,
-                                      )
-                                      .deleteBlessingInfo(
-                                        familyId,
-                                        blessing.id ?? '',
-                                      );
-                                  ref.invalidate(
-                                    blessingListControllerProvider(familyId),
-                                  );
-                                  if (!context.mounted) return;
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Blessing record deleted'),
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Delete Blessing'),
+                                  content: const Text(
+                                    'Are you sure you want to delete this blessing record?',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
                                     ),
-                                  );
-                                  Navigator.of(context).pop(true);
-                                },
-                                child: const Text(
-                                  'Delete',
-                                  style: TextStyle(color: Colors.red),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(
+                                              blessingInfoControllerProvider(
+                                                familyId,
+                                                blessing.id ?? '',
+                                              ).notifier,
+                                            )
+                                            .deleteBlessingInfo(
+                                              familyId,
+                                              blessing.id ?? '',
+                                            );
+                                        ref.invalidate(
+                                          blessingListControllerProvider(
+                                            familyId,
+                                          ),
+                                        );
+                                        if (!context.mounted) return;
+                                        showAppSnackBar(
+                                          context,
+                                          'Blessing record deleted',
+                                          SnackBarType.success,
+                                        );
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                              );
+                            },
                       borderRadius: BorderRadius.circular(16),
                       splashColor: Theme.of(
                         context,
