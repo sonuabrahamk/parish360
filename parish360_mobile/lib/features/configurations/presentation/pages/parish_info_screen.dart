@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/entities/place.dart';
 import 'package:parish360_mobile/core/common/widgets/contact_widget.dart';
 import 'package:parish360_mobile/core/common/widgets/section_form_group.dart';
+import 'package:parish360_mobile/core/error/api_exception.dart';
 import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
@@ -108,10 +109,10 @@ class _ParishInfoScreenState extends ConsumerState<ParishInfoScreen> {
         SnackBarType.success,
       );
       _toggleEditing();
-    } catch (e) {
+    } on ApiException catch (e) {
       showAppSnackBar(
         context,
-        'Error updating Parish info: $e',
+        'Error updating Parish info: ${e.message}',
         SnackBarType.error,
       );
     }
@@ -150,26 +151,37 @@ class _ParishInfoScreenState extends ConsumerState<ParishInfoScreen> {
               preferredSize: Size.fromHeight(1),
               child: Divider(height: 1, thickness: 1),
             ),
-            actions: canEdit && !isEditing
-                ? [
-                    IconButton(
-                      icon: Icon(Icons.edit, color: AppTheme.primaryColor),
-                      onPressed: _toggleEditing,
-                      tooltip: 'Edit',
-                    ),
-                  ]
-                : [
-                    IconButton(
-                      icon: Icon(Icons.check, color: AppTheme.primaryColor),
-                      onPressed: _saveParishInfo,
-                      tooltip: 'Save',
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.close, color: AppTheme.primaryColor),
-                      onPressed: _toggleEditing,
-                      tooltip: 'Cancel',
-                    ),
-                  ],
+            actions: canEdit
+                ? !isEditing
+                      ? [
+                          IconButton(
+                            icon: Icon(
+                              Icons.edit,
+                              color: AppTheme.primaryColor,
+                            ),
+                            onPressed: _toggleEditing,
+                            tooltip: 'Edit',
+                          ),
+                        ]
+                      : [
+                          IconButton(
+                            icon: Icon(
+                              Icons.check,
+                              color: AppTheme.primaryColor,
+                            ),
+                            onPressed: _saveParishInfo,
+                            tooltip: 'Save',
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color: AppTheme.primaryColor,
+                            ),
+                            onPressed: _toggleEditing,
+                            tooltip: 'Cancel',
+                          ),
+                        ]
+                : null,
           ),
           body: SingleChildScrollView(
             padding: const EdgeInsets.all(16),

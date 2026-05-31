@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/app/app_navigator.dart';
 import 'package:parish360_mobile/core/app/app_shell.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/core/utils/global_auth_state.dart';
 import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/configurations_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
@@ -22,6 +23,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         data: (loginResponse) => loginResponse.accessToken.isNotEmpty,
         orElse: () => false,
       );
+
+      // If a global forced-logout was requested (fallback path), route to login.
+      if (GlobalAuthState.forceLoggedOut) {
+        return '/login';
+      }
 
       if (!isLoggedIn && !isLoggingIn) {
         return '/login';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
 
 class AppNavigator {
   static final GlobalKey<NavigatorState> navigatorKey =
@@ -13,8 +14,9 @@ class AppNavigator {
     try {
       GoRouter.of(ctx).go(routeName);
     } catch (_) {
-      navigatorKey.currentState?.pushNamedAndRemoveUntil(
-        routeName,
+      // Fallback: push the actual LoginScreen and remove all previous routes.
+      navigatorKey.currentState?.pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
         (route) => false,
       );
     }

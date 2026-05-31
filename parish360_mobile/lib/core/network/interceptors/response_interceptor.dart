@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:parish360_mobile/core/app/app_navigator.dart';
-import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/core/utils/auth_cleanup.dart';
 
 class ResponseInterceptor extends Interceptor {
   final Ref ref;
@@ -16,14 +15,13 @@ class ResponseInterceptor extends Interceptor {
 
     if (statusCode == 401 && !_isLoggingOut) {
       _isLoggingOut = true;
+      try {
+        await performAuthCleanup(ref: ref);
+      } catch (_) {
+        // ignore cleanup errors
+      }
 
-      // 🔹 Clear auth + providers
-      await ref.read(authControllerProvider.notifier).logout();
-
-      // 🔹 Global navigation (no context)
-      AppNavigator.popAllAndPush('/login');
-
-      // 🔹 Reject the request
+      // Reject the request
       return handler.reject(err);
     }
 

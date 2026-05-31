@@ -34,7 +34,7 @@ final class ParishInfoControllerProvider
 }
 
 String _$parishInfoControllerHash() =>
-    r'20a07317122f4115a74d0e24cde33b704efb3a78';
+    r'121fd62dea626949a75dfe79ca2701e40a204546';
 
 abstract class _$ParishInfoController extends $AsyncNotifier<ParishInfo> {
   FutureOr<ParishInfo> build();

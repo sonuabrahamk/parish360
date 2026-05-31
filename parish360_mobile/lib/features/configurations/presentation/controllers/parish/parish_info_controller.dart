@@ -8,14 +8,14 @@ part 'parish_info_controller.g.dart';
 class ParishInfoController extends _$ParishInfoController {
   @override
   Future<ParishInfo> build() async {
-    return ref.read(parishRepositoryProvider).getParishInfo();
+    return await ref.read(parishRepositoryProvider).getParishInfo();
   }
 
   Future<ParishInfo> updateParishInfo(ParishInfo parishInfo) async {
     final updatedInfo = await ref
-        .read(parishRepositoryProvider)
-        .updateParishInfo(parishInfo);
-    state = AsyncValue.data(updatedInfo);
-    return updatedInfo;
+          .read(parishRepositoryProvider)
+          .updateParishInfo(parishInfo);
+      state = AsyncValue.data(updatedInfo);
+      return updatedInfo;
   }
 }

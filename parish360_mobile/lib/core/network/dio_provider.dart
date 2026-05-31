@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:parish360_mobile/core/config/environment_configuration.dart';
+import 'package:parish360_mobile/core/error/api_exception.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/core/network/interceptors/response_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'cookie_jar_provider.dart';
@@ -36,11 +38,17 @@ Dio dio(Ref ref) {
     dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
   }
 
-  // dio.interceptors.add(InterceptorsWrapper(
-  //   onError: (error, handler) {
-  //     handler.next(error);
-  //   },
-  // ));
+  // Global 401 handler
+  dio.interceptors.add(ResponseInterceptor(ref));
+
+  // Convert Dio errors to ApiException for downstream callers
+  dio.interceptors.add(
+    InterceptorsWrapper(
+      onError: (error, handler) {
+        throw ApiException.fromDio(error);
+      },
+    ),
+  );
 
   return dio;
 }

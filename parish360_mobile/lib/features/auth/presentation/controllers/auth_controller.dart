@@ -7,6 +7,7 @@ import 'package:parish360_mobile/features/auth/domain/entities/permissions.dart'
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../domain/entities/user.dart';
 import '../../data/providers/auth_providers.dart';
+import 'package:parish360_mobile/core/utils/global_auth_state.dart';
 
 part 'auth_controller.g.dart';
 
@@ -37,6 +38,8 @@ class AuthController extends _$AuthController {
     try {
       final response = await ref.watch(authRepositoryProvider).login(request);
       state = AsyncValue.data(response);
+      // clear any forced-logout flag on successful login
+      GlobalAuthState.forceLoggedOut = false;
       return response;
     } catch (e, st) {
       state = AsyncValue.error(e, st);
