@@ -52,7 +52,7 @@ final class ResourcesInfoControllerProvider
 }
 
 String _$resourcesInfoControllerHash() =>
-    r'1d72841b1ccf79c5ec85cf0219d718b568db5dae';
+    r'1bac50bc809133727fb33404ed93366841394bae';
 
 final class ResourcesInfoControllerFamily extends $Family
     with

@@ -9,7 +9,7 @@ part 'accounts_api.g.dart';
 abstract class AccountsApi {
   factory AccountsApi(Dio dio, {String baseUrl}) = _AccountsApi;
 
-  @GET('configurations/accounts')
+  @GET('/configurations/accounts')
   Future<List<AccountInfo>> getAllAccounts();
 
   @POST('/configurations/accounts')

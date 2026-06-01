@@ -29,7 +29,7 @@ class _AccountsApi implements AccountsApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'configurations/accounts',
+            '/configurations/accounts',
             queryParameters: queryParameters,
             data: _data,
           )
