@@ -29,7 +29,7 @@ class _AssociationsApi implements AssociationsApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/configurations/associations',
+            '/configurations/association',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -63,7 +63,7 @@ class _AssociationsApi implements AssociationsApi {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/configurations/associations',
+            '/configurations/association',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -90,7 +90,7 @@ class _AssociationsApi implements AssociationsApi {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/configurations/associations/${associationId}',
+            '/configurations/association/${associationId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -121,7 +121,7 @@ class _AssociationsApi implements AssociationsApi {
       Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/configurations/associations/${associationId}',
+            '/configurations/association/${associationId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -148,7 +148,7 @@ class _AssociationsApi implements AssociationsApi {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/configurations/associations/${associationId}',
+            '/configurations/association/${associationId}',
             queryParameters: queryParameters,
             data: _data,
           )

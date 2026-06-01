@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/features/configurations/presentation/pages/association_list_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/parish_info_screen.dart';
 
 class ConfigurationsScreen extends ConsumerWidget {
@@ -27,7 +28,7 @@ class ConfigurationsScreen extends ConsumerWidget {
         body: TabBarView(
           children: [
             ParishInfoScreen(),
-            Text('Associations Configuration'),
+            AssociationListScreen(),
             Text('Services Configuration'),
             Text('Resources Configuration'),
             Text('Accounts Configuration'),

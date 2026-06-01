@@ -9,25 +9,25 @@ part 'associations_api.g.dart';
 abstract class AssociationsApi {
   factory AssociationsApi(Dio dio, {String baseUrl}) = _AssociationsApi;
 
-  @GET('/configurations/associations')
+  @GET('/configurations/association')
   Future<List<AssociationInfo>> getAllAssociations();
 
-  @POST('/configurations/associations')
+  @POST('/configurations/association')
   Future<AssociationInfo> createAssociation(
     @Body() AssociationInfo associationInfo,
   );
 
-  @GET('/configurations/associations/{associationId}')
+  @GET('/configurations/association/{associationId}')
   Future<AssociationInfo> getAssociationInfo(
     @Path('associationId') String associationId,
   );
 
-  @PATCH('/configurations/associations/{associationId}')
+  @PATCH('/configurations/association/{associationId}')
   Future<AssociationInfo> updateAssociation(
     @Path('associationId') String associationId,
     @Body() AssociationInfo associationInfo,
   );
 
-  @DELETE('/configurations/associations/{associationId}')
+  @DELETE('/configurations/association/{associationId}')
   Future<void> deleteAssociation(@Path('associationId') String associationId);
 }
