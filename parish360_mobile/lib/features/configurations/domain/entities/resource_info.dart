@@ -10,8 +10,8 @@ class ResourceInfo {
   final double? amount;
   final String? currency;
   final double? conversionRate;
-  final bool? isMassCompatible;
-  final bool? isActive;
+  final bool? massCompatible;
+  final bool? active;
 
   ResourceInfo({
     this.id,
@@ -25,8 +25,8 @@ class ResourceInfo {
     this.amount,
     this.currency,
     this.conversionRate,
-    this.isMassCompatible,
-    this.isActive,
+    this.massCompatible,
+    this.active,
   });
 
   factory ResourceInfo.fromJson(Map<String, dynamic> json) => ResourceInfo(
@@ -45,8 +45,8 @@ class ResourceInfo {
     amount: json["amount"]?.toDouble(),
     currency: json["currency"],
     conversionRate: json["conversion_rate"]?.toDouble(),
-    isMassCompatible: json["is_mass_compatible"],
-    isActive: json["is_active"],
+    massCompatible: json["mass_compatible"],
+    active: json["active"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,7 +61,7 @@ class ResourceInfo {
     "amount": amount,
     "currency": currency,
     "conversion_rate": conversionRate,
-    "is_mass_compatible": isMassCompatible,
-    "is_active": isActive,
+    "mass_compatible": massCompatible,
+    "active": active,
   };
 }

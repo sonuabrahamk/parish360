@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -106,14 +107,31 @@ class _AssociationInfoScreenState extends ConsumerState<AssociationInfoScreen> {
     } on ApiException catch (e) {
       if (!mounted) return;
       showAppSnackBar(context, e.message, SnackBarType.error);
-    } finally {
-      ref.invalidate(associationListControllerProvider);
-      if(mounted) {
-        widget.association.id == null ? 
-        showAppSnackBar(context, 'Association created successfully', SnackBarType.success)
-        : showAppSnackBar(context, 'Association updated successfully', SnackBarType.success);
-        context.pop();
-      }
+      return;
+    } on DioException catch (e) {
+      if (!mounted) return;
+      showAppSnackBar(
+        context,
+        e.response?.data['message'] ?? 'An error occurred',
+        SnackBarType.error,
+      );
+      return;
+    }
+
+    ref.invalidate(associationListControllerProvider);
+    if (mounted) {
+      widget.association.id == null
+          ? showAppSnackBar(
+              context,
+              'Association created successfully',
+              SnackBarType.success,
+            )
+          : showAppSnackBar(
+              context,
+              'Association updated successfully',
+              SnackBarType.success,
+            );
+      context.pop();
     }
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/network/dio_provider.dart';
 import 'package:parish360_mobile/features/configurations/data/datasources/accounts_api.dart';
 import 'package:parish360_mobile/features/configurations/data/repositories/account_repository_impl.dart';

@@ -68,18 +68,18 @@ class MemberListScreen extends ConsumerWidget {
                                             familyId,
                                           ),
                                         );
-                                        // ignore: use_build_context_synchronously
-                                        Navigator.pop(context);
-                                        // ignore: use_build_context_synchronously
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              '${member.firstName} ${member.lastName} deleted',
+                                        if (context.mounted) {
+                                          Navigator.pop(context);
+                                          ScaffoldMessenger.of(
+                                            context,
+                                          ).showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                '${member.firstName} ${member.lastName} deleted',
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                        }
                                       },
                                       child: const Text(
                                         'Delete',

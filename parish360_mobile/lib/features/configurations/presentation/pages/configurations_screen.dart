@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/association_list_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/parish_info_screen.dart';
+import 'package:parish360_mobile/features/configurations/presentation/pages/resource_list_screen.dart';
 
 class ConfigurationsScreen extends ConsumerWidget {
   const ConfigurationsScreen({super.key});
@@ -30,7 +31,7 @@ class ConfigurationsScreen extends ConsumerWidget {
             ParishInfoScreen(),
             AssociationListScreen(),
             Text('Services Configuration'),
-            Text('Resources Configuration'),
+            ResourceListScreen(),
             Text('Accounts Configuration'),
             // Center(child: Text('Payments Page')),
           ],

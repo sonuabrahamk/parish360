@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/error/api_exception.dart';
 import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/configurations/domain/entities/association_info.dart';
@@ -143,14 +145,17 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
               ),
               const SizedBox(height: 18),
               Expanded(
-                child: ListView.builder(
+                child: ListView.separated(
                   padding: EdgeInsets.zero,
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: filteredAssociationList.length,
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(height: 12),
                   itemBuilder: (context, index) {
                     final association = filteredAssociationList[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
+                    return Material(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(16),
                       child: InkWell(
                         onTap: () {
                           Navigator.push(
@@ -181,15 +186,36 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          await ref
-                                              .read(
-                                                associationInfoControllerProvider(
+                                          try {
+                                            await ref
+                                                .read(
+                                                  associationInfoControllerProvider(
+                                                    association.id ?? '',
+                                                  ).notifier,
+                                                )
+                                                .deleteAssociation(
                                                   association.id ?? '',
-                                                ).notifier,
-                                              )
-                                              .deleteAssociation(
-                                                association.id ?? '',
-                                              );
+                                                );
+                                          } on ApiException catch (e) {
+                                            if (!context.mounted) return;
+                                            showAppSnackBar(
+                                              context,
+                                              e.message,
+                                              SnackBarType.error,
+                                            );
+                                            Navigator.of(context).pop(true);
+                                            return;
+                                          } on DioException catch (e) {
+                                            if (!context.mounted) return;
+                                            showAppSnackBar(
+                                              context,
+                                              e.response?.data['message'] ??
+                                                  'An error occurred',
+                                              SnackBarType.error,
+                                            );
+                                            Navigator.of(context).pop(true);
+                                            return;
+                                          }
                                           ref.invalidate(
                                             associationListControllerProvider,
                                           );
