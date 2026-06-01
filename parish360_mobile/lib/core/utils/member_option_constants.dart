@@ -55,3 +55,14 @@ const Map<String, String> kContactVerificationOptions = {
   'true': 'Verified',
   'false': 'Unverified',
 };
+
+const Map<String, String> kAssociationTypes = {
+  'MEMBER': 'Member',
+  'FAMILY': 'Family',
+  'ASSOCIATION': 'Association',
+};
+
+const Map<String, String> kAssociationScopes = {
+  'UNIT': 'Unit',
+  'ASSOCIATION': 'Association'
+};

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/features/configurations/domain/entities/association_info.dart';
+import 'package:parish360_mobile/features/configurations/presentation/controllers/associations/association_info_controller.dart';
 import 'package:parish360_mobile/features/configurations/presentation/controllers/associations/association_list_controller.dart';
+import 'package:parish360_mobile/features/configurations/presentation/pages/association_info_screen.dart';
 
 class AssociationListScreen extends ConsumerStatefulWidget {
   const AssociationListScreen({super.key});
@@ -40,6 +43,12 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
     bool canCreate = ref
         .read(authControllerProvider.notifier)
         .canCreate('configurations');
+    bool canEdit = ref
+        .read(authControllerProvider.notifier)
+        .canEdit('configurations');
+    bool canDelete = ref
+        .read(authControllerProvider.notifier)
+        .canDelete('configurations');
 
     return associationListAsync.when(
       data: (associations) => SizedBox.expand(
@@ -86,7 +95,15 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
                       children: [
                         canCreate
                             ? IconButton(
-                                onPressed: () => context.push('/families/new'),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AssociationInfoScreen(
+                                      association: AssociationInfo(),
+                                      canEdit: canCreate,
+                                    ),
+                                  ),
+                                ),
                                 icon: const Icon(
                                   Icons.add,
                                   color: Colors.white,
@@ -133,12 +150,71 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
                   itemBuilder: (context, index) {
                     final association = filteredAssociationList[index];
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
+                      padding: const EdgeInsets.only(bottom: 8),
                       child: InkWell(
-                        onTap: () => context.go('/families/${association.id}'),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AssociationInfoScreen(
+                                association: association,
+                                canEdit: canEdit,
+                              ),
+                            ),
+                          );
+                        },
+                        onLongPress: !canDelete
+                            ? null
+                            : () {
+                                showDialog<bool>(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: const Text('Delete Association'),
+                                    content: const Text(
+                                      'Are you sure you want to delete this association?',
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(false),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () async {
+                                          await ref
+                                              .read(
+                                                associationInfoControllerProvider(
+                                                  association.id ?? '',
+                                                ).notifier,
+                                              )
+                                              .deleteAssociation(
+                                                association.id ?? '',
+                                              );
+                                          ref.invalidate(
+                                            associationListControllerProvider,
+                                          );
+                                          if (!context.mounted) return;
+                                          showAppSnackBar(
+                                            context,
+                                            'Association record deleted',
+                                            SnackBarType.success,
+                                          );
+                                          Navigator.of(context).pop(true);
+                                        },
+                                        child: const Text(
+                                          'Delete',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                         borderRadius: BorderRadius.circular(16),
-                        child: Container(
-                          padding: const EdgeInsets.all(16),
+                        splashColor: Theme.of(
+                          context,
+                        ).colorScheme.primary.withAlpha(12),
+                        child: Ink(
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -151,27 +227,37 @@ class _AssociationListScreenState extends ConsumerState<AssociationListScreen> {
                               ),
                             ],
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                association.name ?? 'Association Name',
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Type: ${association.type}',
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(color: Colors.grey.shade600),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Scope: ${association.scope ?? 'N/A'}',
-                                style: Theme.of(context).textTheme.bodySmall
-                                    ?.copyWith(color: Colors.grey.shade600),
-                              ),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  association.name?.isNotEmpty == true
+                                      ? association.name!
+                                      : 'Unknown Association',
+                                  style: Theme.of(context).textTheme.titleMedium
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.primary,
+                                        fontWeight: FontWeight.w800,
+                                      ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  'Assciation Type : ${association.type ?? 'N/A'}',
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(color: Colors.grey.shade600),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Assciation Scope : ${association.scope ?? 'N/A'}',
+                                  style: Theme.of(context).textTheme.bodySmall
+                                      ?.copyWith(color: Colors.grey.shade600),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
