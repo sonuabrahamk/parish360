@@ -126,7 +126,7 @@ class AuthController extends _$AuthController {
           modulesInfoList.add(
             ModuleInfo(
               label: "Associations",
-              icon: Icons.person,
+              icon: Icons.groups_2,
               route: '/dashboard',
               badgeCount: 5,
             ),
@@ -136,7 +136,7 @@ class AuthController extends _$AuthController {
           modulesInfoList.add(
             ModuleInfo(
               label: "Ceremonies",
-              icon: Icons.person,
+              icon: Icons.note_alt,
               route: '/dashboard',
               badgeCount: 6,
             ),
@@ -145,10 +145,18 @@ class AuthController extends _$AuthController {
         case "configurations":
           modulesInfoList.add(
             ModuleInfo(
-              label: "Configurations",
+              label: "Configuration",
               icon: Icons.settings,
               route: '/configurations',
               badgeCount: 8,
+            ),
+          );
+          modulesInfoList.add(
+            ModuleInfo(
+              label: "Parish Year",
+              icon: Icons.calendar_month,
+              route: '/parish-year',
+              badgeCount: 10,
             ),
           );
           break;
@@ -186,7 +194,7 @@ class AuthController extends _$AuthController {
           modulesInfoList.add(
             ModuleInfo(
               label: "Expenses",
-              icon: Icons.person,
+              icon: Icons.money_off,
               route: '/dashboard',
               badgeCount: 7,
             ),
