@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ServiceInfo {
   final String? id;
   final DateTime? createdAt;
@@ -7,8 +9,8 @@ class ServiceInfo {
   final String? name;
   final String? type;
   final DateTime? date;
-  final DateTime? startTime;
-  final DateTime? endTime;
+  final TimeOfDay? startTime;
+  final TimeOfDay? endTime;
   final double? amount;
   final String? currency;
   final double? conversionRate;
@@ -44,8 +46,10 @@ class ServiceInfo {
     date: json["date"] == null ? null : DateTime.parse(json["date"]),
     startTime: json["start_time"] == null
         ? null
-        : DateTime.parse(json["start_time"]),
-    endTime: json["end_time"] == null ? null : DateTime.parse(json["end_time"]),
+        : timeOfDayFromJson(json["start_time"]),
+    endTime: json["end_time"] == null
+        ? null
+        : timeOfDayFromJson(json["end_time"]),
     amount: json["amount"]?.toDouble(),
     currency: json["currency"],
     conversionRate: json["conversion_rate"]?.toDouble(),
@@ -60,10 +64,26 @@ class ServiceInfo {
     "name": name,
     "type": type,
     "date": date?.toIso8601String(),
-    "start_time": startTime?.toIso8601String(),
-    "end_time": endTime?.toIso8601String(),
+    "start_time": timeOfDayToJson(startTime),
+    "end_time": timeOfDayToJson(endTime),
     "amount": amount,
     "currency": currency,
     "conversion_rate": conversionRate,
   };
+
+  static String? timeOfDayToJson(TimeOfDay? time) {
+    if (time == null) return null;
+
+    return '${time.hour.toString().padLeft(2, '0')}:'
+        '${time.minute.toString().padLeft(2, '0')}:00';
+  }
+
+  static TimeOfDay? timeOfDayFromJson(String? timeStr) {
+    if (timeStr == null) return null;
+
+    final parts = timeStr.split(':');
+    if (parts.length < 2) return null;
+
+    return TimeOfDay(hour: int.parse(parts[0]), minute: int.parse(parts[1]));
+  }
 }

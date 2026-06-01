@@ -4,6 +4,7 @@ import 'package:parish360_mobile/features/configurations/presentation/pages/acco
 import 'package:parish360_mobile/features/configurations/presentation/pages/association_list_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/parish_info_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/resource_list_screen.dart';
+import 'package:parish360_mobile/features/configurations/presentation/pages/service_list_screen.dart';
 
 class ConfigurationsScreen extends ConsumerWidget {
   const ConfigurationsScreen({super.key});
@@ -31,7 +32,7 @@ class ConfigurationsScreen extends ConsumerWidget {
           children: [
             ParishInfoScreen(),
             AssociationListScreen(),
-            Text('Services Configuration'),
+            ServiceListScreen(),
             ResourceListScreen(),
             AccountListScreen(),
             // Center(child: Text('Payments Page')),
