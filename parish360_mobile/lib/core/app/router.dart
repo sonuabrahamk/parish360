@@ -7,6 +7,7 @@ import 'package:parish360_mobile/features/auth/presentation/controllers/auth_con
 import 'package:parish360_mobile/core/utils/global_auth_state.dart';
 import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/configurations_screen.dart';
+import 'package:parish360_mobile/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
@@ -52,17 +53,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/dashboard',
             name: 'dashboard',
-            builder: (context, state) => SizedBox.expand(
-              child: Container(
-                color: Colors.red,
-                child: Center(
-                  child: Text(
-                    'Dashboard',
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
+            builder: (context, state) => DashboardScreen(),
           ),
           GoRoute(
             path: '/families',

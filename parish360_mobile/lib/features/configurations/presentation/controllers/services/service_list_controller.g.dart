@@ -34,7 +34,7 @@ final class ServiceListControllerProvider
 }
 
 String _$serviceListControllerHash() =>
-    r'a98bf0c4da9fc0f55a0bafc6b5df002f21b4add9';
+    r'6cd77487f96ef8af2fb480f9b12f529a5e8d6d8a';
 
 abstract class _$ServiceListController
     extends $AsyncNotifier<List<ServiceInfo>> {
@@ -121,7 +121,7 @@ final class FilteredServicesInfoListProvider
 }
 
 String _$filteredServicesInfoListHash() =>
-    r'a3f942b9d93599719f66c62ea0474c6ed1d0e8e4';
+    r'dc1aceb0610169279dd0b7a6b6457fc0f37ce936';
 
 final class FilteredServicesInfoListFamily extends $Family
     with $FunctionalFamilyOverride<List<ServiceInfo>, String> {
