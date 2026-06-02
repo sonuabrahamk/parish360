@@ -81,7 +81,7 @@ class AuthController extends _$AuthController {
     return permissions.modules.delete.contains(module);
   }
 
-  String getDefaultParish () {
+  String getDefaultParish() {
     final permissions = state.value?.permissions;
     if (permissions == null) return '';
     return permissions.dataOwner.parish.isNotEmpty
@@ -175,7 +175,7 @@ class AuthController extends _$AuthController {
             ModuleInfo(
               label: "Bookings",
               icon: Icons.person,
-              route: '/dashboard',
+              route: '/bookings',
               badgeCount: 3,
             ),
           );
@@ -206,7 +206,7 @@ class AuthController extends _$AuthController {
       }
     }
 
-    modulesInfoList.sort((a,b){
+    modulesInfoList.sort((a, b) {
       final aCount = a.badgeCount ?? double.infinity;
       final bCount = b.badgeCount ?? double.infinity;
       return aCount.compareTo(bCount);

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/app/app_navigator.dart';
@@ -6,6 +5,7 @@ import 'package:parish360_mobile/core/app/app_shell.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/core/utils/global_auth_state.dart';
 import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
+import 'package:parish360_mobile/features/bookings/presentation/pages/bookings_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/configurations_screen.dart';
 import 'package:parish360_mobile/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
@@ -13,7 +13,6 @@ import 'package:parish360_mobile/features/families/presentation/pages/family_inf
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
-
   return GoRouter(
     navigatorKey: AppNavigator.navigatorKey,
     initialLocation: '/login',
@@ -75,6 +74,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/configurations',
             name: 'Configurations',
             builder: (context, state) => const ConfigurationsScreen(),
+          ),
+          GoRoute(
+            path: '/bookings',
+            name: 'Bookings',
+            builder: (context, state) => const BookingsScreen(),
           ),
         ],
       ),
