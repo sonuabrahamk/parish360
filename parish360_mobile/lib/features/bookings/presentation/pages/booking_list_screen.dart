@@ -135,26 +135,155 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
                               children: [
-                                Text(
-                                  '${booking.bookingCode}',
-                                  style: Theme.of(context).textTheme.titleMedium
-                                      ?.copyWith(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
-                                        fontWeight: FontWeight.w800,
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        '${booking.resource?.name} | ${booking.bookedFrom.toString().split(' ')[0]}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              color: Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                              fontWeight: FontWeight.w800,
+                                            ),
                                       ),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        'Booked By : ${booking.bookedBy}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: Colors.grey.shade600,
+                                            ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        'Contact : ${booking.contact}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(
+                                              color: Colors.grey.shade600,
+                                            ),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Divider(
+                                        height: 1,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Payment',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius: BorderRadius.circular(8)
+                                                ),
+                                                child: Text(
+                                                  'COMPLETED',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    backgroundColor: Colors.green,
+                                                    fontWeight: FontWeight.w900,
+                                                    color: Colors.white
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'Status',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 5),
+                                              Container(
+                                                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius: BorderRadius.circular(8)
+                                                ),
+                                                child: Text(
+                                                  'COMPLETED',
+                                                  style: TextStyle(
+                                                    fontSize: 12,
+                                                    backgroundColor: Colors.green,
+                                                    fontWeight: FontWeight.w900,
+                                                    color: Colors.white
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  'Resource : ${booking.resource?.name.toString()}',
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(color: Colors.grey.shade600),
-                                ),
-                                const SizedBox(height: 4),
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: [
+                                //     Container(
+                                //       padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                //       decoration: BoxDecoration(
+                                //         color: Colors.green,
+                                //         borderRadius: BorderRadius.circular(8)
+                                //       ),
+                                //       child: Text(
+                                //         'PAYMENT COMPLETED',
+                                //         style: TextStyle(
+                                //           fontSize: 12,
+                                //           backgroundColor: Colors.green,
+                                //           fontWeight: FontWeight.w900,
+                                //           color: Colors.white
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     const SizedBox(height: 5),
+                                //     Container(
+                                //       padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                //       decoration: BoxDecoration(
+                                //         color: Colors.green,
+                                //         borderRadius: BorderRadius.circular(8)
+                                //       ),
+                                //       child: Text(
+                                //         'PAYMENT COMPLETED',
+                                //         style: TextStyle(
+                                //           fontSize: 12,
+                                //           backgroundColor: Colors.green,
+                                //           fontWeight: FontWeight.w900,
+                                //           color: Colors.white
+                                //         ),
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
                               ],
                             ),
                           ),

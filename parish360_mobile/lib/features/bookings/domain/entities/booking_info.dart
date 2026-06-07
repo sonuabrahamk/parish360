@@ -68,7 +68,7 @@ class BookingInfo {
       totalAmount: json['total_amount'] as double?,
       amountPaid: json['amount_paid'] as double?,
       currency: json['currency'] as String?,
-      bookedFrom: json['bookedFrom'] != null
+      bookedFrom: json['booked_from'] != null
           ? DateTime.parse(json['booked_from'] as String)
           : null,
       bookedTo: json['booked_to'] != null
