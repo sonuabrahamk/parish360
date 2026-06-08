@@ -13,6 +13,7 @@ import 'package:parish360_mobile/features/expenses/presentation/pages/expenses_s
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
+import 'package:parish360_mobile/features/parish-year/presentation/pages/parish_year_list_screen.dart';
 import 'package:parish360_mobile/features/payments/presentation/pages/payments_screen.dart';
 import 'package:parish360_mobile/features/users/presentation/pages/users_screen.dart';
 
@@ -103,6 +104,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/users',
             name: 'Users',
             builder: (context, state) => const UsersScreen(),
+          ),
+          GoRoute(
+            path: '/parish-year',
+            name: 'Parish Year',
+            builder: (context, state) => const ParishYearListScreen(),
           ),
         ],
       ),
