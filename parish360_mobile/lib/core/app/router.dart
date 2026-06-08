@@ -13,6 +13,7 @@ import 'package:parish360_mobile/features/expenses/presentation/pages/expenses_s
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
+import 'package:parish360_mobile/features/payments/presentation/pages/payments_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
@@ -91,6 +92,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/expenses',
             name: 'Expenses',
             builder: (context, state) => const ExpensesScreen(),
+          ),
+          GoRoute(
+            path: '/payments',
+            name: 'Payments',
+            builder: (context, state) => const PaymentsScreen(),
           ),
         ],
       ),
