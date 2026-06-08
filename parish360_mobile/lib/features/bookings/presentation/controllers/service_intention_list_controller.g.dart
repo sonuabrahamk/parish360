@@ -39,7 +39,7 @@ final class ServiceIntentionListControllerProvider
 }
 
 String _$serviceIntentionListControllerHash() =>
-    r'e252d0ab8ca856ce52fda48bef61f18144c35949';
+    r'87fee090a238c8099f35aa368cb80083e43a55a9';
 
 abstract class _$ServiceIntentionListController
     extends $AsyncNotifier<List<ServiceIntentionInfo>> {
