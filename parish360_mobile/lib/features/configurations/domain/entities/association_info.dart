@@ -11,7 +11,7 @@ class AssociationInfo {
   final String? scope;
   final String? patron;
   final DateTime? foundedDate;
-  final bool? isActive;
+  final bool? active;
 
   AssociationInfo({
     this.id,
@@ -26,7 +26,7 @@ class AssociationInfo {
     this.scope,
     this.patron,
     this.foundedDate,
-    this.isActive,
+    this.active,
   });
 
   factory AssociationInfo.fromJson(Map<String, dynamic> json) {
@@ -49,7 +49,7 @@ class AssociationInfo {
       foundedDate: json['founded_date'] != null
           ? DateTime.parse(json['founded_date'] as String)
           : null,
-      isActive: json['is_active'] as bool?,
+      active: json['active'] as bool?,
     );
   }
 
@@ -67,7 +67,7 @@ class AssociationInfo {
       'scope': scope,
       'patron': patron,
       'founded_date': foundedDate?.toIso8601String(),
-      'is_active': isActive,
+      'active': active,
     };
   }
 }

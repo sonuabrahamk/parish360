@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/app/app_navigator.dart';
 import 'package:parish360_mobile/core/app/app_shell.dart';
+import 'package:parish360_mobile/features/associations/presentation/pages/parish_year_associations_screen.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/core/utils/global_auth_state.dart';
 import 'package:parish360_mobile/features/auth/presentation/pages/login_page.dart';
@@ -109,6 +110,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/parish-year',
             name: 'Parish Year',
             builder: (context, state) => const ParishYearListScreen(),
+          ),
+          GoRoute(
+            path: '/associations',
+            name: 'Associations',
+            builder: (context, state) => const ParishYearAssociationsScreen(),
           ),
         ],
       ),

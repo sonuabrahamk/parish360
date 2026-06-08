@@ -67,7 +67,7 @@ class _AssociationInfoScreenState extends ConsumerState<AssociationInfoScreen> {
     _foundedDateController.text = associationInfo.foundedDate != null
         ? associationInfo.foundedDate.toString().trim().split(' ')[0]
         : DateTime.now().toString().trim().split(' ')[0];
-    _isActiveController.text = associationInfo.isActive.toString();
+    _isActiveController.text = associationInfo.active.toString();
   }
 
   void _saveAssociation() async {
@@ -81,9 +81,7 @@ class _AssociationInfoScreenState extends ConsumerState<AssociationInfoScreen> {
       scope: _scopeController.text.trim(),
       director: _directorController.text.trim(),
       foundedDate: DateTime.parse(_foundedDateController.text.trim()),
-      isActive: widget.association.id == null
-          ? true
-          : widget.association.isActive,
+      active: widget.association.id == null ? true : widget.association.active,
     );
 
     try {
