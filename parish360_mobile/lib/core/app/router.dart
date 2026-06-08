@@ -9,6 +9,7 @@ import 'package:parish360_mobile/features/bookings/presentation/pages/bookings_s
 import 'package:parish360_mobile/features/ceremonies/presentation/pages/ceremonies_screen.dart';
 import 'package:parish360_mobile/features/configurations/presentation/pages/configurations_screen.dart';
 import 'package:parish360_mobile/features/dashboard/presentation/pages/dashboard_screen.dart';
+import 'package:parish360_mobile/features/expenses/presentation/pages/expenses_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_list_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_info_screen.dart';
 import 'package:parish360_mobile/features/families/presentation/pages/family_record_screen.dart';
@@ -85,6 +86,11 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/ceremonies',
             name: 'Ceremonies',
             builder: (context, state) => const CeremoniesScreen(),
+          ),
+          GoRoute(
+            path: '/expenses',
+            name: 'Expenses',
+            builder: (context, state) => const ExpensesScreen(),
           ),
         ],
       ),
