@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/features/bookings/presentation/controllers/booking_list_controller.dart';
 
 class BookingListScreen extends ConsumerStatefulWidget {
@@ -47,37 +49,20 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Resource Bookings',
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
+              bookings.isEmpty
+                  ? ListTitle(
+                      module: 'bookings',
+                      subTitle: 'No booking records found',
+                      title: 'Resource Bookings',
+                      onCreatePressed: onCreatePressed,
+                    )
+                  : ListTitle(
+                      module: 'bookings',
+                      subTitle:
                           'Showing ${filteredBookings.length} of ${bookings.length} bookings',
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: Colors.white70),
-                        ),
-                      ],
+                      title: 'Resource Bookings',
+                      onCreatePressed: onCreatePressed,
                     ),
-                  ],
-                ),
-              ),
               const SizedBox(height: 18),
               Padding(
                 padding: EdgeInsets.zero,
@@ -175,16 +160,15 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
                                             ),
                                       ),
                                       const SizedBox(height: 10),
-                                      Divider(
-                                        height: 1,
-                                        color: Colors.grey,
-                                      ),
+                                      Divider(height: 1, color: Colors.grey),
                                       const SizedBox(height: 10),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Payment',
@@ -195,25 +179,31 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
                                               ),
                                               const SizedBox(height: 5),
                                               Container(
-                                                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 1,
+                                                  horizontal: 5,
+                                                ),
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
-                                                  borderRadius: BorderRadius.circular(8)
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
                                                 ),
                                                 child: Text(
                                                   'COMPLETED',
                                                   style: TextStyle(
                                                     fontSize: 12,
-                                                    backgroundColor: Colors.green,
+                                                    backgroundColor:
+                                                        Colors.green,
                                                     fontWeight: FontWeight.w900,
-                                                    color: Colors.white
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                           Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Text(
                                                 'Status',
@@ -224,25 +214,30 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
                                               ),
                                               const SizedBox(height: 5),
                                               Container(
-                                                padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                                                padding: EdgeInsets.symmetric(
+                                                  vertical: 1,
+                                                  horizontal: 5,
+                                                ),
                                                 decoration: BoxDecoration(
                                                   color: Colors.green,
-                                                  borderRadius: BorderRadius.circular(8)
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
                                                 ),
                                                 child: Text(
                                                   'COMPLETED',
                                                   style: TextStyle(
                                                     fontSize: 12,
-                                                    backgroundColor: Colors.green,
+                                                    backgroundColor:
+                                                        Colors.green,
                                                     fontWeight: FontWeight.w900,
-                                                    color: Colors.white
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ],
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -300,5 +295,9 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, st) => Center(child: Text('Error loading members')),
     );
+  }
+
+  void onCreatePressed() {
+    context.push('/families/new');
   }
 }
