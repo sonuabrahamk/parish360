@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/features/bookings/presentation/controllers/booking_list_controller.dart';
+import 'package:parish360_mobile/features/bookings/presentation/pages/bookings_screen.dart';
+import 'package:parish360_mobile/features/bookings/presentation/widgets/intentions_card.dart';
 
 class ServiceIntentionListScreen extends ConsumerStatefulWidget {
   const ServiceIntentionListScreen({super.key});
@@ -41,47 +44,25 @@ class _ServiceIntentionListScreenState
     return intentionsAsync.when(
       data: (intentions) => SizedBox.expand(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 16,
-            bottom: 16,
-          ),
+          padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
-                padding: const EdgeInsets.all(18),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primary,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Service Intention Bookings',
-                          style: Theme.of(context).textTheme.titleMedium
-                              ?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                              ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          'Showing ${filteredIntentions.length} of ${intentions.length} intentions',
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: Colors.white70),
-                        ),
-                      ],
+              intentions.isEmpty
+                  ? ListTitle(
+                      module: 'bookings',
+                      subTitle: 'No booking records found',
+                      title: 'Resource Bookings',
+                      onCreatePressed: onCreatePressed,
+                    )
+                  : ListTitle(
+                      module: 'bookings',
+                      subTitle:
+                          'Showing ${filteredIntentions.length} of ${intentions.length} bookings',
+                      title: 'Resource Bookings',
+                      onCreatePressed: onCreatePressed,
                     ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 10),
               Padding(
                 padding: EdgeInsets.zero,
                 child: TextField(
@@ -105,71 +86,17 @@ class _ServiceIntentionListScreenState
                   ),
                 ),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 10),
               Expanded(
                 child: ListView.separated(
                   padding: EdgeInsets.zero,
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: filteredIntentions.length,
                   separatorBuilder: (context, index) =>
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 10),
                   itemBuilder: (context, index) {
                     final intention = filteredIntentions[index];
-                    return Material(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(16),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        splashColor: Theme.of(
-                          context,
-                        ).colorScheme.primary.withAlpha(12),
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.grey.shade200),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color.fromRGBO(0, 0, 0, 0.04),
-                                blurRadius: 14,
-                                offset: const Offset(0, 6),
-                              ),
-                            ],
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${intention.bookedBy}',
-                                  style: Theme.of(context).textTheme.titleMedium
-                                      ?.copyWith(
-                                        color: Theme.of(
-                                          context,
-                                        ).colorScheme.primary,
-                                        fontWeight: FontWeight.w800,
-                                      ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  intention.description.toString(),
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(color: Colors.grey.shade600),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Offering On : ${intention.bookedTo.toString().split(' ')[0]}',
-                                  style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(color: Colors.grey.shade600),
-                                ),
-                                const SizedBox(height: 4),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
+                    return IntentionsCard(intention: intention);
                   },
                 ),
               ),
@@ -179,6 +106,13 @@ class _ServiceIntentionListScreenState
       ),
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, st) => Center(child: Text('Error loading members')),
+    );
+  }
+
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => BookingsScreen()),
     );
   }
 }

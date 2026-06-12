@@ -18,7 +18,9 @@ class ListTitle extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final canCreate = ref.read(authControllerProvider.notifier).canCreate(module);
+    final canCreate = ref
+        .read(authControllerProvider.notifier)
+        .canCreate(module);
 
     return Container(
       padding: const EdgeInsets.all(18),
@@ -39,7 +41,7 @@ class ListTitle extends ConsumerWidget {
                   color: Colors.white,
                 ),
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 5),
               Text(
                 subTitle,
                 style: Theme.of(

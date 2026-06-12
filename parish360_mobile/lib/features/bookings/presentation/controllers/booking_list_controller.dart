@@ -29,6 +29,7 @@ List<BookingInfo> filteredBookingInfoList(Ref ref, String filter, String type) {
         final type = booking.bookingType?.toLowerCase() ?? '';
         final status = booking.status?.toLowerCase() ?? '';
         final date = booking.bookedFrom?.toString().toLowerCase() ?? '';
+        final resource = booking.resource?.name?.toLowerCase() ?? '';
 
         return code.contains(lowerFilter) ||
             bookedBy.contains(lowerFilter) ||
@@ -37,6 +38,7 @@ List<BookingInfo> filteredBookingInfoList(Ref ref, String filter, String type) {
             description.contains(lowerFilter) ||
             type.contains(lowerFilter) ||
             status.contains(lowerFilter) ||
+            resource.contains(lowerFilter) ||
             date.contains(lowerFilter);
       }).toList();
     },

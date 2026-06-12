@@ -10,6 +10,7 @@ class ServiceIntentionInfo {
   final String? event;
   final String? serviceId;
   final String? status;
+  final String? paymentStatus;
   final String? familyCode;
 
   ServiceIntentionInfo({
@@ -24,6 +25,7 @@ class ServiceIntentionInfo {
     this.event,
     this.serviceId,
     this.status,
+    this.paymentStatus,
     this.familyCode,
   });
 
@@ -44,6 +46,7 @@ class ServiceIntentionInfo {
       intention: json['intention'] as String?,
       serviceId: json['service_id'] as String?,
       status: json['status'] as String?,
+      paymentStatus: json['payment_status'] as String?,
       familyCode: json['family_code'] as String?,
     );
   }
@@ -61,6 +64,7 @@ class ServiceIntentionInfo {
       'intention': intention,
       'service_id': serviceId,
       'status': status,
+      'payment_status': paymentStatus,
       'family_code': familyCode,
     };
   }
