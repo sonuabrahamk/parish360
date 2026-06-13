@@ -31,9 +31,13 @@ class StatusTag extends ConsumerWidget {
     switch (status.toLowerCase()) {
       case 'pending':
       case 'in-progress':
+      case 'in-active':
+      case 'false':
         return AppTheme.secondaryColor;
       case 'completed':
       case 'confirmed':
+      case 'active':
+      case 'true':
         return Colors.green;
       case 'info':
         return Colors.blue;
