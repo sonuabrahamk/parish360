@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
 import 'package:parish360_mobile/features/bookings/domain/entities/booking_info.dart';
 
 class IntentionsCard extends ConsumerWidget {
@@ -79,35 +79,10 @@ class IntentionsCard extends ConsumerWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Payment',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 1,
-                                  horizontal: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: statusColor(
-                                    intention.paymentStatus ?? '',
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                              StatusTag(
+                                status: intention.paymentStatus ?? '',
                                 child: Text(
-                                  intention.paymentStatus ?? '',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    backgroundColor: statusColor(
-                                      intention.paymentStatus ?? '',
-                                    ),
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
-                                  ),
+                                  'PAYMENT: ${intention.paymentStatus}',
                                 ),
                               ),
                             ],
@@ -115,49 +90,22 @@ class IntentionsCard extends ConsumerWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Service On',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 1,
-                                  horizontal: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: statusColor(intention.status ?? ''),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Expanded(
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.today,
-                                        color: Colors.white,
-                                        size: 14,
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        intention.bookedFrom == null
-                                            ? 'no date'
-                                            : DateFormat(
-                                                'yyyy-MM-dd',
-                                              ).format(intention.bookedFrom!),
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          backgroundColor: statusColor(
-                                            intention.status ?? '',
-                                          ),
-                                          fontWeight: FontWeight.w900,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                              StatusTag(
+                                status: intention.bookedFrom.toString(),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.today,
+                                      color: Colors.white,
+                                      size: 16,
+                                    ),
+                                    const SizedBox(width: 5),
+                                    Text(
+                                      intention.bookedFrom.toString().split(
+                                        ' ',
+                                      )[0],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

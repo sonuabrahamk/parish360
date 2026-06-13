@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
 import 'package:parish360_mobile/features/bookings/domain/entities/booking_info.dart';
 
 class BookingsCard extends ConsumerWidget {
@@ -125,35 +126,10 @@ class BookingsCard extends ConsumerWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Payment',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 1,
-                                  horizontal: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: statusColor(
-                                    booking.paymentStatus ?? '',
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
+                              StatusTag(
+                                status: booking.paymentStatus ?? '',
                                 child: Text(
-                                  booking.paymentStatus ?? '',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    backgroundColor: statusColor(
-                                      booking.paymentStatus ?? '',
-                                    ),
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
-                                  ),
+                                  'PAYMENT: ${booking.paymentStatus}',
                                 ),
                               ),
                             ],
@@ -161,34 +137,9 @@ class BookingsCard extends ConsumerWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Status',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 1,
-                                  horizontal: 5,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: statusColor(booking.status ?? ''),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Text(
-                                  booking.status ?? '',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    backgroundColor: statusColor(
-                                      booking.status ?? '',
-                                    ),
-                                    fontWeight: FontWeight.w900,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                              StatusTag(
+                                status: booking.status ?? '',
+                                child: Text('STATUS: ${booking.status}'),
                               ),
                             ],
                           ),
@@ -203,18 +154,5 @@ class BookingsCard extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  Color statusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'pending':
-      case 'in-progress':
-        return Colors.yellow.shade800;
-      case 'completed':
-      case 'confirmed':
-        return Colors.green;
-      default:
-        return Colors.blue;
-    }
   }
 }
