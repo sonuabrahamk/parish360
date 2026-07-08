@@ -68,7 +68,7 @@ class SpouseInfo {
       'spouse_father': spouseFather,
       'spouse_mother': spouseMother,
       'spouse_marital_status': spouseMaritalStatus,
-      'spouse_dob': spouseDob,
+      'spouse_dob': spouseDob?.toIso8601String(),
       'spouse_contact': spouseContact,
       'spouse_email': spouseEmail,
       'spouse_address': spouseAddress,

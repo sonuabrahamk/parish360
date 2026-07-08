@@ -116,11 +116,11 @@ class CeremonyInfo {
       spouse: json['spouse'] != null
           ? SpouseInfo.fromJson(json['spouse'])
           : null,
-      witness1: json['witness_1'] != null
-          ? WitnessInfo.fromJson(json['witness_1'])
+      witness1: json['witness1'] != null
+          ? WitnessInfo.fromJson(json['witness1'])
           : null,
-      witness2: json['witness_2'] != null
-          ? WitnessInfo.fromJson(json['witness_2'])
+      witness2: json['witness2'] != null
+          ? WitnessInfo.fromJson(json['witness2'])
           : null,
       ordination: json['ordination'] != null
           ? OrdinationInfo.fromJson(json['ordination'])
@@ -136,12 +136,12 @@ class CeremonyInfo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'created_at': createdAt,
+      'created_at': createdAt?.toIso8601String(),
       'created_by': createdBy,
-      'updated_at': updatedAt,
+      'updated_at': updatedAt?.toIso8601String(),
       'updated_by': updatedBy,
       'type': type,
-      'date': date,
+      'date': date?.toIso8601String(),
       'parishioner': parishioner,
       'minister': minister?.toJson(),
       'church': church?.toJson(),
@@ -149,7 +149,7 @@ class CeremonyInfo {
       'baptism_name': baptismName,
       'father': father,
       'mother': mother,
-      'dob': date,
+      'dob': dob?.toIso8601String(),
       'marital_status': maritalStatus,
       'email': email,
       'contact': contact,
@@ -157,10 +157,10 @@ class CeremonyInfo {
       'remarks': remarks,
       'god_father': godFather?.toJson(),
       'god_mother': godMother?.toJson(),
-      'birth_place': birthPlace,
+      'birth_place': birthPlace?.toJson(),
       'spouse': spouse?.toJson(),
-      'witness_1': witness1?.toJson(),
-      'witness_2': witness2?.toJson(),
+      'witness1': witness1?.toJson(),
+      'witness2': witness2?.toJson(),
       'ordination': ordination?.toJson(),
       'afterlife': afterlife?.toJson(),
       'family_id': familyId,

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/features/ceremonies/domain/entities/ceremony_info.dart';
 import 'package:parish360_mobile/features/ceremonies/presentation/controllers/ceremony_list_controller.dart';
+import 'package:parish360_mobile/features/ceremonies/presentation/pages/ceremony_info_screen.dart';
 
 class CeremoniesScreen extends ConsumerStatefulWidget {
   const CeremoniesScreen({super.key});
@@ -29,6 +31,7 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final String module = 'ceremonies';
     final ceremoniesAsync = ref.watch(ceremonyListControllerProvider);
     final filteredCeremonies = ref.watch(
       filteredCeremoniesProvider(_searchController.text),
@@ -42,13 +45,13 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
           children: [
             ceremonies.isEmpty
                 ? ListTitle(
-                    module: 'ceremonies',
+                    module: module,
                     subTitle: 'No Ceremony records found',
                     title: 'Ceremonies',
                     onCreatePressed: onCreatePressed,
                   )
                 : ListTitle(
-                    module: 'bookings',
+                    module: module,
                     subTitle:
                         'Showing ${filteredCeremonies.length} of ${ceremonies.length} ceremonies',
                     title: 'Ceremonies',
@@ -98,6 +101,12 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
                       splashColor: Theme.of(
                         context,
                       ).colorScheme.primary.withAlpha(12),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CeremonyInfoScreen(ceremonyInfo: ceremony),
+                        ),
+                      ),
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -238,5 +247,12 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
     );
   }
 
-  void onCreatePressed() {}
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CeremonyInfoScreen(ceremonyInfo: CeremonyInfo()),
+      ),
+    );
+  }
 }

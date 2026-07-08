@@ -29,7 +29,7 @@ class AfterlifeInfo {
   Map<String, dynamic> toJson() {
     return {
       'cemetery': cemetery,
-      'dod': dod,
+      'dod': dod?.toIso8601String(),
       'cemetery_place': cemeteryPlace?.toJson(),
       'place_of_death': placeOfDeath?.toJson(),
     };

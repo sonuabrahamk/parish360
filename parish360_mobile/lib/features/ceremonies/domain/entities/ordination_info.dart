@@ -40,7 +40,7 @@ class OrdinationInfo {
       'seminary_name': seminaryName,
       'seminary_address': seminaryAddress?.toJson(),
       'previous_ordination_type': previousOrdinationType,
-      'previous_ordination_date': previousOrdinationDate,
+      'previous_ordination_date': previousOrdinationDate?.toIso8601String(),
       'previous_ordination_place': previousOrdinationPlace?.toJson(),
     };
   }
