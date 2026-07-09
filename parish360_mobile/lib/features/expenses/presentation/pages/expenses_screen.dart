@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/features/expenses/domain/entities/expense_info.dart';
+import 'package:parish360_mobile/features/expenses/presentation/controllers/expense_info_controller.dart';
 import 'package:parish360_mobile/features/expenses/presentation/controllers/expense_list_controller.dart';
+import 'package:parish360_mobile/features/expenses/presentation/pages/expense_info_screen.dart';
 
 class ExpensesScreen extends ConsumerStatefulWidget {
   const ExpensesScreen({super.key});
@@ -32,6 +37,10 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
     final filteredExpenses = ref.watch(
       filteredExpensesProvider(_searchController.text),
     );
+
+    final canDelete = ref
+        .read(authControllerProvider.notifier)
+        .canDelete("expenses");
 
     return expensesAsync.when(
       data: (expenses) => Padding(
@@ -97,6 +106,58 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                       splashColor: Theme.of(
                         context,
                       ).colorScheme.primary.withAlpha(12),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              ExpenseInfoScreen(expense: expense),
+                        ),
+                      ),
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Delete Expense Record'),
+                                  content: const Text(
+                                    'Are you sure you want to delete this expense record?',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(
+                                              expenseInfoControllerProvider(
+                                                expense.id ?? '',
+                                              ).notifier,
+                                            )
+                                            .deleteExpense(expense.id ?? '');
+                                        ref.invalidate(
+                                          expenseListControllerProvider,
+                                        );
+                                        if (!context.mounted) return;
+                                        showAppSnackBar(
+                                          context,
+                                          'Expense record deleted',
+                                          SnackBarType.success,
+                                        );
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -193,7 +254,7 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                                                   ),
                                                   const SizedBox(width: 5),
                                                   Text(
-                                                    expense.createdAt
+                                                    expense.date
                                                         .toString()
                                                         .split(' ')[0],
                                                   ),
@@ -224,5 +285,12 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
     );
   }
 
-  void onCreatePressed() {}
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ExpenseInfoScreen(expense: ExpenseInfo()),
+      ),
+    );
+  }
 }
