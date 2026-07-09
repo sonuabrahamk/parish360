@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/ceremonies/domain/entities/ceremony_info.dart';
+import 'package:parish360_mobile/features/ceremonies/presentation/controllers/ceremony_info_controller.dart';
 import 'package:parish360_mobile/features/ceremonies/presentation/controllers/ceremony_list_controller.dart';
 import 'package:parish360_mobile/features/ceremonies/presentation/pages/ceremony_info_screen.dart';
 
@@ -37,6 +40,10 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
       filteredCeremoniesProvider(_searchController.text),
     );
 
+    final canDelete = ref
+        .read(authControllerProvider.notifier)
+        .canDelete(module);
+
     return ceremoniesAsync.when(
       data: (ceremonies) => Padding(
         padding: const EdgeInsets.all(10),
@@ -68,7 +75,7 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search bookings ...',
+                  hintText: 'Search Ceremonies ...',
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: Colors.white,
@@ -104,9 +111,55 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => CeremonyInfoScreen(ceremonyInfo: ceremony),
+                          builder: (context) =>
+                              CeremonyInfoScreen(ceremonyInfo: ceremony),
                         ),
                       ),
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Delete Ceremony Record'),
+                                  content: const Text(
+                                    'Are you sure you want to delete this ceremony record?',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await ref
+                                            .read(
+                                              ceremonyInfoControllerProvider(
+                                                ceremony.id ?? '',
+                                              ).notifier,
+                                            )
+                                            .deleteCeremony(ceremony.id ?? '');
+                                        ref.invalidate(
+                                          ceremonyListControllerProvider,
+                                        );
+                                        if (!context.mounted) return;
+                                        showAppSnackBar(
+                                          context,
+                                          'Ceremony record deleted',
+                                          SnackBarType.success,
+                                        );
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -194,7 +247,7 @@ class _CeremoniesScreenState extends ConsumerState<CeremoniesScreen> {
                                             StatusTag(
                                               status: 'default',
                                               child: Text(
-                                                ceremony.parishioner ?? false
+                                                ceremony.parishioner == true
                                                     ? 'Parishioner'
                                                     : 'Non-Parishioner',
                                               ),

@@ -87,7 +87,7 @@ class CeremonyInfo {
       date: json['date'] != null
           ? DateTime.parse(json['date'] as String)
           : null,
-      parishioner: json['parishioner'] as bool?,
+      parishioner: json['is_parishioner'] as bool?,
       minister: json['minister'] != null
           ? MinisterInfo.fromJson(json['minister'])
           : null,
@@ -142,7 +142,7 @@ class CeremonyInfo {
       'updated_by': updatedBy,
       'type': type,
       'date': date?.toIso8601String(),
-      'parishioner': parishioner,
+      'is_parishioner': parishioner,
       'minister': minister?.toJson(),
       'church': church?.toJson(),
       'name': name,

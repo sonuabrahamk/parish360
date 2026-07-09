@@ -160,10 +160,7 @@ class _CeremonyInfoScreenState extends ConsumerState<CeremonyInfoScreen> {
                 isEditing: (widget.ceremonyInfo.id == null),
               ),
               DropdownButtonFormField<String>(
-                initialValue:
-                    ceremonyFormControllers.parishionerController.text != '' ||
-                        ceremonyFormControllers.parishionerController.text ==
-                            'true'
+                initialValue: widget.ceremonyInfo.parishioner == true
                     ? 'true'
                     : 'false',
                 decoration: const InputDecoration(
@@ -410,7 +407,9 @@ class CeremonyFormControllers {
     dateController.text = ceremonyInfo.date == null
         ? '${DateTime.now().year.toString()}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}'
         : '${ceremonyInfo.date?.year.toString()}-${ceremonyInfo.date?.month.toString().padLeft(2, '0')}-${ceremonyInfo.date?.day.toString().padLeft(2, '0')}';
-    parishionerController.text = ceremonyInfo.parishioner.toString();
+    parishionerController.text = ceremonyInfo.parishioner == true
+        ? 'true'
+        : 'false';
     priestController.text = ceremonyInfo.minister?.priest ?? '';
     ministerTitleController.text = ceremonyInfo.minister?.title ?? '';
   }
