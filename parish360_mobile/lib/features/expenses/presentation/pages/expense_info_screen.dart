@@ -3,9 +3,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/accounts_widget.dart';
 import 'package:parish360_mobile/core/common/widgets/amount_widget.dart';
 import 'package:parish360_mobile/core/common/widgets/date_widget.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/expenses/domain/entities/expense_info.dart';
+import 'package:parish360_mobile/features/expenses/presentation/controllers/expense_info_controller.dart';
+import 'package:parish360_mobile/features/expenses/presentation/controllers/expense_list_controller.dart';
 
 class ExpenseInfoScreen extends ConsumerStatefulWidget {
   final ExpenseInfo expense;
@@ -165,7 +168,7 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => _saveBlessingInfo(),
+                    onPressed: () => _saveExpenseInfo(),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Theme.of(context).primaryColor,
                       textStyle: const TextStyle(
@@ -183,20 +186,69 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
     );
   }
 
-  void _saveBlessingInfo() {
+  void _saveExpenseInfo() async {
     if (_formKey.currentState!.validate()) {
       final updatedExpense = ExpenseInfo(
-        id: widget.expense.id,
+        date: DateTime.parse(_dateController.text),
         paidTo: _paidToController.text,
         paidBy: _paidByController.text,
         description: _descriptionController.text,
         amount: double.parse(_amountController.text),
+        currency: _currencyController.text,
+        accountId: _accountController.text,
       );
 
-      // Here you would typically call a method to save the updated expense info
-      // For example, you might use a provider or a service to handle the save operation
+      try {
+        if (widget.expense.id == null) {
+          await ref
+              .read(
+                expenseInfoControllerProvider(widget.expense.id ?? '').notifier,
+              )
+              .createExpense(updatedExpense);
+          ref.invalidate(expenseListControllerProvider);
 
-      Navigator.pop(context, updatedExpense);
+          if (mounted) {
+            showAppSnackBar(
+              context,
+              'Expense info created successfully',
+              SnackBarType.success,
+            );
+          }
+        } else {
+          await ref
+              .read(
+                expenseInfoControllerProvider(widget.expense.id ?? '').notifier,
+              )
+              .updateExpense(widget.expense.id ?? '', updatedExpense);
+
+          ref.invalidate(expenseListControllerProvider);
+
+          if (mounted) {
+            showAppSnackBar(
+              context,
+              'Expense info updated successfully',
+              SnackBarType.success,
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          showAppSnackBar(
+            context,
+            'Error saving expense info',
+            SnackBarType.error,
+          );
+        }
+      } finally {
+        // ignore: use_build_context_synchronously
+        Navigator.pop(context);
+      }
+    } else {
+      showAppSnackBar(
+        context,
+        'Please fill in all required fields',
+        SnackBarType.warning,
+      );
     }
   }
 }

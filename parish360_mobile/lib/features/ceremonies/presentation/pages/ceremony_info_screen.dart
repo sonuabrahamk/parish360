@@ -372,7 +372,6 @@ class _CeremonyInfoScreenState extends ConsumerState<CeremonyInfoScreen> {
           }
         }
       } catch (e) {
-        print("Error saving ceremony info: $e");
         if (mounted) {
           showAppSnackBar(
             context,

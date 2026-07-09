@@ -56,13 +56,13 @@ class ExpenseInfo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'created_at': createdAt,
+      'created_at': createdAt?.toIso8601String(),
       'created_by': createdBy,
-      'updated_at': updatedAt,
+      'updated_at': updatedAt?.toIso8601String(),
       'updated_by': updatedBy,
       'paid_to': paidTo,
       'paid_by': paidBy,
-      'date': date,
+      'date': date?.toIso8601String(),
       'description': description,
       'amount': amount,
       'currency': currency,
