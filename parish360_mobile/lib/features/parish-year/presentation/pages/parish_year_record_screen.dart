@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/features/parish-year/domain/entities/parish_year_info.dart';
+import 'package:parish360_mobile/features/parish-year/presentation/pages/associations_screen.dart';
 import 'package:parish360_mobile/features/parish-year/presentation/widgets/parish_year_info_screen.dart';
 
 class ParishYearRecordScreen extends ConsumerWidget {
@@ -26,7 +27,7 @@ class ParishYearRecordScreen extends ConsumerWidget {
         body: TabBarView(
           children: [
             ParishYearInfoScreen(parishYearInfo: parishYearInfo),
-            Text('Associations Page'),
+            AssociationsScreen(parishYearId: parishYearInfo.id ?? ''),
             // Center(child: Text('Payments Page')),
           ],
         ),
