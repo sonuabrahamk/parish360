@@ -3,7 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/features/parish-year/domain/entities/parish_year_info.dart';
+import 'package:parish360_mobile/features/parish-year/presentation/controllers/parish_year_info_controller.dart';
 import 'package:parish360_mobile/features/parish-year/presentation/controllers/parish_year_list_controller.dart';
+import 'package:parish360_mobile/features/parish-year/presentation/pages/parish_year_record_screen.dart';
+import 'package:parish360_mobile/features/parish-year/presentation/widgets/parish_year_info_screen.dart';
 
 class ParishYearListScreen extends ConsumerStatefulWidget {
   const ParishYearListScreen({super.key});
@@ -34,6 +40,10 @@ class _ParishYearListScreenState extends ConsumerState<ParishYearListScreen> {
     final filteredParishYearList = ref.watch(
       filteredParishYearListProvider(_searchController.text),
     );
+
+    final canDelete = ref
+        .watch(authControllerProvider.notifier)
+        .canDelete("configurations");
 
     return parishYearListAsync.when(
       data: (parishYearList) => Padding(
@@ -99,6 +109,61 @@ class _ParishYearListScreenState extends ConsumerState<ParishYearListScreen> {
                       splashColor: Theme.of(
                         context,
                       ).colorScheme.primary.withAlpha(12),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ParishYearRecordScreen(
+                            parishYearInfo: parishYear,
+                          ),
+                        ),
+                      ),
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text(
+                                    'Delete Parish Year Record',
+                                  ),
+                                  content: const Text(
+                                    'Are you sure you want to delete this parish year record?',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        // await ref
+                                        //     .read(
+                                        //       parishYearInfoControllerProvider(
+                                        //         parishYear.id ?? '',
+                                        //       ).notifier,
+                                        //     )
+                                        //     .deleteParishYear(parishYear.id ?? '');
+                                        // ref.invalidate(
+                                        //   parishYearListControllerProvider,
+                                        // );
+                                        if (!context.mounted) return;
+                                        showAppSnackBar(
+                                          context,
+                                          'Deletion is not supported for parish year',
+                                          SnackBarType.info,
+                                        );
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -262,5 +327,13 @@ class _ParishYearListScreenState extends ConsumerState<ParishYearListScreen> {
     );
   }
 
-  void onCreatePressed() {}
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ParishYearInfoScreen(parishYearInfo: ParishYearInfo()),
+      ),
+    );
+  }
 }

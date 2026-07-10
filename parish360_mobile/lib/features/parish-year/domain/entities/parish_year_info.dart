@@ -55,13 +55,13 @@ class ParishYearInfo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'created_at': createdAt,
+      'created_at': createdAt?.toIso8601String(),
       'created_by': createdBy,
-      'updated_at': updatedAt,
+      'updated_at': updatedAt?.toIso8601String(),
       'updated_by': updatedBy,
       'name': name,
-      'start_date': startDate,
-      'end_date': endDate,
+      'start_date': startDate?.toIso8601String(),
+      'end_date': endDate?.toIso8601String(),
       'status': status,
       'locked': locked,
       'comment': comment,
