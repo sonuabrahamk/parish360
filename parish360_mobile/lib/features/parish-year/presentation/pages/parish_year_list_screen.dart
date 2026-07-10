@@ -6,7 +6,6 @@ import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
 import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 import 'package:parish360_mobile/features/parish-year/domain/entities/parish_year_info.dart';
-import 'package:parish360_mobile/features/parish-year/presentation/controllers/parish_year_info_controller.dart';
 import 'package:parish360_mobile/features/parish-year/presentation/controllers/parish_year_list_controller.dart';
 import 'package:parish360_mobile/features/parish-year/presentation/pages/parish_year_record_screen.dart';
 import 'package:parish360_mobile/features/parish-year/presentation/widgets/parish_year_info_screen.dart';
