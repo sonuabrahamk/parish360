@@ -36,11 +36,6 @@ class _AssociationsScreenState extends ConsumerState<AssociationsScreen> {
       ),
     );
 
-    if (pyAssociations.isEmpty) {
-      return const Center(
-        child: Text('No Associations found for this Parish Year'),
-      );
-    }
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Column(

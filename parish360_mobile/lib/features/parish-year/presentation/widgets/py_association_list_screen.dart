@@ -10,6 +10,12 @@ class PyAssociationListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (pyAssociations.isEmpty) {
+      return const Center(
+        child: Text('No Associations found'),
+      );
+    }
+
     return Expanded(
       child: ListView.separated(
         padding: EdgeInsets.zero,
