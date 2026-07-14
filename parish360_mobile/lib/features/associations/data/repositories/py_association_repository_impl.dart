@@ -50,7 +50,11 @@ class PyAssociationRepositoryImpl implements PyAssociationRepository {
   Future<List<CommitteeMemberInfo>> getCommitteeMembers(
     String pyAssociationId,
   ) async {
-    return await _pyAssociationsApi.getCommitteeMembers(pyAssociationId);
+    final members = await _pyAssociationsApi.getCommitteeMembers(
+      pyAssociationId,
+    );
+    members.sort((a, b) => a.position!.compareTo(b.position!));
+    return members;
   }
 
   @override

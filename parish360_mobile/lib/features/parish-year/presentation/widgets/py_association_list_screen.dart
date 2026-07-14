@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/features/associations/presentation/pages/py_association_record_screen.dart';
 import 'package:parish360_mobile/features/parish-year/domain/entities/py_association_response.dart';
 
 class PyAssociationListScreen extends ConsumerWidget {
@@ -11,9 +12,7 @@ class PyAssociationListScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (pyAssociations.isEmpty) {
-      return const Center(
-        child: Text('No Associations found'),
-      );
+      return const Center(child: Text('No Associations found'));
     }
 
     return Expanded(
@@ -30,6 +29,14 @@ class PyAssociationListScreen extends ConsumerWidget {
             child: InkWell(
               borderRadius: BorderRadius.circular(16),
               splashColor: Theme.of(context).colorScheme.primary.withAlpha(12),
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PyAssociationRecordScreen(
+                    pyAssociationResponse: pyAssociations[index],
+                  ),
+                ),
+              ),
               child: Ink(
                 decoration: BoxDecoration(
                   color: Colors.white,
