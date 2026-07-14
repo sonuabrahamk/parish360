@@ -3,8 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
 import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/associations/domain/entities/committee_member_info.dart';
 import 'package:parish360_mobile/features/associations/presentation/controllers/committee_member_info_controller.dart';
 import 'package:parish360_mobile/features/associations/presentation/controllers/committee_member_list_controller.dart';
+import 'package:parish360_mobile/features/associations/presentation/pages/committee_member_info_screen.dart';
 import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
 
 class CommitteeMemberListScreen extends ConsumerStatefulWidget {
@@ -116,8 +118,10 @@ class _CommitteeMemberListScreenState
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              Text('Committee Member Info Screen'),
+                          builder: (context) => CommitteeMemberInfoScreen(
+                            pyAssociationId: widget.pyAssociationId,
+                            committeeMemberInfo: member,
+                          ),
                         ),
                       ),
                       onLongPress: !canDelete
@@ -283,5 +287,15 @@ class _CommitteeMemberListScreenState
     );
   }
 
-  void onCreatePressed() {}
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => CommitteeMemberInfoScreen(
+          pyAssociationId: widget.pyAssociationId,
+          committeeMemberInfo: CommitteeMemberInfo(),
+        ),
+      ),
+    );
+  }
 }
