@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/utils/theme.dart';
+import 'package:parish360_mobile/features/associations/presentation/pages/associate_list_screen.dart';
 import 'package:parish360_mobile/features/associations/presentation/pages/committee_member_list_screen.dart';
 import 'package:parish360_mobile/features/parish-year/domain/entities/py_association_response.dart';
 
@@ -72,7 +73,10 @@ class PyAssociationRecordScreen extends ConsumerWidget {
               CommitteeMemberListScreen(
                 pyAssociationId: pyAssociationResponse.id!,
               ),
-              Text('Associates Info'),
+              AssociateListScreen(
+                pyAssociationId: pyAssociationResponse.id!,
+                associationType: pyAssociationResponse.association!.type!,
+              ),
             ],
           ),
         ),
