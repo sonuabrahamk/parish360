@@ -23,12 +23,7 @@ class FamilyAssociateList extends ConsumerWidget {
           child: InkWell(
             borderRadius: BorderRadius.circular(16),
             splashColor: Theme.of(context).colorScheme.primary.withAlpha(12),
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Text('Associates Edit page'),
-              ),
-            ),
+            onTap: () {},
             child: Ink(
               decoration: BoxDecoration(
                 color: Colors.white,
