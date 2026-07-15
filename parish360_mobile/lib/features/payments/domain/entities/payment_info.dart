@@ -79,9 +79,9 @@ class PaymentInfo {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'created_at': createdAt,
+      'created_at': createdAt?.toIso8601String(),
       'created_by': createdBy,
-      'updated_at': updatedAt,
+      'updated_at': updatedAt?.toIso8601String(),
       'updated_by': updatedBy,
       'paid_to': paidTo,
       'payee': payee,
@@ -91,8 +91,8 @@ class PaymentInfo {
       'currency': currency,
       'conversion_rate': conversionRate,
       'booking_code': bookingCode,
-      'subscription_from': subscriptionFrom,
-      'subscription_to': subscriptionTo,
+      'subscription_from': subscriptionFrom?.toIso8601String(),
+      'subscription_to': subscriptionTo?.toIso8601String(),
       'payment_mode': paymentMode,
       'referenceId': referenceId,
       'account_id': accountId,

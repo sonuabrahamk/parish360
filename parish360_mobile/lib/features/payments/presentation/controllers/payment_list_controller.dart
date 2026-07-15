@@ -21,7 +21,7 @@ List<PaymentInfo> filteredPayments(Ref ref, String filter) {
       final lowerFilter = filter.toLowerCase();
 
       return payments.where((payment) {
-        final type = payment.bookingCode?.toLowerCase() ?? '';
+        final type = payment.type?.toLowerCase() ?? '';
         final payee = payment.payee?.toLowerCase() ?? '';
         final paidTo = payment.paidTo?.toLowerCase() ?? '';
         final description = payment.description?.toLowerCase() ?? '';

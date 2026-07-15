@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/core/common/widgets/status_tag.dart';
+import 'package:parish360_mobile/core/utils/snack_bar_helper.dart';
+import 'package:parish360_mobile/features/auth/presentation/controllers/auth_controller.dart';
+import 'package:parish360_mobile/features/payments/data/providers/payment_providers.dart';
+import 'package:parish360_mobile/features/payments/domain/entities/payment_info.dart';
 import 'package:parish360_mobile/features/payments/presentation/controllers/payment_list_controller.dart';
+import 'package:parish360_mobile/features/payments/presentation/pages/payment_info_screen.dart';
 
 class PaymentsScreen extends ConsumerStatefulWidget {
   const PaymentsScreen({super.key});
@@ -32,6 +37,10 @@ class _PaymentsScreenState extends ConsumerState<PaymentsScreen> {
     final filteredPayments = ref.watch(
       filteredPaymentsProvider(_searchController.text),
     );
+
+    final canDelete = ref
+        .watch(authControllerProvider.notifier)
+        .canDelete('payments');
 
     return paymentsAsync.when(
       data: (payments) => Padding(
@@ -97,6 +106,65 @@ class _PaymentsScreenState extends ConsumerState<PaymentsScreen> {
                       splashColor: Theme.of(
                         context,
                       ).colorScheme.primary.withAlpha(12),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              PaymentInfoScreen(paymentInfo: payment),
+                        ),
+                      ),
+                      onLongPress: !canDelete
+                          ? null
+                          : () {
+                              showDialog<bool>(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text(
+                                    'Delete Payment Information',
+                                  ),
+                                  content: const Text(
+                                    'Are you sure you want to delete this payment information?',
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        try {
+                                          await ref
+                                              .read(paymentsRepositoryProvider)
+                                              .deletePayment(payment.id ?? '');
+                                          ref.invalidate(
+                                            paymentListControllerProvider,
+                                          );
+                                          if (!context.mounted) return;
+                                          showAppSnackBar(
+                                            context,
+                                            'Payment information deleted',
+                                            SnackBarType.success,
+                                          );
+                                          Navigator.of(context).pop(true);
+                                        } catch (e, _) {
+                                          showAppSnackBar(
+                                            context,
+                                            'Failed to delete Payment',
+                                            SnackBarType.error,
+                                          );
+                                          Navigator.of(context).pop(true);
+                                        }
+                                      },
+                                      child: const Text(
+                                        'Delete',
+                                        style: TextStyle(color: Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
                       child: Ink(
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -235,5 +303,12 @@ class _PaymentsScreenState extends ConsumerState<PaymentsScreen> {
     );
   }
 
-  void onCreatePressed() {}
+  void onCreatePressed() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentInfoScreen(paymentInfo: PaymentInfo()),
+      ),
+    );
+  }
 }

@@ -24,7 +24,7 @@ class AccountsWidget extends ConsumerWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 12),
           child: DropdownButtonFormField<String>(
-            value: accountController.text.isNotEmpty
+            initialValue: accountController.text.isNotEmpty
                 ? accountController.text
                 : null,
             items: accounts.map((AccountInfo account) {

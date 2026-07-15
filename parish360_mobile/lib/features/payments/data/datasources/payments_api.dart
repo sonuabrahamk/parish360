@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:parish360_mobile/features/payments/domain/entities/payment_info.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'payments_api.g.dart';
 
@@ -17,6 +18,7 @@ abstract class PaymentsApi {
   @GET('/payments/{paymentId}')
   Future<PaymentInfo> getPaymentInfo(@Path('paymentId') String paymentId);
 
+  @DioResponseType(ResponseType.bytes)
   @POST('/payments')
   Future<Uint8List> createPayment(@Body() PaymentInfo paymentInfo);
 
