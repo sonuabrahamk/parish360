@@ -53,7 +53,7 @@ class PyAssociationRecordScreen extends ConsumerWidget {
                   children: [
                     Icon(Icons.workspace_premium, size: 18),
                     SizedBox(width: 2),
-                    Text('Committee Members'),
+                    Text('Committee', softWrap: true,),
                   ],
                 ),
               ),
