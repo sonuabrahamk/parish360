@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:parish360_mobile/core/common/widgets/list_title.dart';
 import 'package:parish360_mobile/features/bookings/presentation/controllers/booking_list_controller.dart';
-import 'package:parish360_mobile/features/bookings/presentation/pages/bookings_screen.dart';
 import 'package:parish360_mobile/features/bookings/presentation/widgets/bookings_card.dart';
 
 class BookingListScreen extends ConsumerStatefulWidget {
@@ -107,9 +107,6 @@ class _BookingListScreenState extends ConsumerState<BookingListScreen> {
   }
 
   void onCreatePressed() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => BookingsScreen()),
-    );
+    context.push('/bookings/create');
   }
 }

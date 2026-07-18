@@ -77,8 +77,8 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: widget.expense.id == null
-            ? const Text('Create Expense Information')
-            : const Text('Expense Information'),
+            ? const Text('Create Voucher Information')
+            : const Text('Voucher Information'),
         backgroundColor: Colors.transparent,
         titleTextStyle: const TextStyle(
           color: AppTheme.primaryColor,
@@ -210,7 +210,7 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
           if (mounted) {
             showAppSnackBar(
               context,
-              'Expense info created successfully',
+              'Voucher info created successfully',
               SnackBarType.success,
             );
           }
@@ -226,7 +226,7 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
           if (mounted) {
             showAppSnackBar(
               context,
-              'Expense info updated successfully',
+              'Voucher info updated successfully',
               SnackBarType.success,
             );
           }
@@ -235,7 +235,7 @@ class _ExpenseInfoScreenState extends ConsumerState<ExpenseInfoScreen> {
         if (mounted) {
           showAppSnackBar(
             context,
-            'Error saving expense info',
+            'Error saving voucher info',
             SnackBarType.error,
           );
         }

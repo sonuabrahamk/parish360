@@ -50,7 +50,7 @@ class DateWidget extends ConsumerWidget {
       context: context,
       initialDate: controller.text.isNotEmpty
           ? DateTime.parse(controller.text)
-          : DateTime.now(),
+          : firstDate ?? DateTime.now(),
       firstDate: firstDate ?? DateTime(1900),
       lastDate: lastDate ?? DateTime(2100),
     );

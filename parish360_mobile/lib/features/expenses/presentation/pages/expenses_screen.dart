@@ -51,15 +51,15 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
             expenses.isEmpty
                 ? ListTitle(
                     module: 'expenses',
-                    subTitle: 'No Expense records found',
+                    subTitle: 'No Voucher records found',
                     title: 'Expenses',
                     onCreatePressed: onCreatePressed,
                   )
                 : ListTitle(
                     module: 'expenses',
                     subTitle:
-                        'Showing ${filteredExpenses.length} of ${expenses.length} expenses',
-                    title: 'Expenses Register',
+                        'Showing ${filteredExpenses.length} of ${expenses.length} vouchers',
+                    title: 'Voucher Register',
                     onCreatePressed: onCreatePressed,
                   ),
             const SizedBox(height: 10),
@@ -73,7 +73,7 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Search expenses ...',
+                  hintText: 'Search voucher ...',
                   prefixIcon: const Icon(Icons.search),
                   filled: true,
                   fillColor: Colors.white,
@@ -119,9 +119,9 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                               showDialog<bool>(
                                 context: context,
                                 builder: (context) => AlertDialog(
-                                  title: const Text('Delete Expense Record'),
+                                  title: const Text('Delete Voucher Record'),
                                   content: const Text(
-                                    'Are you sure you want to delete this expense record?',
+                                    'Are you sure you want to delete this voucher record?',
                                   ),
                                   actions: [
                                     TextButton(
@@ -144,7 +144,7 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                                         if (!context.mounted) return;
                                         showAppSnackBar(
                                           context,
-                                          'Expense record deleted',
+                                          'Voucher record deleted',
                                           SnackBarType.success,
                                         );
                                         Navigator.of(context).pop(true);

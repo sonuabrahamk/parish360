@@ -193,7 +193,7 @@ class AuthController extends _$AuthController {
         case "expenses":
           modulesInfoList.add(
             ModuleInfo(
-              label: "Expenses",
+              label: "Vouchers",
               icon: Icons.money_off,
               route: '/expenses',
               badgeCount: 7,
